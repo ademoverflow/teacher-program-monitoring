@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "12107:8080"
+    depends_on:
+      - db
+
+  core:
+    image: teacher-program-monitoring-core:dev
+    build:
+      context: .
+      dockerfile: core/Dockerfile
+      target: dev
+      args:
+        USER_ID: ${USER_ID}
+        USER_GID: ${USER_GID}
+    ports:
+      - "12109:80"
+    env_file:
+      - .env
+    volumes:
+      - ./core:/app/core
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  webapp:
+    image: teacher-program-monitoring-webapp:dev
+    build:
+      context: .
+      dockerfile: webapp/Dockerfile
+      target: dev
+      args:
+        USER_ID: ${USER_ID}
+        USER_GID: ${USER_GID}
+    ports:
+      - "12108:3000"
+    volumes:
+      - ./webapp:/app/webapp
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - core
+    restart: unless-stopped
+
+volumes:
+  pg_data:
