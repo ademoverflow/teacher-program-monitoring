@@ -1,5 +1,6 @@
 # 05 - Seed the 8 littérature œuvres and their weekly séances
 
+Type: task
 Status: resolved
 
 `docs/outil-pedagogique-litterature-annee.pdf` (5 p., text layer) gives thème → période →

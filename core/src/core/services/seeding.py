@@ -25,9 +25,6 @@ from core.models.sequence import Sequence, SequenceSession
 from core.models.timetable import TimetableSlot
 from core.services.school_calendar import build_school_calendar
 from core.services.seed_files import (
-    ProgramItemSeed,
-    SequenceSeed,
-    TimetableSlotSeed,
     load_calendar_reference,
     load_program_items,
     load_sequences,
@@ -82,6 +79,38 @@ async def _ids_by(session: AsyncSession, model: type[SQLModel], *key: str) -> di
         (values[0] if len(values) == 1 else tuple(values)): identifier
         for identifier, *values in result.all()
     }
+
+
+class _Curriculum:
+    """Resolves the matière and domaine codes a seed names to their primary keys.
+
+    Every seed that hangs something off the curriculum — a créneau, an item de
+    programme, a séquence — needs the same two lookups, and needs them to fail loudly:
+    a code the seed names but the database does not have is a broken seed, and must
+    not land as a silent NULL. Both lookups are therefore indexed, never ``.get``.
+    """
+
+    def __init__(self, subjects: dict[Any, Any], domains: dict[Any, Any]) -> None:
+        self._subjects = subjects
+        self._domains = domains
+
+    @classmethod
+    async def load(cls, session: AsyncSession) -> "_Curriculum":
+        """Read every matière and domaine already in the database."""
+        return cls(
+            await _ids_by(session, Subject, "code"),
+            await _ids_by(session, Domain, "subject_id", "code", "level"),
+        )
+
+    def subject(self, code: str | None) -> uuid.UUID | None:
+        """Look up the matière a seed names, if it names one."""
+        return self._subjects[code] if code else None
+
+    def domain(self, subject: str | None, code: str | None) -> uuid.UUID | None:
+        """Look up the domaine a seed names, under its own matière."""
+        if not (subject and code):
+            return None
+        return self._domains[self._subjects[subject], code, Level.COMMUN.value]
 
 
 async def seed_calendar(session: AsyncSession) -> dict[str, int]:
@@ -214,20 +243,7 @@ async def seed_subjects(session: AsyncSession) -> dict[str, int]:
 async def seed_timetable(session: AsyncSession) -> dict[str, int]:
     """Seed the 44 créneaux of the weekly timetable template."""
     slots = load_timetable()
-    subject_ids = await _ids_by(session, Subject, "code")
-    domain_ids = await _ids_by(session, Domain, "subject_id", "code", "level")
-
-    def subject_of(slot: TimetableSlotSeed) -> uuid.UUID | None:
-        """Return the matière taught in ``slot``, if the créneau names one."""
-        # Indexed, not ``.get``: a code the seed names but the database does not
-        # have is a broken seed, and must not become a silent NULL.
-        return subject_ids[slot.subject] if slot.subject else None
-
-    def domain_of(slot: TimetableSlotSeed) -> uuid.UUID | None:
-        """Return the domaine taught in ``slot``, resolved under its own matière."""
-        if not (slot.subject and slot.domain):
-            return None
-        return domain_ids[subject_ids[slot.subject], slot.domain, Level.COMMUN.value]
+    curriculum = await _Curriculum.load(session)
 
     return {
         "timetable_slots": await _upsert(
@@ -240,8 +256,8 @@ async def seed_timetable(session: AsyncSession) -> dict[str, int]:
                     "ends_at": slot.ends_at,
                     "duration_minutes": slot.duration_minutes,
                     "label": slot.label,
-                    "subject_id": subject_of(slot),
-                    "domain_id": domain_of(slot),
+                    "subject_id": curriculum.subject(slot.subject),
+                    "domain_id": curriculum.domain(slot.subject, slot.domain),
                     "level": slot.level.value,
                     "is_alternating": slot.alternation_group is not None,
                     "alternation_group": slot.alternation_group,
@@ -256,16 +272,7 @@ async def seed_timetable(session: AsyncSession) -> dict[str, int]:
 async def seed_program_items(session: AsyncSession) -> dict[str, int]:
     """Seed the items of the official CM1/CM2 curriculum."""
     items = load_program_items()
-    subject_ids = await _ids_by(session, Subject, "code")
-    domain_ids = await _ids_by(session, Domain, "subject_id", "code", "level")
-
-    def domain_of(item: ProgramItemSeed) -> uuid.UUID | None:
-        """Resolve the domaine an item belongs to, under its own matière."""
-        if not item.domain:
-            return None
-        # Indexed, not ``.get``: a domaine the seed names but the database does not
-        # have is a broken seed, and must not become a silent NULL.
-        return domain_ids[subject_ids[item.subject], item.domain, Level.COMMUN.value]
+    curriculum = await _Curriculum.load(session)
 
     return {
         "program_items": await _upsert(
@@ -274,8 +281,8 @@ async def seed_program_items(session: AsyncSession) -> dict[str, int]:
             [
                 {
                     "level": item.level.value,
-                    "subject_id": subject_ids[item.subject],
-                    "domain_id": domain_of(item),
+                    "subject_id": curriculum.subject(item.subject),
+                    "domain_id": curriculum.domain(item.subject, item.domain),
                     "title": item.title,
                     "description": item.description,
                     "source_file": item.source_file,
@@ -292,14 +299,7 @@ async def seed_program_items(session: AsyncSession) -> dict[str, int]:
 async def seed_sequences(session: AsyncSession) -> dict[str, int]:
     """Seed the séquences of the méthodos and the séances they lay out."""
     sequences = load_sequences()
-    subject_ids = await _ids_by(session, Subject, "code")
-    domain_ids = await _ids_by(session, Domain, "subject_id", "code", "level")
-
-    def domain_of(sequence: SequenceSeed) -> uuid.UUID | None:
-        """Resolve the domaine a séquence belongs to, when the méthodo names one."""
-        if not (sequence.subject and sequence.domain):
-            return None
-        return domain_ids[subject_ids[sequence.subject], sequence.domain, Level.COMMUN.value]
+    curriculum = await _Curriculum.load(session)
 
     counts = {
         "sequences": await _upsert(
@@ -313,8 +313,8 @@ async def seed_sequences(session: AsyncSession) -> dict[str, int]:
                     "title": sequence.title,
                     "objectives": sequence.objectives,
                     "period_code": sequence.period_code,
-                    "subject_id": subject_ids[sequence.subject] if sequence.subject else None,
-                    "domain_id": domain_of(sequence),
+                    "subject_id": curriculum.subject(sequence.subject),
+                    "domain_id": curriculum.domain(sequence.subject, sequence.domain),
                     "needs_review": sequence.needs_review,
                 }
                 for sequence in sequences
@@ -331,15 +331,15 @@ async def seed_sequences(session: AsyncSession) -> dict[str, int]:
         [
             {
                 "sequence_id": sequence_ids[sequence.method, sequence.number],
-                "number": item.number,
-                "title": item.title,
-                "content": item.content,
-                "duration_minutes": item.duration_minutes,
-                "materials": item.materials,
-                "needs_review": item.needs_review,
+                "number": sequence_session.number,
+                "title": sequence_session.title,
+                "content": sequence_session.content,
+                "duration_minutes": sequence_session.duration_minutes,
+                "materials": sequence_session.materials,
+                "needs_review": sequence_session.needs_review,
             }
             for sequence in sequences
-            for item in sequence.sessions
+            for sequence_session in sequence.sessions
         ],
         constraint="uq_sequence_sessions_sequence_number",
     )

@@ -1,5 +1,6 @@
 # 04 - Seed the 42 RETZ grammaire-conjugaison séquences
 
+Type: task
 Status: resolved
 
 `docs/outil-pedagogique-grammaire-conjugaison.pdf` is 3 scanned pages, no text layer:

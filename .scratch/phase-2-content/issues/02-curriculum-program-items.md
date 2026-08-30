@@ -1,5 +1,6 @@
 # 02 - Extract the official curriculum into `program_items`
 
+Type: task
 Status: resolved
 Blocked by: 01
 

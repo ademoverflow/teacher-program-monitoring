@@ -1,5 +1,6 @@
 # 06 - Load the new seeds
 
+Type: task
 Status: resolved
 Blocked by: 01, 02, 03, 04, 05
 

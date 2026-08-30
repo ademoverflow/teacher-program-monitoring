@@ -1,5 +1,6 @@
 # 01 - Give `program_items` a natural key
 
+Type: task
 Status: resolved
 
 `program_items` has no unique constraint beyond its primary key, so an upsert has
