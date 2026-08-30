@@ -22,12 +22,14 @@ services:
       dockerfile: core/Dockerfile
       target: dev
       args:
-        USER_ID: ${USER_ID}
-        USER_GID: ${USER_GID}
+        USER_ID: ${USER_ID:-1000}
+        USER_GID: ${USER_GID:-1000}
     ports:
       - "12109:80"
     env_file:
-      - .env
+      # Optional: every core setting has a default (see core/src/core/settings.py)
+      - path: .env
+        required: false
     volumes:
       - ./core:/app/core
     depends_on:
@@ -41,8 +43,8 @@ services:
       dockerfile: webapp/Dockerfile
       target: dev
       args:
-        USER_ID: ${USER_ID}
-        USER_GID: ${USER_GID}
+        USER_ID: ${USER_ID:-1000}
+        USER_GID: ${USER_GID:-1000}
     ports:
       - "12108:3000"
     volumes:

@@ -53,18 +53,28 @@ install-js: ## Install JS dependencies (pnpm)
 ## Docker
 # ==============================================================================
 
-.PHONY: up down build rebuild restart ps logs logs-core logs-webapp logs-db
+.PHONY: env up down build rebuild restart ps logs logs-core logs-webapp logs-db
 
-up: ## Start all services in detached mode
+env: .env ## Create .env from env.example (with this host's UID/GID) if missing
+
+.env: env.example
+	@if [ -f .env ]; then \
+		touch .env; \
+	else \
+		sed -e "s|^USER_ID=.*|USER_ID=$$(id -u)|" -e "s|^USER_GID=.*|USER_GID=$$(id -g)|" env.example > .env; \
+		echo "Created .env from env.example (USER_ID=$$(id -u), USER_GID=$$(id -g))"; \
+	fi
+
+up: .env ## Start all services in detached mode
 	$(COMPOSE) up -d
 
 down: ## Stop all services
 	$(COMPOSE) down
 
-build: ## Build all Docker images
+build: .env ## Build all Docker images
 	$(COMPOSE) build
 
-rebuild: ## Rebuild and restart all services (no cache)
+rebuild: .env ## Rebuild and restart all services (no cache)
 	$(COMPOSE) build --no-cache
 	$(COMPOSE) up -d
 
@@ -195,7 +205,7 @@ shell-db: ## Open a bash shell in the database container
 ## Utilities
 # ==============================================================================
 
-.PHONY: clean ip update-ip
+.PHONY: clean ip
 
 clean: ## Remove Python caches, build artifacts, and node_modules
 	find . -type d -name "__pycache__" -exec rm -rf {} +
@@ -210,9 +220,3 @@ ip: ## Show local IP address and service URLs
 	echo "  API:     http://$$IP:12109" && \
 	echo "  Webapp:  http://$$IP:12108" && \
 	echo "  Adminer: http://$$IP:12107"
-
-update-ip: ## Update .env with current local network IP
-	@IP=$$(ipconfig getifaddr $$(route -n get default 2>/dev/null | awk '/interface:/ {print $$2}')) && \
-	sed -i '' "s|^WEBAPP_URL=.*|WEBAPP_URL=http://$$IP:12108|" .env && \
-	sed -i '' "s|^COOKIE_DOMAIN=.*|COOKIE_DOMAIN=$$IP|" .env && \
-	echo "Updated .env with IP: $$IP"
