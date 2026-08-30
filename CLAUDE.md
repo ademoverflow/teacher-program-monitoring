@@ -63,13 +63,16 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 ```
 /
 ├── core/                    # Python FastAPI backend
+│   ├── seed/               # Versioned JSON seeds (`make seed` loads them)
 │   ├── src/core/
 │   │   ├── __main__.py     # Entry point
+│   │   ├── seed.py         # `make seed` entry point
 │   │   ├── main.py         # FastAPI app setup
 │   │   ├── settings.py     # Pydantic settings
 │   │   ├── database.py     # Async SQLAlchemy setup
 │   │   ├── routers/        # API route handlers
 │   │   ├── models/         # SQLModel data models
+│   │   ├── services/       # Business logic (calendar, seed loader)
 │   │   ├── logger/         # Structured logging
 │   │   └── alembic/        # Database migrations
 │   └── tests/
@@ -249,7 +252,7 @@ make shell-db       # Bash into database container
 make install        # Install all dependencies (Python + JS)
                     # (host-side check/test targets do this on their own when needed)
 make env            # Create .env from env.example (host UID/GID) if missing
-make seed           # (Phase 1+) Load the versioned JSON seeds into the database
+make seed           # Load the versioned JSON seeds into the database (idempotent)
 make clean          # Remove caches and build artifacts
 make ip             # Show local IP and service URLs
 ```
@@ -284,7 +287,12 @@ Available via `/skill-name` in Claude Code:
 | FastAPI app | `core/src/core/main.py` |
 | Settings | `core/src/core/settings.py` |
 | Database | `core/src/core/database.py` |
-| User model | `core/src/core/models/user.py` |
+| Domain glossary | `CONTEXT.md` |
+| Architecture decisions | `docs/adr/` |
+| Data models | `core/src/core/models/` |
+| Calendar expansion | `core/src/core/services/school_calendar.py` |
+| Seed loader | `core/src/core/services/seeding.py` |
+| JSON seeds | `core/seed/` |
 | React entry | `webapp/src/main.tsx` |
 | Env validation | `webapp/src/env.ts` |
 | Docker setup | `compose.yaml` |
