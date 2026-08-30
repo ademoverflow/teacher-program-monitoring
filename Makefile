@@ -45,9 +45,22 @@ install: install-python install-js ## Install all dependencies (Python + JS)
 
 install-python: ## Install Python dependencies (UV)
 	uv sync --all-packages
+	@touch .venv
 
 install-js: ## Install JS dependencies (pnpm)
 	pnpm install
+	@touch node_modules
+
+# Sentinels. The host-side checks and tests need their toolchain installed first:
+# `uv run` alone only syncs the workspace root (no dependencies), so mypy cannot load
+# its pydantic plugin, and Biome/vitest are missing until `pnpm install` has run.
+# Depending on these makes `make check` and `make test-webapp` work on a fresh clone;
+# once up to date, nothing is reinstalled.
+.venv: pyproject.toml uv.lock core/pyproject.toml
+	@$(MAKE) --no-print-directory install-python
+
+node_modules: package.json pnpm-lock.yaml webapp/package.json
+	@$(MAKE) --no-print-directory install-js
 
 # ==============================================================================
 ## Docker
@@ -104,22 +117,22 @@ logs-db: ## Tail logs for the database service
 
 check-python: check-format check-lint check-sort type-check ## Run all Python checks (format, lint, sort, types)
 
-check-format: ## Check Python code formatting (ruff)
+check-format: .venv ## Check Python code formatting (ruff)
 	uv run ruff format --check
 
-check-lint: ## Check Python code linting (ruff)
+check-lint: .venv ## Check Python code linting (ruff)
 	uv run ruff check
 
-check-sort: ## Check Python import sorting (ruff)
+check-sort: .venv ## Check Python import sorting (ruff)
 	uv run ruff check --select I
 
-type-check: ## Run Python type checking (mypy)
+type-check: .venv ## Run Python type checking (mypy)
 	uv run mypy core
 
-fix-format: ## Fix Python code formatting (ruff)
+fix-format: .venv ## Fix Python code formatting (ruff)
 	uv run ruff format
 
-fix-sort: ## Fix Python import sorting (ruff)
+fix-sort: .venv ## Fix Python import sorting (ruff)
 	uv run ruff check --select I --fix
 
 # ==============================================================================
@@ -128,13 +141,13 @@ fix-sort: ## Fix Python import sorting (ruff)
 
 .PHONY: check-webapp lint-webapp format-webapp
 
-check-webapp: ## Run all webapp checks (Biome)
+check-webapp: node_modules ## Run all webapp checks (Biome)
 	pnpm --filter webapp run check
 
-lint-webapp: ## Run webapp linting (Biome)
+lint-webapp: node_modules ## Run webapp linting (Biome)
 	pnpm --filter webapp run lint
 
-format-webapp: ## Run webapp formatting (Biome)
+format-webapp: node_modules ## Run webapp formatting (Biome)
 	pnpm --filter webapp run format
 
 # ==============================================================================
@@ -178,12 +191,17 @@ db-shell: ## Open a psql shell to the database
 ## Testing
 # ==============================================================================
 
-.PHONY: test-core test-webapp
+.PHONY: test test-core test-core-host test-webapp
 
-test-core: ## Run core tests (pytest)
+test: test-core test-webapp ## Run all tests (core + webapp)
+
+test-core: ## Run core tests (pytest, inside the running core container)
 	$(COMPOSE) exec $(CORE_CONTAINER) bash -c 'uv run pytest core/tests -v'
 
-test-webapp: ## Run webapp tests (vitest)
+test-core-host: .venv ## Run core tests on the host, without Docker (used by CI)
+	uv run pytest core/tests -v
+
+test-webapp: node_modules ## Run webapp tests (vitest)
 	pnpm --filter webapp run test
 
 # ==============================================================================
