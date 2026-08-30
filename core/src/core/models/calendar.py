@@ -11,7 +11,14 @@ from typing import ClassVar
 from sqlalchemy import Boolean, Column, Date, Integer, SmallInteger, String, UniqueConstraint, text
 from sqlmodel import Field, SQLModel
 
-from core.models.base import created_at_column, reference, updated_at_column, uuid_primary_key
+from core.models.base import (
+    created_at_column,
+    enum_check,
+    reference,
+    updated_at_column,
+    uuid_primary_key,
+)
+from core.models.weekday import Weekday
 
 
 class SchoolYear(SQLModel, table=True):
@@ -91,6 +98,7 @@ class SchoolDay(SQLModel, table=True):
     """A jour de classe. ``is_off`` marks the ones lost to a public holiday or a bridge."""
 
     __tablename__: ClassVar[str] = "school_days"
+    __table_args__: ClassVar[tuple] = (enum_check("school_days", "day_of_week", Weekday),)
 
     id: uuid.UUID = uuid_primary_key()
     created_at: datetime.datetime = created_at_column()
@@ -98,7 +106,7 @@ class SchoolDay(SQLModel, table=True):
 
     week_id: uuid.UUID = reference("weeks.id")
     date: datetime.date = Field(sa_column=Column(Date, nullable=False, unique=True))
-    day_of_week: int = Field(sa_column=Column(SmallInteger, nullable=False))
+    day_of_week: Weekday = Field(sa_column=Column(SmallInteger, nullable=False))
     is_off: bool = Field(
         sa_column=Column(Boolean, nullable=False, server_default=text("false")), default=False
     )

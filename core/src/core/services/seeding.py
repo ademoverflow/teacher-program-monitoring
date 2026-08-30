@@ -9,7 +9,7 @@ Rows are never deleted: the loader owns what the seeds describe and leaves anyth
 else — a séance, a cahier journal — alone.
 """
 
-import logging
+import uuid
 from collections.abc import Sequence
 from typing import Any
 
@@ -21,11 +21,15 @@ from sqlmodel import SQLModel
 from core.database import engine
 from core.models.calendar import Period, SchoolDay, SchoolHoliday, SchoolYear, Week
 from core.models.curriculum import Domain, Subject
+from core.models.level import Level
 from core.models.timetable import TimetableSlot
 from core.services.school_calendar import build_school_calendar
-from core.services.seed_files import load_calendar_reference, load_subjects, load_timetable
-
-logger = logging.getLogger(__name__)
+from core.services.seed_files import (
+    TimetableSlotSeed,
+    load_calendar_reference,
+    load_subjects,
+    load_timetable,
+)
 
 Row = dict[str, Any]
 
@@ -62,7 +66,11 @@ async def _upsert(
 
 
 async def _ids_by(session: AsyncSession, model: type[SQLModel], *key: str) -> dict[Any, Any]:
-    """Map each row's natural key to its primary key."""
+    """Map each row's natural key to its primary key.
+
+    Pass every column of the natural key: a période's code or a semaine's number
+    only identifies a row within its school year.
+    """
     table = _table(model)
     columns = [table.c[name] for name in key]
     result = await session.execute(select(table.c.id, *columns))
@@ -124,7 +132,7 @@ async def seed_calendar(session: AsyncSession) -> dict[str, int]:
         constraint="uq_school_holidays_year_label",
     )
     await session.flush()
-    period_ids = await _ids_by(session, Period, "code")
+    period_ids = await _ids_by(session, Period, "school_year_id", "code")
 
     calendar = build_school_calendar(reference)
     counts["weeks"] = await _upsert(
@@ -133,7 +141,7 @@ async def seed_calendar(session: AsyncSession) -> dict[str, int]:
         [
             {
                 "school_year_id": year_id,
-                "period_id": period_ids[week.period_code],
+                "period_id": period_ids[year_id, week.period_code],
                 "number": week.number,
                 "number_in_period": week.number_in_period,
                 "starts_on": week.starts_on,
@@ -144,14 +152,14 @@ async def seed_calendar(session: AsyncSession) -> dict[str, int]:
         constraint="uq_weeks_year_number",
     )
     await session.flush()
-    week_ids = await _ids_by(session, Week, "number")
+    week_ids = await _ids_by(session, Week, "school_year_id", "number")
 
     counts["school_days"] = await _upsert(
         session,
         SchoolDay,
         [
             {
-                "week_id": week_ids[day.week_number],
+                "week_id": week_ids[year_id, day.week_number],
                 "date": day.date,
                 "day_of_week": day.date.isoweekday(),
                 "is_off": day.is_off,
@@ -203,7 +211,19 @@ async def seed_timetable(session: AsyncSession) -> dict[str, int]:
     """Seed the 44 créneaux of the weekly timetable template."""
     slots = load_timetable()
     subject_ids = await _ids_by(session, Subject, "code")
-    domain_ids = await _ids_by(session, Domain, "subject_id", "code")
+    domain_ids = await _ids_by(session, Domain, "subject_id", "code", "level")
+
+    def subject_of(slot: TimetableSlotSeed) -> uuid.UUID | None:
+        """Return the matière taught in ``slot``, if the créneau names one."""
+        # Indexed, not ``.get``: a code the seed names but the database does not
+        # have is a broken seed, and must not become a silent NULL.
+        return subject_ids[slot.subject] if slot.subject else None
+
+    def domain_of(slot: TimetableSlotSeed) -> uuid.UUID | None:
+        """Return the domaine taught in ``slot``, resolved under its own matière."""
+        if not (slot.subject and slot.domain):
+            return None
+        return domain_ids[subject_ids[slot.subject], slot.domain, Level.COMMUN.value]
 
     return {
         "timetable_slots": await _upsert(
@@ -216,12 +236,8 @@ async def seed_timetable(session: AsyncSession) -> dict[str, int]:
                     "ends_at": slot.ends_at,
                     "duration_minutes": slot.duration_minutes,
                     "label": slot.label,
-                    "subject_id": subject_ids.get(slot.subject) if slot.subject else None,
-                    "domain_id": (
-                        domain_ids.get((subject_ids[slot.subject], slot.domain))
-                        if slot.subject and slot.domain
-                        else None
-                    ),
+                    "subject_id": subject_of(slot),
+                    "domain_id": domain_of(slot),
                     "level": slot.level.value,
                     "is_alternating": slot.alternation_group is not None,
                     "alternation_group": slot.alternation_group,
@@ -247,11 +263,8 @@ async def seed_database(session: AsyncSession) -> dict[str, int]:
 
 
 async def seed() -> dict[str, int]:
-    """Entry point for ``make seed``."""
+    """Entry point for ``make seed``. Returns how many rows each table was given."""
     async with AsyncSession(engine) as session:
         counts = await seed_database(session)
         await session.commit()
-
-    for table, count in counts.items():
-        logger.info("seeded %s rows into %s", count, table)
     return counts

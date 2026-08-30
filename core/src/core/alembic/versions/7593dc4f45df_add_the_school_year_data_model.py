@@ -298,6 +298,7 @@ def upgrade() -> None:
         sa.Column("level", sa.String(), server_default=sa.text("'commun'"), nullable=False),
         sa.Column("is_alternating", sa.Boolean(), server_default=sa.text("false"), nullable=False),
         sa.Column("alternation_group", sa.String(), nullable=True),
+        sa.CheckConstraint("day_of_week IN (1, 2, 3, 4, 5)", name="ck_timetable_slots_day_of_week"),
         sa.CheckConstraint("level IN ('CM1', 'CM2', 'commun')", name="ck_timetable_slots_level"),
         sa.CheckConstraint(
             "is_alternating = (alternation_group IS NOT NULL)",
@@ -366,6 +367,7 @@ def upgrade() -> None:
         sa.Column("day_of_week", sa.SmallInteger(), nullable=False),
         sa.Column("is_off", sa.Boolean(), server_default=sa.text("false"), nullable=False),
         sa.Column("off_reason", sa.String(), nullable=True),
+        sa.CheckConstraint("day_of_week IN (1, 2, 3, 4, 5)", name="ck_school_days_day_of_week"),
         sa.ForeignKeyConstraint(["week_id"], ["weeks.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("date"),

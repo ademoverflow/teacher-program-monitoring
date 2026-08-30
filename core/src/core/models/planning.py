@@ -13,6 +13,7 @@ from sqlmodel import Field, SQLModel
 from core.models.base import (
     created_at_column,
     enum_check,
+    enum_default,
     reference,
     updated_at_column,
     uuid_primary_key,
@@ -47,7 +48,9 @@ class PlannedSession(SQLModel, table=True):
     objectives: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     materials: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     status: SessionStatus = Field(
-        sa_column=Column(String, nullable=False, server_default=text("'planifiée'")),
+        sa_column=Column(
+            String, nullable=False, server_default=enum_default(SessionStatus.PLANIFIEE)
+        ),
         default=SessionStatus.PLANIFIEE,
     )
     position: int = Field(sa_column=Column(Integer, nullable=False, server_default=text("0")))

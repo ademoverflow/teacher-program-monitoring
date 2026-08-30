@@ -15,6 +15,7 @@ from sqlmodel import Field, SQLModel
 from core.models.base import (
     created_at_column,
     enum_check,
+    enum_default,
     reference,
     updated_at_column,
     uuid_primary_key,
@@ -59,7 +60,9 @@ class JournalRevision(SQLModel, table=True):
     snapshot_after: Any | None = Field(sa_column=Column(JSONB, nullable=True), default=None)
     summary: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     status: RevisionStatus = Field(
-        sa_column=Column(String, nullable=False, server_default=text("'proposée'")),
+        sa_column=Column(
+            String, nullable=False, server_default=enum_default(RevisionStatus.PROPOSEE)
+        ),
         default=RevisionStatus.PROPOSEE,
     )
     model: str | None = Field(sa_column=Column(String, nullable=True), default=None)

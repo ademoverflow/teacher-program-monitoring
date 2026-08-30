@@ -9,9 +9,10 @@ from itertools import pairwise
 
 from core.models.level import Level
 from core.models.weekday import Weekday
-from core.services.seed_files import load_timetable
+from core.services.seed_files import load_subjects, load_timetable
 
 SLOTS = load_timetable()
+SUBJECTS = load_subjects()
 
 TOTAL_SLOTS = 44
 SLOTS_PER_DAY = {Weekday.MONDAY: 10, Weekday.TUESDAY: 12, Weekday.THURSDAY: 12, Weekday.FRIDAY: 10}
@@ -130,3 +131,27 @@ def test_no_two_creneaux_overlap_for_the_same_niveau() -> None:
             )
             for earlier, later in pairwise(same_class):
                 assert earlier.ends_at <= later.starts_at, f"{day} {level}: {earlier.label}"
+
+
+def test_every_creneau_names_a_matiere_that_exists() -> None:
+    """A typo in the timetable seed must not quietly leave a créneau without its matière."""
+    known = {subject.code for subject in SUBJECTS}
+
+    named = {slot.subject for slot in SLOTS if slot.subject}
+
+    assert named <= known, f"unknown matières: {sorted(named - known)}"
+
+
+def test_every_creneau_names_a_domaine_of_its_own_matiere() -> None:
+    """A domaine is only meaningful under the matière it belongs to."""
+    known = {(subject.code, domain.code) for subject in SUBJECTS for domain in subject.domains}
+
+    named = {(slot.subject, slot.domain) for slot in SLOTS if slot.domain}
+
+    assert named <= known, f"unknown domaines: {sorted(named - known)}"
+
+
+def test_a_creneau_only_names_a_domaine_alongside_its_matiere() -> None:
+    """There is no domaine without a matière to hang it on."""
+    for slot in SLOTS:
+        assert not (slot.domain and not slot.subject), slot.label

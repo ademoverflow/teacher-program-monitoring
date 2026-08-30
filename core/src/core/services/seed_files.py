@@ -11,7 +11,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Annotated, Any
 
-from pydantic import BaseModel, BeforeValidator, ConfigDict
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
 from core.models.level import Level
 from core.models.weekday import FRENCH_WEEKDAYS, Weekday
@@ -21,9 +21,16 @@ SEED_DIR = Path(__file__).resolve().parents[3] / "seed"
 
 
 class SeedModel(BaseModel):
-    """Base for every seed record: immutable, and tolerant of ``$comment`` keys."""
+    """Base for every seed record: immutable, and strict about unknown keys.
 
-    model_config = ConfigDict(frozen=True, extra="ignore")
+    ``extra="forbid"`` is what makes a drifted seed fail loudly: a mistyped key
+    would otherwise be dropped in silence. ``$comment`` is declared so the seed
+    files can carry their own notes.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid", populate_by_name=True)
+
+    comment: list[str] | None = Field(default=None, alias="$comment")
 
 
 class SchoolYearSeed(SeedModel):
