@@ -15,14 +15,14 @@ SUBJECTS = load_subjects()
 
 SOURCE_FILE = "docs/programme-cm1-cm2.pdf"
 SOURCE_PAGES = 154
-TOTAL_ITEMS = 213
+TOTAL_ITEMS = 220
 
 # The breakdown §8 asks the phase report to state, asserted here so it cannot drift.
 ITEMS_PER_SUBJECT_AND_LEVEL = {
     ("anglais", Level.CM1): 22,
     ("anglais", Level.CM2): 22,
-    ("arts-plastiques", Level.COMMUN): 4,
-    ("education-musicale", Level.COMMUN): 4,
+    ("arts-plastiques", Level.COMMUN): 7,
+    ("education-musicale", Level.COMMUN): 8,
     ("emc", Level.CM1): 3,
     ("emc", Level.CM2): 4,
     ("eps", Level.COMMUN): 15,
@@ -42,7 +42,8 @@ ITEMS_PER_SUBJECT_AND_LEVEL = {
 }
 
 # §8 Phase 2: « zéro contenu inventé (spot-check de 10 items contre les PDFs) ».
-# Each row is (niveau, matière, titre, page, one line the PDF prints in that block).
+# Each row identifies one item — the natural key, minus the domaine only where the
+# title already picks it out — with its page and one line the PDF prints in it.
 SPOT_CHECKS = (
     (
         Level.CM1,
@@ -118,10 +119,34 @@ SPOT_CHECKS = (
         Level.COMMUN,
         "education-musicale",
         "Chanter et interpréter",
-        147,
-        "Interpréter un répertoire varié avec expressivité.",
+        148,
+        "Répertoire de chansons diverses.",
     ),
 )
+
+
+# The items whose table did not split into its columns cleanly: their text is the
+# PDF's, but two columns share a line. §8 Phase 2 asks for them to be marked, and this
+# is the list the phase report carries.
+NEEDS_REVIEW = {
+    (
+        Level.CM1,
+        "histoire",
+        "Thème 3 : Explorations et conquêtes par les Européens du XVe au "
+        "XVIIe siècle (quatrième période)",
+    ),
+    (Level.CM2, "histoire", "Thème 1 : De la République à l’Empire (1792-1815) (première période)"),
+    (
+        Level.CM2,
+        "histoire",
+        "Thème 3 : L’âge industriel en France au XIXe siècle (deuxième période)",
+    ),
+    (Level.CM2, "geographie", "Thème 2 : Les usages de l’eau douce en France (2 périodes)"),
+    (Level.CM2, "emc", "Citoyenneté et nationalité"),
+    (Level.CM2, "emc", "Libertés et droits fondamentaux"),
+    (Level.CM2, "emc", "À l’école laïque"),
+    (Level.COMMUN, "education-musicale", "Chanter et interpréter"),
+}
 
 
 def test_the_curriculum_holds_every_extracted_item() -> None:
@@ -166,6 +191,13 @@ def test_every_item_carries_the_text_it_was_extracted_for() -> None:
     assert all(item.title.strip() and (item.description or "").strip() for item in ITEMS)
 
 
+def test_the_items_left_to_review_are_the_ones_we_know_about() -> None:
+    """A re-extraction may fix one of these; it must not quietly add another."""
+    flagged = {(item.level, item.subject, item.title) for item in ITEMS if item.needs_review}
+
+    assert flagged == NEEDS_REVIEW
+
+
 @pytest.mark.parametrize(("level", "subject", "title", "page", "line"), SPOT_CHECKS)
 def test_an_item_says_what_the_pdf_says(
     level: Level, subject: str, title: str, page: int, line: str
@@ -174,9 +206,11 @@ def test_an_item_says_what_the_pdf_says(
     matches = [
         item
         for item in ITEMS
-        if item.level is level and item.subject == subject and item.title == title
+        if item.level is level
+        and item.subject == subject
+        and item.title == title
+        and item.source_page == page
     ]
 
     assert len(matches) == 1
-    assert matches[0].source_page == page
     assert line in (matches[0].description or "")

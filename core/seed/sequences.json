@@ -20,6 +20,8 @@
     "objectives ni domain.",
     "",
     "litterature : une séquence par œuvre du §4.5, numérotées dans l'ordre des périodes.",
+    "Aucun domaine : la méthodo littérature n'en nomme pas, et le déduire du créneau",
+    "« Lecture — Œuvre suivie » serait notre lecture, pas la sienne (ADR-0006).",
     "Le thème et les enjeux littéraires viennent de docs/outil-pedagogique-litterature-annee.pdf,",
     "les séances hebdomadaires de docs/outil-pedagogique-litterature-par-semaine.pdf (chaque",
     "séance porte sa page source en $comment)."
@@ -929,7 +931,6 @@
       "objectives": "Organisation sur 7 semaines\n\nThème 1 — Héros et Héroïnes\n\n-Découvrir des œuvres, des textes et des documents mettant en scène des types de héros/héroïnes bien identifiés ou qui se révèlent comme tels.\n-Comprendre les qualités et les valeurs qui caractérisent un héros/une héroïne.\n-s'interroger sur les valeurs socio-culturelles et les qualités humaines dont il/elle est porteur, sur l'identification ou la projection possible sur le lecteur.",
       "period_code": "P1",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1004,7 +1005,6 @@
       "objectives": "Organisation sur 2 semaines\n\nThème 1 — Héros et Héroïnes\n\n-Découvrir des œuvres, des textes et des documents mettant en scène des types de héros/héroïnes bien identifiés ou qui se révèlent comme tels.\n-Comprendre les qualités et les valeurs qui caractérisent un héros/une héroïne.\n-s'interroger sur les valeurs socio-culturelles et les qualités humaines dont il/elle est porteur, sur l'identification ou la projection possible sur le lecteur.\n\nHansel et Gretel (peut être traité en P5 si pas assez de temps)",
       "period_code": "P1",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1034,7 +1034,6 @@
       "objectives": "Organisation sur 7 semaines\n\nThème 2 — La morale en question\n\n-Découvrir des récits, des récits de vie, des fables, des albums qui interrogent sur certains fondements de la société comme la justice, le respect des différences, les droits et les devoirs, la préservation de l'environnement.\n-Comprendre les valeurs morales portées par les personnages et le sens de leurs actions.\n-s'interroger, définir les valeurs en question, voire les tensions entre ces valeurs pour vivre en société.",
       "period_code": "P2",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1109,7 +1108,6 @@
       "objectives": "Organisation sur 4 semaines\n\nThème 4 — Vivre des aventures\n\n-Découvrir des romans d'aventures dont le personnage principal est proche des élèves (enfant ou animal) afin de favoriser l'entrée dans la lecture.\n-Comprendre la dynamique du récit, les personnages et leurs relations.\n-s'interroger sur les modalités du suspens et imaginer les possibles narratifs.",
       "period_code": "P3",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1160,7 +1158,6 @@
       "objectives": "Organisation sur 6 semaines\n\nThème 4 — Vivre des aventures\n\n-Découvrir des romans d'aventures dont le personnage principal est proche des élèves (enfant ou animal) afin de favoriser l'entrée dans la lecture.\n-Comprendre la dynamique du récit, les personnages et leurs relations.\n-s'interroger sur les modalités du suspens et imaginer les possibles narratifs.",
       "period_code": "P3",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1226,7 +1223,6 @@
       "objectives": "Organisation sur 7 semaines, pour 2 séances par semaine.\n\nThème 6 — Se découvrir, s'affirmer dans le rapport aux autres\n\n-Découvrir des récits d'apprentissage mettant en scène l'enfant dans la vie familiale, les relations entre enfants, l'école ou d'autres groupes sociaux.\n-Comprendre la part de vérité de celle de la fiction.\n-s'interroger sur la nature et les difficultés des apprentissages humains.",
       "period_code": "P4",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1306,7 +1302,6 @@
       "objectives": "Organisation sur 3 semaines\n\nThème 3 — Se confronter au merveilleux, à l'étrange\n\n-Découvrir des contes, des récits adaptés de la mythologie ou mettant en scène des personnages sortant de l'ordinaire ou des figures surnaturelles.\n-Comprendre ce qu'ils symbolisent.\n-s'interroger sur le plaisir, la peur, l'attirance ou le rejet suscités par les personnages.",
       "period_code": "P5",
       "subject": "francais",
-      "domain": "lecture",
       "sessions": [
         {
           "$comment": [
@@ -1348,7 +1343,6 @@
       "objectives": "Thème 3 — Se confronter au merveilleux, à l'étrange\n\n-Découvrir des contes, des récits adaptés de la mythologie ou mettant en scène des personnages sortant de l'ordinaire ou des figures surnaturelles.\n-Comprendre ce qu'ils symbolisent.\n-s'interroger sur le plaisir, la peur, l'attirance ou le rejet suscités par les personnages.\n\nZathura (drive)",
       "period_code": "P5",
       "subject": "francais",
-      "domain": "lecture",
       "$comment": [
         "Aucun planning semaine par semaine dans docs/outil-pedagogique-litterature-par-semaine.pdf : la programmation annuelle indique « Zathura (drive) », la ressource vit hors de l'ouvrage."
       ]

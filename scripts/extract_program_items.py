@@ -56,7 +56,32 @@ SCIENCES = Path(__file__).resolve().parent / "curriculum_sciences.json"
 OBJECTIVES_MARKERS = frozenset({"Objectifs d’apprentissage", "Objectif d’apprentissage"})
 # Shortest run of characters that can carry a piece of a wrapped column header.
 HEADER_FRAGMENT = 10
-GUTTER = 3  # blank columns that separate two table columns
+GUTTER = 3  # narrowest run of blank columns that can separate two table columns
+GUTTER_TOLERANCE = 0.2  # share of a table's lines allowed to write through a gutter
+# Running heads and page feet the source repeats: full-width, so they would flatten
+# every gutter of the table they land in.
+PAGE_FURNITURE = ("D’après le BOEN", "no 25 du 22 juin", "© Direction générale")
+# Bullets the source draws in a symbol font, and the character they are drawn as.
+SYMBOL_BULLETS = ("\uf0b7", "\uf09f")
+BULLET = "•"
+
+
+# Two of a table's columns sharing a line: text, a run of spaces, more text. A cell
+# that opens with a bullet indents its own text, which is not that.
+COLUMN_BLEED = re.compile(r"\S {3,}\S")
+BULLET_INDENT = re.compile(r"^[-•—]\s+")
+
+
+def bleeds(description: str) -> bool:
+    """Say whether a table's columns failed to separate anywhere in a description.
+
+    Rebuilt columns read as prose; a line that still holds a run of spaces between two
+    words is one where the gutter was not found and two columns were welded together.
+    The item is still the PDF's own text, but shuffled, so it is worth a second look.
+    """
+    return any(
+        COLUMN_BLEED.search(BULLET_INDENT.sub("", line)) for line in description.splitlines()
+    )
 
 
 class Item(NamedTuple):
@@ -70,15 +95,28 @@ class Item(NamedTuple):
     description: str
     page: int
 
+    @property
+    def needs_review(self) -> bool:
+        """§8 Phase 2: « needs_review sur tout item incertain »."""
+        return bleeds(self.description)
+
 
 def page_text(page: int) -> str:
-    """Read one page of the PDF with its layout preserved."""
-    return subprocess.run(  # noqa: S603
+    """Read one page of the PDF with its layout preserved.
+
+    The bullets of the EMC and EVAR tables are drawn in a symbol font and come back as
+    private-use code points, which no French collation and no reader can do anything
+    with; they are turned back into the bullet they are drawn as.
+    """
+    text = subprocess.run(  # noqa: S603
         ["pdftotext", "-layout", "-f", str(page), "-l", str(page), str(PDF), "-"],  # noqa: S607
         capture_output=True,
         check=True,
         text=True,
     ).stdout
+    for symbol in SYMBOL_BULLETS:
+        text = text.replace(symbol, BULLET)
+    return text
 
 
 def join_wrapped(lines: list[str]) -> list[str]:
@@ -265,30 +303,93 @@ def read_prose(programme: Programme) -> list[Item]:
     return items
 
 
-def columns(lines: list[str]) -> list[list[str]]:
-    """Split layout-preserved lines into the columns their blank gutters describe."""
+def gutters(lines: list[str], expected: int) -> list[int]:
+    """Find where the ``expected`` columns of a table start and end.
+
+    A gutter is a run of character positions blank down every line of the table. A few
+    cells in the source run wide enough to leave a single space where the gutter should
+    be, and that loses the gutter entirely, welding two columns into one line by line;
+    so when a table does not yield ``expected - 1`` gutters, the rule is relaxed one
+    line at a time until it does.
+
+    Relaxing lets in candidates that are not gutters, so the runs are ranked by what a
+    gutter actually does: separate text. A run scores the number of lines that have
+    text on both sides of it, which is nil for the right margin and small for a ragged
+    edge inside a column.
+    """
     width = max((len(line) for line in lines), default=0)
     padded = [line.ljust(width) for line in lines]
-    blank = [all(line[column] == " " for line in padded) for column in range(width)]
+    blank_lines = [sum(1 for line in padded if line[column] == " ") for column in range(width)]
 
-    gutters: list[tuple[int, int]] = []
-    start: int | None = None
-    for column, empty in enumerate([*blank, False]):
-        if empty and start is None:
-            start = column
-        elif not empty and start is not None:
-            if column - start >= GUTTER:
-                gutters.append((start, column))
-            start = None
+    def runs_blank_on(threshold: int) -> list[tuple[int, int]]:
+        """Every run of at least ``GUTTER`` positions blank on ``threshold`` lines."""
+        found: list[tuple[int, int]] = []
+        start: int | None = None
+        for column in range(width + 1):
+            empty = column < width and blank_lines[column] >= threshold
+            if empty and start is None:
+                start = column
+            elif not empty and start is not None:
+                if column - start >= GUTTER and start > 0:
+                    found.append((start, column))
+                start = None
+        return found
 
-    bounds = [0, *(gutter[1] for gutter in gutters if gutter[0] > 0), width]
-    result: list[list[str]] = []
-    for left, right in pairwise(bounds):
-        cell = [line[left:right].rstrip() for line in padded]
-        text = [entry.strip() for entry in cell if entry.strip()]
-        if text:
-            result.append(text)
-    return result
+    def separations(run: tuple[int, int]) -> int:
+        """Count the lines this run actually stands between."""
+        left, right = run
+        return sum(1 for line in padded if line[:left].strip() and line[right:].strip())
+
+    runs: list[tuple[int, int]] = []
+    for written_through in range(round(len(padded) * GUTTER_TOLERANCE) + 1):
+        runs = runs_blank_on(len(padded) - written_through)
+        if len(runs) >= expected - 1:
+            break
+
+    kept = sorted(sorted(runs, key=separations, reverse=True)[: expected - 1])
+    return [0, *(run[1] for run in kept), width]
+
+
+def columns(slices: list[list[str]], expected: int) -> list[list[str]]:
+    """Split each page of a table on its own gutters, then line the columns up.
+
+    A table that runs over a page break is redrawn on the next page, and rarely at
+    exactly the same character offsets — EMC shifts by one, and a continuation whose
+    first column is empty starts at what looks like position zero. So each page is
+    split on its own, and its columns are then matched to the columns of the page that
+    showed the most of them, by which of those they overlap the most.
+    """
+    split = [(gutters(lines, expected), lines) for lines in slices if lines]
+    if not split:
+        return []
+    reference, _ = max(split, key=lambda pair: len(pair[0]))
+    columns_of = list(pairwise(reference))
+    cells: list[list[str]] = [[] for _ in columns_of]
+
+    def nearest(span: tuple[int, int]) -> int:
+        """Which reference column a page's column belongs to: the one it covers most."""
+        left, right = span
+        overlaps = [min(right, end) - max(left, start) for start, end in columns_of]
+        return overlaps.index(max(overlaps))
+
+    for bounds, lines in split:
+        width = max(len(line) for line in lines)
+        padded = [line.ljust(width) for line in lines]
+        for left, right in pairwise(bounds):
+            cell = [line[left:right] for line in padded]
+            # A bullet at the very end of a cell belongs to the column after it: the
+            # gutter falls a character late where a row opens with one.
+            written = [entry.strip().rstrip(BULLET).strip() for entry in cell if entry.strip()]
+            written = [entry for entry in written if entry]
+            if not written:
+                continue
+            # Where the text sits, not where the slice was cut: a page that carries
+            # only one column of the table gets cut at zero, and matching on that
+            # would file its rows under the table's first column.
+            starts = left + min(len(entry) - len(entry.lstrip()) for entry in cell if entry.strip())
+            ends = left + max(len(entry.rstrip()) for entry in cell)
+            cells[nearest((starts, ends))].extend(written)
+    return cells
 
 
 def _is_column_header(line: str, columns: tuple[str, ...]) -> bool:
@@ -317,9 +418,9 @@ class _OpenTable:
         self.title = title
         self.page = page
         self.intro: list[str] = []
-        self.region: list[str] = []
+        self.region: dict[int, list[str]] = {}
 
-    def gather(self, raw: str, intro_prefixes: tuple[str, ...]) -> None:
+    def gather(self, page: int, raw: str, intro_prefixes: tuple[str, ...]) -> None:
         """Put one line where it belongs: above the table, or inside it.
 
         The line is kept exactly as ``pdftotext -layout`` printed it, indentation
@@ -330,25 +431,25 @@ class _OpenTable:
         that has not closed its sentence continues it rather than opening a row.
         """
         line = raw.strip()
+        if line.startswith(PAGE_FURNITURE):
+            return
         if intro_prefixes and line.startswith(intro_prefixes):
             self.intro.append(line)
         elif self.intro and self.intro[-1][-1] not in SENTENCE_CLOSE:
             self.intro[-1] = f"{self.intro[-1]} {line}"
         else:
-            self.region.append(raw)
+            self.region.setdefault(page, []).append(raw)
 
     def describe(self, columns_named: tuple[str, ...]) -> str:
         """Rebuild the table as text, column by column, under the names it prints.
 
-        The whole table is split at once, page break included: a column is a run of
-        character positions blank on every line of it, and those positions hold across
-        a page break because the source redraws the table at the same width. Splitting
-        each page on its own would misplace a continuation whose first column happens
-        to be empty — its second column would start at position zero and be read as
-        the first.
+        The lines are kept page by page, because a table redrawn after a page break
+        rarely lands on the same character offsets; ``columns`` splits each page and
+        lines the results up.
         """
         parts = list(self.intro)
-        for name, cell in zip(columns_named, columns(self.region), strict=False):
+        table = columns(list(self.region.values()), len(columns_named))
+        for name, cell in zip(columns_named, table, strict=False):
             if cell:
                 parts.append(f"{name}\n" + "\n".join(join_wrapped(cell)))
         return "\n\n".join(part for part in parts if part)
@@ -407,7 +508,7 @@ def read_histoire_geographie() -> list[Item]:
             elif line.startswith("Thème ") and level is not None:
                 table = _OpenTable(level=level, subject=subject, title=line, page=page)
             elif table and line and not _is_column_header(line, programme.columns):
-                table.gather(raw, intro_prefixes)
+                table.gather(page, raw, intro_prefixes)
     close(table)
     return items
 
@@ -462,7 +563,7 @@ def read_sectioned_tables(programme: TableProgramme) -> list[Item]:
                 and line
                 and not (line in headers or _is_column_header(line, programme.columns))
             ):
-                table.gather(raw, programme.intro_prefixes)
+                table.gather(page, raw, programme.intro_prefixes)
     close(table)
     return items
 
@@ -529,6 +630,10 @@ def main() -> None:
             "Items des programmes officiels CM1/CM2, extraits de docs/programme-cm1-cm2.pdf",
             "par scripts/extract_program_items.py. Titres et descriptions sont le texte du PDF,",
             "recopié : rien n'est reformulé (MASTER-PROMPT.md §10).",
+            "",
+            "needs_review marque les items dont le tableau source n'a pas pu être découpé",
+            "proprement en colonnes : le texte est bien celui du PDF, mais deux colonnes se",
+            "partagent une ligne au lieu de se suivre. À relire contre la page indiquée.",
         ],
         "items": [
             {
@@ -540,6 +645,7 @@ def main() -> None:
                 "source_file": SOURCE_FILE,
                 "source_page": item.page,
             }
+            | ({"needs_review": True} if item.needs_review else {})
             for item in items
         ],
     }

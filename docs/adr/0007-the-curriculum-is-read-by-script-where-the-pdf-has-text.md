@@ -13,11 +13,11 @@ a reviewer can re-run the extraction and diff — and it makes the classificatio
 explicit, since every mapping from a heading of the source to one of our domaines is a line in
 `scripts/curriculum_map.py` rather than a judgement buried in the data.
 
-The price is that the seed is only as good as what `pdftotext` recovers, and two things it does
-not recover are recorded here rather than left to be rediscovered. The 2020-format tables of the
-enseignements artistiques (p. 143-150) nest their sub-headings inside wrapped bullets, so only
-their « Compétences travaillées » are extracted; and the histoire des arts programme (p. 151-154)
-is not extracted at all, since it is a cycle-3 transversal teaching with no créneau in the
-timetable and no matière in §5. « Initiation à la pensée informatique » gets a mention but no
-item: the source gives it prose and no objectives, saying its content is « abordé dans les autres
-domaines de ce programme ».
+The price is that the seed is only as good as what `pdftotext` recovers, and what it does not
+recover is recorded rather than left to be rediscovered. Eight items are marked `needs_review`
+because their table did not split into its columns: the text is the PDF's, but two columns share a
+line instead of following one another. Two things are not extracted at all. The histoire des arts
+programme (p. 151-154) is out: it is a cycle-3 transversal teaching with no créneau in the
+timetable and no matière in §5, so there is nowhere to put it. And « Initiation à la pensée
+informatique » gets a domaine's worth of pages but no item, because the source gives it prose and
+no objectives, saying its content is « abordé dans les autres domaines de ce programme ».

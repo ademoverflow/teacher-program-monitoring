@@ -118,13 +118,22 @@
       "code": "arts-plastiques",
       "label": "Arts plastiques",
       "color": "#FFFF99",
-      "domains": [{ "code": "competences-travaillees", "label": "Compétences travaillées" }]
+      "domains": [
+        { "code": "competences-travaillees", "label": "Compétences travaillées" },
+        { "code": "questionnements", "label": "Questionnements" }
+      ]
     },
     {
       "code": "education-musicale",
       "label": "Éducation musicale",
       "color": "#FFF2CC",
-      "domains": [{ "code": "competences-travaillees", "label": "Compétences travaillées" }]
+      "domains": [
+        { "code": "competences-travaillees", "label": "Compétences travaillées" },
+        {
+          "code": "connaissances-et-competences-associees",
+          "label": "Connaissances et compétences associées"
+        }
+      ]
     },
     {
       "code": "eps",

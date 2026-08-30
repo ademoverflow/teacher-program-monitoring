@@ -344,6 +344,25 @@ TABLES = (
         ),
         domain="competences-travaillees",
         domain_label="Compétences travaillées",
+        stops=("Ces compétences sont développées",),
+    ),
+    TableProgramme(
+        subject="arts-plastiques",
+        first_page=143,
+        last_page=146,
+        columns=(
+            "Questionnements",
+            "Exemples de situations, d’activités et de ressources pour l’élève",
+        ),
+        sections=(
+            "La représentation plastique et les dispositifs de présentation",
+            "Les fabrications et la relation entre l’objet et l’espace",
+            "La matérialité de la production plastique et la sensibilité aux constituants "
+            "de l’œuvre",
+        ),
+        domain="questionnements",
+        domain_label="Questionnements",
+        stops=("Croisements entre enseignements",),
     ),
     TableProgramme(
         subject="education-musicale",
@@ -358,5 +377,23 @@ TABLES = (
         ),
         domain="competences-travaillees",
         domain_label="Compétences travaillées",
+    ),
+    TableProgramme(
+        subject="education-musicale",
+        first_page=148,
+        last_page=150,
+        columns=(
+            "Connaissances et compétences associées",
+            "Exemples de situations, d’activités et de ressources pour l’élève",
+        ),
+        sections=(
+            "Chanter et interpréter",
+            "Écouter, comparer et commenter",
+            "Explorer, imaginer et créer",
+            "Échanger, partager et argumenter",
+        ),
+        domain="connaissances-et-competences-associees",
+        domain_label="Connaissances et compétences associées",
+        stops=("Repères de progressivité",),
     ),
 )
