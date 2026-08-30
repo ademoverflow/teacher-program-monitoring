@@ -31,6 +31,11 @@ select = ["ALL"]
     "INP001", # Ignore __init__.py files in tests
     "S101",   # Allow assert statements in tests
 ]
+# The curriculum is French text copied from the source PDFs: its punctuation is the
+# PDF's, typographic apostrophes and all, and must stay byte-for-byte comparable.
+"core/tests/test_program_items_seed.py" = ["RUF001"]
+"core/tests/test_sequences_seed.py" = ["RUF001"]
+"scripts/*.py" = ["INP001", "RUF001", "RUF002"]
 
 [tool.ruff]
 exclude = [".venv", "notebooks"]

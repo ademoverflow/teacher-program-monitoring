@@ -1,10 +1,15 @@
 {
   "$comment": [
     "Matières and their domaines (MASTER-PROMPT.md §5).",
-    "Only the domaines named by §5 or by the timetable (§4.1) are listed: the",
-    "curriculum's own domaines are extracted from the PDFs in Phase 2.",
     "Colours follow the hues of docs/edt.pdf, tinted so text stays readable on them.",
-    "EVAR and Poésie have no cell in the EDT and were given neutral tints."
+    "EVAR and Poésie have no cell in the EDT and were given neutral tints.",
+    "Phase 1 seeded the domaines named by §5 or by the timetable (§4.1). Phase 2 added",
+    "the rest from the programmes themselves (docs/programme-cm1-cm2.pdf): each domaine",
+    "below is a part of a programme that carries items, and the thirteen Phase 1 codes",
+    "were kept as they were — the EDT and its tests point at them.",
+    "Histoire, Géographie and Poésie have no domaine: the histoire-géographie programme",
+    "is cut into thèmes rather than domaines, and poésie has no programme of its own",
+    "(it is an entrée of « Culture littéraire et artistique » in français)."
   ],
   "subjects": [
     {
@@ -18,7 +23,8 @@
         { "code": "vocabulaire", "label": "Vocabulaire" },
         { "code": "lecture", "label": "Lecture" },
         { "code": "ecriture", "label": "Écriture" },
-        { "code": "oral", "label": "Oral" }
+        { "code": "oral", "label": "Oral" },
+        { "code": "culture-litteraire-et-artistique", "label": "Culture littéraire et artistique" }
       ]
     },
     {
@@ -31,7 +37,13 @@
         { "code": "calcul-mental", "label": "Calcul mental" },
         { "code": "grandeurs-et-mesures", "label": "Grandeurs et mesures" },
         { "code": "geometrie", "label": "Géométrie" },
-        { "code": "resolution-de-problemes", "label": "Résolution de problèmes" }
+        { "code": "resolution-de-problemes", "label": "Résolution de problèmes" },
+        { "code": "algebre", "label": "Algèbre" },
+        {
+          "code": "organisation-et-gestion-de-donnees-et-probabilites",
+          "label": "Organisation et gestion de données et probabilités"
+        },
+        { "code": "proportionnalite", "label": "Proportionnalité" }
       ]
     },
     { "code": "histoire", "label": "Histoire", "color": "#FDE9D9", "domains": [] },
@@ -40,19 +52,103 @@
       "code": "sciences-et-technologie",
       "label": "Sciences et technologie",
       "color": "#EBF1DE",
-      "domains": []
+      "domains": [
+        {
+          "code": "la-matiere-les-mouvements-et-les-signaux",
+          "label": "La matière, les mouvements et les signaux"
+        },
+        {
+          "code": "les-etres-vivants-dans-leur-environnement",
+          "label": "Les êtres vivants dans leur environnement"
+        },
+        { "code": "le-corps-humain-et-la-sante", "label": "Le corps humain et la santé" },
+        {
+          "code": "les-objets-techniques-au-coeur-de-la-societe",
+          "label": "Les objets techniques au cœur de la société"
+        }
+      ]
     },
-    { "code": "emc", "label": "EMC", "color": "#F2F2F2", "domains": [] },
-    { "code": "evar", "label": "EVAR", "color": "#EAE1F2", "domains": [] },
-    { "code": "anglais", "label": "Anglais", "color": "#E5D5EC", "domains": [] },
-    { "code": "arts-plastiques", "label": "Arts plastiques", "color": "#FFFF99", "domains": [] },
+    {
+      "code": "emc",
+      "label": "EMC",
+      "color": "#F2F2F2",
+      "domains": [
+        { "code": "civisme-et-citoyennete", "label": "Civisme et citoyenneté" },
+        { "code": "l-egalite-dans-la-dignite", "label": "L’égalité dans la dignité" },
+        { "code": "comment-faire-societe", "label": "Comment faire société" },
+        { "code": "citoyennete-et-nationalite", "label": "Citoyenneté et nationalité" },
+        { "code": "libertes-et-droits-fondamentaux", "label": "Libertés et droits fondamentaux" },
+        { "code": "respecter-les-droits-de-tous", "label": "Respecter les droits de tous" },
+        { "code": "a-l-ecole-laique", "label": "À l’école laïque" }
+      ]
+    },
+    {
+      "code": "evar",
+      "label": "EVAR",
+      "color": "#EAE1F2",
+      "domains": [
+        {
+          "code": "se-connaitre-vivre-et-grandir-avec-son-corps",
+          "label": "Se connaître, vivre et grandir avec son corps"
+        },
+        {
+          "code": "rencontrer-les-autres-et-construire-des-relations-s-y-epanouir",
+          "label": "Rencontrer les autres et construire des relations, s’y épanouir"
+        },
+        {
+          "code": "trouver-sa-place-dans-la-societe-y-etre-libre-et-responsable",
+          "label": "Trouver sa place dans la société, y être libre et responsable"
+        }
+      ]
+    },
+    {
+      "code": "anglais",
+      "label": "Anglais",
+      "color": "#E5D5EC",
+      "domains": [
+        { "code": "comprehension-de-l-oral", "label": "Compréhension de l’oral" },
+        { "code": "expression-orale-en-continu", "label": "Expression orale en continu" },
+        { "code": "expression-orale-en-interaction", "label": "Expression orale en interaction" },
+        { "code": "comprehension-de-l-ecrit", "label": "Compréhension de l’écrit" },
+        { "code": "expression-ecrite", "label": "Expression écrite" },
+        { "code": "mediation", "label": "Médiation" }
+      ]
+    },
+    {
+      "code": "arts-plastiques",
+      "label": "Arts plastiques",
+      "color": "#FFFF99",
+      "domains": [{ "code": "competences-travaillees", "label": "Compétences travaillées" }]
+    },
     {
       "code": "education-musicale",
       "label": "Éducation musicale",
       "color": "#FFF2CC",
-      "domains": []
+      "domains": [{ "code": "competences-travaillees", "label": "Compétences travaillées" }]
     },
-    { "code": "eps", "label": "EPS", "color": "#CCC0DA", "domains": [] },
+    {
+      "code": "eps",
+      "label": "EPS",
+      "color": "#CCC0DA",
+      "domains": [
+        {
+          "code": "se-deplacer-pour-agir-dans-l-espace-et-sur-une-duree",
+          "label": "Se déplacer pour agir dans l’espace et sur une durée"
+        },
+        {
+          "code": "construire-des-equilibres",
+          "label": "Construire des équilibres pour s’adapter à des environnements inhabituels"
+        },
+        {
+          "code": "s-exprimer-avec-son-corps",
+          "label": "S'exprimer avec son corps, pour éprouver et partager des émotions"
+        },
+        {
+          "code": "cooperer-et-s-opposer",
+          "label": "Coopérer et s’opposer pour apprendre à jouer en respectant les règles et les autres"
+        }
+      ]
+    },
     { "code": "poesie", "label": "Poésie", "color": "#D9E2F3", "domains": [] }
   ]
 }

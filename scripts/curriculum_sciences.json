@@ -1,0 +1,172 @@
+{
+  "$comment": [
+    "Programme de sciences et technologie, docs/programme-cm1-cm2.pdf p. 92-107.",
+    "Ces pages n'ont aucune couche texte (ce sont des images) : elles ont été lues en",
+    "vision et recopiées à la main, contrairement au reste du programme qui est extrait",
+    "par scripts/extract_program_items.py.",
+    "Un item = un thème du domaine, pour un niveau. La description reprend la colonne",
+    "« Objectifs d'apprentissage » du tableau, avec les intitulés que la source imprime",
+    "au-dessus des objectifs. La colonne « Propositions de démarches et d'activités »",
+    "n'est pas reprise : le programme la déclare lui-même « ouverte et non prescriptive »",
+    "(p. 92, « Organisation du programme »)."
+  ],
+  "subject": "sciences-et-technologie",
+  "domains": [
+    {
+      "code": "la-matiere-les-mouvements-et-les-signaux",
+      "label": "La matière, les mouvements et les signaux",
+      "items": [
+        {
+          "level": "CM1",
+          "page": 93,
+          "title": "États et constitution de la matière à l’échelle macroscopique",
+          "description": "Masse et volume\nComparer les masses de différents objets à l’aide d’un dispositif simple qui peut être conçu par les élèves (poulie et cordelette, balance romaine, à fléau, à plateaux).\nMesurer la masse d’un solide ou d’un liquide à l’aide d’une balance (balance romaine, balance à plateaux, balance électronique) en tarant la balance le cas échéant.\n\nMélanges\nDistinguer des mélanges homogènes et des mélanges hétérogènes.\nSéparer les constituants d’un mélange de solides ou d’un mélange solide-liquide par tamisage, décantation, filtration.\nConstater que certains solides peuvent se dissoudre dans l’eau.\nObserver le phénomène de saturation lors du mélange d’un solide dans l’eau et en rendre compte quantitativement."
+        },
+        {
+          "level": "CM1",
+          "page": 93,
+          "title": "Différents types de mouvement",
+          "description": "Mesurer une distance lors du déplacement d’un objet.\nMesurer une durée, comme intervalle entre deux instants, lors du déplacement d’un objet."
+        },
+        {
+          "level": "CM1",
+          "page": 94,
+          "title": "Signaux",
+          "description": "Lumière\nObserver et classer des matériaux selon qu’ils sont transparents, opaques à la lumière ou translucides.\nProduire expérimentalement une ombre (déficit de lumière associé à une source) à l’aide d’un objet opaque et distinguer ombre propre et ombre portée (sur le sol ou sur un écran).\nProduire des ombres et associer leurs positions et leurs tailles à celles de la source lumineuse et de l’objet opaque.\nObserver, schématiser et nommer les phases de la Lune."
+        },
+        {
+          "level": "CM2",
+          "page": 94,
+          "title": "États et constitution de la matière à l’échelle macroscopique",
+          "description": "Masse et volume\nEffectuer des conversions d’unités de masse (en se limitant à des unités usuelles : tonne, kilogramme, gramme et milligramme).\nMesurer le volume d’un liquide et mesurer celui d’un solide (plein non soluble) par déplacement de liquide.\nMettre en évidence expérimentalement que la masse totale se conserve lors du mélange d’un solide dans un liquide.\nMettre en évidence expérimentalement que, lorsqu’un solide est dissout dans un liquide, le volume total n’est pas nécessairement la somme du volume du solide et du liquide.\n\nMélanges\nRécupérer un solide dissout dans l’eau par évaporation.\n\nPropriétés de la matière\nDifférencier les états physiques solide (forme et volume propres), liquide (volume propre, absence de forme propre et surface horizontale) et gazeux (ni forme propre ni volume propre).\nObserver des changements d’état physique et leur réversibilité. Nommer les changements d’état.\nIdentifier les différents états physiques de la matière dans la nature, en particulier ceux de l’eau."
+        },
+        {
+          "level": "CM2",
+          "page": 95,
+          "title": "Différents types de mouvement",
+          "description": "Observer et identifier le mouvement rectiligne ou circulaire d’un objet, en fonction de l’observateur.\nDécrire le mouvement de la Terre par rapport au Soleil et la situer dans le système solaire.\nEffectuer des conversions d’unités de distance et de temps."
+        },
+        {
+          "level": "CM2",
+          "page": 96,
+          "title": "Signaux",
+          "description": "Électricité\nRéaliser un circuit électrique à une boucle associant un générateur (pile), un interrupteur, un ou deux récepteurs (ampoule) pour mettre en évidence la circulation du courant électrique.\nRechercher des informations sur les règles de sécurité électrique et les prendre en compte dans son activité.\nIdentifier des matériaux conducteurs et isolants électriques."
+        }
+      ]
+    },
+    {
+      "code": "les-etres-vivants-dans-leur-environnement",
+      "label": "Les êtres vivants dans leur environnement",
+      "items": [
+        {
+          "level": "CM1",
+          "page": 99,
+          "title": "Unité et diversité du vivant",
+          "description": "Classification du vivant\nDéfinir une espèce comme un ensemble d’individus interféconds.\nRéaliser une classification en groupes emboités à partir d’un petit nombre d’espèces possédant des attributs identifiés, puis en déduire les liens de parenté.\n\nBiodiversité actuelle et passée\nIdentifier des espèces en utilisant une clé de détermination."
+        },
+        {
+          "level": "CM1",
+          "page": 100,
+          "title": "Reproduction, croissance et développement",
+          "description": "Cycle de vie\nDécrire les étapes du développement des animaux de la fécondation à la naissance.\nMettre en relation le type de fécondation (interne ou externe) avec le mode de reproduction ovipare et vivipare des animaux."
+        },
+        {
+          "level": "CM1",
+          "page": 100,
+          "title": "Les écosystèmes",
+          "description": "Écosystème\nDéfinir un écosystème comme un ensemble d’êtres vivants, leur milieu de vie et leurs relations.\n\nPlace des êtres vivants dans les réseaux alimentaires\nRelier la production de matière par les animaux à leur consommation de nourriture provenant d’autres êtres vivants.\nExpérimenter pour identifier les besoins des végétaux et les relier à leur capacité à produire de la matière organique.\nReprésenter par un réseau les liens alimentaires entre les êtres vivants.\nEnvisager les conséquences d’une action humaine sur un réseau alimentaire."
+        },
+        {
+          "level": "CM1",
+          "page": 100,
+          "title": "La Terre, une planète active",
+          "description": "La météorologie\nRéaliser et exploiter des mesures météorologiques en utilisant des capteurs (thermomètre, pluviomètre, anémomètre).\nCaractériser à partir de données les variations météorologiques de son espace de vie au cours du temps (journée, semaine, mois, saison)."
+        },
+        {
+          "level": "CM2",
+          "page": 100,
+          "title": "Unité et diversité du vivant",
+          "description": "Biodiversité actuelle et passée\nDistinguer différentes échelles de temps : l’échelle des temps géologiques (notion de temps long) et celle de l’histoire de l’être humain.\nCaractériser des changements de la biodiversité au cours de l’histoire de la Terre par l’exploitation de fossiles."
+        },
+        {
+          "level": "CM2",
+          "page": 101,
+          "title": "Les écosystèmes",
+          "description": "Conséquences des actions humaines sur l’environnement\nS’impliquer dans des actions et des projets relatifs à l’éducation au développement durable (EDD) et à la transition écologique sur un thème au choix : changement climatique, biodiversité, gestion des ressources et des déchets, etc., afin de développer la capacité à agir individuellement et collectivement.\nDévelopper un rapport sensible à la nature et prendre conscience de la nécessité et des possibilités d’agir, individuellement et collectivement pour protéger l’environnement, dans le cadre d’un projet EDD."
+        },
+        {
+          "level": "CM2",
+          "page": 101,
+          "title": "La Terre, une planète active",
+          "description": "L’activité terrestre\nRepérer des manifestations de l’activité interne ou externe de la Terre.\nDéfinir la notion de risque naturel et identifier les mesures de prévention et de protection associées, à partir d’un exemple au choix : séisme, éruption volcanique, inondation, tempête, cyclone, érosion littorale, glissement de terrain, etc.\n\nLe climat local\nDéfinir le climat local comme l’ensemble des conditions météorologiques pendant plusieurs années dans une région.\nDécrire quelques conséquences du changement climatique récent sur son environnement proche.\nCiter des stratégies d’atténuation ou d’adaptation au changement climatique, en privilégiant les exemples locaux."
+        }
+      ]
+    },
+    {
+      "code": "le-corps-humain-et-la-sante",
+      "label": "Le corps humain et la santé",
+      "items": [
+        {
+          "level": "CM1",
+          "page": 103,
+          "title": "Le cerveau : introduction à quelques grandes fonctions",
+          "description": "Localiser le cerveau et l’identifier comme un organe impliqué dans différentes fonctions : perception sensorielle, élaboration de la commande motrice, langage, apprentissage et mémorisation, élaboration des émotions, production des rêves.\nComprendre quelques mécanismes perceptifs et comment notre perception du monde peut être différente de sa réalité physique.\nDéterminer des stratégies pour focaliser son attention sur une tâche identifiée et/ou mémoriser une information (mémoire à court terme et mémoire à long terme)."
+        },
+        {
+          "level": "CM1",
+          "page": 104,
+          "title": "Puberté et reproduction humaine",
+          "description": "Décrire et identifier les changements morphologiques du corps au moment de la puberté.\nComprendre que la puberté se produit à des âges différents selon les individus, qu’elle n’a pas les mêmes effets et que ces changements sont normaux."
+        },
+        {
+          "level": "CM2",
+          "page": 104,
+          "title": "Alimentation humaine",
+          "description": "Besoins alimentaires et nutrition humaine\nExploiter des données mettant en évidence le besoin de matière pour la croissance et le développement des êtres vivants.\nExploiter des données pour expliquer la variation des besoins alimentaires au cours de la croissance et selon l’activité physique.\nIdentifier et localiser la transformation des aliments dans l’appareil digestif (mastication par les dents, changements de texture lors du trajet) en nutriments utilisables par les organes.\nNommer et localiser les différents organes du système digestif, en les associant à leur fonction.\nIdentifier le rôle de la circulation sanguine dans l’approvisionnement des organes en nutriments.\nAssocier l’augmentation de l’activité cardiaque lors d’un effort physique aux besoins accrus des muscles en nutriments apportés par la circulation sanguine."
+        },
+        {
+          "level": "CM2",
+          "page": 104,
+          "title": "Puberté et reproduction humaine",
+          "description": "Nommer les organes reproducteurs et les associer à leur fonction.\nDéfinir scientifiquement les menstruations (règles), composante normale et naturelle du développement physique des filles, qui se mettent en place à la puberté : renouvèlement périodique de la paroi interne de l’utérus (épaississement puis destruction partielle occasionnant des saignements)."
+        }
+      ]
+    },
+    {
+      "code": "les-objets-techniques-au-coeur-de-la-societe",
+      "label": "Les objets techniques au cœur de la société",
+      "items": [
+        {
+          "level": "CM1",
+          "page": 106,
+          "title": "Les objets techniques en réponse aux besoins des individus et de la société",
+          "description": "Repérer les évolutions d’un objet dans différents contextes (historique, géographique, économique, culturel, technologique, dans le cadre du développement durable).\nComparer des réponses à des besoins dans différents contextes."
+        },
+        {
+          "level": "CM1",
+          "page": 106,
+          "title": "Description du fonctionnement et de la constitution d’objets techniques",
+          "description": "Identifier les fonctions assurées par les différents composants ou formes ou matériaux d’un objet technique.\nAssocier les solutions technologiques aux fonctions techniques.\nReprésenter graphiquement à l’aide de croquis à main levée les éléments d’un objet technique.\nIdentifier les sous-ensembles constituant un objet technique.\nDécrire à l’aide d’un croquis le fonctionnement d’un objet technique."
+        },
+        {
+          "level": "CM1",
+          "page": 106,
+          "title": "Programmation d’objets techniques",
+          "description": "Algorithmes et programmation\nTraduire un programme simple en langage naturel.\nUtiliser un programme pour agir sur le comportement d’un objet technique."
+        },
+        {
+          "level": "CM2",
+          "page": 107,
+          "title": "Démarche de conception et de réalisation d’un objet technique",
+          "description": "Rechercher des idées de solutions à l’aide de croquis pour résoudre un problème technique donné.\nAssocier une contrainte à un choix de matériau en fonction de ses propriétés physiques.\nOrganiser le travail de conception d’une maquette et la fabriquer.\nComparer des solutions par une analyse critique (notamment dans le cadre de la transition écologique et du développement durable)."
+        },
+        {
+          "level": "CM2",
+          "page": 107,
+          "title": "Programmation d’objets techniques",
+          "description": "Algorithmes et programmation\nComprendre un algorithme agissant sur le comportement d’un objet technique.\nModifier, tester et valider un programme au regard du comportement de l’objet programmé."
+        }
+      ]
+    }
+  ]
+}
