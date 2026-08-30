@@ -26,8 +26,8 @@ A project for my wife, to help her monitoring her teacher journey :)
 │                   Core API (FastAPI)                         │
 │                   localhost:12109                             │
 │  ┌─────────────┐ ┌─────────────┐ ┌─────────────────────┐    │
-│  │   SQLModel  │ │     JWT     │ │      Alembic        │    │
-│  │     ORM     │ │    Auth     │ │    Migrations       │    │
+│  │   SQLModel  │ │  Anthropic  │ │      Alembic        │    │
+│  │     ORM     │ │     SDK     │ │    Migrations       │    │
 │  └─────────────┘ └─────────────┘ └─────────────────────┘    │
 └─────────────────────────┬───────────────────────────────────┘
                           │ TCP
@@ -104,10 +104,12 @@ set `ANTHROPIC_API_KEY` if you want the AI feedback feature.
 │
 ├── .github/                 # CI/CD workflows
 │   └── workflows/
+│       ├── check.yml       # Lint, types, core + webapp tests
 │       ├── commitlint.yml  # Commit message validation
 │       └── semantic-release.yml
 │
 ├── docs/                    # Source PDFs (official programmes, timetable, methodologies)
+│   └── agents/             # Conventions the AI skills follow (issue tracker, domain docs)
 ├── MASTER-PROMPT.md        # Project reference: scope, data model, phased plan
 ├── compose.yaml            # Docker Compose config
 ├── pyproject.toml          # Root Python config + tools
@@ -147,20 +149,24 @@ make fix            # Auto-fix Python formatting and import order
 ### Testing
 
 ```bash
-make test-core      # pytest, inside the core container
+make test           # Everything (core + webapp)
+make test-core      # pytest, inside the running core container
+make test-core-host # pytest, on the host without Docker (what CI runs)
 make test-webapp    # vitest, on the host
 ```
+
+The host-side targets (`make check`, `make test-webapp`, `make test-core-host`) install
+their own toolchain on first run, so a fresh clone can call them directly.
 
 ### Database Migrations
 
 Migrations auto-run on app startup. For manual control:
 
 ```bash
-# Generate migration
-alembic revision --autogenerate -m "description"
-
-# Apply migrations
-alembic upgrade head
+make db-migrate MSG="description"   # Generate a migration (autogenerate)
+make db-upgrade                     # Apply all pending migrations
+make db-downgrade                   # Revert the last migration
+make db-current                     # Show the current revision
 ```
 
 ## Environment Variables

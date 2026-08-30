@@ -128,14 +128,10 @@ postgresql://user:password@host:5432/database
 Migrations auto-run on application startup. Manual commands:
 
 ```bash
-# Generate a new migration
-alembic revision --autogenerate -m "Add users table"
-
-# Apply all migrations
-alembic upgrade head
-
-# Rollback one migration
-alembic downgrade -1
+# From the repository root (these run inside the core container)
+make db-migrate MSG="Add users table"   # generate a new migration
+make db-upgrade                         # apply all migrations
+make db-downgrade                       # roll back one migration
 ```
 
 ### Models
@@ -202,12 +198,16 @@ Supports both:
 
 ## Testing
 
-Tests run inside the core container (they need the database):
-
 ```bash
-make test-core                                    # all core tests
+make test-core       # all core tests, inside the running core container
+make test-core-host  # the same tests on the host, without Docker (what CI runs)
+
+# a single file
 docker compose exec core bash -c 'uv run pytest core/tests/test_health.py -v'
 ```
+
+`TestClient(app)` is used without its context manager, so the FastAPI lifespan (and
+with it `alembic upgrade head`) does not run: the tests need no database.
 
 Test pattern using FastAPI TestClient:
 
