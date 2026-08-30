@@ -42,7 +42,7 @@ class Sequence(SQLModel, table=True):
     subject_id: uuid.UUID | None = reference("subjects.id", nullable=True, ondelete="SET NULL")
     # Set where the méthodo says which domaine a séquence belongs to — the RETZ CM1
     # progression colour-codes grammaire against conjugaison, and the EDT teaches them
-    # in different créneaux. Null where the source does not say (see the ADR).
+    # in different créneaux. Null where the source does not say (ADR-0006).
     domain_id: uuid.UUID | None = reference("domains.id", nullable=True, ondelete="SET NULL")
     needs_review: bool = Field(
         sa_column=Column(Boolean, nullable=False, server_default=text("false")), default=False

@@ -1,5 +1,6 @@
 # 07 - Verify the §8 Phase 2 acceptance criteria
 
+Type: task
 Status: resolved
 Blocked by: 06
 

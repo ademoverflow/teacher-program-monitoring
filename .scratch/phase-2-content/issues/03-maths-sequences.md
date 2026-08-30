@@ -1,5 +1,6 @@
 # 03 - Seed the 70 maths séquences
 
+Type: task
 Status: resolved
 
 §4.3 of MASTER-PROMPT.md is authoritative (it says so); `docs/outil-pedagogique-maths-cm1.pdf`

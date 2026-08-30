@@ -34,11 +34,12 @@ OEUVRES = (
 )
 CHARLIE_WEEKS = 7
 
-MATHS_CM1_PERIODS = {"P1": 7, "P2": 7, "P3": 6, "P4": 7, "P5": 8}
-MATHS_CM2_PERIODS = {"P1": 7, "P2": 7, "P3": 6, "P4": 7, "P5": 8}
+# §4.3 spreads both niveaux the same way: « les nombres de séquences par période
+# (7/7/6/7/8) ne coïncident pas exactement avec les semaines des périodes ».
+MATHS_PERIODS = {"P1": 7, "P2": 7, "P3": 6, "P4": 7, "P5": 8}
 
 
-def _of(method: str) -> list[SequenceSeed]:
+def _sequences_of(method: str) -> list[SequenceSeed]:
     """Collect the séquences of one méthodo, in number order."""
     return sorted((s for s in SEQUENCES if s.method == method), key=lambda s: s.number)
 
@@ -58,13 +59,13 @@ def test_sequences_are_unique_on_their_natural_key() -> None:
 def test_each_methodo_is_numbered_from_one_without_a_hole() -> None:
     """The generator (Phase 3) walks the séquences in order: a hole would skip a week."""
     for method, count in SEQUENCES_PER_METHOD.items():
-        assert [sequence.number for sequence in _of(method)] == list(range(1, count + 1))
+        assert [sequence.number for sequence in _sequences_of(method)] == list(range(1, count + 1))
 
 
 def test_maths_sequences_carry_the_titles_of_the_document() -> None:
     """§4.3 is authoritative for the maths méthodo — the PDFs only confirm it."""
-    cm1 = _of("maths-cm1")
-    cm2 = _of("maths-cm2")
+    cm1 = _sequences_of("maths-cm1")
+    cm2 = _sequences_of("maths-cm2")
 
     assert cm1[0].title == "Nombres jusqu'à 9999"
     assert cm1[11].title == "Addition et soustraction de nombres décimaux"
@@ -77,14 +78,14 @@ def test_maths_sequences_carry_the_titles_of_the_document() -> None:
 
 def test_maths_sequences_sit_in_the_periods_the_methodo_gives_them() -> None:
     """§4.3 prints them période by période; Phase 3 decides the real weeks."""
-    assert Counter(s.period_code for s in _of("maths-cm1")) == MATHS_CM1_PERIODS
-    assert Counter(s.period_code for s in _of("maths-cm2")) == MATHS_CM2_PERIODS
+    assert Counter(s.period_code for s in _sequences_of("maths-cm1")) == MATHS_PERIODS
+    assert Counter(s.period_code for s in _sequences_of("maths-cm2")) == MATHS_PERIODS
 
 
 def test_retz_sequences_carry_the_titles_of_the_document() -> None:
     """§4.4: 21 séquences per niveau, bonus ones included."""
-    cm1 = _of("retz-cm1")
-    cm2 = _of("retz-cm2")
+    cm1 = _sequences_of("retz-cm1")
+    cm2 = _sequences_of("retz-cm2")
 
     assert cm1[0].title == "Les groupes dans la phrase"
     assert cm1[20].title == "Le passé simple des verbes à la 3e personne (bonus)"
@@ -95,21 +96,21 @@ def test_retz_sequences_carry_the_titles_of_the_document() -> None:
 
 def test_every_retz_cm1_sequence_carries_the_objectives_the_pdf_prints() -> None:
     """The CM1 progression prints objectives for each séquence; the CM2 one does not."""
-    assert all(sequence.objectives for sequence in _of("retz-cm1"))
-    assert not any(sequence.objectives for sequence in _of("retz-cm2"))
+    assert all(sequence.objectives for sequence in _sequences_of("retz-cm1"))
+    assert not any(sequence.objectives for sequence in _sequences_of("retz-cm2"))
 
 
 def test_retz_sequences_say_whether_they_are_grammaire_or_conjugaison() -> None:
     """The CM1 progression colour-codes them; the EDT teaches them on different days."""
-    domains = Counter(sequence.domain for sequence in _of("retz-cm1"))
+    domains = Counter(sequence.domain for sequence in _sequences_of("retz-cm1"))
 
     assert domains == {"grammaire": 14, "conjugaison": 7}
-    assert not any(sequence.domain for sequence in _of("retz-cm2"))
+    assert not any(sequence.domain for sequence in _sequences_of("retz-cm2"))
 
 
 def test_the_eight_oeuvres_of_the_year_are_all_there() -> None:
     """§4.5, numbered in the order of the périodes they are read in."""
-    litterature = _of("litterature")
+    litterature = _sequences_of("litterature")
 
     assert tuple(sequence.title for sequence in litterature) == OEUVRES
     assert [sequence.period_code for sequence in litterature] == [

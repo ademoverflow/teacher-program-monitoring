@@ -1,9 +1,9 @@
 {
   "$comment": [
-    "Programme de sciences et technologie, docs/programme-cm1-cm2.pdf p. 92-107.",
+    "Programme de sciences et technologie, docs/programme-cm1-cm2.pdf p. 90-107.",
     "Ces pages n'ont aucune couche texte (ce sont des images) : elles ont été lues en",
     "vision et recopiées à la main, contrairement au reste du programme qui est extrait",
-    "par scripts/extract_program_items.py.",
+    "par scripts/extract_program_items.py. Les items commencent p. 93, après les principes.",
     "Un item = un thème du domaine, pour un niveau. La description reprend la colonne",
     "« Objectifs d'apprentissage » du tableau, avec les intitulés que la source imprime",
     "au-dessus des objectifs. La colonne « Propositions de démarches et d'activités »",

@@ -42,6 +42,7 @@ from curriculum_map import (
     SOURCE_FILE,
     TABLES,
     Programme,
+    Section,
     TableProgramme,
 )
 
@@ -101,6 +102,9 @@ def join_wrapped(lines: list[str]) -> list[str]:
 
 
 SENTENCE_END = ".:;,"
+# A « Question : … » or « Mots-clés : … » line runs on when it does not close: those
+# lines are printed full-width above the table and wrap onto the next line.
+SENTENCE_CLOSE = ".?!"
 
 
 def _heading_before(lines: list[str], section: str) -> str:
@@ -155,6 +159,61 @@ class _Block(NamedTuple):
     level: str | None
 
 
+class _Headings(NamedTuple):
+    """How one prose programme prints its headings.
+
+    Three ways of recognising one, all derived from the same ``Programme``: the
+    sections it is cut into, the headings whose item is the prose below them, and — for
+    langues vivantes, whose headings are too many to list — the shape they take.
+    """
+
+    sections: dict[str, Section]
+    paragraphs: set[str]
+    pattern: re.Pattern[str] | None
+
+    @classmethod
+    def of(cls, programme: Programme) -> "_Headings":
+        """Read the three off a programme."""
+        return cls(
+            {section.heading: section for section in programme.sections},
+            set(programme.paragraph_titles),
+            re.compile(programme.heading_pattern) if programme.heading_pattern else None,
+        )
+
+    def ends_a_block(self, line: str) -> bool:
+        """Say whether a block of prose ends here, at the next heading of any kind."""
+        return (
+            line in self.paragraphs
+            or line in self.sections
+            or line in LEVEL_MARKERS
+            or line in OTHER_LEVEL_MARKERS
+            or bool(self.pattern and self.pattern.search(line))
+        )
+
+    def block_at(
+        self, lines: list[str], index: int, level: str | None, section: str
+    ) -> "_Block | None":
+        """Read the block the line at ``index`` opens, if it opens one."""
+        line = lines[index].strip()
+        under = lines[index + 1 :]
+        match = self.pattern.search(line) if self.pattern else None
+        if match:
+            # The heading names the niveau it belongs to; trust it over the last
+            # marker seen, which may be several pages back.
+            return _Block(line, _prose_under(under, self.ends_a_block), match.group(1))
+        if level is None:
+            return None
+        if line in self.paragraphs:
+            return _Block(line, _prose_under(under, self.ends_a_block), level)
+        if self.pattern or line not in OBJECTIVES_MARKERS:
+            # A programme whose headings all match the pattern keeps its « Objectifs
+            # d'apprentissage » lists inside the block that opened above.
+            return None
+        title = _heading_before(lines[:index], section)
+        body = _objectives_under(under)
+        return _Block(title, body, level) if title and body else None
+
+
 def read_prose(programme: Programme) -> list[Item]:
     """Read every item of one prose programme.
 
@@ -162,20 +221,7 @@ def read_prose(programme: Programme) -> list[Item]:
     moyen deuxième année » once and everything under it belongs to CM2 until the next
     marker, however many pages later that is.
     """
-    sections = {section.heading: section for section in programme.sections}
-    paragraphs = set(programme.paragraph_titles)
-    pattern = re.compile(programme.heading_pattern) if programme.heading_pattern else None
-
-    def is_boundary(line: str) -> bool:
-        """Say whether a block of prose ends here, at the next heading of any kind."""
-        return (
-            line in paragraphs
-            or line in sections
-            or line in LEVEL_MARKERS
-            or line in OTHER_LEVEL_MARKERS
-            or bool(pattern and pattern.search(line))
-        )
-
+    headings = _Headings.of(programme)
     opening = programme.sections[0]
     level: str | None = None
     section = opening
@@ -195,15 +241,13 @@ def read_prose(programme: Programme) -> list[Item]:
             if line in OTHER_LEVEL_MARKERS:
                 level = None
                 continue
-            if line in sections:
-                section = sections[line]
+            if line in headings.sections:
+                section = headings.sections[line]
                 if section.coarse:
                     coarse = section
                 continue
 
-            block = _block_at(
-                lines, index, level, section.heading, pattern, paragraphs, is_boundary
-            )
+            block = headings.block_at(lines, index, level, section.heading)
             if block is None:
                 continue
             level = block.level
@@ -219,35 +263,6 @@ def read_prose(programme: Programme) -> list[Item]:
                 )
             )
     return items
-
-
-def _block_at(  # noqa: PLR0913 - the reader's whole state, passed rather than shared
-    lines: list[str],
-    index: int,
-    level: str | None,
-    section: str,
-    pattern: re.Pattern[str] | None,
-    paragraphs: set[str],
-    is_boundary: Callable[[str], bool],
-) -> _Block | None:
-    """Read the block the line at ``index`` opens, if it opens one."""
-    line = lines[index].strip()
-    match = pattern.search(line) if pattern else None
-    if match:
-        # The heading names the niveau it belongs to; trust it over the last marker
-        # seen, which may be several pages back.
-        return _Block(line, _prose_under(lines[index + 1 :], is_boundary), match.group(1))
-    if level is None:
-        return None
-    if line in paragraphs:
-        return _Block(line, _prose_under(lines[index + 1 :], is_boundary), level)
-    if pattern or line not in OBJECTIVES_MARKERS:
-        # A programme whose headings all match the pattern keeps its « Objectifs
-        # d'apprentissage » lists inside the block that opened above.
-        return None
-    title = _heading_before(lines[:index], section)
-    body = _objectives_under(lines[index + 1 :])
-    return _Block(title, body, level) if title and body else None
 
 
 def columns(lines: list[str]) -> list[list[str]]:
@@ -288,30 +303,55 @@ def _is_column_header(line: str, columns: tuple[str, ...]) -> bool:
     )
 
 
-def _table_description(
-    programme: TableProgramme, region: list[tuple[int, str]], intro: list[str]
-) -> str:
-    """Rebuild a table as text, column by column, under the names the source prints.
+class _OpenTable:
+    """The table being read: what it will be titled, and the lines gathered so far.
 
-    A table can run over a page break, and the two halves rarely line up on the same
-    character columns, so each page's slice is split on its own gutters and the pieces
-    are stitched together per column afterwards.
+    Both table readers walk pages line by line and close the table they were reading
+    when the next heading turns up, so both need somewhere to put the lines in
+    between. Mutable, unlike ``Item``, because that is what accumulating is.
     """
-    per_page: dict[int, list[str]] = {}
-    for page, line in region:
-        per_page.setdefault(page, []).append(line)
 
-    cells: list[list[str]] = [[] for _ in programme.columns]
-    for lines in per_page.values():
-        split = columns(lines)
-        for index, cell in enumerate(split[: len(cells)]):
-            cells[index].extend(cell)
+    def __init__(self, *, level: str, subject: str, title: str, page: int) -> None:
+        self.level = level
+        self.subject = subject
+        self.title = title
+        self.page = page
+        self.intro: list[str] = []
+        self.region: list[str] = []
 
-    parts = list(intro)
-    for name, cell in zip(programme.columns, cells, strict=True):
-        if cell:
-            parts.append(f"{name}\n" + "\n".join(join_wrapped(cell)))
-    return "\n\n".join(part for part in parts if part)
+    def gather(self, raw: str, intro_prefixes: tuple[str, ...]) -> None:
+        """Put one line where it belongs: above the table, or inside it.
+
+        The line is kept exactly as ``pdftotext -layout`` printed it, indentation
+        included, because that indentation is what tells the table's columns apart.
+
+        A « Question : … » or « Mots-clés : … » line is printed full-width above the
+        table and wraps onto the next line when it is long, so a line following one
+        that has not closed its sentence continues it rather than opening a row.
+        """
+        line = raw.strip()
+        if intro_prefixes and line.startswith(intro_prefixes):
+            self.intro.append(line)
+        elif self.intro and self.intro[-1][-1] not in SENTENCE_CLOSE:
+            self.intro[-1] = f"{self.intro[-1]} {line}"
+        else:
+            self.region.append(raw)
+
+    def describe(self, columns_named: tuple[str, ...]) -> str:
+        """Rebuild the table as text, column by column, under the names it prints.
+
+        The whole table is split at once, page break included: a column is a run of
+        character positions blank on every line of it, and those positions hold across
+        a page break because the source redraws the table at the same width. Splitting
+        each page on its own would misplace a continuation whose first column happens
+        to be empty — its second column would start at position zero and be read as
+        the first.
+        """
+        parts = list(self.intro)
+        for name, cell in zip(columns_named, columns(self.region), strict=False):
+            if cell:
+                parts.append(f"{name}\n" + "\n".join(join_wrapped(cell)))
+        return "\n\n".join(part for part in parts if part)
 
 
 def read_histoire_geographie() -> list[Item]:
@@ -319,106 +359,84 @@ def read_histoire_geographie() -> list[Item]:
 
     A thème is the item: the source names it, gives it its question, its table of
     objectives, attendus and repères, and its mots-clés, and plans the year in thèmes.
+    Histoire and géographie share these pages, and the matière switches on its heading.
     """
     programme = HISTOIRE_GEOGRAPHIE
+    intro_prefixes = ("Question :", "Mots-clés :", "Mots clés :", "Fil directeur")
     subject = programme.subject
     level: str | None = None
     items: list[Item] = []
-    current: dict[str, object] | None = None
+    table: _OpenTable | None = None
 
-    def flush() -> None:
-        """Close the thème being read and turn it into an item."""
-        if current is None:
-            return
-        description = _table_description(
-            programme,
-            current["region"],  # type: ignore[arg-type]
-            current["intro"],  # type: ignore[arg-type]
-        )
-        if description:
+    def close(open_table: _OpenTable | None) -> None:
+        """Turn the thème that was being read into an item."""
+        description = open_table.describe(programme.columns) if open_table else ""
+        if open_table and description:
             items.append(
                 Item(
-                    level=current["level"],  # type: ignore[arg-type]
-                    subject=current["subject"],  # type: ignore[arg-type]
+                    level=open_table.level,
+                    subject=open_table.subject,
                     domain=None,
                     domain_label=None,
-                    title=current["title"],  # type: ignore[arg-type]
+                    title=open_table.title,
                     description=description,
-                    page=current["page"],  # type: ignore[arg-type]
+                    page=open_table.page,
                 )
             )
 
     for page in range(programme.first_page, programme.last_page + 1):
         for raw in page_text(page).splitlines():
             line = raw.strip()
-            if line in {"Histoire", "Géographie"}:
-                flush()
-                current = None
-                subject = "histoire" if line == "Histoire" else "geographie"
-                continue
             marker = next((key for key in LEVEL_MARKERS if line.startswith(key)), None)
-            if marker:
-                flush()
-                current = None
+            ends_the_theme = (
+                line in {"Histoire", "Géographie"}
+                or marker
+                or line in OTHER_LEVEL_MARKERS
+                or line.startswith("Sixième")
+                or (line.startswith("Thème ") and level is not None)
+            )
+            if ends_the_theme:
+                close(table)
+                table = None
+            if line in {"Histoire", "Géographie"}:
+                subject = "histoire" if line == "Histoire" else "geographie"
+            elif marker:
                 level = LEVEL_MARKERS[marker]
-                continue
-            if line in OTHER_LEVEL_MARKERS or line.startswith("Sixième"):
-                flush()
-                current = None
+            elif line in OTHER_LEVEL_MARKERS or line.startswith("Sixième"):
                 level = None
-                continue
-            if line.startswith("Thème ") and level is not None:
-                flush()
-                current = {
-                    "level": level,
-                    "subject": subject,
-                    "title": line,
-                    "page": page,
-                    "intro": [],
-                    "region": [],
-                }
-                continue
-            if current is None or not line:
-                continue
-            if line.startswith(("Question :", "Mots-clés :", "Mots clés :", "Fil directeur")):
-                current["intro"].append(line)  # type: ignore[union-attr]
-            elif not _is_column_header(line, programme.columns):
-                current["region"].append((page, raw))  # type: ignore[union-attr]
-    flush()
+            elif line.startswith("Thème ") and level is not None:
+                table = _OpenTable(level=level, subject=subject, title=line, page=page)
+            elif table and line and not _is_column_header(line, programme.columns):
+                table.gather(raw, intro_prefixes)
+    close(table)
     return items
 
 
 def read_sectioned_tables(programme: TableProgramme) -> list[Item]:
     """Read a programme cut into named sections, each holding one table."""
     level = programme.level
-    items: list[Item] = []
-    current: dict[str, object] | None = None
     levels = dict(programme.levels)
     headers = {part for column in programme.columns for part in column.split(" ")} | set(
         programme.columns
     )
+    items: list[Item] = []
+    table: _OpenTable | None = None
 
-    def flush() -> None:
-        """Close the section being read and turn it into an item."""
-        if current is None:
+    def close(open_table: _OpenTable | None) -> None:
+        """Turn the section that was being read into an item."""
+        description = open_table.describe(programme.columns) if open_table else ""
+        if not (open_table and description):
             return
-        description = _table_description(
-            programme,
-            current["region"],  # type: ignore[arg-type]
-            current["intro"],  # type: ignore[arg-type]
-        )
-        if not description:
-            return
-        title = current["title"]  # type: ignore[assignment]
+        from_section = programme.domain_from_section
         items.append(
             Item(
-                level=current["level"],  # type: ignore[arg-type]
+                level=open_table.level,
                 subject=programme.subject,
-                domain=slug(title) if programme.domain_from_section else programme.domain,
-                domain_label=title if programme.domain_from_section else programme.domain_label,
-                title=title,  # type: ignore[arg-type]
+                domain=slug(open_table.title) if from_section else programme.domain,
+                domain_label=open_table.title if from_section else programme.domain_label,
+                title=open_table.title,
                 description=description,
-                page=current["page"],  # type: ignore[arg-type]
+                page=open_table.page,
             )
         )
 
@@ -430,37 +448,22 @@ def read_sectioned_tables(programme: TableProgramme) -> list[Item]:
                 skip_next = False
                 continue
             line = raw.strip()
-            if line in levels:
-                flush()
-                current = None
-                level = levels[line]
-                continue
-            if any(line.startswith(stop) for stop in programme.stops):
-                flush()
-                current = None
-                level = ""
-                continue
-            heading, consumed = _match_section(lines, index, programme.sections)
-            if heading and level:
-                flush()
-                skip_next = consumed
-                current = {
-                    "level": level,
-                    "title": heading,
-                    "page": page,
-                    "intro": [],
-                    "region": [],
-                }
-                continue
-            if current is None or not line:
-                continue
-            if line.startswith(programme.intro_prefixes) if programme.intro_prefixes else False:
-                current["intro"].append(line)  # type: ignore[union-attr]
-                continue
-            if line in headers or _is_column_header(line, programme.columns):
-                continue
-            current["region"].append((page, raw))  # type: ignore[union-attr]
-    flush()
+            heading, wrapped = _match_section(lines, index, programme.sections)
+            if line in levels or any(line.startswith(stop) for stop in programme.stops):
+                close(table)
+                table = None
+                level = levels.get(line, "")
+            elif heading and level:
+                close(table)
+                skip_next = wrapped
+                table = _OpenTable(level=level, subject=programme.subject, title=heading, page=page)
+            elif (
+                table
+                and line
+                and not (line in headers or _is_column_header(line, programme.columns))
+            ):
+                table.gather(raw, programme.intro_prefixes)
+    close(table)
     return items
 
 
@@ -479,8 +482,9 @@ def _match_section(lines: list[str], index: int, sections: tuple[str, ...]) -> t
 def read_sciences() -> list[Item]:
     """Read the hand-transcribed sciences et technologie programme.
 
-    Pages 92-107 of the source are images with no text layer, so they were read in
+    Pages 90-107 of the source are images with no text layer, so they were read in
     vision and copied into ``scripts/curriculum_sciences.json`` rather than parsed.
+    The items themselves start on p. 93, after the programme's principes.
     """
     payload = json.loads(SCIENCES.read_text(encoding="utf-8"))
     return [
