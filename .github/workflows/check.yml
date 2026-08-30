@@ -42,6 +42,9 @@ jobs:
       - name: Type check
         run: make type-check
 
+      - name: Run core tests
+        run: make test-core-host
+
   webapp:
     name: Webapp Checks
     runs-on: ubuntu-latest
