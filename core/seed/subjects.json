@@ -1,0 +1,58 @@
+{
+  "$comment": [
+    "Matières and their domaines (MASTER-PROMPT.md §5).",
+    "Only the domaines named by §5 or by the timetable (§4.1) are listed: the",
+    "curriculum's own domaines are extracted from the PDFs in Phase 2.",
+    "Colours follow the hues of docs/edt.pdf, tinted so text stays readable on them.",
+    "EVAR and Poésie have no cell in the EDT and were given neutral tints."
+  ],
+  "subjects": [
+    {
+      "code": "francais",
+      "label": "Français",
+      "color": "#DAEEF3",
+      "domains": [
+        { "code": "grammaire", "label": "Grammaire" },
+        { "code": "conjugaison", "label": "Conjugaison" },
+        { "code": "orthographe", "label": "Orthographe" },
+        { "code": "vocabulaire", "label": "Vocabulaire" },
+        { "code": "lecture", "label": "Lecture" },
+        { "code": "ecriture", "label": "Écriture" },
+        { "code": "oral", "label": "Oral" }
+      ]
+    },
+    {
+      "code": "mathematiques",
+      "label": "Mathématiques",
+      "color": "#FFC7CE",
+      "domains": [
+        { "code": "nombres", "label": "Nombres" },
+        { "code": "calculs", "label": "Calculs" },
+        { "code": "calcul-mental", "label": "Calcul mental" },
+        { "code": "grandeurs-et-mesures", "label": "Grandeurs et mesures" },
+        { "code": "geometrie", "label": "Géométrie" },
+        { "code": "resolution-de-problemes", "label": "Résolution de problèmes" }
+      ]
+    },
+    { "code": "histoire", "label": "Histoire", "color": "#FDE9D9", "domains": [] },
+    { "code": "geographie", "label": "Géographie", "color": "#FBD5B5", "domains": [] },
+    {
+      "code": "sciences-et-technologie",
+      "label": "Sciences et technologie",
+      "color": "#EBF1DE",
+      "domains": []
+    },
+    { "code": "emc", "label": "EMC", "color": "#F2F2F2", "domains": [] },
+    { "code": "evar", "label": "EVAR", "color": "#EAE1F2", "domains": [] },
+    { "code": "anglais", "label": "Anglais", "color": "#E5D5EC", "domains": [] },
+    { "code": "arts-plastiques", "label": "Arts plastiques", "color": "#FFFF99", "domains": [] },
+    {
+      "code": "education-musicale",
+      "label": "Éducation musicale",
+      "color": "#FFF2CC",
+      "domains": []
+    },
+    { "code": "eps", "label": "EPS", "color": "#CCC0DA", "domains": [] },
+    { "code": "poesie", "label": "Poésie", "color": "#D9E2F3", "domains": [] }
+  ]
+}
