@@ -193,7 +193,9 @@ import { env } from "@/env";
 ## Testing
 
 ```bash
-make test-core      # Run Python tests (pytest, inside Docker)
+make test           # Run all tests (core + webapp)
+make test-core      # Run Python tests (pytest, inside the running core container)
+make test-core-host # Run Python tests on the host, without Docker (what CI runs)
 make test-webapp    # Run JS tests (vitest, on host)
 ```
 
@@ -259,6 +261,7 @@ make shell-db       # Bash into database container
 ### Utilities
 ```bash
 make install        # Install all dependencies (Python + JS)
+                    # (host-side check/test targets do this on their own when needed)
 make env            # Create .env from env.example (host UID/GID) if missing
 make seed           # (Phase 1+) Load the versioned JSON seeds into the database
 make clean          # Remove caches and build artifacts
