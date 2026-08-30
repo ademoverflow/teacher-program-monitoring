@@ -70,8 +70,6 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │   │   ├── database.py     # Async SQLAlchemy setup
 │   │   ├── routers/        # API route handlers
 │   │   ├── models/         # SQLModel data models
-│   │   ├── security/       # JWT + password hashing
-│   │   ├── middlewares/    # Auth middleware
 │   │   ├── logger/         # Structured logging
 │   │   └── alembic/        # Database migrations
 │   └── tests/
@@ -141,19 +139,6 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-```
-
-**Password Hashing** (Argon2id):
-```python
-from core.security.password import hash_password, verify_password
-```
-
-**JWT Tokens**:
-```python
-from core.security.token import create_access_token
-from datetime import timedelta
-
-token = create_access_token({"sub": user_id}, timedelta(minutes=60))
 ```
 
 ### Frontend (React/TypeScript)
@@ -300,7 +285,6 @@ Available via `/skill-name` in Claude Code:
 | Settings | `core/src/core/settings.py` |
 | Database | `core/src/core/database.py` |
 | User model | `core/src/core/models/user.py` |
-| Auth middleware | `core/src/core/middlewares/user.py` |
 | React entry | `webapp/src/main.tsx` |
 | Env validation | `webapp/src/env.ts` |
 | Docker setup | `compose.yaml` |

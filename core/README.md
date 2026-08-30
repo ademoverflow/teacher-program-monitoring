@@ -36,13 +36,6 @@ core/
 │   │   ├── user.py         # User model
 │   │   └── serializer.py   # JSON serialization (orjson)
 │   │
-│   ├── security/           # Authentication
-│   │   ├── token.py        # JWT creation/validation
-│   │   └── password.py     # Argon2id hashing
-│   │
-│   ├── middlewares/        # Request middleware
-│   │   └── user.py         # User extraction from JWT
-│   │
 │   ├── logger/             # Logging utilities
 │   │   ├── logger.py       # Custom logger setup
 │   │   └── levels.py       # Log level enum
@@ -56,7 +49,8 @@ core/
 │       └── versions/
 │
 ├── tests/                  # Test suite
-│   └── test_health.py
+│   ├── test_health.py
+│   └── test_settings.py
 │
 ├── Dockerfile              # Multi-stage Docker build
 ├── pyproject.toml          # Dependencies
@@ -110,8 +104,7 @@ Every setting has a default (`settings.py`), so the service boots with no `.env`
 | `ANTHROPIC_MODEL` | `claude-sonnet-5` | Model used for journal feedback |
 | `DEV_MODE` | `false` | Enable development mode (hot reload) |
 
-The `CORE_JWT_*` / `WEBAPP_URL` / `COOKIE_DOMAIN` settings are leftovers from the
-monorepo template: this application has no login, so they are unused.
+There is no authentication setting: this application has no login (see below).
 
 ## Database
 
@@ -150,51 +143,13 @@ class User(SQLModel, table=True):
 
 ## Authentication
 
-This application has **no authentication** (a single user, running locally). The
-helpers below still ship with the template but are not wired into any route — do not
-add `get_current_user` dependencies or a login router.
+There is none, by design: a single teacher runs this application on her own machine
+(MASTER-PROMPT §10). The template's JWT/Argon2 helpers, cookie settings and auth
+middleware have been removed — do not reintroduce `get_current_user` dependencies or
+a login router.
 
-### Password Hashing
-
-Uses Argon2id with secure defaults:
-
-```python
-from core.security.password import hash_password, verify_password
-
-hashed = hash_password("plaintext")
-is_valid = verify_password("plaintext", hashed)
-```
-
-### JWT Tokens
-
-```python
-from core.security.token import create_access_token
-from datetime import timedelta
-
-token = create_access_token(
-    data={"sub": str(user_id)},
-    expires_delta=timedelta(minutes=60)
-)
-```
-
-### Auth Middleware
-
-Inject current user into route handlers:
-
-```python
-from typing import Annotated
-from fastapi import Depends
-from core.middlewares.user import get_current_user
-from core.models.user import User
-
-@router.get("/me")
-async def get_me(user: Annotated[User, Depends(get_current_user)]) -> User:
-    return user
-```
-
-Supports both:
-- Cookie-based auth (for web app)
-- Bearer token in `Authorization` header (for mobile/API clients)
+The `users` table survives as the schema Alembic was bootstrapped with; nothing reads
+or writes it.
 
 ## Testing
 

@@ -7,12 +7,6 @@ ENV_KEYS = (
     "CORE_SERVER_HOST",
     "CORE_SERVER_PORT",
     "DATABASE_URL",
-    "CORE_JWT_ALGORITHM",
-    "CORE_JWT_TYPE",
-    "CORE_JWT_SECRET_KEY",
-    "CORE_JWT_EXPIRATION_TIMEDELTA_MINUTES",
-    "WEBAPP_URL",
-    "COOKIE_DOMAIN",
     "ANTHROPIC_API_KEY",
     "ANTHROPIC_MODEL",
     "DEV_MODE",
@@ -30,7 +24,6 @@ def test_settings_boot_without_environment(monkeypatch: pytest.MonkeyPatch) -> N
     assert settings.core_server_host == "0.0.0.0"
     assert settings.core_server_port == DEFAULT_PORT
     assert settings.database_url.startswith("postgresql://")
-    assert settings.core_jwt_algorithm == "HS256"
     assert settings.anthropic_api_key == ""
     assert settings.anthropic_model == "claude-sonnet-5"
     assert settings.dev_mode is False
