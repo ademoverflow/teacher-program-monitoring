@@ -105,7 +105,15 @@ def test_retz_sequences_say_whether_they_are_grammaire_or_conjugaison() -> None:
     domains = Counter(sequence.domain for sequence in _sequences_of("retz-cm1"))
 
     assert domains == {"grammaire": 14, "conjugaison": 7}
-    assert not any(sequence.domain for sequence in _sequences_of("retz-cm2"))
+
+
+def test_only_the_methodo_that_names_a_domaine_carries_one() -> None:
+    """ADR-0006: a séquence records its domaine only where its méthodo names it.
+
+    The RETZ CM1 progression prints a colour legend and is the only one that does; the
+    CM2 sommaire, the maths lists and the littérature planning say nothing.
+    """
+    assert {s.method for s in SEQUENCES if s.domain} == {"retz-cm1"}
 
 
 def test_the_eight_oeuvres_of_the_year_are_all_there() -> None:
