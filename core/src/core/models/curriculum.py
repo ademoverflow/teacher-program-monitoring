@@ -77,6 +77,16 @@ class ProgramItem(SQLModel, table=True):
 
     __tablename__: ClassVar[str] = "program_items"
     __table_args__: ClassVar[tuple] = (
+        UniqueConstraint(
+            "level",
+            "subject_id",
+            "domain_id",
+            "title",
+            name="uq_program_items_level_subject_domain_title",
+            # An item with no domaine must still collide with itself: without this,
+            # every ``make seed`` run would insert those items again.
+            postgresql_nulls_not_distinct=True,
+        ),
         enum_check("program_items", "level", Level),
         Index("ix_program_items_search_vector", "search_vector", postgresql_using="gin"),
     )
