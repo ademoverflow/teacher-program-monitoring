@@ -120,6 +120,45 @@ class TimetableSlotSeed(SeedModel):
     alternation_group: str | None = None
 
 
+class ProgramItemSeed(SeedModel):
+    """One item of the official curriculum, with the page it was read from."""
+
+    level: Level
+    subject: str
+    domain: str | None = None
+    title: str
+    description: str | None = None
+    source_file: str
+    source_page: int | None = None
+    needs_review: bool = False
+
+
+class SequenceSessionSeed(SeedModel):
+    """One séance of a séquence, as the méthodo lays it out."""
+
+    number: int
+    title: str
+    content: str | None = None
+    duration_minutes: int | None = None
+    materials: str | None = None
+    needs_review: bool = False
+
+
+class SequenceSeed(SeedModel):
+    """A séquence of a méthodo, and the séances it details."""
+
+    method: str
+    level: Level
+    number: int
+    title: str
+    objectives: str | None = None
+    period_code: str | None = None
+    subject: str | None = None
+    domain: str | None = None
+    needs_review: bool = False
+    sessions: list[SequenceSessionSeed] = []
+
+
 def _read(name: str) -> Any:  # noqa: ANN401
     """Parse one JSON seed file by name."""
     return json.loads((SEED_DIR / name).read_text(encoding="utf-8"))
@@ -143,3 +182,17 @@ def load_timetable() -> tuple[TimetableSlotSeed, ...]:
     return tuple(
         TimetableSlotSeed.model_validate(item) for item in _read("timetable.json")["slots"]
     )
+
+
+@lru_cache
+def load_program_items() -> tuple[ProgramItemSeed, ...]:
+    """Read ``core/seed/program_items.json``."""
+    return tuple(
+        ProgramItemSeed.model_validate(item) for item in _read("program_items.json")["items"]
+    )
+
+
+@lru_cache
+def load_sequences() -> tuple[SequenceSeed, ...]:
+    """Read ``core/seed/sequences.json``."""
+    return tuple(SequenceSeed.model_validate(item) for item in _read("sequences.json")["sequences"])

@@ -17,13 +17,16 @@ from sqlalchemy.pool import NullPool
 
 EXPECTED_COUNTS = {
     "subjects": 12,
-    "domains": 13,
+    "domains": 43,
     "school_years": 1,
     "periods": 5,
     "school_holidays": 5,
     "weeks": 36,
     "school_days": 143,
     "timetable_slots": 44,
+    "program_items": 213,
+    "sequences": 120,
+    "sequence_sessions": 36,
 }
 
 SEEDED_TABLES = tuple(EXPECTED_COUNTS)
