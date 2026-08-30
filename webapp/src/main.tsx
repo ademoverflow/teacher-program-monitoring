@@ -12,7 +12,6 @@ import * as TanStackQueryProvider from "./integrations/tanstack-query/root-provi
 import "./styles.css";
 
 import App from "./App.tsx";
-import About from "./pages/About.tsx";
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -28,13 +27,7 @@ const indexRoute = createRoute({
 	component: App,
 });
 
-const aboutRoute = createRoute({
-	getParentRoute: () => rootRoute,
-	path: "/about",
-	component: About,
-});
-
-const routeTree = rootRoute.addChildren([indexRoute, aboutRoute]);
+const routeTree = rootRoute.addChildren([indexRoute]);
 
 const TanStackQueryProviderContext = TanStackQueryProvider.getContext();
 const router = createRouter({
