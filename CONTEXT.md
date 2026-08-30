@@ -71,9 +71,26 @@ with its title, objectives and materials.
 _Avoid_: lesson, class, session (unqualified)
 
 **Séquence** (`sequence`):
-A run of séances from a teaching method covering one notion, spread over consecutive weeks
+A run of séances from a méthodo covering one notion, spread over consecutive weeks
 (e.g. maths CM1 séquence 12, "Addition et soustraction de nombres décimaux").
 _Avoid_: unit, module, chapter
+
+**Méthodo** (`method`):
+The published teaching method a séquence comes from, named by the string every séquence of
+it carries: `maths-cm1`, `maths-cm2`, `retz-cm1`, `retz-cm2`, `litterature`. A méthodo
+numbers its own séquences from 1, and that number is how the teacher refers to them.
+_Avoid_: curriculum, programme — those name the institutional text, not a publisher's course
+
+**Œuvre** (a séquence of the `litterature` méthodo):
+A book read with the class over several semaines. The literature méthodo is a list of œuvres
+rather than of notions, so an œuvre *is* a séquence: "Charlie et la chocolaterie" is séquence 1.
+_Avoid_: book, text, reading
+
+**Séance de séquence** (`sequence_session`):
+One step of a séquence as its méthodo prints it — a numbered week of an œuvre, with what to do
+and what it needs. It is a template, not a plan: it says what the méthodo lays out, never which
+day it lands on. Turning one into a séance is the generator's job.
+_Avoid_: lesson plan, template session
 
 **Matière** (`subject`):
 A school subject: Français, Mathématiques, Histoire, Sciences et technologie, EPS…
@@ -85,9 +102,18 @@ Calcul mental, Grandeurs et mesures; Français → Grammaire, Conjugaison, Lectu
 _Avoid_: topic, area, strand
 
 **Item de programme** (`program_item`):
-One institutional learning objective from the official CM1/CM2 curriculum, attributed to a
-niveau, a matière and a domaine, and traceable back to its page in the source document.
+One block of the official CM1/CM2 curriculum — the heading the source prints and the
+objectives it lists under it — attributed to a niveau, a matière and a domaine, and traceable
+back to its page in the source document. Those four attributions are also what identifies it:
+two blocks with the same intitulé are the same item only if they sit at the same niveau, in
+the same matière and in the same domaine.
 _Avoid_: standard, competency, learning outcome
+
+**Thème** (an item de programme of histoire or géographie):
+The unit the histoire-géographie programme is written in, and the unit it plans in: "Thème 1 :
+La vie quotidienne au Moyen Âge (XIe - XIIIe siècles) (première et deuxième période)". A thème
+names the périodes it should occupy, which no other matière's programme does.
+_Avoid_: topic, chapter, unit
 
 ### The daily journal
 

@@ -83,7 +83,7 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │       ├── env.ts          # T3 Env configuration
 │       ├── lib/            # Typed API client (api.ts)
 │       └── integrations/   # Library integrations
-├── docs/                    # Source PDFs (§3) + agents/ (skill conventions)
+├── docs/                    # Source PDFs (§3) + adr/ + agents/ (skill conventions)
 ├── scripts/                 # Development utilities
 ├── .claude/skills/          # Claude Code slash commands
 ├── Makefile                 # Development command runner
@@ -293,6 +293,7 @@ Available via `/skill-name` in Claude Code:
 | Calendar expansion | `core/src/core/services/school_calendar.py` |
 | Seed loader | `core/src/core/services/seeding.py` |
 | JSON seeds | `core/seed/` |
+| Curriculum extraction | `scripts/extract_program_items.py` (+ `curriculum_map.py`) |
 | React entry | `webapp/src/main.tsx` |
 | Env validation | `webapp/src/env.ts` |
 | Docker setup | `compose.yaml` |
