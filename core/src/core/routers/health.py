@@ -1,4 +1,4 @@
-"""Moment Core health router."""
+"""Health router."""
 
 from fastapi import APIRouter
 from pydantic import BaseModel

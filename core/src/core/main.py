@@ -44,4 +44,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(health_router)
+# Every router is mounted under /api: the webapp reaches the API through the Vite
+# proxy (`/api` -> core), so the frontend only ever uses relative URLs.
+API_PREFIX = "/api"
+
+app.include_router(health_router, prefix=API_PREFIX)
