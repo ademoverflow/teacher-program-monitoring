@@ -1,0 +1,37 @@
+{
+  "$comment": [
+    "Reference facts for the 2026-2027 school year, zone C (MASTER-PROMPT.md 4.2).",
+    "Source: arrete du 22/10/2025, Legifrance JORFTEXT000052416058.",
+    "Only the facts live here: weeks and school days are derived from them by",
+    "core.services.school_calendar, never hand-enumerated.",
+    "Holiday ranges list the days actually off. MASTER-PROMPT 4.2 writes them the",
+    "French way ('17/10 -> 02/11'), where the second date is the day classes resume;",
+    "that day belongs to the next periode, so it is excluded here."
+  ],
+  "school_year": {
+    "label": "2026-2027",
+    "zone": "C",
+    "starts_on": "2026-09-01",
+    "ends_on": "2027-07-02"
+  },
+  "periods": [
+    { "code": "P1", "label": "Période 1", "starts_on": "2026-09-01", "ends_on": "2026-10-16" },
+    { "code": "P2", "label": "Période 2", "starts_on": "2026-11-02", "ends_on": "2026-12-18" },
+    { "code": "P3", "label": "Période 3", "starts_on": "2027-01-04", "ends_on": "2027-02-05" },
+    { "code": "P4", "label": "Période 4", "starts_on": "2027-02-22", "ends_on": "2027-04-02" },
+    { "code": "P5", "label": "Période 5", "starts_on": "2027-04-19", "ends_on": "2027-07-02" }
+  ],
+  "holidays": [
+    { "label": "Vacances de la Toussaint", "starts_on": "2026-10-17", "ends_on": "2026-11-01" },
+    { "label": "Vacances de Noël", "starts_on": "2026-12-19", "ends_on": "2027-01-03" },
+    { "label": "Vacances d'hiver", "starts_on": "2027-02-06", "ends_on": "2027-02-21" },
+    { "label": "Vacances de printemps", "starts_on": "2027-04-03", "ends_on": "2027-04-18" },
+    { "label": "Vacances d'été", "starts_on": "2027-07-03", "ends_on": null }
+  ],
+  "days_off": [
+    { "date": "2027-03-29", "reason": "Lundi de Pâques" },
+    { "date": "2027-05-06", "reason": "Ascension" },
+    { "date": "2027-05-07", "reason": "Pont de l'Ascension" },
+    { "date": "2027-05-17", "reason": "Lundi de Pentecôte" }
+  ]
+}
