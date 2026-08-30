@@ -11,7 +11,8 @@ FastAPI backend service for the application.
 | ORM | SQLModel (SQLAlchemy wrapper) |
 | Database | PostgreSQL 17 (async via asyncpg) |
 | Migrations | Alembic |
-| Auth | JWT (PyJWT) + Argon2id |
+| Auth | None (local, single-user app) |
+| AI | Anthropic SDK |
 | Validation | Pydantic |
 | Package Manager | uv |
 
@@ -26,11 +27,12 @@ core/
 │   ├── settings.py         # Pydantic Settings config
 │   ├── database.py         # Async SQLAlchemy engine
 │   │
-│   ├── routers/            # API route handlers
+│   ├── routers/            # API route handlers (mounted under /api)
 │   │   ├── __init__.py
-│   │   └── health.py       # GET /health
+│   │   └── health.py       # GET /api/health
 │   │
 │   ├── models/             # SQLModel data models
+│   │   ├── __init__.py     # MUST import every model (Alembic autogenerate)
 │   │   ├── user.py         # User model
 │   │   └── serializer.py   # JSON serialization (orjson)
 │   │
@@ -63,9 +65,12 @@ core/
 
 ## API Endpoints
 
+All application routers are mounted under the `/api` prefix (see `API_PREFIX` in
+`main.py`); the webapp reaches them through the Vite `/api` proxy.
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/health` | Health check (status, uptime, version) |
+| GET | `/api/health` | Health check (status, uptime, version) |
 | GET | `/docs` | Swagger UI documentation |
 | GET | `/redoc` | ReDoc documentation |
 
@@ -94,17 +99,19 @@ Accessible at `http://localhost:12109`.
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `CORE_SERVER_HOST` | Yes | Server bind address (e.g., `0.0.0.0`) |
-| `CORE_SERVER_PORT` | Yes | Server port (e.g., `80`) |
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
-| `CORE_JWT_SECRET_KEY` | Yes | JWT signing secret |
-| `CORE_JWT_ALGORITHM` | Yes | JWT algorithm (e.g., `HS256`) |
-| `CORE_JWT_EXPIRATION_TIMEDELTA_MINUTES` | Yes | Token expiration in minutes |
-| `WEBAPP_URL` | Yes | Frontend URL for CORS |
-| `COOKIE_DOMAIN` | Yes | Domain for auth cookies |
-| `DEV_MODE` | No | Enable development mode (default: `false`) |
+Every setting has a default (`settings.py`), so the service boots with no `.env` at all.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `CORE_SERVER_HOST` | `0.0.0.0` | Server bind address |
+| `CORE_SERVER_PORT` | `80` | Server port |
+| `DATABASE_URL` | `postgresql://admin:admin@db:5432/db` | PostgreSQL connection string |
+| `ANTHROPIC_API_KEY` | *(empty)* | Anthropic key; empty disables the AI feedback feature |
+| `ANTHROPIC_MODEL` | `claude-sonnet-5` | Model used for journal feedback |
+| `DEV_MODE` | `false` | Enable development mode (hot reload) |
+
+The `CORE_JWT_*` / `WEBAPP_URL` / `COOKIE_DOMAIN` settings are leftovers from the
+monorepo template: this application has no login, so they are unused.
 
 ## Database
 
@@ -146,6 +153,10 @@ class User(SQLModel, table=True):
 ```
 
 ## Authentication
+
+This application has **no authentication** (a single user, running locally). The
+helpers below still ship with the template but are not wired into any route — do not
+add `get_current_user` dependencies or a login router.
 
 ### Password Hashing
 
@@ -191,15 +202,11 @@ Supports both:
 
 ## Testing
 
+Tests run inside the core container (they need the database):
+
 ```bash
-# Run all tests
-uv run pytest
-
-# Run with coverage
-uv run pytest --cov=core
-
-# Run specific test
-uv run pytest tests/test_health.py -v
+make test-core                                    # all core tests
+docker compose exec core bash -c 'uv run pytest core/tests/test_health.py -v'
 ```
 
 Test pattern using FastAPI TestClient:
@@ -211,7 +218,7 @@ from core.main import app
 client = TestClient(app)
 
 def test_health() -> None:
-    response = client.get("/health")
+    response = client.get("/api/health")
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
 ```
@@ -219,17 +226,8 @@ def test_health() -> None:
 ## Code Quality
 
 ```bash
-# Format code
-poe fix_format
-
-# Check linting
-poe check_lint
-
-# Type check
-poe type_check
-
-# All checks
-./scripts/code-quality-checkers.sh
+make check-python   # Ruff format/lint/import-sort + MyPy
+make fix            # Auto-fix formatting and import order
 ```
 
 ## Docker

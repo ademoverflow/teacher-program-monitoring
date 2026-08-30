@@ -27,15 +27,13 @@ webapp/
 │   ├── env.ts                # Environment variables (T3 Env)
 │   ├── styles.css            # Global styles + Tailwind
 │   │
-│   ├── pages/                # Page components
-│   │   └── About.tsx
+│   ├── lib/                  # Shared helpers
+│   │   └── api.ts            # Typed API client (fetch + zod, relative /api URLs)
 │   │
 │   ├── integrations/         # Library integrations
 │   │   └── tanstack-query/
 │   │       └── root-provider.tsx
 │   │
-│   └── routes/               # (For file-based routing)
-│
 ├── public/                   # Static assets
 │   └── favicon.ico
 │
@@ -91,6 +89,9 @@ Configure in `src/env.ts` using T3 Env with Zod validation.
 | `VITE_APP_TITLE` | `VITE_` | Application title (client-side) |
 | `SERVER_URL` | None | Backend API URL (server-side) |
 
+The API URL is **not** configured here: the frontend always calls relative `/api/...`
+URLs, which Vite proxies to the core service (see below).
+
 Usage:
 
 ```typescript
@@ -108,7 +109,6 @@ Uses TanStack Router with code-based routing (defined in `main.tsx`).
 | Path | Component | Description |
 |------|-----------|-------------|
 | `/` | `App` | Home page |
-| `/about` | `About` | About page |
 
 ### Adding Routes
 
@@ -122,7 +122,7 @@ const newRoute = createRoute({
 });
 
 // Add to route tree
-const routeTree = rootRoute.addChildren([indexRoute, aboutRoute, newRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, newRoute]);
 ```
 
 ### Navigation
@@ -130,24 +130,35 @@ const routeTree = rootRoute.addChildren([indexRoute, aboutRoute, newRoute]);
 ```typescript
 import { Link } from "@tanstack/react-router";
 
-<Link to="/about">About</Link>
+<Link to="/semaine">Semaine</Link>
 ```
 
-## Data Fetching
+## API Access
 
-TanStack Query is pre-configured. Use `useQuery` for data fetching:
+Vite's dev server proxies `/api` to the core API, so the frontend only uses relative
+URLs — no CORS, no absolute URL, no LAN IP:
+
+| Context | Proxy target |
+|---------|--------------|
+| Docker Compose (default) | `http://core:80` |
+| Vite on the host | `API_PROXY_TARGET=http://localhost:12109 pnpm dev` |
+
+Go through the typed client in `src/lib/api.ts` (fetch + zod validation) rather than
+calling `fetch` directly:
 
 ```typescript
 import { useQuery } from "@tanstack/react-query";
+import { getHealth } from "@/lib/api";
 
 function Component() {
-    const { data, isLoading } = useQuery({
-        queryKey: ["items"],
-        queryFn: () => fetch("/api/items").then(r => r.json()),
+    const { data, isPending, isError } = useQuery({
+        queryKey: ["health"],
+        queryFn: getHealth,
     });
 
-    if (isLoading) return <div>Loading...</div>;
-    return <div>{JSON.stringify(data)}</div>;
+    if (isPending) return <div>Chargement…</div>;
+    if (isError) return <div>Erreur</div>;
+    return <div>{data.status}</div>;
 }
 ```
 
