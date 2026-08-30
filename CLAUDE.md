@@ -78,14 +78,15 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 ├── webapp/                  # React SPA frontend
 │   └── src/
 │       ├── main.tsx        # App bootstrap with router
+│       ├── App.tsx         # Home page (API health)
 │       ├── env.ts          # T3 Env configuration
-│       ├── pages/          # Page components
+│       ├── lib/            # Typed API client (api.ts)
 │       └── integrations/   # Library integrations
+├── docs/                    # Source PDFs (§3) + agents/ (skill conventions)
 ├── scripts/                 # Development utilities
 ├── .claude/skills/          # Claude Code slash commands
 ├── Makefile                 # Development command runner
-├── compose.yaml            # Docker orchestration
-└── bootstrap.sh            # Project initialization
+└── compose.yaml            # Docker orchestration
 ```
 
 ## Design Patterns
