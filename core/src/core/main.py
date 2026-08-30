@@ -4,13 +4,9 @@ from contextlib import asynccontextmanager
 from alembic import command
 from alembic.config import Config
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 from core import __version__
 from core.routers import health_router
-from core.settings import get_settings
-
-settings = get_settings()
 
 
 @asynccontextmanager
@@ -36,16 +32,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[settings.webapp_url],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Every router is mounted under /api: the webapp reaches the API through the Vite
-# proxy (`/api` -> core), so the frontend only ever uses relative URLs.
+# proxy (`/api` -> core), so every browser request is same-origin and no CORS
+# middleware is needed.
 API_PREFIX = "/api"
 
 app.include_router(health_router, prefix=API_PREFIX)
