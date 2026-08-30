@@ -26,6 +26,7 @@ from sqlmodel import Field, SQLModel
 from core.models.base import (
     created_at_column,
     enum_check,
+    enum_default,
     reference,
     updated_at_column,
     uuid_primary_key,
@@ -66,7 +67,7 @@ class Domain(SQLModel, table=True):
     code: str = Field(sa_column=Column(String, nullable=False))
     label: str = Field(sa_column=Column(String, nullable=False))
     level: Level = Field(
-        sa_column=Column(String, nullable=False, server_default=text("'commun'")),
+        sa_column=Column(String, nullable=False, server_default=enum_default(Level.COMMUN)),
         default=Level.COMMUN,
     )
 

@@ -9,12 +9,18 @@ rather than assumed, so nothing here is hand-enumerated.
 from dataclasses import dataclass
 from datetime import date, timedelta
 
+from core.models.weekday import Weekday
 from core.services.seed_files import CalendarReference
 
 DAYS_IN_A_WEEK = 7
 
 # Class is on Monday, Tuesday, Thursday and Friday -- never on a Wednesday.
-CLASS_WEEKDAYS: tuple[int, ...] = (1, 2, 4, 5)
+CLASS_WEEKDAYS: tuple[Weekday, ...] = (
+    Weekday.MONDAY,
+    Weekday.TUESDAY,
+    Weekday.THURSDAY,
+    Weekday.FRIDAY,
+)
 
 
 @dataclass(frozen=True, slots=True)

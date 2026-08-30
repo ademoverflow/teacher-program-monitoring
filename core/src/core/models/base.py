@@ -7,7 +7,7 @@ base class because a SQLAlchemy ``Column`` can only ever be attached to one tabl
 
 import uuid
 from datetime import datetime
-from enum import StrEnum
+from enum import Enum
 from typing import Any
 
 from sqlalchemy import UUID, CheckConstraint, Column, DateTime, ForeignKey, text
@@ -56,7 +56,24 @@ def reference(target: str, *, nullable: bool = False, ondelete: str = "CASCADE")
     )
 
 
-def enum_check(table: str, column: str, values: type[StrEnum]) -> CheckConstraint:
-    """Constrain a text column to the values of ``values`` (see ADR-0004)."""
-    allowed = ", ".join(f"'{member.value}'" for member in values)
+def _sql_literal(member: Enum) -> str:
+    """Render an enum member as the SQL literal stored for it."""
+    return str(member.value) if isinstance(member.value, int) else f"'{member.value}'"
+
+
+def enum_check(table: str, column: str, values: type[Enum]) -> CheckConstraint:
+    """Constrain a column to the values of ``values`` (see ADR-0004).
+
+    Generated from the enum so the constraint and the Python type cannot drift.
+    """
+    allowed = ", ".join(_sql_literal(member) for member in values)
     return CheckConstraint(f"{column} IN ({allowed})", name=f"ck_{table}_{column}")
+
+
+def enum_default(member: Enum) -> Any:  # noqa: ANN401
+    """Build the server-side default for an enum column, taken from the enum itself.
+
+    Spelling the literal here rather than at each call site keeps the default in
+    step with ``enum_check`` when a value is renamed.
+    """
+    return text(_sql_literal(member))

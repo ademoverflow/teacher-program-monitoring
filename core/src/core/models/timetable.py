@@ -24,11 +24,13 @@ from sqlmodel import Field, SQLModel
 from core.models.base import (
     created_at_column,
     enum_check,
+    enum_default,
     reference,
     updated_at_column,
     uuid_primary_key,
 )
 from core.models.level import Level
+from core.models.weekday import Weekday
 
 
 class TimetableSlot(SQLModel, table=True):
@@ -44,6 +46,7 @@ class TimetableSlot(SQLModel, table=True):
             "day_of_week", "starts_at", "level", name="uq_timetable_slots_day_start_level"
         ),
         enum_check("timetable_slots", "level", Level),
+        enum_check("timetable_slots", "day_of_week", Weekday),
         CheckConstraint(
             "is_alternating = (alternation_group IS NOT NULL)",
             name="ck_timetable_slots_alternation",
@@ -55,7 +58,7 @@ class TimetableSlot(SQLModel, table=True):
     created_at: datetime = created_at_column()
     updated_at: datetime = updated_at_column()
 
-    day_of_week: int = Field(sa_column=Column(SmallInteger, nullable=False))
+    day_of_week: Weekday = Field(sa_column=Column(SmallInteger, nullable=False))
     starts_at: time = Field(sa_column=Column(Time, nullable=False))
     ends_at: time = Field(sa_column=Column(Time, nullable=False))
     duration_minutes: int = Field(sa_column=Column(Integer, nullable=False))
@@ -63,7 +66,7 @@ class TimetableSlot(SQLModel, table=True):
     subject_id: uuid.UUID | None = reference("subjects.id", nullable=True, ondelete="SET NULL")
     domain_id: uuid.UUID | None = reference("domains.id", nullable=True, ondelete="SET NULL")
     level: Level = Field(
-        sa_column=Column(String, nullable=False, server_default=text("'commun'")),
+        sa_column=Column(String, nullable=False, server_default=enum_default(Level.COMMUN)),
         default=Level.COMMUN,
     )
     is_alternating: bool = Field(
