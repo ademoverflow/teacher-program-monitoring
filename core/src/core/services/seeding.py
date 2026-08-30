@@ -10,7 +10,6 @@ else — a séance, a cahier journal — alone.
 """
 
 import uuid
-from collections.abc import Sequence
 from typing import Any
 
 from sqlalchemy import Table, select, text
@@ -20,13 +19,18 @@ from sqlmodel import SQLModel
 
 from core.database import engine
 from core.models.calendar import Period, SchoolDay, SchoolHoliday, SchoolYear, Week
-from core.models.curriculum import Domain, Subject
+from core.models.curriculum import Domain, ProgramItem, Subject
 from core.models.level import Level
+from core.models.sequence import Sequence, SequenceSession
 from core.models.timetable import TimetableSlot
 from core.services.school_calendar import build_school_calendar
 from core.services.seed_files import (
+    ProgramItemSeed,
+    SequenceSeed,
     TimetableSlotSeed,
     load_calendar_reference,
+    load_program_items,
+    load_sequences,
     load_subjects,
     load_timetable,
 )
@@ -42,9 +46,9 @@ def _table(model: type[SQLModel]) -> Table:
 async def _upsert(
     session: AsyncSession,
     model: type[SQLModel],
-    rows: Sequence[Row],
+    rows: list[Row],
     *,
-    on: Sequence[str] | None = None,
+    on: list[str] | None = None,
     constraint: str | None = None,
 ) -> int:
     """Insert ``rows``, updating the ones whose natural key is already there."""
@@ -249,6 +253,99 @@ async def seed_timetable(session: AsyncSession) -> dict[str, int]:
     }
 
 
+async def seed_program_items(session: AsyncSession) -> dict[str, int]:
+    """Seed the items of the official CM1/CM2 curriculum."""
+    items = load_program_items()
+    subject_ids = await _ids_by(session, Subject, "code")
+    domain_ids = await _ids_by(session, Domain, "subject_id", "code", "level")
+
+    def domain_of(item: ProgramItemSeed) -> uuid.UUID | None:
+        """Resolve the domaine an item belongs to, under its own matière."""
+        if not item.domain:
+            return None
+        # Indexed, not ``.get``: a domaine the seed names but the database does not
+        # have is a broken seed, and must not become a silent NULL.
+        return domain_ids[subject_ids[item.subject], item.domain, Level.COMMUN.value]
+
+    return {
+        "program_items": await _upsert(
+            session,
+            ProgramItem,
+            [
+                {
+                    "level": item.level.value,
+                    "subject_id": subject_ids[item.subject],
+                    "domain_id": domain_of(item),
+                    "title": item.title,
+                    "description": item.description,
+                    "source_file": item.source_file,
+                    "source_page": item.source_page,
+                    "needs_review": item.needs_review,
+                }
+                for item in items
+            ],
+            constraint="uq_program_items_level_subject_domain_title",
+        )
+    }
+
+
+async def seed_sequences(session: AsyncSession) -> dict[str, int]:
+    """Seed the séquences of the méthodos and the séances they lay out."""
+    sequences = load_sequences()
+    subject_ids = await _ids_by(session, Subject, "code")
+    domain_ids = await _ids_by(session, Domain, "subject_id", "code", "level")
+
+    def domain_of(sequence: SequenceSeed) -> uuid.UUID | None:
+        """Resolve the domaine a séquence belongs to, when the méthodo names one."""
+        if not (sequence.subject and sequence.domain):
+            return None
+        return domain_ids[subject_ids[sequence.subject], sequence.domain, Level.COMMUN.value]
+
+    counts = {
+        "sequences": await _upsert(
+            session,
+            Sequence,
+            [
+                {
+                    "method": sequence.method,
+                    "level": sequence.level.value,
+                    "number": sequence.number,
+                    "title": sequence.title,
+                    "objectives": sequence.objectives,
+                    "period_code": sequence.period_code,
+                    "subject_id": subject_ids[sequence.subject] if sequence.subject else None,
+                    "domain_id": domain_of(sequence),
+                    "needs_review": sequence.needs_review,
+                }
+                for sequence in sequences
+            ],
+            constraint="uq_sequences_method_number",
+        )
+    }
+    await session.flush()
+    sequence_ids = await _ids_by(session, Sequence, "method", "number")
+
+    counts["sequence_sessions"] = await _upsert(
+        session,
+        SequenceSession,
+        [
+            {
+                "sequence_id": sequence_ids[sequence.method, sequence.number],
+                "number": item.number,
+                "title": item.title,
+                "content": item.content,
+                "duration_minutes": item.duration_minutes,
+                "materials": item.materials,
+                "needs_review": item.needs_review,
+            }
+            for sequence in sequences
+            for item in sequence.sessions
+        ],
+        constraint="uq_sequence_sessions_sequence_number",
+    )
+    return counts
+
+
 async def seed_database(session: AsyncSession) -> dict[str, int]:
     """Load every structural seed. Safe to run as often as you like.
 
@@ -258,6 +355,8 @@ async def seed_database(session: AsyncSession) -> dict[str, int]:
     counts |= await seed_calendar(session)
     await session.flush()
     counts |= await seed_timetable(session)
+    counts |= await seed_program_items(session)
+    counts |= await seed_sequences(session)
     await session.flush()
     return counts
 
