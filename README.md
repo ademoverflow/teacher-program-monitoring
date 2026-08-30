@@ -43,9 +43,10 @@ A project for my wife, to help her monitoring her teacher journey :)
 | Layer | Technology |
 |-------|------------|
 | Frontend | React 19, TypeScript, Vite, TanStack Router/Query, Tailwind CSS |
+| AI | Anthropic API (daily-journal feedback) |
 | Backend | Python 3.13, FastAPI, SQLModel, Alembic, Pydantic |
 | Database | PostgreSQL 17 |
-| Auth | JWT (PyJWT) + Argon2id password hashing |
+| Auth | None — local, single-user application |
 | Package Managers | pnpm (Node), uv (Python) |
 | Code Quality | Biome (JS/TS), Ruff + MyPy (Python) |
 | Containers | Docker, Docker Compose |
@@ -58,21 +59,18 @@ A project for my wife, to help her monitoring her teacher journey :)
 
 ## Quick Start
 
-### 1. Configure Environment
+### 1. Start the Development Stack
 
 ```bash
-cp env.example .env
+make up
 ```
 
-Edit `.env` with your local settings (especially `WEBAPP_URL` and `COOKIE_DOMAIN` with your local IP).
+`make up` creates `.env` from `env.example` (with this host's UID/GID) if it is
+missing, builds the images and starts every service. No manual configuration is
+required: every backend setting has a sensible default. Edit `.env` afterwards to
+set `ANTHROPIC_API_KEY` if you want the AI feedback feature.
 
-### 2. Start Development Stack
-
-```bash
-docker compose up
-```
-
-### 3. Access Services
+### 2. Access Services
 
 | Service | URL | Description |
 |---------|-----|-------------|
@@ -109,6 +107,8 @@ docker compose up
 │       ├── commitlint.yml  # Commit message validation
 │       └── semantic-release.yml
 │
+├── docs/                    # Source PDFs (official programmes, timetable, methodologies)
+├── MASTER-PROMPT.md        # Project reference: scope, data model, phased plan
 ├── compose.yaml            # Docker Compose config
 ├── pyproject.toml          # Root Python config + tools
 ├── package.json            # Root Node config
@@ -137,30 +137,18 @@ pnpm dev
 
 ### Code Quality
 
-**Python:**
 ```bash
-poe check_format    # Check formatting
-poe check_lint      # Check linting
-poe type_check      # Run mypy
-```
-
-**TypeScript:**
-```bash
-cd webapp
-pnpm lint           # Run linter
-pnpm check          # Run linter + formatter
+make check          # Everything (Ruff + MyPy + Biome)
+make check-python   # Ruff format/lint/import-sort + MyPy
+make check-webapp   # Biome lint + format
+make fix            # Auto-fix Python formatting and import order
 ```
 
 ### Testing
 
-**Backend:**
 ```bash
-uv run pytest core/tests/
-```
-
-**Frontend:**
-```bash
-cd webapp && pnpm test
+make test-core      # pytest, inside the core container
+make test-webapp    # vitest, on the host
 ```
 
 ### Database Migrations
@@ -179,18 +167,22 @@ alembic upgrade head
 
 See `env.example` for all available options. Key variables:
 
-| Variable | Description |
-|----------|-------------|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `CORE_JWT_SECRET_KEY` | JWT signing secret |
-| `WEBAPP_URL` | Frontend URL (for CORS) |
-| `DEV_MODE` | Enable development features |
+All variables are optional except `USER_ID`/`USER_GID` (container file ownership).
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `USER_ID` / `USER_GID` | host UID/GID | UID/GID used inside the containers |
+| `DATABASE_URL` | `postgresql://admin:admin@db:5432/db` | PostgreSQL connection string |
+| `ANTHROPIC_API_KEY` | *(empty)* | Anthropic key; empty disables the AI feedback feature |
+| `ANTHROPIC_MODEL` | `claude-sonnet-5` | Model used for journal feedback |
+| `DEV_MODE` | `false` | Enable development features (hot reload) |
 
 ## Documentation
 
 - [Backend (Core) Documentation](core/README.md)
 - [Frontend (Webapp) Documentation](webapp/README.md)
 - [AI Assistant Guide](CLAUDE.md)
+- [Project reference & phased plan](MASTER-PROMPT.md)
 
 ## License
 

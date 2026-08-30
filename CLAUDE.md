@@ -92,7 +92,7 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 
 ### Backend (Python/FastAPI)
 
-**Router Pattern**:
+**Router Pattern** (routers are mounted under the `/api` prefix in `main.py`):
 ```python
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -168,15 +168,21 @@ const route = createRoute({
 });
 ```
 
-**TanStack Query**:
+**TanStack Query** (always through the typed client in `webapp/src/lib/api.ts`):
 ```typescript
 import { useQuery } from "@tanstack/react-query";
+import { apiGet } from "@/lib/api";
 
 const { data } = useQuery({
     queryKey: ["key"],
-    queryFn: () => fetch("/api/endpoint").then(r => r.json()),
+    queryFn: () => apiGet("/endpoint", schema),
 });
 ```
+
+**API access**: the frontend only ever uses relative `/api/...` URLs. Vite's
+`server.proxy` forwards `/api` to `http://core:80` (override with
+`API_PROXY_TARGET` when running Vite on the host), so there is no CORS setup
+and no LAN IP anywhere in the frontend.
 
 **Environment Variables** (T3 Env + Zod):
 ```typescript
@@ -253,10 +259,15 @@ make shell-db       # Bash into database container
 ### Utilities
 ```bash
 make install        # Install all dependencies (Python + JS)
+make env            # Create .env from env.example (host UID/GID) if missing
+make seed           # (Phase 1+) Load the versioned JSON seeds into the database
 make clean          # Remove caches and build artifacts
 make ip             # Show local IP and service URLs
-make update-ip      # Update .env with current local IP
 ```
+
+`make up` creates `.env` automatically if it is missing, so a fresh clone starts with
+`make up` alone. Every core setting has a default (`core/src/core/settings.py`); `.env`
+only needs to exist to pin the container UID/GID and the Anthropic key.
 
 ## Claude Code Skills
 
@@ -280,6 +291,7 @@ Available via `/skill-name` in Claude Code:
 | Purpose | File |
 |---------|------|
 | Makefile | `Makefile` |
+| API client (webapp) | `webapp/src/lib/api.ts` |
 | FastAPI app | `core/src/core/main.py` |
 | Settings | `core/src/core/settings.py` |
 | Database | `core/src/core/database.py` |
