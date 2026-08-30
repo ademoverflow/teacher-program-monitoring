@@ -40,6 +40,10 @@ class Sequence(SQLModel, table=True):
     objectives: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     period_code: str | None = Field(sa_column=Column(String, nullable=True), default=None)
     subject_id: uuid.UUID | None = reference("subjects.id", nullable=True, ondelete="SET NULL")
+    # Set where the méthodo says which domaine a séquence belongs to — the RETZ CM1
+    # progression colour-codes grammaire against conjugaison, and the EDT teaches them
+    # in different créneaux. Null where the source does not say (see the ADR).
+    domain_id: uuid.UUID | None = reference("domains.id", nullable=True, ondelete="SET NULL")
     needs_review: bool = Field(
         sa_column=Column(Boolean, nullable=False, server_default=text("false")), default=False
     )
