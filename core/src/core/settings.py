@@ -5,20 +5,31 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Core settings."""
+    """Core settings.
+
+    Every field has a default so the app boots with a minimal ``.env`` (this is a
+    local, single-user application without login).
+    """
 
     # Server settings
-    core_server_host: str
-    core_server_port: int
-    database_url: str
-    core_jwt_algorithm: str
-    core_jwt_type: str
-    core_jwt_secret_key: str
-    core_jwt_expiration_timedelta_minutes: int
-    webapp_url: str
-    cookie_domain: str
+    core_server_host: str = "0.0.0.0"
+    core_server_port: int = 80
+    database_url: str = "postgresql://admin:admin@db:5432/db"
 
-    # Development mode (controls cookie security settings)
+    # JWT / cookie settings — unused by the app (no login), kept for the security helpers
+    core_jwt_algorithm: str = "HS256"
+    core_jwt_type: str = "Bearer"
+    core_jwt_secret_key: str = "local-no-login-secret"  # noqa: S105
+    core_jwt_expiration_timedelta_minutes: int = 1440
+    webapp_url: str = "http://localhost:12108"
+    cookie_domain: str = "localhost"
+
+    # Anthropic API (AI feedback on the daily journal — wired in Phase 7)
+    # An empty key means the AI feature is disabled.
+    anthropic_api_key: str = ""
+    anthropic_model: str = "claude-sonnet-5"
+
+    # Development mode (controls cookie security settings + uvicorn reload)
     dev_mode: bool = False
 
     @property
