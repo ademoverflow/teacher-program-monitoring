@@ -237,4 +237,4 @@ ip: ## Show local IP address and service URLs
 	echo "Service URLs:" && \
 	echo "  API:     http://$$IP:12109" && \
 	echo "  Webapp:  http://$$IP:12108" && \
-	echo "  Adminer: http://$$IP:12107"
+	echo "  Adminer: http://$$IP:12107/?pgsql=db&username=admin&db=db&ns=public"
