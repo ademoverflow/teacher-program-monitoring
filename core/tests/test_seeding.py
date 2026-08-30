@@ -1,0 +1,90 @@
+"""``make seed`` is idempotent: running it twice leaves the database as one run leaves it.
+
+These tests need Postgres. On the host (and in CI) there is none, so they skip; inside
+the core container ``make test-core`` runs them for real. Everything happens in a
+transaction that is rolled back, so the dev database is left untouched.
+"""
+
+from collections.abc import AsyncIterator
+from typing import Any
+
+import pytest
+from core.database import async_db_url
+from core.services.seeding import seed_database
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.pool import NullPool
+
+EXPECTED_COUNTS = {
+    "subjects": 12,
+    "domains": 13,
+    "school_years": 1,
+    "periods": 5,
+    "school_holidays": 5,
+    "weeks": 36,
+    "school_days": 143,
+    "timetable_slots": 44,
+}
+
+SEEDED_TABLES = tuple(EXPECTED_COUNTS)
+
+
+@pytest.fixture
+async def session() -> AsyncIterator[AsyncSession]:
+    """Open a session whose work is always rolled back, or skip if there is no database.
+
+    ``seed_database`` flushes but never commits, so rolling back here leaves the
+    development database exactly as the test found it. The engine is built per test
+    and pools nothing: pytest-asyncio gives each test its own event loop, and an
+    asyncpg connection cannot move between loops.
+    """
+    test_engine = create_async_engine(async_db_url, poolclass=NullPool)
+    try:
+        probe = await test_engine.connect()
+    except Exception as error:  # noqa: BLE001 - anything at all here means "no database"
+        # Nothing to dispose: a NullPool engine that never connected holds nothing.
+        pytest.skip(f"no database reachable: {error}")
+    await probe.close()
+
+    async with AsyncSession(test_engine) as open_session:
+        try:
+            yield open_session
+        finally:
+            await open_session.rollback()
+    await test_engine.dispose()
+
+
+async def _snapshot(session: AsyncSession) -> dict[str, list[tuple[Any, ...]]]:
+    """Every row of every seeded table, primary keys included."""
+    snapshot: dict[str, list[tuple[Any, ...]]] = {}
+    for table in SEEDED_TABLES:
+        result = await session.execute(text(f"SELECT * FROM {table} ORDER BY id"))  # noqa: S608
+        snapshot[table] = [tuple(row) for row in result.all()]
+    return snapshot
+
+
+async def test_seeding_fills_every_structural_table(session: AsyncSession) -> None:
+    """One run populates the year, the matières and the timetable template."""
+    counts = await seed_database(session)
+
+    assert counts == EXPECTED_COUNTS
+
+
+async def test_seeding_twice_leaves_the_same_rows(session: AsyncSession) -> None:
+    """§8 Phase 1: « make seed idempotent (double exécution = même état) »."""
+    await seed_database(session)
+    after_first_run = await _snapshot(session)
+
+    await seed_database(session)
+    after_second_run = await _snapshot(session)
+
+    assert after_second_run == after_first_run
+
+
+async def test_seeding_creates_no_duplicate_rows(session: AsyncSession) -> None:
+    """A second run upserts on the natural key rather than inserting alongside."""
+    await seed_database(session)
+    await seed_database(session)
+    snapshot = await _snapshot(session)
+
+    assert {table: len(rows) for table, rows in snapshot.items()} == EXPECTED_COUNTS
