@@ -22,7 +22,7 @@ Maths créneaux per niveau: **139** for 35 séquences × 4 séances = 140.
 
 ## Decisions taken before coding
 
-Each of the six is written up as an ADR (0009…0014).
+Each is written up as an ADR; the placement rules they imply took three more (0009…0017).
 
 1. **`planned_sessions` natural key** = `(school_day_id, timetable_slot_id, level)`,
    unique, with an Alembic migration. Without it a re-generation duplicates the year.
@@ -49,6 +49,17 @@ Each of the six is written up as an ADR (0009…0014).
    « Dictée bilan / Poésie » stays one séance in français/orthographe and additionally
    links « Savourer le goût des mots, imaginer et créer en poésie », the poésie entrée
    of Culture littéraire et artistique.
+
+## Two columns the phase had to add
+
+Neither was in a ticket; both are enablers the placement rules needed and could not fake.
+
+- **`program_items.source_order`** — a progression walks the programme in the order the
+  source prints it, and a primary key defaulted by `gen_random_uuid()` cannot carry that
+  order. Without it the generated year would have changed on every rebuild.
+- **`planned_sessions.content`** — an œuvre's weekly planning is a page of activities, not
+  an objectif. §5 permits refining the model; stuffing it into `objectives` would have
+  been the alternative.
 
 ## How a créneau is filled
 
@@ -88,8 +99,34 @@ The EDT is immutable (§10): none of these is worked around.
 - 1740 séances, 0 on a jour chômé, every taught (day, créneau) covered.
 - 35 × 2 maths séquences placed, in order, one per semaine, no hole.
 - 21 × 2 RETZ séquences placed.
-- 8 œuvres, 33 of the 36 séances de séquence placed.
+- 33 of the 36 séances de séquence de littérature placed, over **6** of the 8 œuvres —
+  Hansel et Gretel is the repli and Zathura has no planning (ADR-0017).
 - Alternances: each niveau gets histoire and géographie in alternating semaines.
+
+## What the generation reports, and why each line is there
+
+Twelve lines, all of them arithmetic the calendar imposes and none of them worked around:
+
+- **8 maths lines** — S1 has no lundi, and S25, S28 and S30 lose a day to a jour chômé, so
+  those semaines place 3, 3, 2 and 3 séances instead of 4, at each niveau (ADR-0011).
+- **3 littérature lines** — the eight œuvres carry 36 séances de séquence and the year has
+  33 lundis. « Jumanji » semaine 3 and the two semaines de « Hansel et Gretel » find no
+  créneau; Hansel is the repli §4.5 itself keeps in reserve (ADR-0017).
+- **1 littérature line** — « Zathura » has no week-by-week planning in the source, so there
+  is nothing to place.
+
+## Ambiguities left open
+
+- **§8 Phase 3 says the maths séquences are « réparties sur les 4 créneaux maths + ateliers
+  problèmes ».** §4.3 lists the ateliers problèmes as a separate element of the same
+  weekly structure, next to the séquence's four séances and the calcul mental, so the
+  ateliers créneau is filled from the programme (« La résolution de problèmes ») rather
+  than from the week's séquence.
+- **§4.5 names « compréhension/fluence » next to the œuvre-suivie créneau** but gives no
+  per-week content for those créneaux. They work the programme de lecture instead.
+- **The pace of a progression is ours.** The source orders its items and its séquences and
+  never says how long each should take; the generator cuts the year's créneaux into equal
+  shares (ADR-0012, ADR-0015).
 
 ## Out of scope
 

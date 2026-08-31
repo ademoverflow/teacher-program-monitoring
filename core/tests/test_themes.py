@@ -1,8 +1,8 @@
 """Histoire and géographie place themselves: a thème names the périodes it wants."""
 
 from core.models.level import Level
-from core.services.programmation.inputs import ProgramItem, plan_input_from_seeds
-from core.services.programmation.themes import ThemePeriods, assign_periods, periods_of
+from core.services.planning.inputs import ProgramItem, plan_input_from_seeds
+from core.services.planning.themes import ThemePeriods, assign_periods, periods_of
 
 PLAN = plan_input_from_seeds()
 EVERY_THEME = 17

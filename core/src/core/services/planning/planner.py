@@ -13,23 +13,24 @@ from dataclasses import dataclass, field, replace
 from datetime import date
 
 from core.models.level import Level
-from core.services.programmation.inputs import (
+from core.services.planning.inputs import (
     PlanInput,
     PlannedDay,
     ProgramItem,
     Slot,
 )
-from core.services.programmation.inputs import (
+from core.services.planning.inputs import (
     Sequence as MethodSequence,
 )
-from core.services.programmation.retz import (
+from core.services.planning.problems import Problem, ProblemKind
+from core.services.planning.retz import (
     CONJUGAISON,
     GRAMMAIRE,
     RETZ_CM2_DOMAINS,
     VERB_SEQUENCE_PREFIX,
 )
-from core.services.programmation.spreading import shares, spread
-from core.services.programmation.themes import assign_periods
+from core.services.planning.spreading import shares, spread
+from core.services.planning.themes import assign_periods
 
 # §4.3: a maths séquence is « une suite de 4 séances » on the week's maths créneaux.
 MATHS_SESSIONS_PER_SEQUENCE = 4
@@ -113,7 +114,7 @@ class Plan:
     """Every séance of the year, and everything the rules could not hold."""
 
     sessions: tuple[SessionDraft, ...]
-    problems: tuple[str, ...]
+    problems: tuple[Problem, ...]
     sequences_placed: dict[str, int] = field(default_factory=dict)
     alternations: dict[str, int] = field(default_factory=dict)
 
@@ -191,7 +192,7 @@ class _Planner:
 
     def __init__(self, plan_input: PlanInput) -> None:
         self.input = plan_input
-        self.problems: list[str] = []
+        self.problems: list[Problem] = []
         self.fills: dict[CellId, Fill] = {}
         self.alternations: Counter[str] = Counter()
         self.sequences_placed: Counter[str] = Counter()
@@ -218,9 +219,10 @@ class _Planner:
 
         alternation = self.input.alternation(slot.alternation_group)
         if alternation is None:
-            self.problems.append(
+            self._report(
+                ProblemKind.ERREUR,
                 f"aucun réglage pour l'alternance « {slot.alternation_group} » : "
-                f"le créneau « {slot.label} » reste sans matière"
+                f"le créneau « {slot.label} » reste sans matière",
             )
             return None
 
@@ -238,15 +240,20 @@ class _Planner:
                 None,
             )
             if match is None:
-                self.problems.append(
+                self._report(
+                    ProblemKind.ERREUR,
                     f"l'alternance « {slot.alternation_group} » ne dit rien du créneau "
-                    f"« {slot.label} » à {slot.starts_at:%H:%M}"
+                    f"« {slot.label} » à {slot.starts_at:%H:%M}",
                 )
                 return None
             subject = match.subject
 
         self.alternations[subject] += 1
         return subject
+
+    def _report(self, kind: ProblemKind, message: str) -> None:
+        """Add one line to the rapport de validation."""
+        self.problems.append(Problem(kind=kind, message=message))
 
     def _cells_where(self, keep: Callable[[Cell], bool]) -> tuple[Cell, ...]:
         """Keep the cells a predicate accepts, in the order they run."""
@@ -273,8 +280,9 @@ class _Planner:
             method = f"maths-{level.value.lower()}"
             sequences = self.input.sequences_of(method)
             if len(sequences) > len(weeks):
-                self.problems.append(
-                    f"{method} : {len(sequences)} séquences pour {len(weeks)} semaines de classe"
+                self._report(
+                    ProblemKind.ERREUR,
+                    f"{method} : {len(sequences)} séquences pour {len(weeks)} semaines de classe",
                 )
             for sequence, week in zip(sequences, weeks, strict=False):
                 cells = tuple(
@@ -299,10 +307,11 @@ class _Planner:
                 if cells:
                     self.sequences_placed[method] += 1
                 if len(cells) < MATHS_SESSIONS_PER_SEQUENCE:
-                    self.problems.append(
+                    self._report(
+                        ProblemKind.CALENDRIER,
                         f"S{week.number} : {len(cells)} créneaux de mathématiques pour les "
                         f"{MATHS_SESSIONS_PER_SEQUENCE} séances de la séquence "
-                        f"{sequence.number} « {sequence.title} » ({level.value})"
+                        f"{sequence.number} « {sequence.title} » ({level.value})",
                     )
 
     def plan_retz(self) -> None:
@@ -330,9 +339,10 @@ class _Planner:
             if domain in found:
                 found[domain].append(sequence)
             else:
-                self.problems.append(
+                self._report(
+                    ProblemKind.ERREUR,
                     f"{method} : la séquence {sequence.number} « {sequence.title} » n'est "
-                    f"classée ni en grammaire ni en conjugaison"
+                    f"classée ni en grammaire ni en conjugaison",
                 )
         return {domain: tuple(sequences) for domain, sequences in found.items()}
 
@@ -349,9 +359,10 @@ class _Planner:
         ended: dict[str, date] = {}
         for sequence, share in zip(sequences, shares(len(sequences), len(cells)), strict=True):
             if not share:
-                self.problems.append(
+                self._report(
+                    ProblemKind.CALENDRIER,
                     f"{method} : la séquence {sequence.number} « {sequence.title} » n'a "
-                    f"trouvé aucun créneau"
+                    f"trouvé aucun créneau",
                 )
                 continue
             for rank, position in enumerate(share, start=1):
@@ -385,9 +396,10 @@ class _Planner:
             None,
         )
         if verb is None:
-            self.problems.append(
+            self._report(
+                ProblemKind.SOURCE,
                 f"{method} : aucune séquence « {VERB_SEQUENCE_PREFIX}… » en grammaire, "
-                f"la conjugaison démarre donc dès la première semaine"
+                f"la conjugaison démarre donc dès la première semaine",
             )
             return None
         return ended.get(verb.key)
@@ -406,9 +418,10 @@ class _Planner:
         cursor = 0
         for oeuvre in ordered:
             if not oeuvre.steps:
-                self.problems.append(
+                self._report(
+                    ProblemKind.SOURCE,
                     f"littérature : « {oeuvre.title} » n'a aucun planning hebdomadaire dans "
-                    f"la source et n'est donc pas placée"
+                    f"la source et n'est donc pas placée",
                 )
                 continue
             period = FALLBACK_PERIOD if oeuvre.title == LITTERATURE_FALLBACK else oeuvre.period_code
@@ -416,9 +429,10 @@ class _Planner:
             placed = 0
             for step in oeuvre.steps:
                 if cursor >= len(cells):
-                    self.problems.append(
+                    self._report(
+                        ProblemKind.CALENDRIER,
                         f"littérature : « {oeuvre.title} », {step.title.lower()} — plus aucun "
-                        f"créneau « {OEUVRE_SUIVIE_LABEL} » dans l'année"
+                        f"créneau « {OEUVRE_SUIVIE_LABEL} » dans l'année",
                     )
                     continue
                 cell = cells[cursor]
@@ -478,9 +492,10 @@ class _Planner:
     ) -> None:
         """Share one période's créneaux between the thèmes that claim it."""
         if not cells:
-            self.problems.append(
+            self._report(
+                ProblemKind.CALENDRIER,
                 f"{subject} : aucun créneau en {period_code} pour les {len(themes)} thème(s) "
-                f"qui s'y rattachent"
+                f"qui s'y rattachent",
             )
             return
         for cell, owning in zip(cells, spread(themes, len(cells)), strict=True):
@@ -547,13 +562,21 @@ class _Planner:
         )
         if poetry is None:
             if cells:
-                self.problems.append(
+                self._report(
+                    ProblemKind.SOURCE,
                     f"poésie : « {POETRY_ITEM_TITLE} » est absent du programme, le créneau "
-                    f"« {POETRY_SLOT_LABEL} » ne porte que la dictée bilan"
+                    f"« {POETRY_SLOT_LABEL} » ne porte que la dictée bilan",
                 )
             return
         for cell in cells:
-            fill = self.fills[cell.id]
+            fill = self.fills.get(cell.id)
+            if fill is None:
+                self._report(
+                    ProblemKind.ERREUR,
+                    f"{cell.day.date:%d/%m/%Y} : le créneau « {POETRY_SLOT_LABEL} » n'a pas "
+                    f"été rempli, la poésie n'y a pas été rattachée",
+                )
+                continue
             self.fills[cell.id] = replace(
                 fill,
                 title=cell.slot.label,
@@ -565,12 +588,13 @@ class _Planner:
 
     def report_uncovered(self) -> None:
         """Check the promise: every créneau of every taught day carries a séance."""
-        self.problems.extend(
-            f"{cell.day.date:%d/%m/%Y} : le créneau « {cell.slot.label} » ({cell.level.value}) "
-            f"est resté sans séance"
-            for cell in self.cells
-            if cell.id not in self.fills
-        )
+        for cell in self.cells:
+            if cell.id not in self.fills:
+                self._report(
+                    ProblemKind.ERREUR,
+                    f"{cell.day.date:%d/%m/%Y} : le créneau « {cell.slot.label} » "
+                    f"({cell.level.value}) est resté sans séance",
+                )
 
     def drafts(self) -> tuple[SessionDraft, ...]:
         """Return every séance, ordered by day and by its place in the day."""
@@ -617,6 +641,7 @@ def plan_year(plan_input: PlanInput) -> Plan:
     planner.plan_maths_revision_weeks()
     planner.plan_rituals()
     planner.plan_generic()
+    # A second pass over créneaux the rules above have already filled.
     planner.plan_poetry()
     planner.report_uncovered()
 

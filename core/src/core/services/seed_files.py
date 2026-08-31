@@ -9,10 +9,11 @@ import json
 from datetime import date, time
 from functools import lru_cache
 from pathlib import Path
-from typing import Annotated, Any, Literal
+from typing import Annotated, Any
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
+from core.models.alternation import AlternationMode
 from core.models.level import Level
 from core.models.weekday import FRENCH_WEEKDAYS, Weekday
 
@@ -135,7 +136,7 @@ class AlternationSeed(SeedModel):
     fixes a matière on each créneau of the group for the whole year.
     """
 
-    mode: Literal["hebdomadaire", "par-creneau"]
+    mode: AlternationMode
     subjects: list[str] = []
     slots: list[AlternationSlotSeed] = []
 

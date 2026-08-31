@@ -4,6 +4,7 @@ Every table model MUST be imported here: Alembic's autogenerate only sees the
 tables registered on ``SQLModel.metadata`` at import time (see ``alembic/env.py``).
 """
 
+from .alternation import AlternationMode
 from .app_setting import AppSetting
 from .calendar import Period, SchoolDay, SchoolHoliday, SchoolYear, Week
 from .curriculum import Domain, ProgramItem, Subject
@@ -17,6 +18,7 @@ from .user import User
 from .weekday import Weekday
 
 __all__ = [
+    "AlternationMode",
     "AppSetting",
     "Domain",
     "JournalEntry",
