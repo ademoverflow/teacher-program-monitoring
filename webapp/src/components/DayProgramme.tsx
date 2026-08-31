@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { LevelBadge } from "@/components/LevelBadge";
 import { SubjectLine } from "@/components/SubjectLine";
 import type { PlannedSessionDetail } from "@/lib/api/days";
-import { subjectStyle } from "@/lib/colors";
+import { sessionSubject, subjectStyle } from "@/lib/colors";
 import { formatDuration, formatTime } from "@/lib/dates";
 
 /**
@@ -32,7 +32,7 @@ export function DayProgramme({ sessions }: DayProgrammeProps) {
 			{sessions.map((session) => (
 				<li
 					key={session.id}
-					style={subjectStyle(session.subject ?? session.slot.subject)}
+					style={subjectStyle(sessionSubject(session, session.slot))}
 					className="rounded border-s-4 p-3"
 				>
 					<div className="flex flex-wrap items-baseline justify-between gap-2">

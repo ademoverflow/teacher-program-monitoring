@@ -153,6 +153,9 @@ describe("la vue Jour", () => {
 			await screen.findByText(/Ce n'est pas un jour de classe/),
 		).toBeTruthy();
 		expect(screen.queryByRole("alert")).toBeNull();
+		expect(
+			screen.getByText("Aller au prochain jour de classe").getAttribute("href"),
+		).toBe("/aujourdhui");
 	});
 
 	it("refuse une date qui n'en est pas une sans rien demander à l'API", async () => {
@@ -272,13 +275,17 @@ describe("l'édition d'une ligne", () => {
 		});
 	});
 
-	it("montre la phrase du serveur quand une écriture est refusée", async () => {
+	it("remet la discipline que le serveur refuse de vider, et dit pourquoi", async () => {
+		// The shape FastAPI really answers with: a list of English field errors, which is
+		// why the message the teacher reads is the client's French one.
 		const target = journalFixture.entries[3];
 		stubApi(
 			filledDay({
 				[`PATCH /api/journal/entries/${target.id}`]: {
 					status: 422,
-					body: { detail: "La discipline ne peut pas être vide" },
+					body: {
+						detail: [{ type: "string_too_short", loc: ["body", "discipline"] }],
+					},
 				},
 			}),
 		);
@@ -291,7 +298,59 @@ describe("l'édition d'une ligne", () => {
 		fireEvent.blur(discipline);
 
 		const alert = await screen.findByRole("alert");
-		expect(alert.textContent).toContain("La discipline ne peut pas être vide");
+		expect(alert.textContent).toContain("Le serveur a répondu 422.");
+		// And the field puts back what the server still holds, rather than showing a blank
+		// discipline the cahier journal does not have.
+		await waitFor(() => {
+			expect((discipline as HTMLTextAreaElement).value).toBe("Calcul mental");
+		});
+	});
+
+	it("refuse une durée qui n'est pas un nombre plutôt que de l'effacer", async () => {
+		const fetchMock = stubApi(filledDay());
+		renderApp("/jour/2026-09-07");
+
+		const duration = await screen.findByLabelText(
+			"Durée de la ligne « Calcul mental », en minutes",
+		);
+		fireEvent.change(duration, { target: { value: "quarante" } });
+		fireEvent.blur(duration);
+
+		const alert = await screen.findByRole("alert");
+		expect(alert.textContent).toContain("Une durée s'écrit en minutes");
+		// Nothing was sent, and the durée the ligne had is back.
+		expect(
+			fetchMock.mock.calls.some(([, init]) => init?.method === "PATCH"),
+		).toBe(false);
+		await waitFor(() => {
+			expect((duration as HTMLInputElement).value).toBe("20");
+		});
+	});
+
+	it("enregistre des notes, qui ne sont pas le bilan", async () => {
+		const written: unknown[] = [];
+		const target = journalFixture.entries[3];
+		stubApi(
+			filledDay({
+				[`PATCH /api/journal/entries/${target.id}`]: (
+					request: StubbedRequest,
+				) => {
+					written.push(request.body);
+					return { ...target, ...(request.body as object) };
+				},
+			}),
+		);
+		renderApp("/jour/2026-09-07");
+
+		const notes = await screen.findByLabelText(
+			"Notes de la ligne « Calcul mental » (ne s'impriment pas)",
+		);
+		fireEvent.change(notes, { target: { value: "Refaire la fiche 3" } });
+		fireEvent.blur(notes);
+
+		await waitFor(() => {
+			expect(written).toEqual([{ notes: "Refaire la fiche 3" }]);
+		});
 	});
 });
 

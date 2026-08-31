@@ -3,7 +3,7 @@ import { CalendarOff } from "lucide-react";
 import { LevelBadge } from "@/components/LevelBadge";
 import type { PlannedSessionSummary, SlotSummary } from "@/lib/api/shared";
 import type { DayInWeek, WeekCell, WeekDetail } from "@/lib/api/weeks";
-import { subjectStyle } from "@/lib/colors";
+import { sessionSubject, subjectStyle } from "@/lib/colors";
 import { formatDuration, formatShortDate, formatTime } from "@/lib/dates";
 import { buildWeekGrid, cellSubject, type GridBand } from "@/lib/week-grid";
 
@@ -220,14 +220,13 @@ interface SessionBoxProps {
 }
 
 /**
- * One séance inside a cellule. Its own matière first, then its créneau's, then neither:
- * the same cascade the cellule takes (ADR-0025), read one séance at a time so that two
- * stacked séances never borrow each other's colour.
+ * One séance inside a cellule, tinted by `sessionSubject` — the cascade of ADR-0025 read
+ * one séance at a time, so that two stacked séances never borrow each other's colour.
  */
 function SessionBox({ session, slot, showDuration }: SessionBoxProps) {
 	return (
 		<div
-			style={subjectStyle(session.subject ?? slot.subject)}
+			style={subjectStyle(sessionSubject(session, slot))}
 			className="min-h-0 flex-1 border-s-4 px-1.5 py-1 text-slate-900"
 		>
 			<div className="flex items-start justify-between gap-1">

@@ -48,3 +48,17 @@ export function subjectDotStyle(subject: SubjectRef | null): CSSProperties {
 		borderColor: accent(subject.color),
 	};
 }
+
+/**
+ * The matière a séance is drawn in: its own, then its créneau's, then neither.
+ *
+ * The same cascade `cellSubject` takes for a cellule (ADR-0025), read one séance at a time.
+ * A cellule asks about the séances it holds; a séance drawn on its own — in the semaine
+ * grid's stacked box, in « Programmation du jour » — asks here, so the rule has one home.
+ */
+export function sessionSubject(
+	session: { subject: SubjectRef | null },
+	slot: { subject: SubjectRef | null },
+): SubjectRef | null {
+	return session.subject ?? slot.subject ?? null;
+}

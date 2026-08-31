@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CircleAlert, ListPlus, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { JournalTable } from "@/components/JournalTable";
-import { ApiError } from "@/lib/api/client";
+import { JournalTable, type RowFailure } from "@/components/JournalTable";
 import type { DayDetail, PlannedSessionDetail } from "@/lib/api/days";
 import {
 	addEntry,
@@ -17,7 +16,12 @@ import {
 	type SessionStatus,
 	updateSessionStatus,
 } from "@/lib/api/planned-sessions";
-import { buildJournalRows, moveEntry } from "@/lib/day-journal";
+import {
+	buildJournalRows,
+	fillsItself,
+	moveEntry,
+	parseDuration,
+} from "@/lib/day-journal";
 
 /**
  * The cahier journal of one jour: the table, and everything that writes to it.
@@ -34,20 +38,18 @@ import { buildJournalRows, moveEntry } from "@/lib/day-journal";
 interface JournalPanelProps {
 	day: DayDetail;
 	journal: JournalDay;
-	/** True when the app may fill this day by itself, without being asked (ADR-0028). */
-	autoInitialise: boolean;
+	/** Today's date, which is what decides whether this day fills itself (ADR-0028). */
+	todayDate: string | undefined;
 }
 
 /** What a new ligne says before the teacher has said anything. */
 const NEW_DISCIPLINE = "Nouvelle ligne";
 
-export function JournalPanel({
-	day,
-	journal,
-	autoInitialise,
-}: JournalPanelProps) {
+export function JournalPanel({ day, journal, todayDate }: JournalPanelProps) {
 	const queryClient = useQueryClient();
-	const [failure, setFailure] = useState<string | null>(null);
+	// One refused write at a time, and where it was refused. A failure carrying an `entryId`
+	// is shown on that ligne; one without — an initialisation, an add — over the table.
+	const [failure, setFailure] = useState<RowFailure | null>(null);
 	const key = ["journal", day.date];
 	const dayKey = ["day", day.date];
 
@@ -57,12 +59,9 @@ export function JournalPanel({
 		);
 	}
 
-	function onError(error: Error) {
-		setFailure(
-			error instanceof ApiError && error.detail !== null
-				? error.detail
-				: `L'enregistrement a échoué (${error.message}).`,
-		);
+	/** `ApiError.message` is already the server's French sentence, or a French fallback. */
+	function report(entryId: string, error: Error) {
+		setFailure({ entryId, message: error.message });
 	}
 
 	function onWritten() {
@@ -71,7 +70,7 @@ export function JournalPanel({
 
 	const initialise = useMutation({
 		mutationFn: () => initialiseJournal(day.date),
-		onError,
+		onError: (error: Error) => report("", error),
 		onSuccess: (filled) => {
 			onWritten();
 			queryClient.setQueryData(key, filled);
@@ -82,7 +81,7 @@ export function JournalPanel({
 	const edit = useMutation({
 		mutationFn: ({ id, patch }: { id: string; patch: EntryUpdate }) =>
 			updateEntry(id, patch),
-		onError,
+		onError: (error: Error, { id }) => report(id, error),
 		onSuccess: (written) => {
 			onWritten();
 			patchJournal((previous) => ({
@@ -96,7 +95,7 @@ export function JournalPanel({
 
 	const add = useMutation({
 		mutationFn: () => addEntry(day.date, { discipline: NEW_DISCIPLINE }),
-		onError,
+		onError: (error: Error) => report("", error),
 		onSuccess: (written) => {
 			onWritten();
 			patchJournal((previous) => ({
@@ -110,7 +109,7 @@ export function JournalPanel({
 
 	const remove = useMutation({
 		mutationFn: (id: string) => removeEntry(id),
-		onError,
+		onError: (error: Error, id: string) => report(id, error),
 		onSuccess: (_answer, id) => {
 			onWritten();
 			patchJournal((previous) => {
@@ -122,8 +121,9 @@ export function JournalPanel({
 	});
 
 	const reorder = useMutation({
-		mutationFn: (entryIds: string[]) => reorderJournal(day.date, entryIds),
-		onError,
+		mutationFn: ({ order }: { entryId: string; order: string[] }) =>
+			reorderJournal(day.date, order),
+		onError: (error: Error, { entryId }) => report(entryId, error),
 		onSuccess: (reordered) => {
 			onWritten();
 			queryClient.setQueryData(key, reordered);
@@ -133,7 +133,7 @@ export function JournalPanel({
 	const setStatus = useMutation({
 		mutationFn: ({ id, status }: { id: string; status: SessionStatus }) =>
 			updateSessionStatus(id, status),
-		onError,
+		onError: (error: Error) => report("", error),
 		onSuccess: (written) => {
 			onWritten();
 			queryClient.setQueryData<DayDetail>(dayKey, (previous) =>
@@ -149,29 +149,47 @@ export function JournalPanel({
 		},
 	});
 
-	// ADR-0028: the day being taught fills itself, once. Every other day waits to be asked,
-	// because a day holding a ligne is a day the génération will not write again.
+	// The day being taught fills itself, once. Every other day waits to be asked, because a
+	// day holding a ligne is a day the génération will not write again (ADR-0028).
 	const asked = useRef<string | null>(null);
-	const fillable = !journal.initialised && day.sessions.length > 0;
+	const automatic = fillsItself(day, journal, todayDate);
 	useEffect(() => {
-		if (autoInitialise && fillable && asked.current !== day.date) {
+		if (automatic && asked.current !== day.date) {
 			asked.current = day.date;
 			initialise.mutate();
 		}
-	}, [autoInitialise, fillable, day.date, initialise.mutate]);
+	}, [automatic, day.date, initialise.mutate]);
 
 	const entryIds = journal.entries.map((entry) => entry.id);
 	const rows = buildJournalRows(journal.entries, day.sessions);
 
+	/**
+	 * Send a durée the teacher typed.
+	 *
+	 * Parsing it here rather than in the table is what gives a refusal a voice: « 45 min »
+	 * is not a number of minutes, and storing null for it would drop the durée the ligne
+	 * already had without a word. The rejection is what puts the field back.
+	 */
+	function onDuration(id: string, text: string): Promise<unknown> {
+		const minutes = parseDuration(text);
+		if (minutes === undefined) {
+			const message = "Une durée s'écrit en minutes, par exemple 45.";
+			setFailure({ entryId: id, message });
+			return Promise.reject(new Error(message));
+		}
+		return edit.mutateAsync({ id, patch: { duration_minutes: minutes } });
+	}
+
 	return (
 		<section aria-label="Cahier journal">
-			{failure !== null && (
+			{/* A refusal that belongs to no ligne — an initialisation, an added ligne. */}
+			{failure !== null && failure.entryId === "" && (
 				<p
 					role="alert"
 					className="mb-3 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 print:hidden"
 				>
 					<CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-					{failure}
+					{failure.message}
 				</p>
 			)}
 
@@ -187,12 +205,17 @@ export function JournalPanel({
 					<JournalTable
 						rows={rows}
 						entryIds={entryIds}
-						onEdit={(id, patch) => edit.mutate({ id, patch })}
+						onEdit={(id, patch) => edit.mutateAsync({ id, patch })}
+						onDuration={onDuration}
 						onDelete={(id) => remove.mutate(id)}
 						onMove={(id, direction) =>
-							reorder.mutate(moveEntry(entryIds, id, direction))
+							reorder.mutate({
+								entryId: id,
+								order: moveEntry(entryIds, id, direction),
+							})
 						}
 						onStatus={(id, status) => setStatus.mutate({ id, status })}
+						failure={failure}
 					/>
 					<button
 						type="button"

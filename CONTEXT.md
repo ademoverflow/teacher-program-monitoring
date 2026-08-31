@@ -78,7 +78,10 @@ has a row in `timetable_slots`: they are the gaps the gabarit leaves, and both v
 them rather than being told where they are — the semaine grid as the bandes no créneau
 covers, the printed cahier journal as the gaps between one jour's créneaux. Only their
 names are written down (`lib/breaks.ts`).
-_Avoid_: break, pause (unqualified) — « vacances » is the school-holiday stretch
+_Avoid_: break, pause (unqualified) — « vacances » is the school-holiday stretch. The code
+does say `break` (`GridBand.isBreak`, `findBreaks`), and it means the *general* thing —
+any stretch of a jour no créneau covers. The two this EDT has are la récréation and la
+pause méridienne, and those are the words for them.
 
 **Créneau splitté** (a créneau whose **niveau** is CM1 or CM2):
 A time range where the two levels do different things, so the same cell of the timetable is two

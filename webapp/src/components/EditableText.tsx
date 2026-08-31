@@ -28,11 +28,19 @@ export type FieldShape = "line" | "wrapped" | "block";
 
 interface EditableTextProps {
 	value: string;
-	/** Called with the new text when the field is left and the text changed. */
-	onCommit: (next: string) => void;
+	/**
+	 * Called with the new text when the field is left and the text changed.
+	 *
+	 * Return a promise and the field waits on it: a rejection puts back what the server
+	 * has. That is what an emptied discipline needs — the API refuses it, and a field left
+	 * blank while the server still holds « Calcul mental » would be a lie on the screen.
+	 * A handler that returns nothing is committed and forgotten, as before.
+	 */
+	onCommit: (next: string) => unknown;
 	/** What this field is, for the teacher and for a screen reader. */
 	label: string;
 	shape?: FieldShape;
+	placeholder?: string;
 	className?: string;
 	inputMode?: "text" | "numeric";
 }
@@ -42,6 +50,7 @@ export function EditableText({
 	onCommit,
 	label,
 	shape = "line",
+	placeholder,
 	className = "",
 	inputMode = "text",
 }: EditableTextProps) {
@@ -67,8 +76,20 @@ export function EditableText({
 
 	function commit() {
 		focused.current = false;
-		if (latest.current !== value) {
-			onCommit(latest.current);
+		if (latest.current === value) {
+			return;
+		}
+		try {
+			Promise.resolve(onCommit(latest.current)).catch(revert);
+		} catch {
+			revert();
+		}
+	}
+
+	/** Put back what the server has. The caller says why; this only undoes. */
+	function revert() {
+		if (!focused.current) {
+			change(value);
 		}
 	}
 
@@ -86,6 +107,7 @@ export function EditableText({
 
 	const shared = {
 		"aria-label": label,
+		placeholder,
 		value: draft,
 		onFocus: () => {
 			focused.current = true;
