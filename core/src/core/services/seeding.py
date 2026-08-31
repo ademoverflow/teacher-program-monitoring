@@ -18,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import SQLModel
 
 from core.database import engine
+from core.models.app_setting import AppSetting
 from core.models.calendar import Period, SchoolDay, SchoolHoliday, SchoolYear, Week
 from core.models.curriculum import Domain, ProgramItem, Subject
 from core.models.level import Level
@@ -28,6 +29,7 @@ from core.services.seed_files import (
     load_calendar_reference,
     load_program_items,
     load_sequences,
+    load_settings,
     load_subjects,
     load_timetable,
 )
@@ -62,6 +64,21 @@ async def _upsert(
         index_elements=None if constraint else list(on or ()),
         set_={**updatable, "updated_at": text("now()")},
     )
+    await session.execute(statement)
+    return len(rows)
+
+
+async def _insert_missing(session: AsyncSession, model: type[SQLModel], rows: list[Row]) -> int:
+    """Insert ``rows`` only where the natural key is free, leaving what is there alone.
+
+    Used for the rows the seed *starts* the teacher off with rather than owns: the
+    alternances of §4.1 are explicitly « à paramétrer, modifiable dans l'app », so a
+    later ``make seed`` must not undo a choice she has changed (ADR-0013).
+    """
+    if not rows:
+        return 0
+
+    statement = insert(_table(model)).values(list(rows)).on_conflict_do_nothing()
     await session.execute(statement)
     return len(rows)
 
@@ -203,6 +220,24 @@ async def seed_calendar(session: AsyncSession) -> dict[str, int]:
         on=["date"],
     )
     return counts
+
+
+async def seed_settings(session: AsyncSession) -> dict[str, int]:
+    """Seed the réglages the teacher starts from — the two alternances of §4.1."""
+    return {
+        "app_settings": await _insert_missing(
+            session,
+            AppSetting,
+            [
+                {
+                    "key": setting.key,
+                    "label": setting.label,
+                    "value": setting.value.model_dump(mode="json", exclude_none=True),
+                }
+                for setting in load_settings()
+            ],
+        )
+    }
 
 
 async def seed_subjects(session: AsyncSession) -> dict[str, int]:
@@ -352,6 +387,7 @@ async def seed_database(session: AsyncSession) -> dict[str, int]:
     Writes are flushed but not committed: committing is the caller's decision.
     """
     counts = await seed_subjects(session)
+    counts |= await seed_settings(session)
     counts |= await seed_calendar(session)
     await session.flush()
     counts |= await seed_timetable(session)
