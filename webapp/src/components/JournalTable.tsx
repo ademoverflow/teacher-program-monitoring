@@ -25,19 +25,32 @@ interface JournalTableProps {
 	rows: JournalRow[];
 	/** The day's lignes in order, so ▲ and ▼ know the ends of the list. */
 	entryIds: string[];
-	onEdit: (id: string, patch: EntryUpdate) => void;
+	/** Rejects when the write is refused, which is how a field knows to put back. */
+	onEdit: (id: string, patch: EntryUpdate) => Promise<unknown>;
+	/** The durée as it was typed: parsing it is the panel's, so a refusal has a voice. */
+	onDuration: (id: string, text: string) => Promise<unknown>;
 	onDelete: (id: string) => void;
 	onMove: (id: string, direction: -1 | 1) => void;
 	onStatus: (sessionId: string, status: SessionStatus) => void;
+	/** The ligne a write was just refused on, and what the refusal said. */
+	failure: RowFailure | null;
+}
+
+/** A refused write, tied to the ligne it was refused on. */
+export interface RowFailure {
+	entryId: string;
+	message: string;
 }
 
 export function JournalTable({
 	rows,
 	entryIds,
 	onEdit,
+	onDuration,
 	onDelete,
 	onMove,
 	onStatus,
+	failure,
 }: JournalTableProps) {
 	return (
 		<table className="w-full table-fixed border-collapse text-sm">
@@ -68,7 +81,12 @@ export function JournalTable({
 							 * would leave the printed row wider than the printed table.
 							 */}
 							<td colSpan={3} className={`text-center text-slate-600 ${CELL}`}>
-								{row.break.label ?? "Interclasse"}{" "}
+								{/*
+								 * §4.1 names two of these and the year has no others. One it
+								 * does not name still draws, with its hours and no name: the
+								 * hole is the data, the name is the decoration (ADR-0024).
+								 */}
+								{row.break.label !== null && <>{row.break.label} </>}
 								{formatTime(row.break.startsAt)} –{" "}
 								{formatTime(row.break.endsAt)}
 							</td>
@@ -81,9 +99,13 @@ export function JournalTable({
 							isFirst={entryIds[0] === row.entry.id}
 							isLast={entryIds[entryIds.length - 1] === row.entry.id}
 							onEdit={onEdit}
+							onDuration={onDuration}
 							onDelete={onDelete}
 							onMove={onMove}
 							onStatus={onStatus}
+							failure={
+								failure?.entryId === row.entry.id ? failure.message : null
+							}
 						/>
 					),
 				)}
@@ -96,10 +118,12 @@ interface EntryRowProps {
 	row: Extract<JournalRow, { kind: "entry" }>;
 	isFirst: boolean;
 	isLast: boolean;
-	onEdit: (id: string, patch: EntryUpdate) => void;
+	onEdit: (id: string, patch: EntryUpdate) => Promise<unknown>;
+	onDuration: (id: string, text: string) => Promise<unknown>;
 	onDelete: (id: string) => void;
 	onMove: (id: string, direction: -1 | 1) => void;
 	onStatus: (sessionId: string, status: SessionStatus) => void;
+	failure: string | null;
 }
 
 function EntryRow({
@@ -107,9 +131,11 @@ function EntryRow({
 	isFirst,
 	isLast,
 	onEdit,
+	onDuration,
 	onDelete,
 	onMove,
 	onStatus,
+	failure,
 }: EntryRowProps) {
 	const { entry, session } = row;
 	const name = entry.discipline;
@@ -133,13 +159,19 @@ function EntryRow({
 						}
 						label={`Durée de la ligne « ${name} », en minutes`}
 						inputMode="numeric"
-						onCommit={(next) =>
-							onEdit(entry.id, { duration_minutes: parseDuration(next) })
-						}
+						onCommit={(next) => onDuration(entry.id, next)}
 						className="w-12 text-right tabular-nums"
 					/>
 					min
 				</p>
+				{failure !== null && (
+					<p
+						role="alert"
+						className="mt-1 text-[0.6875rem] leading-tight text-red-700 print:hidden"
+					>
+						{failure}
+					</p>
+				)}
 			</td>
 
 			<td className={CELL}>
@@ -158,6 +190,22 @@ function EntryRow({
 					shape="block"
 					onCommit={(bilan) => onEdit(entry.id, { bilan })}
 				/>
+				{/*
+				 * §8 asks for les notes among the fields edited in place, and the model
+				 * prints three columns and no fourth. So they live under the bilan and do
+				 * not print: a note is what the teacher tells herself, a bilan is what the
+				 * cahier journal says.
+				 */}
+				<div className="mt-1 border-t border-dashed border-slate-300 pt-1 print:hidden">
+					<EditableText
+						value={entry.notes ?? ""}
+						label={`Notes de la ligne « ${name} » (ne s'impriment pas)`}
+						shape="block"
+						placeholder="Notes"
+						className="text-xs text-slate-500"
+						onCommit={(notes) => onEdit(entry.id, { notes })}
+					/>
+				</div>
 			</td>
 
 			<td className={`print:hidden ${CELL}`}>
@@ -206,16 +254,6 @@ function EntryRow({
 			</td>
 		</tr>
 	);
-}
-
-/** `« 45 »` → 45, `« »` → null. A durée the teacher clears is a durée she did not record. */
-function parseDuration(text: string): number | null {
-	const trimmed = text.trim();
-	if (trimmed === "") {
-		return null;
-	}
-	const minutes = Number(trimmed);
-	return Number.isFinite(minutes) && minutes >= 0 ? Math.round(minutes) : null;
 }
 
 interface RowButtonProps {

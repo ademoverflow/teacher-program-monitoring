@@ -71,11 +71,6 @@ export default function DayPage() {
 		return <LoadFailure error={journal.error} what="le cahier journal" />;
 	}
 
-	// ADR-0028: the day being taught fills itself; a day the teacher is only looking at
-	// waits to be asked, because filling it would take it out of the next génération.
-	const autoInitialise =
-		today.data !== undefined && date <= today.data.date && !day.data.is_off;
-
 	return (
 		<div className="mx-auto max-w-5xl p-6 print:max-w-none print:p-0">
 			<header className="mb-4">
@@ -133,7 +128,7 @@ export default function DayPage() {
 			<JournalPanel
 				day={day.data}
 				journal={journal.data}
-				autoInitialise={autoInitialise}
+				todayDate={today.data?.date}
 			/>
 
 			{day.data.sessions.length > 0 && (
@@ -191,12 +186,19 @@ function NotASchoolDay({ date }: { date: string }) {
 				Ce n'est pas un jour de classe : la classe a lieu les lundi, mardi,
 				jeudi et vendredi des périodes, hors vacances.
 			</p>
-			<Link
-				to="/annee"
-				className="mt-4 inline-block text-sm underline underline-offset-2"
-			>
-				Retour à l'année
-			</Link>
+			{/*
+			 * Nowhere to link this date to: a mercredi belongs to no jour de classe and the
+			 * API has no date-to-semaine for one. So both ways out are offered — the semaine
+			 * courante, and the next jour there is class on.
+			 */}
+			<p className="mt-4 flex gap-4 text-sm">
+				<Link to="/aujourdhui" className="underline underline-offset-2">
+					Aller au prochain jour de classe
+				</Link>
+				<Link to="/semaine" className="underline underline-offset-2">
+					Voir la semaine
+				</Link>
+			</p>
 		</div>
 	);
 }

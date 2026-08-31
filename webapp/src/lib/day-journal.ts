@@ -1,5 +1,5 @@
-import type { PlannedSessionDetail } from "@/lib/api/days";
-import type { JournalEntry } from "@/lib/api/journal";
+import type { DayDetail, PlannedSessionDetail } from "@/lib/api/days";
+import type { JournalDay, JournalEntry } from "@/lib/api/journal";
 import { type Break, findBreaks } from "@/lib/breaks";
 import { timeToMinutes } from "@/lib/dates";
 
@@ -33,7 +33,7 @@ export type JournalRow =
 	| { kind: "break"; break: Break };
 
 /** The séances of a jour, by id, so a ligne can find the one it came from. */
-export function sessionsById(
+function sessionsById(
 	sessions: PlannedSessionDetail[],
 ): Map<string, PlannedSessionDetail> {
 	return new Map(sessions.map((session) => [session.id, session]));
@@ -81,6 +81,47 @@ export function buildJournalRows(
 		rows.push({ kind: "entry", entry, session });
 	}
 	return rows;
+}
+
+/**
+ * `« 45 »` → 45. `« »` → null, a durée the teacher chose not to record.
+ *
+ * `undefined` means the text is not a number of minutes at all — « 45 min », « quarante ».
+ * That is not the same as an empty field, and it must not be sent as one: silently storing
+ * null would drop the durée the ligne already had and say nothing.
+ */
+export function parseDuration(text: string): number | null | undefined {
+	const trimmed = text.trim();
+	if (trimmed === "") {
+		return null;
+	}
+	const minutes = Number(trimmed);
+	if (!Number.isFinite(minutes) || minutes < 0) {
+		return undefined;
+	}
+	return Math.round(minutes);
+}
+
+/**
+ * Whether the app may fill this day's cahier journal without being asked (ADR-0028).
+ *
+ * Three things have to hold, and they are stated here rather than split between the page
+ * and the panel: the day is one the teacher has reached — today or a past day, because a
+ * cahier journal records what happened — it has séances to copy, and it has no ligne yet.
+ * A jour chômé is out on the second count; so is a date whose `today` has not loaded, which
+ * is why an unknown today means "ask".
+ *
+ * Dates are compared as the ISO strings the API sends, which sort as they read.
+ */
+export function fillsItself(
+	day: Pick<DayDetail, "date" | "is_off" | "sessions">,
+	journal: Pick<JournalDay, "initialised">,
+	todayDate: string | undefined,
+): boolean {
+	if (todayDate === undefined || day.date > todayDate) {
+		return false;
+	}
+	return !day.is_off && !journal.initialised && day.sessions.length > 0;
 }
 
 /**

@@ -78,7 +78,7 @@ describe("les verbes d'écriture", () => {
 		expect((failure as ApiError).message).toBe(detail);
 	});
 
-	it("garde son propre message quand le serveur n'en écrit pas", async () => {
+	it("parle français quand le serveur n'écrit pas de phrase", async () => {
 		stubApi({ "PATCH /api/journal/entries/7": { status: 500, body: null } });
 
 		const failure = await apiPatch(
@@ -88,6 +88,36 @@ describe("les verbes d'écriture", () => {
 		).catch((error: unknown) => error as ApiError);
 
 		expect((failure as ApiError).detail).toBeNull();
-		expect((failure as ApiError).message).toContain("HTTP 500");
+		expect((failure as ApiError).message).toBe("Le serveur a répondu 500.");
+		// The method and the URL are kept, for the console and not for the teacher.
+		expect((failure as ApiError).request).toBe("PATCH /api/journal/entries/7");
+	});
+
+	it("ne montre pas la liste anglaise d'un 422 de Pydantic", async () => {
+		// The shape FastAPI really answers with when a discipline is emptied — a list of
+		// field errors written in English, which is not a sentence for the teacher.
+		stubApi({
+			"PATCH /api/journal/entries/7": {
+				status: 422,
+				body: {
+					detail: [
+						{
+							type: "string_too_short",
+							loc: ["body", "discipline"],
+							msg: "String should have at least 1 character",
+						},
+					],
+				},
+			},
+		});
+
+		const failure = await apiPatch(
+			"/journal/entries/7",
+			z.object({}),
+			{},
+		).catch((error: unknown) => error as ApiError);
+
+		expect((failure as ApiError).detail).toBeNull();
+		expect((failure as ApiError).message).toBe("Le serveur a répondu 422.");
 	});
 });

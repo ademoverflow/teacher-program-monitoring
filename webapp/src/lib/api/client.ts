@@ -9,19 +9,27 @@ export const API_PREFIX = "/api";
  * `detail` is FastAPI's own `{"detail": "…"}`, which this API writes in French — « L'ordre
  * doit nommer exactement les lignes du cahier journal de ce jour, une fois chacune » for a
  * partial `PUT /order`, « Cette séance n'existe pas » for a stale id. That sentence is the
- * only part of a failure the teacher can act on, so it is the message where there is one
- * (ADR-0027). A 422 from Pydantic answers with a list rather than a string; there is
- * nothing readable in it, so it is left alone and the fallback speaks instead.
+ * only part of a failure the teacher can act on, so it is the `message` where there is one
+ * (ADR-0027).
+ *
+ * Where there is none the message is still French. Pydantic's own 422 answers `detail` as a
+ * **list** of field errors written in English — « String should have at least 1 character »
+ * — and that is a real, reachable answer here: emptying a discipline produces it. Neither
+ * that list nor a method and a URL belong on the teacher's screen (§10), so the fallback
+ * says what happened in her language and `request` keeps the diagnostic for the console.
  */
 export class ApiError extends Error {
 	readonly status: number;
 	readonly detail: string | null;
+	/** `PATCH /api/journal/entries/…` — for a developer, never for the screen. */
+	readonly request: string;
 
-	constructor(status: number, message: string, detail: string | null = null) {
-		super(detail ?? message);
+	constructor(status: number, request: string, detail: string | null = null) {
+		super(detail ?? `Le serveur a répondu ${status}.`);
 		this.name = "ApiError";
 		this.status = status;
 		this.detail = detail;
+		this.request = request;
 	}
 }
 
@@ -86,7 +94,7 @@ async function request<T>({
 	if (!response.ok) {
 		throw new ApiError(
 			response.status,
-			`${method} ${url} → HTTP ${response.status}`,
+			`${method} ${url}`,
 			await detailOf(response),
 		);
 	}

@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 import type { DayDetail } from "@/lib/api/days";
 import type { JournalDay } from "@/lib/api/journal";
-import { buildJournalRows, moveEntry } from "@/lib/day-journal";
+import {
+	buildJournalRows,
+	fillsItself,
+	moveEntry,
+	parseDuration,
+} from "@/lib/day-journal";
 import dayFixture from "@/test/fixtures/day-2026-09-07.json";
 import dayOff from "@/test/fixtures/day-2027-03-29.json";
 import journalFixture from "@/test/fixtures/journal-2026-09-07.json";
@@ -91,5 +96,53 @@ describe("le déplacement d'une ligne", () => {
 		expect(moveEntry(ids, "a", -1)).toEqual(ids);
 		expect(moveEntry(ids, "c", 1)).toEqual(ids);
 		expect(moveEntry(ids, "inconnue", 1)).toEqual(ids);
+	});
+});
+
+describe("la durée d'une ligne", () => {
+	it("lit un nombre de minutes", () => {
+		expect(parseDuration("45")).toBe(45);
+		expect(parseDuration(" 20 ")).toBe(20);
+	});
+
+	it("lit un champ vide comme une durée non notée", () => {
+		expect(parseDuration("")).toBeNull();
+		expect(parseDuration("   ")).toBeNull();
+	});
+
+	it("refuse ce qui n'est pas un nombre de minutes, plutôt que de l'effacer", () => {
+		expect(parseDuration("45 min")).toBeUndefined();
+		expect(parseDuration("quarante")).toBeUndefined();
+		expect(parseDuration("-5")).toBeUndefined();
+	});
+});
+
+describe("le remplissage automatique d'un cahier journal", () => {
+	const day = {
+		date: "2026-09-07",
+		is_off: false,
+		sessions: [{}, {}],
+	} as Parameters<typeof fillsItself>[0];
+	const empty = { initialised: false };
+
+	it("remplit le jour que l'enseignante est en train de vivre", () => {
+		expect(fillsItself(day, empty, "2026-09-07")).toBe(true);
+		expect(fillsItself(day, empty, "2026-10-01")).toBe(true);
+	});
+
+	it("laisse un jour à venir attendre qu'on le lui demande (ADR-0028)", () => {
+		expect(fillsItself(day, empty, "2026-09-06")).toBe(false);
+		// A « today » that has not loaded is not a licence to write.
+		expect(fillsItself(day, empty, undefined)).toBe(false);
+	});
+
+	it("ne remplit ni un jour déjà tenu, ni un jour chômé, ni un jour sans séance", () => {
+		expect(fillsItself(day, { initialised: true }, "2026-09-07")).toBe(false);
+		expect(fillsItself({ ...day, is_off: true }, empty, "2026-09-07")).toBe(
+			false,
+		);
+		expect(fillsItself({ ...day, sessions: [] }, empty, "2026-09-07")).toBe(
+			false,
+		);
 	});
 });
