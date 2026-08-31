@@ -13,6 +13,26 @@ jobs:
     name: Python Checks
     runs-on: ubuntu-latest
 
+    # Phase 4 is almost entirely database: without a Postgres here, the router tests
+    # would skip in the only place that gates a merge (docs/adr/0018).
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U admin -d db"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+
+    env:
+      DATABASE_URL: postgresql://admin:admin@localhost:5432/db
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
