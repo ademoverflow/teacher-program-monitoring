@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { apiGet } from "./client";
+import { apiGet } from "@/lib/api/client";
 
 export const healthSchema = z.object({
 	status: z.string(),

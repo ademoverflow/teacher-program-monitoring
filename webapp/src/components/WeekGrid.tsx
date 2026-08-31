@@ -1,6 +1,6 @@
 import { CalendarOff } from "lucide-react";
 import { LevelBadge } from "@/components/LevelBadge";
-import type { PlannedSessionSummary, SubjectRef } from "@/lib/api/shared";
+import type { PlannedSessionSummary, SlotSummary } from "@/lib/api/shared";
 import type { DayInWeek, WeekCell, WeekDetail } from "@/lib/api/weeks";
 import { subjectStyle } from "@/lib/colors";
 import { formatDuration, formatShortDate, formatTime } from "@/lib/dates";
@@ -72,12 +72,12 @@ export function WeekGrid({ week }: WeekGridProps) {
 						gridTemplateColumns: `repeat(${column.laneCount}, minmax(0, 1fr))`,
 					}}
 				>
-					{grid.bands.map((band, row) =>
+					{grid.bands.map((band, index) =>
 						band.isBreak ? (
 							<BreakBand
 								key={band.startsAt}
 								band={band}
-								row={row}
+								bandIndex={index}
 								laneCount={column.laneCount}
 							/>
 						) : null,
@@ -137,7 +137,7 @@ function DayHeader({ day, style }: DayHeaderProps) {
 
 interface BreakBandProps {
 	band: GridBand;
-	row: number;
+	bandIndex: number;
 	laneCount: number;
 }
 
@@ -145,10 +145,10 @@ interface BreakBandProps {
  * La récréation and la pause méridienne. Neither has a row in `timetable_slots` — they are
  * the gaps between créneaux, and §4.1 is where their names come from (ADR-0024).
  */
-function BreakBand({ band, row, laneCount }: BreakBandProps) {
+function BreakBand({ band, bandIndex, laneCount }: BreakBandProps) {
 	return (
 		<li
-			style={{ gridRow: row + 1, gridColumn: `1 / span ${laneCount}` }}
+			style={{ gridRow: bandIndex + 1, gridColumn: `1 / span ${laneCount}` }}
 			className="flex items-center justify-center rounded bg-slate-100 text-[0.6875rem] uppercase tracking-wide text-slate-400"
 		>
 			{band.breakLabel}
@@ -173,14 +173,17 @@ function CellBox({ cell, isOff, style }: CellBoxProps) {
 	const { slot, sessions } = cell;
 	const name = `${formatTime(slot.starts_at)} · ${slot.label}`;
 
+	// An empty cellule still says what is normally taught in it — the maths cellule of a
+	// lundi de Pâques stays pink (ADR-0025) — muted, so an empty box never reads as a full
+	// one. `cellSubject` falls back to the créneau, which is all there is here.
 	if (isOff || sessions.length === 0) {
 		return (
 			<li
 				aria-label={name}
-				style={style}
-				className="rounded border border-dashed border-slate-200 bg-white/60 px-1.5 py-1"
+				style={{ ...style, ...subjectStyle(cellSubject(cell)) }}
+				className="rounded border-s-4 px-1.5 py-1 opacity-45"
 			>
-				<p className="truncate text-[0.6875rem] text-slate-400">{slot.label}</p>
+				<p className="truncate text-[0.6875rem] text-slate-600">{slot.label}</p>
 			</li>
 		);
 	}
@@ -195,10 +198,8 @@ function CellBox({ cell, isOff, style }: CellBoxProps) {
 				<SessionBox
 					key={session.id}
 					session={session}
-					slotLabel={slot.label}
-					durationMinutes={slot.duration_minutes}
+					slot={slot}
 					showDuration={index === 0}
-					fallbackSubject={cellSubject(cell)}
 				/>
 			))}
 		</li>
@@ -207,33 +208,30 @@ function CellBox({ cell, isOff, style }: CellBoxProps) {
 
 interface SessionBoxProps {
 	session: PlannedSessionSummary;
-	slotLabel: string;
-	durationMinutes: number;
+	slot: SlotSummary;
 	showDuration: boolean;
-	fallbackSubject: SubjectRef | null;
 }
 
-function SessionBox({
-	session,
-	slotLabel,
-	durationMinutes,
-	showDuration,
-	fallbackSubject,
-}: SessionBoxProps) {
+/**
+ * One séance inside a cellule. Its own matière first, then its créneau's, then neither:
+ * the same cascade the cellule takes (ADR-0025), read one séance at a time so that two
+ * stacked séances never borrow each other's colour.
+ */
+function SessionBox({ session, slot, showDuration }: SessionBoxProps) {
 	return (
 		<div
-			style={subjectStyle(session.subject ?? fallbackSubject)}
+			style={subjectStyle(session.subject ?? slot.subject)}
 			className="min-h-0 flex-1 border-s-4 px-1.5 py-1 text-slate-900"
 		>
 			<div className="flex items-start justify-between gap-1">
 				<p className="truncate text-[0.6875rem] font-medium uppercase tracking-wide text-slate-600">
-					{session.subject?.label ?? slotLabel}
+					{session.subject?.label ?? slot.label}
 				</p>
 				<span className="flex shrink-0 items-center gap-1">
 					<LevelBadge level={session.level} />
 					{showDuration && (
 						<span className="text-[0.625rem] tabular-nums text-slate-500">
-							{formatDuration(durationMinutes)}
+							{formatDuration(slot.duration_minutes)}
 						</span>
 					)}
 				</span>

@@ -41,9 +41,10 @@ Configuration in `/biome.json`:
 - Organize imports enabled
 
 ```bash
-make lint-webapp    # Run linter
-make format-webapp  # Run formatter
-make check-webapp   # Run both
+make lint-webapp        # Run linter
+make format-webapp      # Run formatter
+make type-check-webapp  # Run tsc --noEmit (Biome does not typecheck)
+make check-webapp       # Run linter/formatter and the typecheck
 ```
 
 ### All Checks

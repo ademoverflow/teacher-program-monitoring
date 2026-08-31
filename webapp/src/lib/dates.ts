@@ -25,8 +25,6 @@ const SHORT_DAY = new Intl.DateTimeFormat("fr-FR", {
 	month: "short",
 });
 
-const WEEKDAY = new Intl.DateTimeFormat("fr-FR", { weekday: "long" });
-
 const COMPACT = new Intl.DateTimeFormat("fr-FR", {
 	day: "numeric",
 	month: "short",
@@ -46,11 +44,6 @@ export function formatLongDate(iso: string): string {
 /** « lundi 7 sept. » — the header of a jour column. */
 export function formatShortDate(iso: string): string {
 	return SHORT_DAY.format(parseIsoDate(iso));
-}
-
-/** « lundi » */
-export function formatWeekday(iso: string): string {
-	return WEEKDAY.format(parseIsoDate(iso));
 }
 
 /**

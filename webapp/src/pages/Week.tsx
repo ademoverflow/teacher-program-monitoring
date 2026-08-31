@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { LoadFailure, Loading } from "@/components/QueryState";
+import { LoadFailure } from "@/components/LoadFailure";
+import { Loading } from "@/components/Loading";
 import { WeekGrid } from "@/components/WeekGrid";
 import { getWeek } from "@/lib/api";
 import { formatDateRange } from "@/lib/dates";
@@ -13,8 +14,18 @@ export default function WeekPage() {
 	const week = useQuery({
 		queryKey: ["week", weekNumber],
 		queryFn: () => getWeek(weekNumber),
+		enabled: Number.isInteger(weekNumber),
 	});
 
+	// `/semaine/douze` reaches here as a NaN; say so rather than ask the API about it.
+	if (!Number.isInteger(weekNumber)) {
+		return (
+			<LoadFailure
+				error={new Error(`« ${number} » n'est pas un numéro de semaine.`)}
+				what="cette semaine"
+			/>
+		);
+	}
 	if (week.isPending) {
 		return <Loading label={`Chargement de la semaine ${weekNumber}…`} />;
 	}
@@ -60,6 +71,13 @@ function WeekStep({ number, direction }: WeekStepProps) {
 	const isPrevious = direction === "previous";
 	const label = isPrevious ? "Semaine précédente" : "Semaine suivante";
 	const Icon = isPrevious ? ChevronLeft : ChevronRight;
+	const inside = (
+		<>
+			{isPrevious && <Icon className="size-4" aria-hidden="true" />}
+			{label}
+			{!isPrevious && <Icon className="size-4" aria-hidden="true" />}
+		</>
+	);
 
 	if (number === null) {
 		return (
@@ -67,9 +85,7 @@ function WeekStep({ number, direction }: WeekStepProps) {
 				className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-300"
 				aria-disabled="true"
 			>
-				{isPrevious && <Icon className="size-4" aria-hidden="true" />}
-				{label}
-				{!isPrevious && <Icon className="size-4" aria-hidden="true" />}
+				{inside}
 			</span>
 		);
 	}
@@ -81,9 +97,7 @@ function WeekStep({ number, direction }: WeekStepProps) {
 			aria-label={`${label} (S${number})`}
 			className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-100"
 		>
-			{isPrevious && <Icon className="size-4" aria-hidden="true" />}
-			{label}
-			{!isPrevious && <Icon className="size-4" aria-hidden="true" />}
+			{inside}
 		</Link>
 	);
 }

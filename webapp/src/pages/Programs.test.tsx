@@ -79,6 +79,34 @@ describe("le navigateur de programmes", () => {
 		);
 	});
 
+	it("n'offre qu'une fois un domaine que deux matières partagent", async () => {
+		stubApi({
+			"/api/subjects": subjects,
+			"/api/program-items?limit=50&offset=0": EMPTY,
+		});
+		renderApp("/programmes");
+
+		// Arts plastiques and éducation musicale both print « Compétences travaillées »,
+		// under the same code — which is what the API filters on.
+		await screen.findByRole("option", { name: "Mathématiques" });
+		const domaine = screen.getByLabelText("Domaine");
+		const shared = within(domaine)
+			.getAllByRole("option")
+			.filter((option) => option.textContent === "Compétences travaillées");
+		expect(shared).toHaveLength(1);
+	});
+
+	it("ignore un filtre illisible dans l'URL plutôt que de vider l'écran", async () => {
+		stubApi({
+			"/api/subjects": subjects,
+			"/api/program-items?limit=50&offset=0": EMPTY,
+		});
+		const { router } = renderApp("/programmes?niveau=cm1&q=");
+
+		expect(await screen.findByText("Programmes officiels")).toBeTruthy();
+		expect(router.state.location.search).toEqual({ page: 1 });
+	});
+
 	it("dit clairement qu'un filtre ne renvoie rien", async () => {
 		stubApi({
 			"/api/subjects": subjects,

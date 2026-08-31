@@ -1,9 +1,19 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { shouldRetry } from "@/lib/api/client";
+
+export function createQueryClient(): QueryClient {
+	return new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: (attempt, error) => shouldRetry(attempt, error as Error),
+			},
+		},
+	});
+}
 
 export function getContext() {
-	const queryClient = new QueryClient();
 	return {
-		queryClient,
+		queryClient: createQueryClient(),
 	};
 }
 

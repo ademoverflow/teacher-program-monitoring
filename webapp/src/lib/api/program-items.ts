@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { apiGet, type QueryValue } from "./client";
+import { apiGet, type QueryValue } from "@/lib/api/client";
 import {
 	type Level,
 	plannedSessionSummarySchema,
 	programItemRefSchema,
-} from "./shared";
+} from "@/lib/api/shared";
 
 /**
  * An item de programme with everything the browser shows of it.
@@ -65,14 +65,16 @@ export function getProgramItem(id: string): Promise<ProgramItem> {
 	return apiGet(`/program-items/${id}`, programItemSchema);
 }
 
+/** How many linked séances a fiche shows before saying how many more there are. */
+export const LINKED_SESSIONS_SHOWN = 20;
+
 /** The séances linked to one item de programme — §7 écran 4's « voir les séances liées ». */
 export function getLinkedSessions(
 	programItemId: string,
-	{ limit = 20, offset = 0 } = {},
 ): Promise<PlannedSessionPage> {
 	return apiGet("/planned-sessions", plannedSessionPageSchema, {
 		program_item_id: programItemId,
-		limit,
-		offset,
+		limit: LINKED_SESSIONS_SHOWN,
+		offset: 0,
 	});
 }

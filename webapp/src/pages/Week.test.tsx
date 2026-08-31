@@ -95,6 +95,36 @@ describe("la vue Semaine", () => {
 		expect(screen.getAllByText("Anglais").length).toBeGreaterThan(0);
 	});
 
+	it("garde la couleur de la matière sur une cellule vide (ADR-0025)", async () => {
+		stubApi({ "/api/weeks/25": week25 });
+		renderApp("/semaine/25");
+
+		const lundi = await screen.findByRole("list", {
+			name: "Créneaux du lundi 29 mars",
+		});
+		const maths = within(lundi).getByRole("listitem", {
+			name: "10h45 · Mathématiques — Nombres",
+		});
+		// #FFC7CE is the matière's colour in core/seed/subjects.json.
+		expect(maths.style.backgroundColor).toBe("rgb(255, 199, 206)");
+
+		// L'accueil has no matière at either end (ADR-0015), so it stays neutral.
+		const accueil = within(lundi).getByRole("listitem", {
+			name: "9h00 · Accueil · rituel de langue · plan de travail",
+		});
+		expect(accueil.style.backgroundColor).toBe("rgb(248, 250, 252)");
+	});
+
+	it("refuse un numéro de semaine qui n'en est pas un", async () => {
+		stubApi({});
+		renderApp("/semaine/douze");
+
+		const alert = await screen.findByRole("alert");
+		expect(alert.textContent).toContain(
+			"« douze » n'est pas un numéro de semaine.",
+		);
+	});
+
 	it("navigue de semaine en semaine", async () => {
 		stubApi({ "/api/weeks/1": week01 });
 		renderApp("/semaine/1");
