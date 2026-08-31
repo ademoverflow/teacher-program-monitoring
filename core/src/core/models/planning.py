@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime
 from typing import ClassVar
 
-from sqlalchemy import UUID, Column, ForeignKey, Integer, String, Text, text
+from sqlalchemy import UUID, Column, ForeignKey, Integer, String, Text, UniqueConstraint, text
 from sqlmodel import Field, SQLModel
 
 from core.models.base import (
@@ -27,6 +27,15 @@ class PlannedSession(SQLModel, table=True):
 
     __tablename__: ClassVar[str] = "planned_sessions"
     __table_args__: ClassVar[tuple] = (
+        # What the generator upserts on. A commun créneau that carries per-niveau
+        # content becomes two séances differing only by their niveau (ADR-0010), which
+        # is why the niveau is part of the key.
+        UniqueConstraint(
+            "school_day_id",
+            "timetable_slot_id",
+            "level",
+            name="uq_planned_sessions_day_slot_level",
+        ),
         enum_check("planned_sessions", "level", Level),
         enum_check("planned_sessions", "status", SessionStatus),
     )
