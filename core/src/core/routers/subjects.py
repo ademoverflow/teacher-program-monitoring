@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_session
 from core.schemas import SubjectWithDomains
-from core.services.schedule import load_subjects
+from core.services.reference import load_subjects
 
 subjects_router = APIRouter(prefix="/subjects", tags=["Matières"])
 

@@ -23,5 +23,6 @@ which §6 asks for on the pattern of `routers/health.py`, and here it is not onl
 convention: `program_items.search_vector` is a `tsvector` that has no JSON form at all, and
 `created_at`, `updated_at` and `needs_review` are the seed's business rather than the
 teacher's. `needs_review` is the one that crosses over, on `ProgramItemOut`: §8 Phase 2 made
-it a claim about the extraction that the programme browser is entitled to see and to filter
-on.
+it a claim about the extraction, and an item the browser shows should say when the source was
+hard to read. It is shown and not filtered on — a filter for it would be a data-quality tool
+nothing has asked for.

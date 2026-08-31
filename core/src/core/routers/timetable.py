@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_session
 from core.schemas import SlotSummary
-from core.services.schedule import load_timetable
+from core.services.reference import load_timetable
 
 timetable_router = APIRouter(prefix="/timetable", tags=["Emploi du temps"])
 

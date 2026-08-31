@@ -89,16 +89,16 @@ async def test_today_is_a_jour_de_classe_when_it_is_one(client: AsyncClient) -> 
     assert body["school_day"]["day_of_week"] == Weekday.TUESDAY
     assert body["school_day"]["week_number"] == IN_P2_WEEK
     assert body["school_day"]["period_code"] == "P2"
-    assert body["next_school_day"]["date"] == "2026-11-10"
+    assert body["next_taught_day"]["date"] == "2026-11-10"
 
 
-async def test_today_points_at_the_next_jour_de_classe_when_it_is_not_one(
+async def test_a_jour_chome_keeps_its_motif_and_points_at_the_next_taught_day(
     client: AsyncClient,
 ) -> None:
     """A jour chômé is still a jour de classe (ADR-0001) — and is not the one to open.
 
-    Lundi 29/03/2027 is lundi de Pâques: it has a row, it is chômé, and the next taught
-    day is the mardi.
+    Lundi 29/03/2027 is lundi de Pâques: it has a row and a motif, and the next taught day
+    is the mardi. Dropping the row would leave the home page with nothing to say.
     """
     app.dependency_overrides[today] = lambda: date(2027, 3, 29)
     try:
@@ -106,8 +106,10 @@ async def test_today_points_at_the_next_jour_de_classe_when_it_is_not_one(
     finally:
         app.dependency_overrides.pop(today, None)
 
-    assert body["school_day"] is None
-    assert body["next_school_day"]["date"] == "2027-03-30"
+    assert body["school_day"]["date"] == "2027-03-29"
+    assert body["school_day"]["is_off"] is True
+    assert body["school_day"]["off_reason"]
+    assert body["next_taught_day"]["date"] == "2027-03-30"
 
 
 async def test_today_has_no_jour_de_classe_left_after_the_year(client: AsyncClient) -> None:
@@ -119,7 +121,7 @@ async def test_today_has_no_jour_de_classe_left_after_the_year(client: AsyncClie
         app.dependency_overrides.pop(today, None)
 
     assert body["school_day"] is None
-    assert body["next_school_day"] is None
+    assert body["next_taught_day"] is None
 
 
 async def test_the_gabarit_has_its_forty_four_creneaux(client: AsyncClient) -> None:

@@ -76,7 +76,8 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │   │   ├── routers/        # API route handlers (one per resource)
 │   │   ├── models/         # SQLModel data models
 │   │   ├── services/       # Business logic (calendar, seed loader, programmation,
-│   │   │                   #   schedule reads, journal, sessions, generation)
+│   │   │                   #   reference, schedule, curriculum, journal,
+│   │   │                   #   planned_sessions, generation)
 │   │   ├── logger/         # Structured logging
 │   │   └── alembic/        # Database migrations
 │   └── tests/              # conftest.py holds the shared DB fixtures
@@ -304,9 +305,11 @@ Available via `/skill-name` in Claude Code:
 | Architecture decisions | `docs/adr/` |
 | Data models | `core/src/core/models/` |
 | API response schemas | `core/src/core/schemas.py` |
-| Week/day/programme reads | `core/src/core/services/schedule.py` |
+| Year/week/day reads | `core/src/core/services/schedule.py` |
+| Matières, domaines, créneaux, séquences | `core/src/core/services/reference.py` |
+| Programme browsing and search | `core/src/core/services/curriculum.py` |
 | Cahier journal | `core/src/core/services/journal.py` |
-| Séance CRUD rules | `core/src/core/services/sessions.py` |
+| Séance CRUD rules | `core/src/core/services/planned_sessions.py` |
 | Generation over HTTP | `core/src/core/services/generation.py` |
 | Test DB fixtures | `core/tests/conftest.py` |
 | Calendar expansion | `core/src/core/services/school_calendar.py` |

@@ -38,10 +38,8 @@ async def test_a_search_finds_the_fractions(client: AsyncClient) -> None:
     page = (await client.get("/api/program-items", params={"q": "fractions"})).json()
 
     assert page["total"] > 0
-    haystack = " ".join(
-        f"{item['title']} {item['description'] or ''}".lower() for item in page["items"]
-    )
-    assert "fraction" in haystack
+    for item in page["items"]:
+        assert "fraction" in f"{item['title']} {item['description'] or ''}".lower()
     assert all(item["subject"]["code"] == "mathematiques" for item in page["items"])
 
 
@@ -109,7 +107,7 @@ async def test_an_item_lists_the_seances_that_work_it(client: AsyncClient) -> No
     )
     identifier = sciences["program_items"][0]["id"]
 
-    response = await client.get("/api/sessions", params={"program_item_id": identifier})
+    response = await client.get("/api/planned-sessions", params={"program_item_id": identifier})
 
     assert response.status_code == OK
     linked = response.json()
@@ -131,7 +129,7 @@ async def test_a_rituel_links_the_same_items_all_year_and_the_list_is_paged(
 
     page = (
         await client.get(
-            "/api/sessions", params={"program_item_id": identifier, "limit": PAGE_OF_TEN}
+            "/api/planned-sessions", params={"program_item_id": identifier, "limit": PAGE_OF_TEN}
         )
     ).json()
 
@@ -141,7 +139,8 @@ async def test_a_rituel_links_the_same_items_all_year_and_the_list_is_paged(
 
 async def test_an_item_no_seance_works_lists_nothing(client: AsyncClient) -> None:
     """A well-formed id nothing links answers an empty list, not a 404."""
-    response = await client.get("/api/sessions", params={"program_item_id": MISSING_ITEM})
+    response = await client.get("/api/planned-sessions", params={"program_item_id": MISSING_ITEM})
 
     assert response.status_code == OK
-    assert response.json() == {"total": 0, "sessions": []}
+    assert response.json()["total"] == 0
+    assert response.json()["sessions"] == []

@@ -1,7 +1,7 @@
 # 10 - Acceptance
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 03, 04, 05, 06, 07, 08, 09
 
 §8 Phase 4's criteria, checked one by one:

@@ -34,9 +34,10 @@ async def read_today(
     session: Annotated[AsyncSession, Depends(get_session)],
     on: Annotated[date, Depends(today)],
 ) -> TodayOut:
-    """Return today's jour de classe if there is one, and the next one to open.
+    """Return today's jour de classe if there is one, and the jour de classe to open.
 
-    « Aujourd'hui » is the home page (§7), and it lands outside the year most of the
-    time: a Wednesday, a weekend, the vacances, or one of the four jours chômés.
+    « Aujourd'hui » is the home page (§7), and it lands outside the year most of the time:
+    a Wednesday, a weekend, the vacances. On one of the four jours chômés, `school_day`
+    still comes back — with its motif — and `next_taught_day` says where to go instead.
     """
     return await load_today(session, on)

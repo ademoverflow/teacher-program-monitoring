@@ -63,15 +63,15 @@ All under `/api`.
 | GET | `/subjects` | matières with their domaines (filters, colours) |
 | GET | `/weeks/{number}` | the semaine as a grid: jours × créneaux × séances |
 | GET | `/days/{date}` | the jour: its séances in order, with items de programme |
-| GET | `/sessions/{id}` | one séance |
-| POST | `/sessions` | add a séance to a (jour, créneau, niveau) |
-| PATCH | `/sessions/{id}` | edit title, objectifs, contenu, matériel, statut, position |
-| DELETE | `/sessions/{id}` | remove a séance |
+| GET | `/planned-sessions/{id}` | one séance |
+| POST | `/planned-sessions` | add a séance to a (jour, créneau, niveau) |
+| PATCH | `/planned-sessions/{id}` | edit title, objectifs, contenu, matériel, statut, position |
+| DELETE | `/planned-sessions/{id}` | remove a séance |
 | GET | `/program-items` | filtered by niveau/matière/domaine, `?q=` full-text |
 | GET | `/program-items/{id}` | one item, with its source reference |
-| GET | `/sessions?program_item_id=` | « voir les séances liées » (§7 écran 4) |
+| GET | `/planned-sessions?program_item_id=` | « voir les séances liées » (§7 écran 4) |
 | GET | `/journal/{date}` | the day's cahier journal |
-| POST | `/journal/{date}/initialise` | fill it from the day's séances, once |
+| POST | `/journal/{date}/initialise` | fill it from the day's séances, once (201 / 200) |
 | POST | `/journal/{date}/entries` | add a ligne |
 | PATCH | `/journal/entries/{id}` | edit a ligne |
 | DELETE | `/journal/entries/{id}` | remove a ligne |

@@ -12,6 +12,7 @@ from core.database import get_session
 from core.schemas import GenerationReportOut, GenerationStatus
 from core.services.generation import (
     ConfirmationRequiredError,
+    UnknownPeriodError,
     generation_status,
     run_generation,
 )
@@ -44,7 +45,7 @@ async def read_generation_status(
 
 
 @generation_router.post("")
-async def run(
+async def launch_generation(
     body: GenerationRequest,
     session: Annotated[AsyncSession, Depends(get_session)],
     on: Annotated[date, Depends(today)],
@@ -59,6 +60,11 @@ async def run(
         return await run_generation(
             session, reference_date=on, periods=body.periods or None, confirm=body.confirm
         )
+    except UnknownPeriodError as error:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
+            "Périodes inconnues : " + ", ".join(error.periods),
+        ) from error
     except ConfirmationRequiredError as error:
         raise HTTPException(
             status.HTTP_409_CONFLICT,

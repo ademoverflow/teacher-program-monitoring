@@ -2,8 +2,9 @@
 
 `core/services/journal.py` fills a day's `journal_entries` from its `planned_sessions`, in
 the order of the day, and only where the day has none. `POST /api/journal/{date}/initialise`
-can be called every time the vue jour opens: it writes the first time and returns what is
-there afterwards. That is §10's rule — « les cahiers journaux … ne sont jamais écrasés » —
+can be called every time the vue jour opens: it answers **201** the once it fills the day
+and **200** every time after, so a caller can tell a fill from a no-op without a flag on a
+schema that `GET` shares. That is §10's rule — « les cahiers journaux … ne sont jamais écrasés » —
 stated on the write side, where the generator already states it on its own
 (`_untouchable_days`).
 

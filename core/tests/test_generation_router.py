@@ -19,6 +19,7 @@ from tests.expected import (
     PLANNED_SESSIONS,
     PROGRAM_LINKS,
     TAUGHT_DAYS,
+    UNPROCESSABLE,
 )
 
 BEFORE_THE_YEAR = date(2026, 8, 31)
@@ -150,6 +151,15 @@ async def test_a_periode_that_is_not_under_way_is_not_refused_with_one_that_is(
 
     assert response.status_code == OK
     assert response.json()["periods"] == ["P3"]
+
+
+@pytest.mark.usefixtures("_before_the_year")
+async def test_a_periode_the_year_does_not_have_is_refused(client: AsyncClient) -> None:
+    """The year has P1…P5. Asking for another code is a mistake, not a run that writes nothing."""
+    response = await client.post("/api/generation", json={"periods": ["P9"]})
+
+    assert response.status_code == UNPROCESSABLE
+    assert "P9" in response.json()["detail"]
 
 
 @pytest.mark.usefixtures("_before_the_year")

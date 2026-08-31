@@ -1,30 +1,17 @@
-"""The programmes officiels: filter them, search them, and see what works them."""
+"""The programmes officiels: filter them, search them."""
 
 import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_session
 from core.models.level import Level
-from core.schemas import ProgramItemOut
-from core.services.schedule import ProgramQuery, load_program_item, search_program_items
+from core.schemas import MAX_PAGE_SIZE, PAGE_SIZE, ProgramItemOut, ProgramItemPage
+from core.services.curriculum import ProgramQuery, load_program_item, search_program_items
 
 program_items_router = APIRouter(prefix="/program-items", tags=["Programmes"])
-
-PAGE_SIZE = 50
-MAX_PAGE_SIZE = 200
-
-
-class ProgramItemPage(BaseModel):
-    """One page of items de programme, and how many matched in all."""
-
-    total: int
-    limit: int
-    offset: int
-    items: list[ProgramItemOut]
 
 
 @program_items_router.get("")
@@ -34,7 +21,6 @@ async def list_program_items(  # noqa: PLR0913 - one parameter per filter §7 é
     subject: Annotated[str | None, Query(description="Code de la matière")] = None,
     domain: Annotated[str | None, Query(description="Code du domaine")] = None,
     q: Annotated[str | None, Query(description="Recherche plein texte (français)")] = None,
-    needs_review: Annotated[bool | None, Query()] = None,
     limit: Annotated[int, Query(ge=1, le=MAX_PAGE_SIZE)] = PAGE_SIZE,
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> ProgramItemPage:
@@ -48,13 +34,7 @@ async def list_program_items(  # noqa: PLR0913 - one parameter per filter §7 é
     items, total = await search_program_items(
         session,
         ProgramQuery(
-            level=level,
-            subject=subject,
-            domain=domain,
-            text=q,
-            needs_review=needs_review,
-            limit=limit,
-            offset=offset,
+            level=level, subject=subject, domain=domain, text=q, limit=limit, offset=offset
         ),
     )
     return ProgramItemPage(total=total, limit=limit, offset=offset, items=items)

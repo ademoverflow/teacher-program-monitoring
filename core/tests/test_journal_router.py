@@ -40,7 +40,7 @@ async def test_initialising_copies_the_day_s_seances_in_order(client: AsyncClien
     """§8 Phase 4: « initialisation du cahier journal d'un jour depuis ses séances »."""
     response = await client.post(f"/api/journal/{A_MONDAY}/initialise")
 
-    assert response.status_code == OK
+    assert response.status_code == CREATED
     journal = response.json()
     assert journal["initialised"] is True
     assert len(journal["entries"]) == SESSIONS_ON_A_MONDAY
@@ -100,15 +100,20 @@ async def test_a_ligne_says_what_is_taught_above_what_it_aims_at(client: AsyncCl
 
 async def test_a_cahier_journal_is_never_initialised_twice(client: AsyncClient) -> None:
     """§10: « les cahiers journaux … ne sont jamais écrasés »."""
-    first = (await client.post(f"/api/journal/{A_MONDAY}/initialise")).json()
+    filled = await client.post(f"/api/journal/{A_MONDAY}/initialise")
+    assert filled.status_code == CREATED
+    first = filled.json()
     edited = await client.patch(
         f"/api/journal/entries/{first['entries'][0]['id']}",
         json={"bilan": "Bien passé", "discipline": "Accueil"},
     )
     assert edited.status_code == OK
 
-    again = (await client.post(f"/api/journal/{A_MONDAY}/initialise")).json()
+    response = await client.post(f"/api/journal/{A_MONDAY}/initialise")
 
+    # 200, not 201: this call found the day filled and wrote nothing.
+    assert response.status_code == OK
+    again = response.json()
     assert len(again["entries"]) == len(first["entries"])
     assert again["entries"][0]["bilan"] == "Bien passé"
     assert again["entries"][0]["discipline"] == "Accueil"
@@ -118,6 +123,7 @@ async def test_a_jour_chome_initialises_to_nothing(client: AsyncClient) -> None:
     """Lundi de Pâques has no séance, so it has no cahier journal to fill (ADR-0001)."""
     response = await client.post(f"/api/journal/{EASTER_MONDAY}/initialise")
 
+    # 200, not 201: there was nothing to fill it with.
     assert response.status_code == OK
     journal = response.json()
     assert journal["is_off"] is True

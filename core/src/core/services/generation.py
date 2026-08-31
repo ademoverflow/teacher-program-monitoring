@@ -39,6 +39,16 @@ class ConfirmationRequiredError(Exception):
     periods: tuple[str, ...]
 
 
+@dataclass(frozen=True, slots=True)
+class UnknownPeriodError(Exception):
+    """Codes de période the year does not have.
+
+    Asking for one is a mistake to report, not a run that quietly writes nothing.
+    """
+
+    periods: tuple[str, ...]
+
+
 async def _protected_days(session: AsyncSession, reference_date: datetime.date) -> dict[str, int]:
     """Count, per période, the jours a re-generation would leave exactly as they are."""
     days, weeks, periods, entries = (
@@ -112,7 +122,7 @@ async def generation_status(
     )
 
 
-def _rendered(report: GenerationReport, seconds: float) -> GenerationReportOut:
+def _report(report: GenerationReport, seconds: float) -> GenerationReportOut:
     """Render a rapport de validation for the API, keeping every line and its nature."""
     return GenerationReportOut(
         periods=list(report.periods),
@@ -125,8 +135,7 @@ def _rendered(report: GenerationReport, seconds: float) -> GenerationReportOut:
         sequences_placed=report.sequences_placed,
         alternations=report.alternations,
         problems=[
-            ProblemOut(kind=problem.kind.value, message=problem.message)
-            for problem in report.problems
+            ProblemOut(kind=problem.kind, message=problem.message) for problem in report.problems
         ],
         error_count=len(report.errors),
         is_clean=report.is_clean,
@@ -143,14 +152,22 @@ async def run_generation(
 ) -> GenerationReportOut:
     """Generate the year, or the given périodes, and return the rapport de validation.
 
-    Raises ``ConfirmationRequired`` when a targeted période is already under way and the
-    caller did not confirm. The jours passés and the cahiers journaux are never written
-    over either way — that is the generator's own rule (§10); the confirmation is about
-    the rest of the période, which a re-generation does rewrite.
+    Raises ``UnknownPeriodError`` for a code the year does not have — an unknown période is
+    a mistake to report, not an empty run — and ``ConfirmationRequiredError`` when a
+    targeted période is already under way and the caller did not confirm.
+
+    The jours passés and the cahiers journaux are never written over either way — that is
+    the generator's own rule (§10); the confirmation is about the rest of the période, which
+    a re-generation does rewrite.
     """
+    status = await generation_status(session, reference_date)
+    known = {state.code for state in status.periods}
+    unknown = tuple(sorted(set(periods) - known)) if periods else ()
+    if unknown:
+        raise UnknownPeriodError(periods=unknown)
+
     if not confirm:
-        status = await generation_status(session, reference_date)
-        wanted = set(periods) if periods else {state.code for state in status.periods}
+        wanted = set(periods) if periods else known
         started = tuple(
             sorted(
                 state.code for state in status.periods if state.is_started and state.code in wanted
@@ -162,4 +179,4 @@ async def run_generation(
     started_at = time.perf_counter()
     report = await generate_year(session, reference_date=reference_date, periods=periods)
     await session.commit()
-    return _rendered(report, time.perf_counter() - started_at)
+    return _report(report, time.perf_counter() - started_at)
