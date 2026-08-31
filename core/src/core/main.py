@@ -8,9 +8,12 @@ from fastapi import FastAPI
 from core import __version__
 from core.routers import (
     calendar_router,
+    days_router,
     health_router,
+    sessions_router,
     subjects_router,
     timetable_router,
+    weeks_router,
 )
 
 
@@ -47,5 +50,8 @@ for router in (
     calendar_router,
     timetable_router,
     subjects_router,
+    weeks_router,
+    days_router,
+    sessions_router,
 ):
     app.include_router(router, prefix=API_PREFIX)

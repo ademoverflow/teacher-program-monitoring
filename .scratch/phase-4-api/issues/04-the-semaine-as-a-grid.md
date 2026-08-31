@@ -1,7 +1,7 @@
 # 04 - Render a semaine as the grid, not as a list
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 02
 
 `GET /api/weeks/{number}` returns the semaine the way §4.1 prints it: one entry per jour de

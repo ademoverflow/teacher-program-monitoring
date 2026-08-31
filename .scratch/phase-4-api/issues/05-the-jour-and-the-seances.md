@@ -1,7 +1,7 @@
 # 05 - The jour détaillé, and the CRUD of the séances
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 02
 
 `GET /api/days/{date}` returns the jour in the order it is taught: its semaine and its
