@@ -307,7 +307,7 @@ def test_an_oeuvre_never_starts_before_the_periode_it_is_read_in() -> None:
 
 
 def test_the_repli_and_the_oeuvre_without_a_planning_are_reported() -> None:
-    """§4.5 makes Hansel the repli; the source gives Zathura no weekly planning."""
+    """§4.5 makes Hansel the repli; the source gives Zathura no weekly planning (ADR-0017)."""
     problems = "\n".join(PLAN.problems)
 
     assert "Zathura" in problems
@@ -361,7 +361,7 @@ def test_arts_plastiques_and_education_musicale_take_one_creneau_each_a_week() -
 
 
 def test_a_theme_is_taught_in_a_periode_its_intitule_names() -> None:
-    """Histoire and géographie place themselves by their thèmes (ADR-0012)."""
+    """Histoire and géographie place themselves by their thèmes (ADR-0016)."""
     for subject in ("histoire", "geographie"):
         for level in (Level.CM1, Level.CM2):
             periods = assign_periods(PLAN_INPUT.items_of(subject, None, level))
@@ -381,7 +381,7 @@ def test_a_theme_is_taught_in_a_periode_its_intitule_names() -> None:
 
 
 def test_a_rituel_keeps_its_whole_programme_every_day() -> None:
-    """A rituel repeats rather than progresses (ADR-0014)."""
+    """A rituel repeats rather than progresses (ADR-0015)."""
     for session in PLAN.sessions:
         slot = SLOTS[session.slot]
         if not slot.is_ritual or slot.subject is None:
