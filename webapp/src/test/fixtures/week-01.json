@@ -1,0 +1,1712 @@
+{
+	"number": 1,
+	"number_in_period": 1,
+	"starts_on": "2026-08-31",
+	"ends_on": "2026-09-04",
+	"period": {
+		"id": "6049e002-e1da-4309-8905-b6158ca0a7a0",
+		"code": "P1",
+		"label": "P\u00e9riode 1",
+		"starts_on": "2026-09-01",
+		"ends_on": "2026-10-16"
+	},
+	"previous_week_number": null,
+	"next_week_number": 2,
+	"days": [
+		{
+			"id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+			"date": "2026-09-01",
+			"day_of_week": 2,
+			"is_off": false,
+			"off_reason": null,
+			"cells": [
+				{
+					"slot": {
+						"id": "4be10b02-eda4-4f04-89c4-02b93c61b816",
+						"day_of_week": 2,
+						"starts_at": "09:00:00",
+						"ends_at": "09:10:00",
+						"duration_minutes": 10,
+						"label": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "d6aeb012-93b6-41f9-b7d6-f3cbea35be22",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "4be10b02-eda4-4f04-89c4-02b93c61b816",
+							"level": "commun",
+							"title": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+							"status": "planifi\u00e9e",
+							"position": 1,
+							"subject": null,
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "50867550-17e9-481c-8c7a-4242aa2faae9",
+						"day_of_week": 2,
+						"starts_at": "09:10:00",
+						"ends_at": "09:55:00",
+						"duration_minutes": 45,
+						"label": "\u00c9tude de la langue \u2014 Conjugaison",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "a7d82037-63b5-44d5-b11c-62300dfa9299",
+							"code": "conjugaison",
+							"label": "Conjugaison",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "8a9c8f99-a40e-4ea2-974d-bc38d6b3bb73",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "50867550-17e9-481c-8c7a-4242aa2faae9",
+							"level": "CM1",
+							"title": "Approfondir sa ma\u00eetrise de la conjugaison",
+							"status": "planifi\u00e9e",
+							"position": 2,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "a7d82037-63b5-44d5-b11c-62300dfa9299",
+								"code": "conjugaison",
+								"label": "Conjugaison",
+								"level": "commun"
+							},
+							"sequence": null
+						},
+						{
+							"id": "5680f3b6-0d80-4c87-ab09-2b40dea67ffe",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "50867550-17e9-481c-8c7a-4242aa2faae9",
+							"level": "CM2",
+							"title": "Approfondir sa ma\u00eetrise de la conjugaison",
+							"status": "planifi\u00e9e",
+							"position": 3,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "a7d82037-63b5-44d5-b11c-62300dfa9299",
+								"code": "conjugaison",
+								"label": "Conjugaison",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "f4b293f3-b44d-47bb-8ad6-642307394156",
+						"day_of_week": 2,
+						"starts_at": "09:55:00",
+						"ends_at": "10:15:00",
+						"duration_minutes": 20,
+						"label": "Calcul mental",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+							"code": "calcul-mental",
+							"label": "Calcul mental",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "d56be007-3e73-4896-9508-80e3ab7f7d0a",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "f4b293f3-b44d-47bb-8ad6-642307394156",
+							"level": "commun",
+							"title": "Calcul mental",
+							"status": "planifi\u00e9e",
+							"position": 4,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+								"code": "calcul-mental",
+								"label": "Calcul mental",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "a90975b3-14c3-4638-a44b-718537d9f72d",
+						"day_of_week": 2,
+						"starts_at": "10:45:00",
+						"ends_at": "11:30:00",
+						"duration_minutes": 45,
+						"label": "Math\u00e9matiques \u2014 Calculs",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "70c721be-b3f4-42e2-9bc7-b18b28c12963",
+							"code": "calculs",
+							"label": "Calculs",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "761b95af-7620-4676-97f1-4b16634c6d09",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "a90975b3-14c3-4638-a44b-718537d9f72d",
+							"level": "CM1",
+							"title": "S\u00e9quence 1 \u2014 Nombres jusqu'\u00e0 9999 (s\u00e9ance 1/4)",
+							"status": "planifi\u00e9e",
+							"position": 5,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "70c721be-b3f4-42e2-9bc7-b18b28c12963",
+								"code": "calculs",
+								"label": "Calculs",
+								"level": "commun"
+							},
+							"sequence": {
+								"id": "8b5ce123-36c4-4b1d-bbb3-439dce74cc43",
+								"method": "maths-cm1",
+								"level": "CM1",
+								"number": 1,
+								"title": "Nombres jusqu'\u00e0 9999"
+							}
+						},
+						{
+							"id": "d134e8cd-c438-4eda-9801-f744c8e6c9b5",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "a90975b3-14c3-4638-a44b-718537d9f72d",
+							"level": "CM2",
+							"title": "S\u00e9quence 1 \u2014 Nombres jusqu'\u00e0 999 999 (s\u00e9ance 1/4)",
+							"status": "planifi\u00e9e",
+							"position": 6,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "70c721be-b3f4-42e2-9bc7-b18b28c12963",
+								"code": "calculs",
+								"label": "Calculs",
+								"level": "commun"
+							},
+							"sequence": {
+								"id": "814a5ab5-15b1-4b30-8740-72131936606e",
+								"method": "maths-cm2",
+								"level": "CM2",
+								"number": 1,
+								"title": "Nombres jusqu'\u00e0 999 999"
+							}
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "a8efda5a-2b96-473f-abf4-42950231c1f4",
+						"day_of_week": 2,
+						"starts_at": "11:30:00",
+						"ends_at": "12:15:00",
+						"duration_minutes": 45,
+						"label": "Lecture, compr\u00e9hension de textes",
+						"level": "CM1",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+							"code": "lecture",
+							"label": "Lecture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "297beda2-9883-4b4f-802b-b9ecdb73baae",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "a8efda5a-2b96-473f-abf4-42950231c1f4",
+							"level": "CM1",
+							"title": "Lire avec fluidit\u00e9",
+							"status": "planifi\u00e9e",
+							"position": 7,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+								"code": "lecture",
+								"label": "Lecture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "d62ab10c-1ac1-4e2b-a493-0ccdb9f1f8b1",
+						"day_of_week": 2,
+						"starts_at": "11:30:00",
+						"ends_at": "12:15:00",
+						"duration_minutes": 45,
+						"label": "Histoire ou G\u00e9ographie",
+						"level": "CM2",
+						"is_alternating": true,
+						"alternation_group": "histoire-geographie",
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "e1a8f43c-8da1-4548-8c73-ccff33c144f2",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "d62ab10c-1ac1-4e2b-a493-0ccdb9f1f8b1",
+							"level": "CM2",
+							"title": "Th\u00e8me 1 : De la R\u00e9publique \u00e0 l\u2019Empire (1792-1815) (premi\u00e8re p\u00e9riode)",
+							"status": "planifi\u00e9e",
+							"position": 8,
+							"subject": {
+								"id": "2289897e-be37-4bf1-96a1-e079c95c78a6",
+								"code": "histoire",
+								"label": "Histoire",
+								"color": "#FDE9D9"
+							},
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "86c8cdb4-bda9-428a-b7d4-09347fa1d5e7",
+						"day_of_week": 2,
+						"starts_at": "12:15:00",
+						"ends_at": "12:30:00",
+						"duration_minutes": 15,
+						"label": "Dict\u00e9e du jour",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "6831071e-66b3-47b2-b04c-91379600494e",
+							"code": "orthographe",
+							"label": "Orthographe",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "bf79fb57-1b6b-4c82-97ad-d4542e09a3a8",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "86c8cdb4-bda9-428a-b7d4-09347fa1d5e7",
+							"level": "commun",
+							"title": "Dict\u00e9e du jour",
+							"status": "planifi\u00e9e",
+							"position": 9,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "6831071e-66b3-47b2-b04c-91379600494e",
+								"code": "orthographe",
+								"label": "Orthographe",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "53af443c-3a1f-4ccb-a33d-8b6924afbe0c",
+						"day_of_week": 2,
+						"starts_at": "14:00:00",
+						"ends_at": "14:15:00",
+						"duration_minutes": 15,
+						"label": "Lecture offerte / lecture personnelle",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+							"code": "lecture",
+							"label": "Lecture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "d2997c57-73e7-4738-9a78-7fb9b393eb91",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "53af443c-3a1f-4ccb-a33d-8b6924afbe0c",
+							"level": "commun",
+							"title": "Lecture offerte / lecture personnelle",
+							"status": "planifi\u00e9e",
+							"position": 10,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+								"code": "lecture",
+								"label": "Lecture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "be9c087d-fcc9-4638-9210-ac51057ec62d",
+						"day_of_week": 2,
+						"starts_at": "14:15:00",
+						"ends_at": "15:00:00",
+						"duration_minutes": 45,
+						"label": "Histoire ou G\u00e9ographie",
+						"level": "CM1",
+						"is_alternating": true,
+						"alternation_group": "histoire-geographie",
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "d56c9e02-443f-4bf0-a1d2-0bb45a2c902a",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "be9c087d-fcc9-4638-9210-ac51057ec62d",
+							"level": "CM1",
+							"title": "Th\u00e8me 1 : La vie quotidienne au Moyen \u00c2ge (XIe - XIIIe si\u00e8cles) (premi\u00e8re et deuxi\u00e8me p\u00e9riode)",
+							"status": "planifi\u00e9e",
+							"position": 11,
+							"subject": {
+								"id": "2289897e-be37-4bf1-96a1-e079c95c78a6",
+								"code": "histoire",
+								"label": "Histoire",
+								"color": "#FDE9D9"
+							},
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "e0ba6154-6096-42e3-8ad2-ada3e552c6ea",
+						"day_of_week": 2,
+						"starts_at": "14:15:00",
+						"ends_at": "15:00:00",
+						"duration_minutes": 45,
+						"label": "Lecture",
+						"level": "CM2",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+							"code": "lecture",
+							"label": "Lecture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "29213c20-bcf2-4b8a-a560-bfa6b40ad52f",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "e0ba6154-6096-42e3-8ad2-ada3e552c6ea",
+							"level": "CM2",
+							"title": "Lire avec fluidit\u00e9",
+							"status": "planifi\u00e9e",
+							"position": 12,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+								"code": "lecture",
+								"label": "Lecture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "e9005f53-3544-4f42-b5bd-b57d5c6f84a7",
+						"day_of_week": 2,
+						"starts_at": "15:00:00",
+						"ends_at": "15:45:00",
+						"duration_minutes": 45,
+						"label": "Ateliers probl\u00e8mes",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "77327cf5-e4d0-4c17-88ef-6b9cb1a9842f",
+							"code": "resolution-de-problemes",
+							"label": "R\u00e9solution de probl\u00e8mes",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "563abc2f-457f-4211-8788-35e946e3b59c",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "e9005f53-3544-4f42-b5bd-b57d5c6f84a7",
+							"level": "commun",
+							"title": "La r\u00e9solution de probl\u00e8mes",
+							"status": "planifi\u00e9e",
+							"position": 13,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "77327cf5-e4d0-4c17-88ef-6b9cb1a9842f",
+								"code": "resolution-de-problemes",
+								"label": "R\u00e9solution de probl\u00e8mes",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "54764ead-48a5-4ee2-ab62-05f41309d14d",
+						"day_of_week": 2,
+						"starts_at": "15:45:00",
+						"ends_at": "16:30:00",
+						"duration_minutes": 45,
+						"label": "Anglais",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "672b7dd8-894e-47e5-902d-0ed76a5facf7",
+							"code": "anglais",
+							"label": "Anglais",
+							"color": "#E5D5EC"
+						},
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "eff393be-8b35-4581-87a4-9a535110ce96",
+							"school_day_id": "de0c97d8-ffed-4d51-9e49-90ccf36d9fde",
+							"date": "2026-09-01",
+							"timetable_slot_id": "54764ead-48a5-4ee2-ab62-05f41309d14d",
+							"level": "commun",
+							"title": "Anglais",
+							"status": "planifi\u00e9e",
+							"position": 14,
+							"subject": {
+								"id": "672b7dd8-894e-47e5-902d-0ed76a5facf7",
+								"code": "anglais",
+								"label": "Anglais",
+								"color": "#E5D5EC"
+							},
+							"domain": {
+								"id": "8c944a8f-ddb9-49f8-a770-8bc1a1dcdcf4",
+								"code": "comprehension-de-l-oral",
+								"label": "Compr\u00e9hension de l\u2019oral",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "6136b427-233e-489b-b0c1-c29228407a5d",
+			"date": "2026-09-03",
+			"day_of_week": 4,
+			"is_off": false,
+			"off_reason": null,
+			"cells": [
+				{
+					"slot": {
+						"id": "32698758-59bb-470d-b523-7215cb7798d8",
+						"day_of_week": 4,
+						"starts_at": "09:00:00",
+						"ends_at": "09:10:00",
+						"duration_minutes": 10,
+						"label": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "2a6aa254-26c9-446c-9cbe-58ffed260d18",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "32698758-59bb-470d-b523-7215cb7798d8",
+							"level": "commun",
+							"title": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+							"status": "planifi\u00e9e",
+							"position": 1,
+							"subject": null,
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "8040956e-5e2d-4bd3-b019-8d26ad69a37d",
+						"day_of_week": 4,
+						"starts_at": "09:10:00",
+						"ends_at": "09:55:00",
+						"duration_minutes": 45,
+						"label": "\u00c9tude de la langue \u2014 Orthographe",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "6831071e-66b3-47b2-b04c-91379600494e",
+							"code": "orthographe",
+							"label": "Orthographe",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "2c1aff54-7551-4daa-854a-0685240df96e",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "8040956e-5e2d-4bd3-b019-8d26ad69a37d",
+							"level": "commun",
+							"title": "Identifier les classes de mots subissant des variations",
+							"status": "planifi\u00e9e",
+							"position": 2,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "6831071e-66b3-47b2-b04c-91379600494e",
+								"code": "orthographe",
+								"label": "Orthographe",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "1a9b51e0-3ce8-4eca-b197-e2b10d8ab61c",
+						"day_of_week": 4,
+						"starts_at": "09:55:00",
+						"ends_at": "10:15:00",
+						"duration_minutes": 20,
+						"label": "Calcul mental",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+							"code": "calcul-mental",
+							"label": "Calcul mental",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "ce1c8515-3a26-4613-88d7-641ef79cc183",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "1a9b51e0-3ce8-4eca-b197-e2b10d8ab61c",
+							"level": "commun",
+							"title": "Calcul mental",
+							"status": "planifi\u00e9e",
+							"position": 3,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+								"code": "calcul-mental",
+								"label": "Calcul mental",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "90f53599-5f10-466d-b4d7-7743f4830ecd",
+						"day_of_week": 4,
+						"starts_at": "10:45:00",
+						"ends_at": "11:30:00",
+						"duration_minutes": 45,
+						"label": "Math\u00e9matiques \u2014 Grandeurs et mesures",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "2b18e9cd-20ea-415e-bc90-83dbaf5b7e22",
+							"code": "grandeurs-et-mesures",
+							"label": "Grandeurs et mesures",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "886af407-9f1d-421f-8c38-eea2d059b691",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "90f53599-5f10-466d-b4d7-7743f4830ecd",
+							"level": "CM1",
+							"title": "S\u00e9quence 1 \u2014 Nombres jusqu'\u00e0 9999 (s\u00e9ance 2/4)",
+							"status": "planifi\u00e9e",
+							"position": 4,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "2b18e9cd-20ea-415e-bc90-83dbaf5b7e22",
+								"code": "grandeurs-et-mesures",
+								"label": "Grandeurs et mesures",
+								"level": "commun"
+							},
+							"sequence": {
+								"id": "8b5ce123-36c4-4b1d-bbb3-439dce74cc43",
+								"method": "maths-cm1",
+								"level": "CM1",
+								"number": 1,
+								"title": "Nombres jusqu'\u00e0 9999"
+							}
+						},
+						{
+							"id": "71385c30-ef62-47ef-b18b-8d7a380b34f3",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "90f53599-5f10-466d-b4d7-7743f4830ecd",
+							"level": "CM2",
+							"title": "S\u00e9quence 1 \u2014 Nombres jusqu'\u00e0 999 999 (s\u00e9ance 2/4)",
+							"status": "planifi\u00e9e",
+							"position": 5,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "2b18e9cd-20ea-415e-bc90-83dbaf5b7e22",
+								"code": "grandeurs-et-mesures",
+								"label": "Grandeurs et mesures",
+								"level": "commun"
+							},
+							"sequence": {
+								"id": "814a5ab5-15b1-4b30-8740-72131936606e",
+								"method": "maths-cm2",
+								"level": "CM2",
+								"number": 1,
+								"title": "Nombres jusqu'\u00e0 999 999"
+							}
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "c05ec958-37ba-41c5-a92a-ab25a1081df0",
+						"day_of_week": 4,
+						"starts_at": "11:30:00",
+						"ends_at": "12:15:00",
+						"duration_minutes": 45,
+						"label": "Production d'\u00e9crits, projet d'\u00e9criture",
+						"level": "CM1",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "fd363621-451b-4196-aa7a-a108ed8213e4",
+							"code": "ecriture",
+							"label": "\u00c9criture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "d3e21834-d7ed-4b0b-88f6-4cb4678e0bb6",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "c05ec958-37ba-41c5-a92a-ab25a1081df0",
+							"level": "CM1",
+							"title": "\u00c9crire \u00e0 la main de mani\u00e8re fluide et efficace",
+							"status": "planifi\u00e9e",
+							"position": 6,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "fd363621-451b-4196-aa7a-a108ed8213e4",
+								"code": "ecriture",
+								"label": "\u00c9criture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "12c9223f-79cd-479c-8a60-63d847d6ce60",
+						"day_of_week": 4,
+						"starts_at": "11:30:00",
+						"ends_at": "12:15:00",
+						"duration_minutes": 45,
+						"label": "Histoire ou G\u00e9ographie",
+						"level": "CM2",
+						"is_alternating": true,
+						"alternation_group": "histoire-geographie",
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "a132f48c-6aab-42d5-88db-9950d5ce499a",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "12c9223f-79cd-479c-8a60-63d847d6ce60",
+							"level": "CM2",
+							"title": "Th\u00e8me 1 : De la R\u00e9publique \u00e0 l\u2019Empire (1792-1815) (premi\u00e8re p\u00e9riode)",
+							"status": "planifi\u00e9e",
+							"position": 7,
+							"subject": {
+								"id": "2289897e-be37-4bf1-96a1-e079c95c78a6",
+								"code": "histoire",
+								"label": "Histoire",
+								"color": "#FDE9D9"
+							},
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "2f0ca14a-e82d-4201-abea-d8319244a019",
+						"day_of_week": 4,
+						"starts_at": "12:15:00",
+						"ends_at": "12:30:00",
+						"duration_minutes": 15,
+						"label": "Dict\u00e9e du jour",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "6831071e-66b3-47b2-b04c-91379600494e",
+							"code": "orthographe",
+							"label": "Orthographe",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "3b176238-d221-4d4c-958c-544d721261d1",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "2f0ca14a-e82d-4201-abea-d8319244a019",
+							"level": "commun",
+							"title": "Dict\u00e9e du jour",
+							"status": "planifi\u00e9e",
+							"position": 8,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "6831071e-66b3-47b2-b04c-91379600494e",
+								"code": "orthographe",
+								"label": "Orthographe",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "f81d6155-5333-40cd-8fad-e9877e439ae7",
+						"day_of_week": 4,
+						"starts_at": "14:00:00",
+						"ends_at": "14:15:00",
+						"duration_minutes": 15,
+						"label": "Lecture offerte / lecture personnelle",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+							"code": "lecture",
+							"label": "Lecture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "46ba7602-50ee-47f9-aaa6-87df3b09d75d",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "f81d6155-5333-40cd-8fad-e9877e439ae7",
+							"level": "commun",
+							"title": "Lecture offerte / lecture personnelle",
+							"status": "planifi\u00e9e",
+							"position": 9,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+								"code": "lecture",
+								"label": "Lecture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "9facdc7f-2724-4658-8a8c-0d5c56048f0c",
+						"day_of_week": 4,
+						"starts_at": "14:15:00",
+						"ends_at": "15:00:00",
+						"duration_minutes": 45,
+						"label": "Arts plastiques / \u00c9ducation musicale",
+						"level": "commun",
+						"is_alternating": true,
+						"alternation_group": "arts-plastiques-education-musicale",
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "c3c76793-e11c-47ee-b1a3-6fc0f2166b0c",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "9facdc7f-2724-4658-8a8c-0d5c56048f0c",
+							"level": "commun",
+							"title": "Chanter et interpr\u00e9ter",
+							"status": "planifi\u00e9e",
+							"position": 10,
+							"subject": {
+								"id": "2b22beb2-b2fd-4034-85f3-1aa4b44de34e",
+								"code": "education-musicale",
+								"label": "\u00c9ducation musicale",
+								"color": "#FFF2CC"
+							},
+							"domain": {
+								"id": "75c35cb6-4ce6-45fe-a970-5b6648a5cad1",
+								"code": "competences-travaillees",
+								"label": "Comp\u00e9tences travaill\u00e9es",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "60642919-d5d4-443c-9847-bec1f062d7b9",
+						"day_of_week": 4,
+						"starts_at": "15:00:00",
+						"ends_at": "15:45:00",
+						"duration_minutes": 45,
+						"label": "Histoire ou G\u00e9ographie",
+						"level": "CM1",
+						"is_alternating": true,
+						"alternation_group": "histoire-geographie",
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "ccaf1bae-c3f5-44b8-84ed-b8b257bd7265",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "60642919-d5d4-443c-9847-bec1f062d7b9",
+							"level": "CM1",
+							"title": "Th\u00e8me 1 : La vie quotidienne au Moyen \u00c2ge (XIe - XIIIe si\u00e8cles) (premi\u00e8re et deuxi\u00e8me p\u00e9riode)",
+							"status": "planifi\u00e9e",
+							"position": 11,
+							"subject": {
+								"id": "2289897e-be37-4bf1-96a1-e079c95c78a6",
+								"code": "histoire",
+								"label": "Histoire",
+								"color": "#FDE9D9"
+							},
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "a47cc049-bf67-4917-9fc5-11cf069bfaaf",
+						"day_of_week": 4,
+						"starts_at": "15:00:00",
+						"ends_at": "15:45:00",
+						"duration_minutes": 45,
+						"label": "Production d'\u00e9crits",
+						"level": "CM2",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "fd363621-451b-4196-aa7a-a108ed8213e4",
+							"code": "ecriture",
+							"label": "\u00c9criture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "a6002389-10c0-4ce7-8204-f0a30b25487c",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "a47cc049-bf67-4917-9fc5-11cf069bfaaf",
+							"level": "CM2",
+							"title": "\u00c9crire \u00e0 la main de mani\u00e8re fluide et efficace",
+							"status": "planifi\u00e9e",
+							"position": 12,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "fd363621-451b-4196-aa7a-a108ed8213e4",
+								"code": "ecriture",
+								"label": "\u00c9criture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "8e157b62-602d-4d01-9b3d-e46124b93138",
+						"day_of_week": 4,
+						"starts_at": "15:45:00",
+						"ends_at": "16:30:00",
+						"duration_minutes": 45,
+						"label": "EPS",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "aa7855aa-ee15-40f3-a565-5400173b44d1",
+							"code": "eps",
+							"label": "EPS",
+							"color": "#CCC0DA"
+						},
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "83acef8a-bc72-4c01-994e-16a033753f44",
+							"school_day_id": "6136b427-233e-489b-b0c1-c29228407a5d",
+							"date": "2026-09-03",
+							"timetable_slot_id": "8e157b62-602d-4d01-9b3d-e46124b93138",
+							"level": "commun",
+							"title": "Se d\u00e9placer le plus vite ou le plus longtemps possible",
+							"status": "planifi\u00e9e",
+							"position": 13,
+							"subject": {
+								"id": "aa7855aa-ee15-40f3-a565-5400173b44d1",
+								"code": "eps",
+								"label": "EPS",
+								"color": "#CCC0DA"
+							},
+							"domain": {
+								"id": "79831235-7aec-4978-a065-50d7193a67f9",
+								"code": "se-deplacer-pour-agir-dans-l-espace-et-sur-une-duree",
+								"label": "Se d\u00e9placer pour agir dans l\u2019espace et sur une dur\u00e9e",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+			"date": "2026-09-04",
+			"day_of_week": 5,
+			"is_off": false,
+			"off_reason": null,
+			"cells": [
+				{
+					"slot": {
+						"id": "cd602a72-43c2-4baf-9b89-4d74ef635e8f",
+						"day_of_week": 5,
+						"starts_at": "09:00:00",
+						"ends_at": "09:10:00",
+						"duration_minutes": 10,
+						"label": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": null,
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "d94009d7-ae2b-4aa3-bef9-fba2a8923e05",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "cd602a72-43c2-4baf-9b89-4d74ef635e8f",
+							"level": "commun",
+							"title": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+							"status": "planifi\u00e9e",
+							"position": 1,
+							"subject": null,
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "454a314f-71fb-470f-8fd2-060dd94c08ee",
+						"day_of_week": 5,
+						"starts_at": "09:10:00",
+						"ends_at": "09:55:00",
+						"duration_minutes": 45,
+						"label": "\u00c9tude de la langue \u2014 Vocabulaire / Dict\u00e9e bilan",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "5c853d52-da0f-4d0c-9c63-790bcc30fc4c",
+							"code": "vocabulaire",
+							"label": "Vocabulaire",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "ef8cf017-4d51-4b6b-8602-4c18d5f2d408",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "454a314f-71fb-470f-8fd2-060dd94c08ee",
+							"level": "commun",
+							"title": "Enrichir son vocabulaire dans toutes les disciplines",
+							"status": "planifi\u00e9e",
+							"position": 2,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "5c853d52-da0f-4d0c-9c63-790bcc30fc4c",
+								"code": "vocabulaire",
+								"label": "Vocabulaire",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "c056197c-6c86-4695-99e2-c4a552f43835",
+						"day_of_week": 5,
+						"starts_at": "09:55:00",
+						"ends_at": "10:15:00",
+						"duration_minutes": 15,
+						"label": "Calcul mental",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+							"code": "calcul-mental",
+							"label": "Calcul mental",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "4755081d-f44e-42cf-9b83-759d704ebf8c",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "c056197c-6c86-4695-99e2-c4a552f43835",
+							"level": "commun",
+							"title": "Calcul mental",
+							"status": "planifi\u00e9e",
+							"position": 3,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+								"code": "calcul-mental",
+								"label": "Calcul mental",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "44982350-c46e-4e08-97c9-748b5835763a",
+						"day_of_week": 5,
+						"starts_at": "10:45:00",
+						"ends_at": "11:30:00",
+						"duration_minutes": 45,
+						"label": "Math\u00e9matiques \u2014 G\u00e9om\u00e9trie",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+							"code": "mathematiques",
+							"label": "Math\u00e9matiques",
+							"color": "#FFC7CE"
+						},
+						"domain": {
+							"id": "88a2f2d5-8492-41ad-a20d-93aa8e134e43",
+							"code": "geometrie",
+							"label": "G\u00e9om\u00e9trie",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "36a645f5-90a6-4429-a114-15c98cc6d041",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "44982350-c46e-4e08-97c9-748b5835763a",
+							"level": "CM1",
+							"title": "S\u00e9quence 1 \u2014 Nombres jusqu'\u00e0 9999 (s\u00e9ance 3/4)",
+							"status": "planifi\u00e9e",
+							"position": 4,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "88a2f2d5-8492-41ad-a20d-93aa8e134e43",
+								"code": "geometrie",
+								"label": "G\u00e9om\u00e9trie",
+								"level": "commun"
+							},
+							"sequence": {
+								"id": "8b5ce123-36c4-4b1d-bbb3-439dce74cc43",
+								"method": "maths-cm1",
+								"level": "CM1",
+								"number": 1,
+								"title": "Nombres jusqu'\u00e0 9999"
+							}
+						},
+						{
+							"id": "b4330dd9-a8e5-4e0f-b38d-adcccfa5e85a",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "44982350-c46e-4e08-97c9-748b5835763a",
+							"level": "CM2",
+							"title": "S\u00e9quence 1 \u2014 Nombres jusqu'\u00e0 999 999 (s\u00e9ance 3/4)",
+							"status": "planifi\u00e9e",
+							"position": 5,
+							"subject": {
+								"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+								"code": "mathematiques",
+								"label": "Math\u00e9matiques",
+								"color": "#FFC7CE"
+							},
+							"domain": {
+								"id": "88a2f2d5-8492-41ad-a20d-93aa8e134e43",
+								"code": "geometrie",
+								"label": "G\u00e9om\u00e9trie",
+								"level": "commun"
+							},
+							"sequence": {
+								"id": "814a5ab5-15b1-4b30-8740-72131936606e",
+								"method": "maths-cm2",
+								"level": "CM2",
+								"number": 1,
+								"title": "Nombres jusqu'\u00e0 999 999"
+							}
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "75f6f84c-6390-4060-923b-243a53452d3c",
+						"day_of_week": 5,
+						"starts_at": "11:30:00",
+						"ends_at": "12:00:00",
+						"duration_minutes": 30,
+						"label": "Lecture fluence",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+							"code": "lecture",
+							"label": "Lecture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "b1da5722-cd86-448f-b995-db15cf89c2e8",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "75f6f84c-6390-4060-923b-243a53452d3c",
+							"level": "commun",
+							"title": "Lire avec fluidit\u00e9",
+							"status": "planifi\u00e9e",
+							"position": 6,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+								"code": "lecture",
+								"label": "Lecture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "73552222-d87a-4876-b2bd-0a1f17df9dc1",
+						"day_of_week": 5,
+						"starts_at": "12:00:00",
+						"ends_at": "12:30:00",
+						"duration_minutes": 30,
+						"label": "Dict\u00e9e bilan / Po\u00e9sie",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "6831071e-66b3-47b2-b04c-91379600494e",
+							"code": "orthographe",
+							"label": "Orthographe",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "bbf637da-354c-4af6-a285-b1e94cd46a5a",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "73552222-d87a-4876-b2bd-0a1f17df9dc1",
+							"level": "commun",
+							"title": "Dict\u00e9e bilan / Po\u00e9sie",
+							"status": "planifi\u00e9e",
+							"position": 7,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "6831071e-66b3-47b2-b04c-91379600494e",
+								"code": "orthographe",
+								"label": "Orthographe",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "e0218ae3-09d3-4aa2-a1ba-bac1034690c3",
+						"day_of_week": 5,
+						"starts_at": "14:00:00",
+						"ends_at": "14:15:00",
+						"duration_minutes": 15,
+						"label": "Lecture offerte / lecture personnelle",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+							"code": "francais",
+							"label": "Fran\u00e7ais",
+							"color": "#DAEEF3"
+						},
+						"domain": {
+							"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+							"code": "lecture",
+							"label": "Lecture",
+							"level": "commun"
+						}
+					},
+					"sessions": [
+						{
+							"id": "c044e53d-5640-47b3-9763-72fb8423df1a",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "e0218ae3-09d3-4aa2-a1ba-bac1034690c3",
+							"level": "commun",
+							"title": "Lecture offerte / lecture personnelle",
+							"status": "planifi\u00e9e",
+							"position": 8,
+							"subject": {
+								"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+								"code": "francais",
+								"label": "Fran\u00e7ais",
+								"color": "#DAEEF3"
+							},
+							"domain": {
+								"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+								"code": "lecture",
+								"label": "Lecture",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "c25a1c33-9517-4d18-9166-616af1a4c371",
+						"day_of_week": 5,
+						"starts_at": "14:15:00",
+						"ends_at": "15:00:00",
+						"duration_minutes": 45,
+						"label": "EMC",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "2df2a5f6-1385-407b-9adc-da1d077c2d77",
+							"code": "emc",
+							"label": "EMC",
+							"color": "#F2F2F2"
+						},
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "2aefe45b-d653-4d41-9b5c-ecd8190e37a3",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "c25a1c33-9517-4d18-9166-616af1a4c371",
+							"level": "commun",
+							"title": "EMC",
+							"status": "planifi\u00e9e",
+							"position": 9,
+							"subject": {
+								"id": "2df2a5f6-1385-407b-9adc-da1d077c2d77",
+								"code": "emc",
+								"label": "EMC",
+								"color": "#F2F2F2"
+							},
+							"domain": null,
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "b1d941ad-444b-4546-abb1-35815b0dbc19",
+						"day_of_week": 5,
+						"starts_at": "15:00:00",
+						"ends_at": "15:45:00",
+						"duration_minutes": 45,
+						"label": "Sciences et technologie",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "e336be32-6bb1-4913-8e59-63fff8c2be48",
+							"code": "sciences-et-technologie",
+							"label": "Sciences et technologie",
+							"color": "#EBF1DE"
+						},
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "2ef4b94e-7fb2-4f4a-978b-e94b1d52c61d",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "b1d941ad-444b-4546-abb1-35815b0dbc19",
+							"level": "commun",
+							"title": "\u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique",
+							"status": "planifi\u00e9e",
+							"position": 10,
+							"subject": {
+								"id": "e336be32-6bb1-4913-8e59-63fff8c2be48",
+								"code": "sciences-et-technologie",
+								"label": "Sciences et technologie",
+								"color": "#EBF1DE"
+							},
+							"domain": {
+								"id": "1b71f721-41d9-48b9-8d1e-4ffc2a33c36a",
+								"code": "la-matiere-les-mouvements-et-les-signaux",
+								"label": "La mati\u00e8re, les mouvements et les signaux",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				},
+				{
+					"slot": {
+						"id": "1c86f8c9-7fa2-40a5-a2d4-1c3b73146260",
+						"day_of_week": 5,
+						"starts_at": "15:45:00",
+						"ends_at": "16:30:00",
+						"duration_minutes": 45,
+						"label": "EPS",
+						"level": "commun",
+						"is_alternating": false,
+						"alternation_group": null,
+						"subject": {
+							"id": "aa7855aa-ee15-40f3-a565-5400173b44d1",
+							"code": "eps",
+							"label": "EPS",
+							"color": "#CCC0DA"
+						},
+						"domain": null
+					},
+					"sessions": [
+						{
+							"id": "38a71a3a-f829-4f61-b85c-ac49555e20d5",
+							"school_day_id": "d9263555-a969-4199-b6b0-681b4ecbd975",
+							"date": "2026-09-04",
+							"timetable_slot_id": "1c86f8c9-7fa2-40a5-a2d4-1c3b73146260",
+							"level": "commun",
+							"title": "Se d\u00e9placer le plus vite ou le plus longtemps possible",
+							"status": "planifi\u00e9e",
+							"position": 11,
+							"subject": {
+								"id": "aa7855aa-ee15-40f3-a565-5400173b44d1",
+								"code": "eps",
+								"label": "EPS",
+								"color": "#CCC0DA"
+							},
+							"domain": {
+								"id": "79831235-7aec-4978-a065-50d7193a67f9",
+								"code": "se-deplacer-pour-agir-dans-l-espace-et-sur-une-duree",
+								"label": "Se d\u00e9placer pour agir dans l\u2019espace et sur une dur\u00e9e",
+								"level": "commun"
+							},
+							"sequence": null
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,365 @@
+[
+	{
+		"id": "672b7dd8-894e-47e5-902d-0ed76a5facf7",
+		"code": "anglais",
+		"label": "Anglais",
+		"color": "#E5D5EC",
+		"domains": [
+			{
+				"id": "34261f19-3957-4916-8c98-6282a6c0813d",
+				"code": "comprehension-de-l-ecrit",
+				"label": "Compr\u00e9hension de l\u2019\u00e9crit",
+				"level": "commun"
+			},
+			{
+				"id": "8c944a8f-ddb9-49f8-a770-8bc1a1dcdcf4",
+				"code": "comprehension-de-l-oral",
+				"label": "Compr\u00e9hension de l\u2019oral",
+				"level": "commun"
+			},
+			{
+				"id": "595f1636-f89a-47bb-bc20-864e9eee748d",
+				"code": "expression-ecrite",
+				"label": "Expression \u00e9crite",
+				"level": "commun"
+			},
+			{
+				"id": "9997afed-2bd3-490e-a455-7b3b692dbabf",
+				"code": "expression-orale-en-continu",
+				"label": "Expression orale en continu",
+				"level": "commun"
+			},
+			{
+				"id": "d0bc5456-dfff-48c2-9160-cbc3443eec78",
+				"code": "expression-orale-en-interaction",
+				"label": "Expression orale en interaction",
+				"level": "commun"
+			},
+			{
+				"id": "b85ba9fe-16e2-44fc-8460-fdaf91f4b19e",
+				"code": "mediation",
+				"label": "M\u00e9diation",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "0e77a85f-ab2c-4206-8d46-77ecda8d55b5",
+		"code": "arts-plastiques",
+		"label": "Arts plastiques",
+		"color": "#FFFF99",
+		"domains": [
+			{
+				"id": "f9165733-e5e2-421d-86d5-1305ceb83018",
+				"code": "competences-travaillees",
+				"label": "Comp\u00e9tences travaill\u00e9es",
+				"level": "commun"
+			},
+			{
+				"id": "c25f3944-1b1e-4a5b-83d7-2fc5d87d3021",
+				"code": "questionnements",
+				"label": "Questionnements",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "2b22beb2-b2fd-4034-85f3-1aa4b44de34e",
+		"code": "education-musicale",
+		"label": "\u00c9ducation musicale",
+		"color": "#FFF2CC",
+		"domains": [
+			{
+				"id": "75c35cb6-4ce6-45fe-a970-5b6648a5cad1",
+				"code": "competences-travaillees",
+				"label": "Comp\u00e9tences travaill\u00e9es",
+				"level": "commun"
+			},
+			{
+				"id": "2f3dd9d7-c22f-4f7b-bb87-c9547b2fa539",
+				"code": "connaissances-et-competences-associees",
+				"label": "Connaissances et comp\u00e9tences associ\u00e9es",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "2df2a5f6-1385-407b-9adc-da1d077c2d77",
+		"code": "emc",
+		"label": "EMC",
+		"color": "#F2F2F2",
+		"domains": [
+			{
+				"id": "b5885273-9546-43b4-9334-c6bca9275388",
+				"code": "a-l-ecole-laique",
+				"label": "\u00c0 l\u2019\u00e9cole la\u00efque",
+				"level": "commun"
+			},
+			{
+				"id": "ecdd0a68-8847-422c-8c27-c38143c05a27",
+				"code": "citoyennete-et-nationalite",
+				"label": "Citoyennet\u00e9 et nationalit\u00e9",
+				"level": "commun"
+			},
+			{
+				"id": "4b1b9e4c-02a8-4bba-9501-c526b606cf64",
+				"code": "civisme-et-citoyennete",
+				"label": "Civisme et citoyennet\u00e9",
+				"level": "commun"
+			},
+			{
+				"id": "95a0447d-a25b-4e29-a8e4-6ea1f4086c9d",
+				"code": "comment-faire-societe",
+				"label": "Comment faire soci\u00e9t\u00e9",
+				"level": "commun"
+			},
+			{
+				"id": "02c48e7f-3ba6-460f-b728-d3980078495e",
+				"code": "l-egalite-dans-la-dignite",
+				"label": "L\u2019\u00e9galit\u00e9 dans la dignit\u00e9",
+				"level": "commun"
+			},
+			{
+				"id": "38d32d07-f224-4017-abab-591bfe941308",
+				"code": "libertes-et-droits-fondamentaux",
+				"label": "Libert\u00e9s et droits fondamentaux",
+				"level": "commun"
+			},
+			{
+				"id": "42f5e00f-b299-4b9d-b091-8c6552527681",
+				"code": "respecter-les-droits-de-tous",
+				"label": "Respecter les droits de tous",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "aa7855aa-ee15-40f3-a565-5400173b44d1",
+		"code": "eps",
+		"label": "EPS",
+		"color": "#CCC0DA",
+		"domains": [
+			{
+				"id": "8be1c091-bc05-4bb4-8c83-d564b974b514",
+				"code": "construire-des-equilibres",
+				"label": "Construire des \u00e9quilibres pour s\u2019adapter \u00e0 des environnements inhabituels",
+				"level": "commun"
+			},
+			{
+				"id": "04c2a7f2-1d97-482e-bfb8-1f3930003ccf",
+				"code": "cooperer-et-s-opposer",
+				"label": "Coop\u00e9rer et s\u2019opposer pour apprendre \u00e0 jouer en respectant les r\u00e8gles et les autres",
+				"level": "commun"
+			},
+			{
+				"id": "79831235-7aec-4978-a065-50d7193a67f9",
+				"code": "se-deplacer-pour-agir-dans-l-espace-et-sur-une-duree",
+				"label": "Se d\u00e9placer pour agir dans l\u2019espace et sur une dur\u00e9e",
+				"level": "commun"
+			},
+			{
+				"id": "b5116ee0-e03c-4b50-80be-5b977c1e99c7",
+				"code": "s-exprimer-avec-son-corps",
+				"label": "S'exprimer avec son corps, pour \u00e9prouver et partager des \u00e9motions",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "585007cd-fb1f-49e2-9e8a-18f3aa17cdbc",
+		"code": "evar",
+		"label": "EVAR",
+		"color": "#EAE1F2",
+		"domains": [
+			{
+				"id": "7c04f179-d404-4a61-8f2a-2dc0113532eb",
+				"code": "rencontrer-les-autres-et-construire-des-relations-s-y-epanouir",
+				"label": "Rencontrer les autres et construire des relations, s\u2019y \u00e9panouir",
+				"level": "commun"
+			},
+			{
+				"id": "ae5ef46f-d2b0-4754-8285-04a18e1cd386",
+				"code": "se-connaitre-vivre-et-grandir-avec-son-corps",
+				"label": "Se conna\u00eetre, vivre et grandir avec son corps",
+				"level": "commun"
+			},
+			{
+				"id": "d239fa17-6f8e-400e-b4d6-bee422bb10c4",
+				"code": "trouver-sa-place-dans-la-societe-y-etre-libre-et-responsable",
+				"label": "Trouver sa place dans la soci\u00e9t\u00e9, y \u00eatre libre et responsable",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "b12e0c20-4ff4-47b8-8b05-6532409d41c0",
+		"code": "francais",
+		"label": "Fran\u00e7ais",
+		"color": "#DAEEF3",
+		"domains": [
+			{
+				"id": "a7d82037-63b5-44d5-b11c-62300dfa9299",
+				"code": "conjugaison",
+				"label": "Conjugaison",
+				"level": "commun"
+			},
+			{
+				"id": "5893d674-0fa7-44e2-90ae-e8327d1073a9",
+				"code": "culture-litteraire-et-artistique",
+				"label": "Culture litt\u00e9raire et artistique",
+				"level": "commun"
+			},
+			{
+				"id": "fd363621-451b-4196-aa7a-a108ed8213e4",
+				"code": "ecriture",
+				"label": "\u00c9criture",
+				"level": "commun"
+			},
+			{
+				"id": "71bdac5e-55b2-46ee-8519-e237351debea",
+				"code": "grammaire",
+				"label": "Grammaire",
+				"level": "commun"
+			},
+			{
+				"id": "f34e494c-d7e6-4f85-a085-a8f238243ad1",
+				"code": "lecture",
+				"label": "Lecture",
+				"level": "commun"
+			},
+			{
+				"id": "ff8c1c74-d2fc-4526-b863-772da6f3f97f",
+				"code": "oral",
+				"label": "Oral",
+				"level": "commun"
+			},
+			{
+				"id": "6831071e-66b3-47b2-b04c-91379600494e",
+				"code": "orthographe",
+				"label": "Orthographe",
+				"level": "commun"
+			},
+			{
+				"id": "5c853d52-da0f-4d0c-9c63-790bcc30fc4c",
+				"code": "vocabulaire",
+				"label": "Vocabulaire",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "42149ba7-e6dc-40b3-8164-356c8a4a354a",
+		"code": "geographie",
+		"label": "G\u00e9ographie",
+		"color": "#FBD5B5",
+		"domains": []
+	},
+	{
+		"id": "2289897e-be37-4bf1-96a1-e079c95c78a6",
+		"code": "histoire",
+		"label": "Histoire",
+		"color": "#FDE9D9",
+		"domains": []
+	},
+	{
+		"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+		"code": "mathematiques",
+		"label": "Math\u00e9matiques",
+		"color": "#FFC7CE",
+		"domains": [
+			{
+				"id": "f2a72718-6d1e-493b-9abc-0e9ef990a584",
+				"code": "algebre",
+				"label": "Alg\u00e8bre",
+				"level": "commun"
+			},
+			{
+				"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+				"code": "calcul-mental",
+				"label": "Calcul mental",
+				"level": "commun"
+			},
+			{
+				"id": "70c721be-b3f4-42e2-9bc7-b18b28c12963",
+				"code": "calculs",
+				"label": "Calculs",
+				"level": "commun"
+			},
+			{
+				"id": "88a2f2d5-8492-41ad-a20d-93aa8e134e43",
+				"code": "geometrie",
+				"label": "G\u00e9om\u00e9trie",
+				"level": "commun"
+			},
+			{
+				"id": "2b18e9cd-20ea-415e-bc90-83dbaf5b7e22",
+				"code": "grandeurs-et-mesures",
+				"label": "Grandeurs et mesures",
+				"level": "commun"
+			},
+			{
+				"id": "e4b48e34-0be3-46db-8fbd-742d22e137f0",
+				"code": "nombres",
+				"label": "Nombres",
+				"level": "commun"
+			},
+			{
+				"id": "0ff9d069-e6c9-484e-8c03-c870e60730f5",
+				"code": "organisation-et-gestion-de-donnees-et-probabilites",
+				"label": "Organisation et gestion de donn\u00e9es et probabilit\u00e9s",
+				"level": "commun"
+			},
+			{
+				"id": "7b8945c5-f8e4-4313-bda5-1c10b3d39316",
+				"code": "proportionnalite",
+				"label": "Proportionnalit\u00e9",
+				"level": "commun"
+			},
+			{
+				"id": "77327cf5-e4d0-4c17-88ef-6b9cb1a9842f",
+				"code": "resolution-de-problemes",
+				"label": "R\u00e9solution de probl\u00e8mes",
+				"level": "commun"
+			}
+		]
+	},
+	{
+		"id": "6a14b114-c8f0-472a-92ee-9225269e0785",
+		"code": "poesie",
+		"label": "Po\u00e9sie",
+		"color": "#D9E2F3",
+		"domains": []
+	},
+	{
+		"id": "e336be32-6bb1-4913-8e59-63fff8c2be48",
+		"code": "sciences-et-technologie",
+		"label": "Sciences et technologie",
+		"color": "#EBF1DE",
+		"domains": [
+			{
+				"id": "1b71f721-41d9-48b9-8d1e-4ffc2a33c36a",
+				"code": "la-matiere-les-mouvements-et-les-signaux",
+				"label": "La mati\u00e8re, les mouvements et les signaux",
+				"level": "commun"
+			},
+			{
+				"id": "fedf4692-37ce-41af-88bd-b5ff25dc4c2a",
+				"code": "le-corps-humain-et-la-sante",
+				"label": "Le corps humain et la sant\u00e9",
+				"level": "commun"
+			},
+			{
+				"id": "21820de0-9419-4952-bcbd-06eb3b307c87",
+				"code": "les-etres-vivants-dans-leur-environnement",
+				"label": "Les \u00eatres vivants dans leur environnement",
+				"level": "commun"
+			},
+			{
+				"id": "d7785b0b-f2f8-4c22-86d7-753c56aec093",
+				"code": "les-objets-techniques-au-coeur-de-la-societe",
+				"label": "Les objets techniques au c\u0153ur de la soci\u00e9t\u00e9",
+				"level": "commun"
+			}
+		]
+	}
+]

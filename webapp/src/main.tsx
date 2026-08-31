@@ -1,51 +1,13 @@
-import {
-	createRootRoute,
-	createRoute,
-	createRouter,
-	Outlet,
-	RouterProvider,
-} from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { createAppRouter } from "@/router";
 import * as TanStackQueryProvider from "./integrations/tanstack-query/root-provider.tsx";
 
 import "./styles.css";
 
-import App from "./App.tsx";
-
-const rootRoute = createRootRoute({
-	component: () => (
-		<>
-			<Outlet />
-		</>
-	),
-});
-
-const indexRoute = createRoute({
-	getParentRoute: () => rootRoute,
-	path: "/",
-	component: App,
-});
-
-const routeTree = rootRoute.addChildren([indexRoute]);
-
 const TanStackQueryProviderContext = TanStackQueryProvider.getContext();
-const router = createRouter({
-	routeTree,
-	context: {
-		...TanStackQueryProviderContext,
-	},
-	defaultPreload: "intent",
-	scrollRestoration: true,
-	defaultStructuralSharing: true,
-	defaultPreloadStaleTime: 0,
-});
-
-declare module "@tanstack/react-router" {
-	interface Register {
-		router: typeof router;
-	}
-}
+const router = createAppRouter();
 
 const rootElement = document.getElementById("app");
 if (rootElement && !rootElement.innerHTML) {

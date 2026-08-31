@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import viteReact from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 
 // Inside Docker Compose the API is reachable through the service name `core`.
 // When running Vite directly on the host, point it at the published port:
@@ -29,5 +29,6 @@ export default defineConfig({
 	},
 	test: {
 		environment: "jsdom",
+		setupFiles: ["./src/test/setup.ts"],
 	},
 });
