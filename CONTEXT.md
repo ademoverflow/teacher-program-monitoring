@@ -72,10 +72,12 @@ spans as many of them as its créneau lasts. Vendredi's 11h30-12h00 and the othe
 hold both (ADR-0024).
 _Avoid_: row, time slot, ligne — « créneau » is the gabarit's row
 
-**Récréation** and **pause méridienne** (a bande no créneau covers):
+**Récréation** and **pause méridienne** (a stretch no créneau covers):
 The two breaks §4.1 prints, 10h15-10h45 and 12h30-14h00. Neither is a créneau and neither
-has a row in `timetable_slots`: they are the gaps the gabarit leaves, and the grid finds
-them rather than being told where they are.
+has a row in `timetable_slots`: they are the gaps the gabarit leaves, and both views find
+them rather than being told where they are — the semaine grid as the bandes no créneau
+covers, the printed cahier journal as the gaps between one jour's créneaux. Only their
+names are written down (`lib/breaks.ts`).
 _Avoid_: break, pause (unqualified) — « vacances » is the school-holiday stretch
 
 **Créneau splitté** (a créneau whose **niveau** is CM1 or CM2):
@@ -175,7 +177,9 @@ _Avoid_: logbook, diary, daybook
 
 **Ligne de cahier journal** (`journal_entry`):
 One line of the cahier journal: a discipline and a duration, the objectives and competences, and
-the **bilan**.
+the **bilan**. A ligne points at the séance it was copied from, or at nothing when the
+teacher wrote it herself — which is why a statut can be set from some lignes and not others
+(ADR-0031).
 _Avoid_: entry (unqualified), row, item
 
 **Discipline** (`discipline`):
