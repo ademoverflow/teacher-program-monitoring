@@ -1,7 +1,7 @@
 # 08 - Write the year, skip what must not be touched, report
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 01, 05, 06, 07
 
 - Bulk-upsert the drafts on the natural key of issue 01; replace the link rows of the

@@ -267,7 +267,7 @@ class _Planner:
     # --------------------------------------------------------------- les séquences
 
     def plan_maths(self) -> None:
-        """§4.3: one séquence per semaine, its four séances on the week's maths créneaux."""
+        """§4.3: one séquence per semaine, four séances on the week's maths créneaux (ADR-0011)."""
         weeks = sorted(self.input.weeks, key=lambda week: week.number)
         for level in (Level.CM1, Level.CM2):
             method = f"maths-{level.value.lower()}"
@@ -306,7 +306,7 @@ class _Planner:
                     )
 
     def plan_retz(self) -> None:
-        """§4.4: grammaire on the lundi créneau, conjugaison on the mardi one."""
+        """§4.4: grammaire on the lundi créneau, conjugaison on the mardi one (ADR-0012)."""
         for level in (Level.CM1, Level.CM2):
             method = f"retz-{level.value.lower()}"
             by_domain = self._retz_by_domain(method)
@@ -393,7 +393,11 @@ class _Planner:
         return ended.get(verb.key)
 
     def plan_litterature(self) -> None:
-        """§4.5: the œuvres, in order, one séance de séquence per œuvre-suivie créneau."""
+        """§4.5: the œuvres, in order, one séance de séquence per œuvre-suivie créneau.
+
+        The year is three créneaux short of the planning; what falls off is reported
+        rather than squeezed in somewhere else (ADR-0017).
+        """
         cells = self._cells_where(lambda cell: is_oeuvre_suivie(cell.slot))
         oeuvres = self.input.sequences_of(LITTERATURE)
         ordered = [oeuvre for oeuvre in oeuvres if oeuvre.title != LITTERATURE_FALLBACK]
@@ -446,7 +450,7 @@ class _Planner:
     # -------------------------------------------------------------- les programmes
 
     def plan_themes(self) -> None:
-        """Histoire and géographie place their thèmes by the périodes they name (ADR-0012)."""
+        """Histoire and géographie place their thèmes by the périodes they name (ADR-0016)."""
         for subject in HISTORY_AND_GEOGRAPHY:
             for level in (Level.CM1, Level.CM2):
                 themes = self.input.items_of(subject, None, level)
@@ -491,7 +495,10 @@ class _Planner:
             self._place(cell, replace(fill, title=cell.slot.label + REVISION_SUFFIX))
 
     def plan_rituals(self) -> None:
-        """Fill each rituel, which repeats rather than progresses, with its whole programme."""
+        """Fill each rituel, which repeats rather than progresses, with its whole programme.
+
+        A rituel keeps its whole programme where a lesson walks through it (ADR-0015).
+        """
         for cell in self._free(self._cells_where(lambda cell: cell.slot.is_ritual)):
             if cell.subject is None:
                 self._place(cell, Fill(title=cell.slot.label))
@@ -505,7 +512,7 @@ class _Planner:
             self._place(cell, _fill_from_items(cell.slot, items))
 
     def plan_generic(self) -> None:
-        """Everything else: a matière's programme spread over its year's créneaux."""
+        """Everything else: a matière's programme spread over its year's créneaux (ADR-0015)."""
         groups: dict[tuple[str, str | None], list[Cell]] = defaultdict(list)
         for cell in self._free(self.cells):
             if cell.subject is None:

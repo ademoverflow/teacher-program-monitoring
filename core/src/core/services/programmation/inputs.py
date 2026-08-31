@@ -24,7 +24,7 @@ from core.services.seed_files import (
 
 # A créneau of 20 minutes or less is a rituel: it repeats every day rather than
 # advancing through a programme (MASTER-PROMPT.md §4.1 prints them as the short cells,
-# §4.3 calls calcul mental and Flash Maths rituals). See ADR-0014.
+# §4.3 calls calcul mental and Flash Maths rituals). See ADR-0015.
 RITUAL_MINUTES = 20
 
 

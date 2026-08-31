@@ -3,7 +3,7 @@
 Histoire and géographie have no domaine: their programme is cut into thèmes, and a
 thème names its own place in the year — « (deuxième et troisième périodes) », « (1 ou 2
 périodes au choix) ». No other matière's programme does that, so this is the only place
-the generator is told where something goes rather than deciding (ADR-0012).
+the generator is told where something goes rather than deciding (ADR-0016).
 """
 
 import re

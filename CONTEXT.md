@@ -86,6 +86,28 @@ A book read with the class over several semaines. The literature méthodo is a l
 rather than of notions, so an œuvre *is* a séquence: "Charlie et la chocolaterie" is séquence 1.
 _Avoid_: book, text, reading
 
+**Rituel** (a créneau of twenty minutes or less):
+A short cell that comes back every day at the same time — l'accueil, le calcul mental, la
+lecture offerte, la dictée du jour. A rituel repeats rather than progresses: it works the
+same items de programme all year, where a longer créneau walks through them.
+_Avoid_: routine, warm-up
+
+**Progression** (how a séquence or a programme is spread over the year):
+The order a méthodo numbers its séquences in, or the order the programme officiel prints
+its items in, laid over the year's créneaux of that matière so that each créneau knows
+what it is working on. The order is the source's; the pace is the generator's.
+_Avoid_: schedule, curriculum map
+
+**Marge** (the semaine the year has over the méthodo):
+The 36th semaine, which no maths séquence reaches because the méthodo has 35. §4.2 gives
+it to « révisions/bilans/fin des œuvres ».
+_Avoid_: buffer, spare week
+
+**Repli** (an œuvre §4.5 keeps in reserve):
+« Hansel et Gretel (repli en P5 si manque de temps) » — an œuvre read only if the year
+leaves room for it, and the first thing dropped when it does not.
+_Avoid_: backup, optional
+
 **Séance de séquence** (`sequence_session`):
 One step of a séquence as its méthodo prints it — a numbered week of an œuvre, with what to do
 and what it needs. It is a template, not a plan: it says what the méthodo lays out, never which
@@ -133,6 +155,12 @@ The teacher's after-the-fact note on a ligne de cahier journal: how it went, wha
 time.
 _Avoid_: review, assessment, evaluation — none of these carry the "written after the lesson"
 sense
+
+**Rapport de validation** (`GenerationReport`):
+What one run of the generation says it did — séances written, séquences placed,
+alternances counted — and everything it could not do. The EDT is immutable, so a
+placement that does not fit is reported here rather than worked around.
+_Avoid_: log, summary, errors
 
 **Révision IA** (`journal_revision`):
 A change to a day's cahier journal proposed by the AI in response to the teacher's free-text
