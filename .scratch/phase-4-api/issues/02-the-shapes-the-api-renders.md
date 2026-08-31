@@ -1,7 +1,7 @@
 # 02 - Declare the shapes the API renders
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 01
 
 The SQLModel rows carry `search_vector`, `created_at`, `updated_at` and `needs_review`;

@@ -1,7 +1,7 @@
 # 03 - The calendrier, the gabarit and the matières
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 02
 
 Three read-only routers, all reference data.

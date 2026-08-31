@@ -6,7 +6,12 @@ from alembic.config import Config
 from fastapi import FastAPI
 
 from core import __version__
-from core.routers import health_router
+from core.routers import (
+    calendar_router,
+    health_router,
+    subjects_router,
+    timetable_router,
+)
 
 
 @asynccontextmanager
@@ -37,4 +42,10 @@ app = FastAPI(
 # middleware is needed.
 API_PREFIX = "/api"
 
-app.include_router(health_router, prefix=API_PREFIX)
+for router in (
+    health_router,
+    calendar_router,
+    timetable_router,
+    subjects_router,
+):
+    app.include_router(router, prefix=API_PREFIX)
