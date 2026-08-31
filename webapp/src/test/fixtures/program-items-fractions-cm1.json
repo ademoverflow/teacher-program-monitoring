@@ -1,0 +1,73 @@
+{
+	"total": 3,
+	"limit": 50,
+	"offset": 0,
+	"items": [
+		{
+			"id": "fe61c689-078f-4c5d-bd48-d1fb83477af4",
+			"level": "CM1",
+			"title": "Les fractions",
+			"subject": {
+				"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+				"code": "mathematiques",
+				"label": "Math\u00e9matiques",
+				"color": "#FFC7CE"
+			},
+			"domain": {
+				"id": "e4b48e34-0be3-46db-8fbd-742d22e137f0",
+				"code": "nombres",
+				"label": "Nombres",
+				"level": "commun"
+			},
+			"description": "Savoir interpr\u00e9ter, repr\u00e9senter, \u00e9crire et lire des fractions\nSavoir \u00e9crire une fraction sup\u00e9rieure \u00e0 1 comme la somme d\u2019un entier et d\u2019une fraction inf\u00e9rieure \u00e0 1\nSavoir \u00e9crire la somme d\u2019un entier et d\u2019une fraction inf\u00e9rieure \u00e0 1 comme une unique fraction\nSavoir encadrer une fraction par deux nombres entiers cons\u00e9cutifs\nSavoir placer une fraction ou la somme d\u2019un nombre entier et d\u2019une fraction inf\u00e9rieure \u00e0 un sur une demi-droite gradu\u00e9e\nSavoir rep\u00e9rer un point d\u2019une demi-droite gradu\u00e9e par une fraction ou par la somme d\u2019un nombre entier et d\u2019une fraction\nComparer des fractions\nAdditionner et soustraire des fractions\nD\u00e9terminer une fraction d\u2019une quantit\u00e9 ou d\u2019une grandeur",
+			"source_file": "docs/programme-cm1-cm2.pdf",
+			"source_page": 31,
+			"source_order": 56,
+			"needs_review": false
+		},
+		{
+			"id": "d6146b77-c287-428c-a301-c72eb9eff8f4",
+			"level": "CM1",
+			"title": "Les nombres d\u00e9cimaux",
+			"subject": {
+				"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+				"code": "mathematiques",
+				"label": "Math\u00e9matiques",
+				"color": "#FFC7CE"
+			},
+			"domain": {
+				"id": "e4b48e34-0be3-46db-8fbd-742d22e137f0",
+				"code": "nombres",
+				"label": "Nombres",
+				"level": "commun"
+			},
+			"description": "Interpr\u00e9ter, repr\u00e9senter, \u00e9crire et lire des fractions d\u00e9cimales\nConna\u00eetre et utiliser les relations entre unit\u00e9s simples, dixi\u00e8mes et centi\u00e8mes\nPlacer une fraction d\u00e9cimale sur une demi-droite gradu\u00e9e et rep\u00e9rer un point d\u2019une demi-droite gradu\u00e9e par une fraction d\u00e9cimale\n\u00c9crire une fraction d\u00e9cimale sup\u00e9rieure \u00e0 1 comme la somme d\u2019un nombre entier et d\u2019une fraction d\u00e9cimale inf\u00e9rieure \u00e0 1\n\u00c9crire une fraction d\u00e9cimale sup\u00e9rieure \u00e0 1 comme la somme d\u2019un nombre entier et de fractions d\u00e9cimales ayant un num\u00e9rateur inf\u00e9rieur \u00e0 10\nComparer, encadrer, intercaler des fractions d\u00e9cimales en utilisant les symboles =, < et >\nOrdonner des fractions d\u00e9cimales dans l\u2019ordre croissant ou d\u00e9croissant\nPasser d\u2019une \u00e9criture sous forme d\u2019une fraction d\u00e9cimale ou d\u2019une somme de fractions d\u00e9cimales \u00e0 une \u00e9criture \u00e0 virgule et r\u00e9ciproquement\nInterpr\u00e9ter, repr\u00e9senter, \u00e9crire et lire des nombres d\u00e9cimaux (\u00e9criture \u00e0 virgule)\nPlacer un nombre d\u00e9cimal en \u00e9criture \u00e0 virgule sur une demi-droite gradu\u00e9e et rep\u00e9rer un point d\u2019une demi-droite gradu\u00e9e par un nombre d\u00e9cimal\nSavoir donner la partie enti\u00e8re et l\u2019arrondi \u00e0 l\u2019entier d\u2019un nombre d\u00e9cimal\nComparer, encadrer, intercaler, ordonner, par ordre croissant ou d\u00e9croissant, des nombres d\u00e9cimaux donn\u00e9s par leur \u00e9criture \u00e0 virgule en utilisant les symboles =, < et >",
+			"source_file": "docs/programme-cm1-cm2.pdf",
+			"source_page": 31,
+			"source_order": 57,
+			"needs_review": false
+		},
+		{
+			"id": "7599d38c-e99b-40c7-a2dc-462bf4e6e64c",
+			"level": "CM1",
+			"title": "M\u00e9moriser des faits num\u00e9riques",
+			"subject": {
+				"id": "4b823c38-fa5e-46f8-a3b4-c1af4ccd4ae6",
+				"code": "mathematiques",
+				"label": "Math\u00e9matiques",
+				"color": "#FFC7CE"
+			},
+			"domain": {
+				"id": "d4ee3b7e-4f0a-49a7-a708-90de0f205dcf",
+				"code": "calcul-mental",
+				"label": "Calcul mental",
+				"level": "commun"
+			},
+			"description": "Conna\u00eetre des faits num\u00e9riques usuels relatifs aux nombres entiers\nConna\u00eetre quelques relations entre des fractions usuelles\nConna\u00eetre l\u2019\u00e9criture d\u00e9cimale de fractions usuelles",
+			"source_file": "docs/programme-cm1-cm2.pdf",
+			"source_page": 32,
+			"source_order": 58,
+			"needs_review": false
+		}
+	]
+}
