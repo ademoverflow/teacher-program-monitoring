@@ -164,7 +164,7 @@ fix: fix-format fix-sort ## Fix all auto-fixable Python issues
 ## Database
 # ==============================================================================
 
-.PHONY: db-migrate db-upgrade db-downgrade db-history db-current db-shell seed
+.PHONY: db-migrate db-upgrade db-downgrade db-history db-current db-shell seed generate
 
 db-migrate: ## Create a new migration (usage: make db-migrate MSG="description")
 ifndef MSG
@@ -187,8 +187,11 @@ db-current: ## Show current migration revision
 db-shell: ## Open a psql shell to the database
 	$(COMPOSE) exec $(DB_CONTAINER) psql -U admin -d db
 
-seed: ## Load the versioned JSON seeds into the database (idempotent)
+seed: ## Load the versioned JSON seeds and generate the programmation (idempotent)
 	$(COMPOSE) exec $(CORE_CONTAINER) bash -c 'uv run python -m core.seed'
+
+generate: ## Regenerate the year's séances from what is already seeded (idempotent)
+	$(COMPOSE) exec $(CORE_CONTAINER) bash -c 'uv run python -m core.generate'
 
 # ==============================================================================
 ## Testing

@@ -1,7 +1,7 @@
 # 03 - A planner that reads plain data, not a database
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 
 CI has no Postgres, and the placement rules are where the bugs will be. Split the
 generator in two:

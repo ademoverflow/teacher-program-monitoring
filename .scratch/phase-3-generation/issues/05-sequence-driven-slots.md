@@ -1,7 +1,7 @@
 # 05 - Place the séquences: maths, RETZ, littérature
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 03, 04
 
 - **Maths** — séquence `n` on semaine `n` (35 séquences, 36 semaines, the last is the

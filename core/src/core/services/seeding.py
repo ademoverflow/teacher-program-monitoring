@@ -322,9 +322,10 @@ async def seed_program_items(session: AsyncSession) -> dict[str, int]:
                     "description": item.description,
                     "source_file": item.source_file,
                     "source_page": item.source_page,
+                    "source_order": order,
                     "needs_review": item.needs_review,
                 }
-                for item in items
+                for order, item in enumerate(items)
             ],
             constraint="uq_program_items_level_subject_domain_title",
         )

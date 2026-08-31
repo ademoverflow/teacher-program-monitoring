@@ -1,7 +1,7 @@
 # 04 - Spread N things over M créneaux, evenly and deterministically
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 
 Three placements are the same problem: 14 RETZ grammaire séquences over 33 lundis, the
 items de programme of a matière over the year's créneaux of that matière, the thèmes
