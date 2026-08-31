@@ -1,19 +1,14 @@
 """``make seed`` is idempotent: running it twice leaves the database as one run leaves it.
 
-These tests need Postgres. On the host (and in CI) there is none, so they skip; inside
-the core container ``make test-core`` runs them for real. Everything happens in a
-transaction that is rolled back, so the dev database is left untouched.
+These tests need Postgres — ``conftest.py`` skips them where none answers. Everything
+happens in a transaction that is rolled back, so the database is left untouched.
 """
 
-from collections.abc import AsyncIterator
 from typing import Any
 
-import pytest
-from core.database import async_db_url
 from core.services.seeding import seed_database
 from sqlalchemy import text
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.pool import NullPool
+from sqlalchemy.ext.asyncio import AsyncSession
 
 EXPECTED_COUNTS = {
     "app_settings": 2,
@@ -31,31 +26,6 @@ EXPECTED_COUNTS = {
 }
 
 SEEDED_TABLES = tuple(EXPECTED_COUNTS)
-
-
-@pytest.fixture
-async def session() -> AsyncIterator[AsyncSession]:
-    """Open a session whose work is always rolled back, or skip if there is no database.
-
-    ``seed_database`` flushes but never commits, so rolling back here leaves the
-    development database exactly as the test found it. The engine is built per test
-    and pools nothing: pytest-asyncio gives each test its own event loop, and an
-    asyncpg connection cannot move between loops.
-    """
-    test_engine = create_async_engine(async_db_url, poolclass=NullPool)
-    try:
-        probe = await test_engine.connect()
-    except Exception as error:  # noqa: BLE001 - anything at all here means "no database"
-        # Nothing to dispose: a NullPool engine that never connected holds nothing.
-        pytest.skip(f"no database reachable: {error}")
-    await probe.close()
-
-    async with AsyncSession(test_engine) as open_session:
-        try:
-            yield open_session
-        finally:
-            await open_session.rollback()
-    await test_engine.dispose()
 
 
 async def _snapshot(session: AsyncSession) -> dict[str, list[tuple[Any, ...]]]:
