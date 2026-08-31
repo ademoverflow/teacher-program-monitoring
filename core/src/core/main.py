@@ -10,6 +10,7 @@ from core.routers import (
     calendar_router,
     days_router,
     health_router,
+    program_items_router,
     sessions_router,
     subjects_router,
     timetable_router,
@@ -53,5 +54,6 @@ for router in (
     weeks_router,
     days_router,
     sessions_router,
+    program_items_router,
 ):
     app.include_router(router, prefix=API_PREFIX)
