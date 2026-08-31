@@ -89,7 +89,7 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │       ├── env.ts          # T3 Env configuration
 │       ├── pages/          # One default-exported page per route
 │       ├── components/     # Named-export components (AppLayout, WeekGrid…)
-│       ├── lib/            # Typed API client (api/), dates, colors, week-grid
+│       ├── lib/            # Typed API client (api/), dates, colors, week-grid, day-journal
 │       ├── test/           # Render helpers + API responses frozen from a seeded stack
 │       └── integrations/   # Library integrations
 ├── docs/                    # Source PDFs (§3) + adr/ + agents/ (skill conventions)
@@ -308,6 +308,8 @@ Available via `/skill-name` in Claude Code:
 | API client (webapp) | `webapp/src/lib/api/` |
 | Route tree (webapp) | `webapp/src/router.tsx` |
 | Semaine grid assembly | `webapp/src/lib/week-grid.ts` |
+| Cahier journal assembly | `webapp/src/lib/day-journal.ts` |
+| Récréation / pause méridienne | `webapp/src/lib/breaks.ts` |
 | Frozen API responses (tests) | `webapp/src/test/fixtures/` |
 | FastAPI app | `core/src/core/main.py` |
 | Settings | `core/src/core/settings.py` |
