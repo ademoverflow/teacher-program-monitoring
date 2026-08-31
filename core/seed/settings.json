@@ -1,0 +1,35 @@
+{
+  "$comment": [
+    "Les réglages de l'application (MASTER-PROMPT.md §5, app_settings).",
+    "Les deux alternances du §4.1 : leurs valeurs par défaut vivent ici, et le §4.1 les",
+    "dit « à paramétrer, modifiable dans l'app ». Le loader les insère quand elles",
+    "manquent et ne les écrase jamais : un make seed ne doit pas défaire un choix de",
+    "l'enseignante (docs/adr/0013).",
+    "",
+    "« Histoire ou Géographie » : le §4.1 donne l'alternance hebdomadaire et ne dit pas",
+    "par quelle matière commencer. « Arts plastiques / Éducation musicale » : le §4.1",
+    "demande un créneau de chaque par semaine et ne dit pas lequel va le lundi.",
+    "Ces deux-là sont nos choix, et ils se changent ici."
+  ],
+  "settings": [
+    {
+      "key": "alternance.histoire-geographie",
+      "label": "Alternance Histoire / Géographie",
+      "value": {
+        "mode": "hebdomadaire",
+        "subjects": ["histoire", "geographie"]
+      }
+    },
+    {
+      "key": "alternance.arts-plastiques-education-musicale",
+      "label": "Alternance Arts plastiques / Éducation musicale",
+      "value": {
+        "mode": "par-creneau",
+        "slots": [
+          { "day": "lundi", "starts_at": "15:45", "subject": "arts-plastiques" },
+          { "day": "jeudi", "starts_at": "14:15", "subject": "education-musicale" }
+        ]
+      }
+    }
+  ]
+}

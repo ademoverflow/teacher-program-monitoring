@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.pool import NullPool
 
 EXPECTED_COUNTS = {
+    "app_settings": 2,
     "subjects": 12,
     "domains": 45,
     "school_years": 1,
@@ -91,6 +92,25 @@ async def test_seeding_creates_no_duplicate_rows(session: AsyncSession) -> None:
     snapshot = await _snapshot(session)
 
     assert {table: len(rows) for table, rows in snapshot.items()} == EXPECTED_COUNTS
+
+
+async def test_a_setting_the_teacher_changed_survives_a_reseed(session: AsyncSession) -> None:
+    """The alternances are « à paramétrer, modifiable dans l'app » (§4.1, ADR-0013)."""
+    await seed_database(session)
+    await session.execute(
+        text("""
+            UPDATE app_settings
+            SET value = '{"mode": "hebdomadaire", "subjects": ["geographie", "histoire"]}'
+            WHERE key = 'alternance.histoire-geographie'
+        """)
+    )
+
+    await seed_database(session)
+
+    kept = await session.execute(
+        text("SELECT value FROM app_settings WHERE key = 'alternance.histoire-geographie'")
+    )
+    assert kept.scalar_one()["subjects"] == ["geographie", "histoire"]
 
 
 async def test_the_curriculum_is_searchable_by_keyword(session: AsyncSession) -> None:

@@ -1,7 +1,7 @@
 # 01 - Give `planned_sessions` a natural key
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 
 `planned_sessions` has no unique constraint beyond its primary key, so a re-generation
 has nothing to conflict on and would insert the whole year again — the same trap

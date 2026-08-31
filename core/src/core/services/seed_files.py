@@ -9,7 +9,7 @@ import json
 from datetime import date, time
 from functools import lru_cache
 from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
@@ -120,6 +120,34 @@ class TimetableSlotSeed(SeedModel):
     alternation_group: str | None = None
 
 
+class AlternationSlotSeed(SeedModel):
+    """Which matière an alternating créneau teaches, when the choice is per créneau."""
+
+    day: FrenchWeekday
+    starts_at: time
+    subject: str
+
+
+class AlternationSeed(SeedModel):
+    """How one alternation_group resolves to a matière.
+
+    ``hebdomadaire`` rotates through ``subjects`` semaine by semaine; ``par-creneau``
+    fixes a matière on each créneau of the group for the whole year.
+    """
+
+    mode: Literal["hebdomadaire", "par-creneau"]
+    subjects: list[str] = []
+    slots: list[AlternationSlotSeed] = []
+
+
+class SettingSeed(SeedModel):
+    """One row of ``app_settings``: the default the teacher starts from."""
+
+    key: str
+    label: str | None = None
+    value: AlternationSeed
+
+
 class ProgramItemSeed(SeedModel):
     """One item of the official curriculum, with the page it was read from."""
 
@@ -182,6 +210,12 @@ def load_timetable() -> tuple[TimetableSlotSeed, ...]:
     return tuple(
         TimetableSlotSeed.model_validate(item) for item in _read("timetable.json")["slots"]
     )
+
+
+@lru_cache
+def load_settings() -> tuple[SettingSeed, ...]:
+    """Read ``core/seed/settings.json``."""
+    return tuple(SettingSeed.model_validate(item) for item in _read("settings.json")["settings"])
 
 
 @lru_cache
