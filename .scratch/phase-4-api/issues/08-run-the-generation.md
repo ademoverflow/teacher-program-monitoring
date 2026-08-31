@@ -1,7 +1,7 @@
 # 08 - Launch the generation, and ask before overwriting
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 01
 
 `generate_year(session, reference_date=…, periods=…)` already exists, takes 0.5 s and writes

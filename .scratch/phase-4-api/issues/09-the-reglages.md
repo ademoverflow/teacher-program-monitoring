@@ -1,7 +1,7 @@
 # 09 - Expose the réglages, and say what changing one costs
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 01
 
 `GET /api/settings` lists the rows of `app_settings` — today the two alternances — and
