@@ -55,6 +55,10 @@ class PlannedSession(SQLModel, table=True):
     domain_id: uuid.UUID | None = reference("domains.id", nullable=True, ondelete="SET NULL")
     title: str = Field(sa_column=Column(Text, nullable=False))
     objectives: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
+    # What the méthodo lays out for this séance, copied verbatim where it lays anything
+    # out — the week-by-week planning of an œuvre is a page of activities, and it is not
+    # an objectif, so it does not belong in ``objectives``.
+    content: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     materials: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     status: SessionStatus = Field(
         sa_column=Column(

@@ -102,6 +102,12 @@ class ProgramItem(SQLModel, table=True):
     description: str | None = Field(sa_column=Column(Text, nullable=True), default=None)
     source_file: str = Field(sa_column=Column(String, nullable=False))
     source_page: int | None = Field(sa_column=Column(Integer, nullable=True), default=None)
+    # Where the block sits in the source document. The programme's order is what makes
+    # spreading it over the year a progression rather than a shuffle, and a primary key
+    # defaulted by ``gen_random_uuid()`` cannot carry it.
+    source_order: int = Field(
+        sa_column=Column(Integer, nullable=False, server_default=text("0")), default=0
+    )
     needs_review: bool = Field(
         sa_column=Column(Boolean, nullable=False, server_default=text("false")), default=False
     )

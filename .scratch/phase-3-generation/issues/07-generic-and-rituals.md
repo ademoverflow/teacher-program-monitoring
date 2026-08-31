@@ -1,7 +1,7 @@
 # 07 - Fill everything else: rituels and séances génériques
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 03, 04
 
 - A **rituel** (a créneau of 20 minutes or less — accueil, calcul mental, lecture

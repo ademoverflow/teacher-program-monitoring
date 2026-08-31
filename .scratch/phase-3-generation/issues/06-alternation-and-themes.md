@@ -1,7 +1,7 @@
 # 06 - Resolve the alternances and place the thèmes
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 03, 04
 
 Resolve each of the six alternating créneaux to a matière from the settings of issue 02,
