@@ -1,7 +1,7 @@
 # 02 - Seed the alternances into `app_settings`
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 
 Six créneaux carry an `alternation_group` and no matière (ADR-0002). Which matière a
 week's créneau actually teaches is a **setting** (§4.1: « à paramétrer, modifiable dans
