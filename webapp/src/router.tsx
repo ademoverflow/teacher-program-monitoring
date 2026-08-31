@@ -8,8 +8,10 @@ import {
 import { AppLayout } from "@/components/AppLayout";
 import { programSearchSchema } from "@/lib/program-search";
 import CurrentWeekPage from "@/pages/CurrentWeek";
+import DayPage from "@/pages/Day";
 import ProgramItemPage from "@/pages/ProgramItem";
 import ProgramsPage from "@/pages/Programs";
+import TodayPage from "@/pages/Today";
 import WeekPage from "@/pages/Week";
 import YearPage from "@/pages/Year";
 
@@ -23,14 +25,26 @@ const rootRoute = createRootRoute({
 	component: AppLayout,
 });
 
-// Phase 6 turns « Aujourd'hui » into the home page (§8). Until it exists, `/` opens the
-// year, and the URL the teacher bookmarks does not move when it does.
+// « Aujourd'hui » is the home page (§8 Phase 6). Every other URL the teacher may have kept
+// is where Phase 5 left it (ADR-0026).
 const indexRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/",
 	beforeLoad: () => {
-		throw redirect({ to: "/annee" });
+		throw redirect({ to: "/aujourdhui" });
 	},
+});
+
+const todayRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/aujourdhui",
+	component: TodayPage,
+});
+
+const dayRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/jour/$date",
+	component: DayPage,
 });
 
 const yearRoute = createRoute({
@@ -66,6 +80,8 @@ const programItemRoute = createRoute({
 
 export const routeTree = rootRoute.addChildren([
 	indexRoute,
+	todayRoute,
+	dayRoute,
 	yearRoute,
 	currentWeekRoute,
 	weekRoute,

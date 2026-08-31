@@ -100,17 +100,25 @@ export default function ProgramItemPage() {
 								className="divide-y divide-slate-100 rounded-xl border border-slate-200 bg-white"
 							>
 								{linked.data.sessions.map((session) => (
-									<li
-										key={session.id}
-										className="flex items-baseline justify-between gap-3 px-4 py-2 text-sm"
-									>
-										<span className="min-w-0">
-											<span className="block truncate">{session.title}</span>
-											<span className="text-xs capitalize text-slate-500">
-												{formatLongDate(session.date)}
+									<li key={session.id}>
+										{/*
+										 * Phase 5 left these as text: `PlannedSessionSummary`
+										 * carries the date and there was no vue Jour to open.
+										 * There is one now.
+										 */}
+										<Link
+											to="/jour/$date"
+											params={{ date: session.date }}
+											className="flex items-baseline justify-between gap-3 px-4 py-2 text-sm hover:bg-slate-50"
+										>
+											<span className="min-w-0">
+												<span className="block truncate">{session.title}</span>
+												<span className="text-xs first-letter:uppercase text-slate-500">
+													{formatLongDate(session.date)}
+												</span>
 											</span>
-										</span>
-										<LevelBadge level={session.level} />
+											<LevelBadge level={session.level} />
+										</Link>
 									</li>
 								))}
 							</ul>
