@@ -1,7 +1,7 @@
 # 04 - Vue Semaine: the grid of §4.1
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: 02
 
 The heart of the phase, from the single `GET /api/weeks/{n}` (ADR-0022).

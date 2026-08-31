@@ -1,7 +1,7 @@
 # 05 - Navigateur de programmes: filters, recherche, fiche
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: 02
 
 §7 écran 4. `GET /api/program-items?level=&subject=&domain=&q=&limit=&offset=`, with the

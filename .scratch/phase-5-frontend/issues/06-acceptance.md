@@ -1,7 +1,7 @@
 # 06 - Acceptance
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: 03, 04, 05
 
 §8 Phase 5's criteria, each recomputed:

@@ -1,7 +1,7 @@
 # 01 - Grow the typed client, one module per resource
 
 Type: task
-Status: open
+Status: resolved
 
 `webapp/src/lib/api.ts` knows one endpoint. The three screens read eight, against 44
 OpenAPI schemas. Split it: `lib/api/client.ts` for `apiGet`, `ApiError` and the query

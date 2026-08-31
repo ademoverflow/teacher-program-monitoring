@@ -1,7 +1,7 @@
 # 03 - Vue Année: the five périodes and their semaines
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: 02
 
 §7 écran 1, from the single `GET /api/calendar`. Five cards, one per période, each listing
