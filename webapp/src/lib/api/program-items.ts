@@ -1,10 +1,6 @@
 import { z } from "zod";
 import { apiGet, type QueryValue } from "@/lib/api/client";
-import {
-	type Level,
-	plannedSessionSummarySchema,
-	programItemRefSchema,
-} from "@/lib/api/shared";
+import { type Level, programItemRefSchema } from "@/lib/api/shared";
 
 /**
  * An item de programme with everything the browser shows of it.
@@ -28,14 +24,6 @@ export const programItemPageSchema = z.object({
 	items: z.array(programItemSchema),
 });
 export type ProgramItemPage = z.infer<typeof programItemPageSchema>;
-
-export const plannedSessionPageSchema = z.object({
-	total: z.number(),
-	limit: z.number(),
-	offset: z.number(),
-	sessions: z.array(plannedSessionSummarySchema),
-});
-export type PlannedSessionPage = z.infer<typeof plannedSessionPageSchema>;
 
 export interface ProgramItemQuery {
 	level?: Level | null;
@@ -63,18 +51,4 @@ export function searchProgramItems(
 
 export function getProgramItem(id: string): Promise<ProgramItem> {
 	return apiGet(`/program-items/${id}`, programItemSchema);
-}
-
-/** How many linked séances a fiche shows before saying how many more there are. */
-export const LINKED_SESSIONS_SHOWN = 20;
-
-/** The séances linked to one item de programme — §7 écran 4's « voir les séances liées ». */
-export function getLinkedSessions(
-	programItemId: string,
-): Promise<PlannedSessionPage> {
-	return apiGet("/planned-sessions", plannedSessionPageSchema, {
-		program_item_id: programItemId,
-		limit: LINKED_SESSIONS_SHOWN,
-		offset: 0,
-	});
 }
