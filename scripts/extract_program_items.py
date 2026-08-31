@@ -16,7 +16,9 @@ Two shapes of page are read:
   title, the list is its description.
 * pages laid out as multi-column tables — EMC, histoire-géographie, EVAR, and the
   enseignements artistiques. Columns are recovered from the blank gutters that
-  ``pdftotext -layout`` preserves, and the item is the thème or the section.
+  ``pdftotext -layout`` preserves, and the item is the thème or the section. Where a
+  table's gutters cannot be recovered, the page was rendered with ``pdftoppm``, read,
+  and its columns written out by hand into ``scripts/curriculum_corrections.json``.
 
 Sciences et technologie (p. 90-107) has no text layer at all — those pages are images.
 It is transcribed by hand into ``scripts/curriculum_sciences.json`` and merged here.
@@ -50,6 +52,7 @@ REPO = Path(__file__).resolve().parents[1]
 PDF = REPO / SOURCE_FILE
 SEED = REPO / "core" / "seed" / "program_items.json"
 SCIENCES = Path(__file__).resolve().parent / "curriculum_sciences.json"
+CORRECTIONS = Path(__file__).resolve().parent / "curriculum_corrections.json"
 
 # The source writes the plural when a block lists several objectives and the singular
 # when it lists one (EPS does both on the same page).
@@ -580,6 +583,37 @@ def _match_section(lines: list[str], index: int, sections: tuple[str, ...]) -> t
     return "", False
 
 
+def apply_corrections(items: list[Item]) -> list[Item]:
+    """Replace the description of every item read back by eye from a rendered page.
+
+    A handful of tables have no gutter left to find, so ``columns`` cannot separate
+    them; those pages were rendered as images, read, and their columns typed out. The
+    correction only ever replaces a description, so the item's identity, its page and
+    everything around it still come from the extraction.
+    """
+    payload = json.loads(CORRECTIONS.read_text(encoding="utf-8"))
+    corrected = {
+        (item["level"], item["subject"], item["title"], item["source_page"]): item["description"]
+        for item in payload["items"]
+    }
+    applied = set()
+
+    def correct(item: Item) -> Item:
+        """Swap in the hand-read description, when there is one for this item."""
+        key = (item.level, item.subject, item.title, item.page)
+        if key not in corrected:
+            return item
+        applied.add(key)
+        return item._replace(description=corrected[key])
+
+    read_back = [correct(item) for item in items]
+    missing = set(corrected) - applied
+    if missing:
+        message = f"corrections that match no item: {sorted(missing)}"
+        raise SystemExit(message)
+    return read_back
+
+
 def read_sciences() -> list[Item]:
     """Read the hand-transcribed sciences et technologie programme.
 
@@ -615,10 +649,11 @@ def main() -> None:
     items: list[Item] = []
     for programme in PROGRAMMES:
         items.extend(read_prose(programme))
-    items.extend(read_sciences())
     items.extend(read_histoire_geographie())
     for table in TABLES:
         items.extend(read_sectioned_tables(table))
+    items = apply_corrections(items)
+    items.extend(read_sciences())
 
     domains: dict[tuple[str, str], str] = {}
     for item in items:
@@ -631,9 +666,10 @@ def main() -> None:
             "par scripts/extract_program_items.py. Titres et descriptions sont le texte du PDF,",
             "recopié : rien n'est reformulé (MASTER-PROMPT.md §10).",
             "",
-            "needs_review marque les items dont le tableau source n'a pas pu être découpé",
-            "proprement en colonnes : le texte est bien celui du PDF, mais deux colonnes se",
-            "partagent une ligne au lieu de se suivre. À relire contre la page indiquée.",
+            "Les tableaux dont les colonnes n'ont pas pu être séparées automatiquement ont été",
+            "relus sur la page rendue en image ; leurs descriptions viennent de",
+            "scripts/curriculum_corrections.json. needs_review marquerait ce qu'il resterait de",
+            "colonnes mêlées : plus aucun item n'en porte.",
         ],
         "items": [
             {

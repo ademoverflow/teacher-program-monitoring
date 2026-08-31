@@ -13,11 +13,17 @@ a reviewer can re-run the extraction and diff — and it makes the classificatio
 explicit, since every mapping from a heading of the source to one of our domaines is a line in
 `scripts/curriculum_map.py` rather than a judgement buried in the data.
 
-The price is that the seed is only as good as what `pdftotext` recovers, and what it does not
-recover is recorded rather than left to be rediscovered. Eight items are marked `needs_review`
-because their table did not split into its columns: the text is the PDF's, but two columns share a
-line instead of following one another. Two things are not extracted at all. The histoire des arts
-programme (p. 151-154) is out: it is a cycle-3 transversal teaching with no créneau in the
-timetable and no matière in §5, so there is nowhere to put it. And « Initiation à la pensée
-informatique » gets a domaine's worth of pages but no item, because the source gives it prose and
-no objectives, saying its content is « abordé dans les autres domaines de ce programme ».
+The price is that the seed is only as good as what `pdftotext` recovers. Eight tables have no
+gutter left to find — a cell runs wide enough to leave one space where the columns should part —
+so those pages were rendered with `pdftoppm`, read, and their columns typed out into
+`scripts/curriculum_corrections.json`, which the script applies over its own output. A correction
+only ever replaces a description, never an item's identity or its page, and the script fails if a
+correction matches no item, so the two cannot drift apart. The extraction still flags a table it
+cannot separate, and a test asserts that none is left flagged: a re-extraction that shuffles a new
+one says so.
+
+One thing is not extracted at all. The histoire des arts programme (p. 151-154) is out: it is a
+cycle-3 transversal teaching with no créneau in the timetable and no matière in §5, so there is
+nowhere to put it. And « Initiation à la pensée informatique » gets a domaine's worth of pages but
+no item, because the source gives it prose and no objectives, saying its content is « abordé dans
+les autres domaines de ce programme ».

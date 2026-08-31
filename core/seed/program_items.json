@@ -4,9 +4,10 @@
     "par scripts/extract_program_items.py. Titres et descriptions sont le texte du PDF,",
     "recopié : rien n'est reformulé (MASTER-PROMPT.md §10).",
     "",
-    "needs_review marque les items dont le tableau source n'a pas pu être découpé",
-    "proprement en colonnes : le texte est bien celui du PDF, mais deux colonnes se",
-    "partagent une ligne au lieu de se suivre. À relire contre la page indiquée."
+    "Les tableaux dont les colonnes n'ont pas pu être séparées automatiquement ont été",
+    "relus sur la page rendue en image ; leurs descriptions viennent de",
+    "scripts/curriculum_corrections.json. needs_review marquerait ce qu'il resterait de",
+    "colonnes mêlées : plus aucun item n'en porte."
   ],
   "items": [
     {
@@ -1388,6 +1389,411 @@
     },
     {
       "level": "CM1",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 1 : La vie quotidienne au Moyen Âge (XIe - XIIIe siècles) (première et deuxième période)",
+      "description": "Question : Comment les femmes et les hommes vivaient-ils au Moyen Âge ?\n\nMots-clés : abbaye, art gothique, art roman, cathédrale, château, clergé, corvée, dime, Église/églises, paroisse, paysanne et paysan, seigneur, seigneurie.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les cadres de la vie des femmes et des hommes : la seigneurie (la domination d’un seigneur sur un territoire et les hommes qui y vivent) et la paroisse (l’encadrement par l’Église de la vie des femmes et des hommes de leur naissance à leur mort).\n- Les modes de vie des seigneurs, des paysannes et des paysans et des habitants des villes\n- Le rôle de l’Église.\n\nAttendus (connaissances et compétences)\n- Décrire les fonctions d’un château\n(lieu de protection, lieu de vie du seigneur, symbole de la puissance du seigneur) ou\nDécrire le fonctionnement d’une seigneurie.\n- Raconter la vie quotidienne des paysannes et des paysans\n(calendrier annuel des travaux, obligations envers le seigneur, l’Église, etc.). ou\nDécrire les activités des villes au\nMoyen Âge (marché et foire, artisanat, etc.).\n- Décrire le rôle social de l’Église\n(assistance aux pauvres et malades, enseignement).\n- Différencier l’art roman de l’art gothique.\n\nRepères\nSituer le Moyen Âge sur une frise chronologique (476-1492) et identifier la période du XIe au XIIIe siècle.\nUne abbaye dans l’espace proche des élèves ou l’abbaye de Cluny.\nUne cathédrale dans l’espace proche des élèves ou Notre-Dame de Paris.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 111
+    },
+    {
+      "level": "CM1",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 2 : La monarchie en France (XVIe – XVIIe siècles) (deuxième et troisième périodes)",
+      "description": "Question : Comment le roi incarne-t-il le pouvoir aux XVIe et XVIIe siècles ?\n\nMots-clés : artiste, catholique, guerres de religion, mécène, monarchie absolue, noblesse, protestant, société d’ordres.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Un roi mécène de la Renaissance,\nFrançois Ier (1515-1547).\n- Un roi pacificateur du royaume,\nHenri IV (1589-1610).\n- Un roi qui affirme son pouvoir absolu,\nLouis XIV (1643-1715).\n- Une société d’Ancien Régime divisée en trois ordres (clergé, noblesse, tiers état).\n\nAttendus (connaissances et compétences)\n- Situer sur une frise chronologique les règnes de François Ier, Henri IV et\nLouis XIV.\n- Expliquer avec l’exemple de\nFrançois Ier et de Léonard de Vinci le rôle d’un roi dans la diffusion de la\nRenaissance.\n- Expliquer comment Henri IV pacifie le royaume de France dans le contexte des guerres de religion.\n- Expliquer comment le château de\nVersailles exprime le pouvoir absolu du roi.\n- Décrire le rôle des femmes à la Cour de Versailles.\n- Décrire l’organisation de la société d’ordres majoritairement composée de paysans.\n\nRepères\n1515 : début du séjour de Léonard de\nVinci en France jusqu’à sa mort en 1519.\n1598 : édit de Nantes.\n1643-1715 : règne de Louis XIV.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 112
+    },
+    {
+      "level": "CM1",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 3 : Explorations et conquêtes par les Européens du XVe au XVIIe siècle (quatrième période)",
+      "description": "Question : Pourquoi les Européens explorent-ils le monde et comment cela mène-t-il à la première colonisation ?\n\nMots-clés : boussole, caravelle, carte, commerce triangulaire, empire colonial, esclavage, plantation, traite.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les progrès techniques qui ont permis aux Européens de s’aventurer vers de nouveaux territoires.\n- La constitution des premiers empires coloniaux en Amérique.\n- La traite des esclaves entre l’Afrique et l’Amérique et la vie des esclaves dans les plantations.\n- Les échanges commerciaux avec les colonies.\n\nAttendus (connaissances et compétences)\n- Mémoriser le nom de plusieurs inventions permettant la navigation au grand large.\n- Localiser les grands empires coloniaux sur une carte.\n- Citer des conséquences de ces conquêtes sur les populations amérindiennes.\n- Décrire les conditions de vie des esclaves dans une plantation.\n- Nommer quelques denrées issues de ces colonies (tomate, chocolat, haricot, pomme de terre, sucre de canne, etc.).\n\nRepères\n1492 : Christophe Colomb débarque en Amérique.\n1519-1522 : l’expédition de Magellan fait le tour du monde.\n1685 : Édit royal de Louis XIV dit le « Code noir ».",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 112
+    },
+    {
+      "level": "CM1",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 4 : 1789, une année révolutionnaire en France (cinquième période)",
+      "description": "Question : Comment l’année 1789 met-elle fin à la monarchie absolue et à la société d’ordres ?\n\nMots-clés : Ancien Régime, citoyenneté, constitution, droits de l’Homme, égalité, l’Encyclopédie, liberté, les Lumières, Révolution, souveraineté nationale.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Le contexte social, économique et intellectuel du royaume de France en\n1789.\n- 1789, fin de la monarchie absolue et de l’Ancien Régime.\n- L’affirmation des nouveaux principes d’organisation de la société.\n\nAttendus (connaissances et compétences)\n- Décrire le contexte social, économique et intellectuel du royaume en 1789.\n- Citer des idées des Lumières.\n- Compléter une frise chronologique avec les évènements marquants de l’année 1789.\n- Raconter la vie et l’action d’une femme ou de femmes au cours de l’année 1789.\n- Citer les principaux droits énoncés dans la Déclaration des Droits de l’Homme et du Citoyen.\n\nRepères\nUn ou une philosophe des Lumières.\nPrintemps 1789 : rédaction des cahiers de doléances et réunion des États-\nGénéraux.\n14 juillet : prise de la Bastille.\nNuit du 4 aout : abolition des privilèges.\n26 aout : Déclaration des Droits de l’Homme et du Citoyen.\n5-6 octobre 1789 : marche des femmes à\nVersailles.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 113
+    },
+    {
+      "level": "CM2",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 1 : De la République à l’Empire (1792-1815) (première période)",
+      "description": "Question : Comment la République et l’Empire ont-ils transformé la vie des Français et des Françaises ?\n\nMots-clés : empereur/empire, esclavage, le Code civil, liberté de la presse, lycée, préfet.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La chute du roi et l’avènement de la République dans un contexte de guerre.\n- Les étapes qui conduisent Bonaparte à devenir empereur et à dominer une partie de l’Europe.\n- Les grandes réformes de la période napoléonienne et la remise en cause de certains acquis de la Révolution.\n\nAttendus (connaissances et compétences)\n- Raconter comment les Français et les Françaises participent à la vie politique depuis 1789.\n- Raconter la chute du roi et la naissance de la République.\n- Raconter le combat pour l’abolition de l’esclavage.\n- Expliquer comment Bonaparte devient empereur.\n- Nommer des réformes menées par Napoléon Bonaparte (Code civil, lycées, rétablissement de l’esclavage, etc.).\n\nRepères\nMars 1792 : Pétition de 319 femmes (Pauline Léon) pour s’organiser en garde nationale.\nAvril 1792 : composition de La Marseillaise.\nSeptembre 1792 : naissance de la République.\n1794 : première abolition de l’esclavage.\n1802 : rétablissement de l’esclavage.\n2 décembre 1804 : sacre de Napoléon Bonaparte qui devient Napoléon Ier.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 113
+    },
+    {
+      "level": "CM2",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 2 : Vers une France républicaine : la IIe République (1848-1852) et la IIIe République de 1870 à 1914",
+      "description": "Question : Comment la France est-elle devenue une République ?\n\nMots-clés : abolition de l’esclavage, colonisation, démocratie, laïcité, république, suffrage universel masculin.\n\nObjectifs d’apprentissage\n(deuxième période)\nConnaitre et comprendre :\n- Les lois protectrices des droits et libertés.\n- Les lieux, les symboles et les rites de la\nRépublique (en remobilisant les acquis de l’enseignement moral et civique).\n- La constitution d’un empire colonial.\n\nAttendus (connaissances et compétences)\n- Nommer de grandes lois fondatrices de la République : le suffrage universel masculin, l’abolition de l’esclavage, la liberté de la presse, les lois scolaires, la laïcité.\n- Nommer les symboles de la\nRépublique : le drapeau tricolore, le 14 juillet, Marianne, la Marseillaise, la devise.\n- Localiser sur un planisphère les territoires de l’empire colonial français au début du XXe siècle.\n\nRepères\n1848 : suffrage universel masculin et abolition définitive de l’esclavage.\n1882-1886 : lois Ferry sur l’École.\n9 décembre 1905 : séparation des Églises et de l’État.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 113
+    },
+    {
+      "level": "CM2",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 3 : L’âge industriel en France au XIXe siècle (deuxième période)",
+      "description": "Question : Quelles sont les transformations économiques et sociales en France au XIXe siècle ?\n\nMots-clés : atelier, bourgeois, grève, industrialisation, mine, ouvrier, syndicat, urbanisation, usine, vaccin.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les progrès techniques et scientifiques (sources d’énergie, chemin de fer, usines, progrès de la médecine) et leurs conséquences sur les modes de vie.\n- Les transformations de la société : bourgeois et ouvriers dans une société qui reste très majoritairement rurale.\n\nAttendus (connaissances et compétences)\n- Expliquer les transformations de la vie quotidienne en lien avec les progrès techniques et scientifiques.\n- Nommer quelques progrès de la médecine.\n- Décrire les conditions de vie et les luttes sociales des ouvrières et des ouvriers (à la mine, à l’atelier, à l’usine), la vie quotidienne des bourgeoises et des bourgeois.\n\nRepères\nDébut XIXe siècle : invention de la locomotive (Stephenson).\nFin du XIXe siècle : invention du vaccin contre la rage par Pasteur.\nSeconde moitié du XIXe siècle : droit de grève et loi relative à la liberté syndicale.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 114
+    },
+    {
+      "level": "CM2",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 4 : La France dans la Première Guerre mondiale (1914-1918) (troisième période)",
+      "description": "Question : Comment la Première Guerre mondiale a-t-elle bouleversé la société française ?\n\nMots-clés : armistice, guerre de mouvement / guerre de position, poilus.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Le nord et l’est de la France, lieu des principaux combats sur le front occidental.\n- La vie des soldats sur le front.\n- Une guerre qui mobilise toute la population et l’économie de la métropole et des colonies.\n- Le bilan humain de la Première Guerre mondiale.\n\nAttendus (connaissances et compétences)\n- Situer sur une frise chronologique la\nPremière Guerre mondiale.\n- Raconter la vie sur le front : combats et conditions de vie.\n- Expliquer la mobilisation humaine - notamment le rôle des femmes -, économique, industrielle et culturelle.\n- Mémoriser quelques éléments du bilan humain de la guerre, dont le nombre total de morts au combat (10 millions dont 1,4 millions de Français).\n\nRepères\n1914-1918 : Première Guerre mondiale.\nUne grande bataille de la Première\nGuerre mondiale en France.\n11 novembre 1918 : armistice.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 114
+    },
+    {
+      "level": "CM2",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 5 : La France pendant la Seconde Guerre mondiale (1939-1945) (quatrième période)",
+      "description": "Question : Comment la France a-t-elle vécu la défaite, l’Occupation puis la Libération ?\n\nMots-clés : antisémitisme, collaboration, nazisme, régime de Vichy, résistance.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les principales phases de la Seconde\nGuerre mondiale en France.\n- Les conditions de vie sous l’Occupation.\n- La résistance à l’occupant.\n- Le rôle du régime de Vichy dans l’extermination des Juifs et les persécutions des Tsiganes.\n- Le bilan humain de la Seconde\nGuerre mondiale.\n\nAttendus (connaissances et compétences)\n- Mémoriser les étapes de la Seconde\nGuerre mondiale en France : « drôle de guerre », défaite de juin 1940, occupation et collaboration, libération.\n- Décrire les difficultés de la vie sous l’Occupation.\n- Identifier le rôle du général de Gaulle ou de Jean Moulin dans la Résistance.\n- Décrire le rôle de Philippe Pétain et la politique antisémite du régime de\nVichy, expliquer sa participation au processus d’extermination des Juifs ou\nExpliquer, à partir d’un exemple, l’action des « Justes parmi les\nNations ».\n- Mémoriser quelques éléments du bilan humain de la guerre : entre 60 et 70 millions de morts dans le monde, dont 6 millions de Juifs (60 % des Juifs d’Europe).\n\nRepères\n1939-1945 : Seconde Guerre mondiale.\n18 juin 1940 : appel du général de\nGaulle.\n1942 : rafle du Vel d’Hiv’.\n6 juin 1944 : débarquement des Alliés en Normandie.\n8 mai 1945 : capitulation de l’Allemagne nazie.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 114
+    },
+    {
+      "level": "CM2",
+      "subject": "histoire",
+      "domain": null,
+      "title": "Thème 6 : la France depuis 1945 : 80 ans de transformations (cinquième période)",
+      "description": "Question : Comment expliquer la longue période de paix et de transformation depuis 1945 ?\n\nMots-clés : innovation, loisir, Sécurité sociale, société de consommation, traité.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Une République démocratique et sociale depuis 1946.\n- Une société profondément transformée depuis 1945 (transports, modes de vie, etc.).\n- La France, actrice de la construction européenne.\n\nAttendus (connaissances et compétences)\n- Citer un exemple de réforme sociale et un exemple de droit des femmes.\n- Citer la date de la fondation de la\nVe République.\n- Décrire les transformations de la société française depuis 1945.\n- Raconter les grandes étapes de la construction européenne.\n\nRepères\n1944 : droit de vote des femmes.\n1957 : traité de Rome créant la CEE.\n1958 : fondation de la Ve République avec le général de Gaulle.\n1965 : les Françaises peuvent travailler sans l’autorisation de leur époux et ouvrir un compte bancaire.\n2000 : l’euro remplace le franc.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 115
+    },
+    {
+      "level": "CM1",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 1 : Se nourrir (1 ou 2 périodes au choix)",
+      "description": "Question : Comment se nourrit-on dans le monde ?\n\nMots-clés : malnutrition/sous-nutrition, produit agricole/produit alimentaire transformé.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La diversité des pratiques alimentaires dans le monde.\n- La provenance des principaux aliments que les élèves consomment.\n\nAttendus (connaissances et compétences)\nDécrire :\n- Les différences des pratiques alimentaires entre un pays riche et un pays en développement.\n- La différence entre produits agricoles et produits transformés.\n- La chaine de production d’un aliment consommé (yaourt, biscuit, fruit, etc.).\n\nRepères\nDeux pays à ration alimentaire très riche situés sur deux continents différents.\nDeux pays à ration alimentaire insuffisante situés sur deux continents différents.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 118
+    },
+    {
+      "level": "CM1",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 2 : Les inégalités dans le monde (1 ou 2 périodes au choix)",
+      "description": "Question : Comment décrire les inégalités de niveau de vie dans le monde ?\n\nMots-clés : inégalités.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- L’inégal accès :\n• à l’eau ; ou\n• à la santé ; ou\n• à l’éducation.\n\nAttendus (connaissances et compétences)\n- Identifier les manifestations des inégalités de niveau de vie dans le monde.\n- Localiser et nommer sur un planisphère les aires régionales.\n\nRepères\nAfrique\n- Afrique subsaharienne.\n- Maghreb.\nAmérique\n- Amérique du Nord.\n- Amérique du Sud.\nAsie\n- Asie du Sud-Est.\n- Asie de l’Est.\nEurope.\nOcéanie.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 118
+    },
+    {
+      "level": "CM1",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 3 : Se déplacer (1 période)",
+      "description": "Question : Comment se déplace-t-on dans le monde ?\n\nMots clés : avion/aéroport, bateau/port, marche, métro/station, train/gare, vélo/voie cyclable, voiture/route.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les modalités de déplacement des élèves de la classe (dont la marche) à différentes échelles de temps (par exemple, journée, semaine, etc.).\n- Les principaux modes de transport de personnes et les infrastructures associées (avion/aéroport ; bateau/port ; train/gare ; voiture/route ; métro/station ; vélo/voie cyclable).\n\nAttendus (connaissances et compétences)\n- Identifier la diversité des modalités de déplacement au cours de différentes périodes de temps (par exemple journée, semaine, etc.), en les associant à la distance à parcourir.\n\nRepères\nDeux unités de mesure des déplacements :\n- Distance kilométrique.\n- Distance en temps.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 119
+    },
+    {
+      "level": "CM1",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 4 : Communiquer dans le monde avec Internet (1 période)",
+      "description": "Question : Comment communique-t-on avec Internet dans le monde ?\n\nMots-clés : câble sous-marins, internet, réseau, satellite.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La diversité des usages d’Internet à partir des pratiques des élèves.\n- Le fonctionnement d’Internet grâce à un réseau de câbles et de satellites qui - connectent les espaces à l’échelle mondiale.\n- L’inégal accès à Internet à l’échelle mondiale et à l’échelle de la France.\n\nAttendus (connaissances et compétences)\n- Expliquer qu’Internet repose sur un réseau de câbles continentaux et sous- marins reliant les aires régionales, ainsi que sur des satellites.\nDécrire les inégalités d’accès à internet :\n• à l’échelle mondiale à partir de la carte du taux d’accès de la population ayant accès à Internet, par pays ;\n• à l’échelle nationale à partir de la carte du déploiement de la 5G en\nFrance.\n\nRepères\nLes principales concentrations de câbles sous-marin.\nUne aire régionale très bien reliée à\nInternet.\nUne aire régionale faiblement reliée à\nInternet.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 119
+    },
+    {
+      "level": "CM2",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 1 : L’organisation du territoire français (2 périodes)",
+      "description": "Question : Comment est organisé le territoire français ?\n\nMots-clés : commune, département, région, TGV.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La localisation des centres urbains et des axes de transport les plus importants en France.\n- Le découpage administratif du territoire français.\n- Les principales caractéristiques d’au moins deux Régions dont celle de l’école.\n\nAttendus (connaissances et compétences)\n- Localiser et nommer sur un fond de carte les repères du thème.\n\nRepères\nLes cinq principales agglomérations françaises.\nLes principaux axes de transports autoroutiers et ferroviaires.\nLes dix-huit Régions administratives et leur capitale régionale.\nLe département où vit l’élève.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 119
+    },
+    {
+      "level": "CM2",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 2 : Les usages de l’eau douce en France (2 périodes)",
+      "description": "Question : Pourquoi gérer l’eau douce en France ?\n\nMots-clés : conflit d’usages, nappe phréatique.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Que l’eau est une ressource limitée.\n- Les différents usages de l’eau en France.\n- Les concurrences entre les usages de l’eau en France.\n\nAttendus (connaissances et compétences)\n- Décrire les différents usages de l’eau en France.\n- À partir d’un exemple précis, expliquer que l’eau est une ressource convoitée faisant l’objet de conflits d’usages.\n\nRepères\nLes grands fleuves français (Garonne, Loire, Maroni, Rhin, Rhône, Seine).\nLes principaux massifs de montagne français (Alpes, Corse, Jura, Massif central, Pyrénées, Vosges).\nDeux grands lacs français dont un lac naturel.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 120
+    },
+    {
+      "level": "CM2",
+      "subject": "geographie",
+      "domain": null,
+      "title": "Thème 3 : l’Union européenne (1 période)",
+      "description": "Question : Qu’est-ce que l’Union européenne ?\n\nMots-clés : Europe, Union européenne.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La différence entre Europe et Union européenne.\n- Un aménagement réalisé avec le soutien de l’UE dans la région de l’école.\n\nAttendus (connaissances et compétences)\n- Expliquer la différence entre le continent (Europe) et la construction politique (Union européenne).\n- Localiser et nommer dix pays membres de l’UE (dont les six pays fondateurs).\n\nRepères\nL’UE sur un fond de carte représentant l’Europe dans ses limites conventionnelles.\n1957 : Traité de Rome.\n1992 : Traité de Maastricht.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 120
+    },
+    {
+      "level": "CM1",
+      "subject": "emc",
+      "domain": "civisme-et-citoyennete",
+      "title": "Civisme et citoyenneté",
+      "description": "Notions abordées\nCivisme\nSobriété numérique\nIncivilités\nDémocratie\n\nContenus d’enseignement\n• Définir le civisme comme l’action d’un individu en fonction du bien public et dans le respect des règles ;\n• aborder des exemples de comportement civique dans la classe, l’école, dans la vie quotidienne, en ligne, et en faveur de l’environnement ;\n• connaître et appliquer les règles de civilité en société ; identifier les incivilités et comprendre pourquoi elles nuisent à la vie en commun ;\n• apprendre la signification du terme « démocratie » et le fonctionnement du suffrage direct.\n\nDémarches et situations d’apprentissage possibles\nSensibiliser les élèves à l’engagement individuel et collectif en s’appuyant sur des exemples concrets.\n[EDD] Prendre en charge des aspects de la vie collective et de l’environnement en développant une conscience civique et écologique\n(notamment en partageant harmonieusement les lieux de vie et en respectant l’environnement).\nReconnaitre des situations de danger, alerter et se mettre en sécurité\n(APS, APER).\n[EMI] Afin de développer un civisme numérique, s’appuyer sur la charte pour l’éducation à la culture et à la citoyenneté numériques. Plus particulièrement :\n-   travailler sur les espaces de travail accessibles aux élèves (espace numérique de travail, blog de classe, d’école, etc.) ;\n-   penser cet apprentissage comme une déclinaison en ligne de ce qu’on leur demande de faire hors ligne ;\n-   renforcer les compétences des élèves en matière de recherche info- documentaire en ligne : appréhender le lien entre image et texte, distinguer émetteur et récepteur, aborder la notion de « source », interroger la notion d’information ;\n-   produire et diffuser de l’information en classe (initier à la pratique médiatique) ;\n-   envisager les conséquences en matière environnementale des usages du numérique (par exemple la consommation énergétique des serveurs, des applications, etc.) et souligner l’importance d’une sobriété numérique ;\n-   aborder la question du droit à la déconnexion numérique et de son importance pour la santé mentale et physique. Cette démarche contribue au développement des compétences numériques\n(CRCN).\nMontrer comment la politesse fait partie du civisme par la connaissance volontaire des règles et le respect des autres qu’elle implique. Montrer en s’appuyant sur des exemples pourquoi les incivilités nuisent à la collectivité.\nExposer les principes généraux de la démocratie en France en abordant les notions de citoyenneté, de vote et de participation aux décisions.\nExpliciter les articles 3, 6 et 16 de la Déclaration des droits de l’homme et du citoyen (DDHC) : articuler une réflexion sur la démocratie scolaire\n(conseils d’élèves, conseils de classe, etc.) et les notions de souveraineté populaire, de volonté générale, d’égalité devant la loi et de séparation des pouvoirs.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 80
+    },
+    {
+      "level": "CM1",
+      "subject": "emc",
+      "domain": "l-egalite-dans-la-dignite",
+      "title": "L’égalité dans la dignité",
+      "description": "Notions abordées\nÉgalité, dignité, discriminations\nTolérance\n\nContenus d’enseignement\n• Comprendre la notion d’égalité en droit ;\n• comprendre ce qu’implique le principe de dignité de la personne humaine.\n\nDémarches et situations d’apprentissage possibles\nÀ partir de situations réelles ou fictives, identifier des situations dans lesquelles l’égalité n’est pas respectée et des situations de discrimination ou d’atteintes à la personne d’autrui.\nDans le cadre d’activités de groupe, développer chez l’élève le respect de son intégrité personnelle et de celle des autres, dans leur diversité (croyances, convictions, etc.). Mettre en place des situations permettant à chacun d’assumer ses choix et de respecter ceux des autres.\n[EMI] Aborder le phénomène des cyberviolences ; démontrer que ces actes peuvent entraîner du harcèlement en ligne ; rappeler la règle et le droit ; faire le lien avec le CRCN.\nCes démarches peuvent s’appuyer sur le programme d’éducation à la vie affective et relationnelle et le dispositif Phare.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 80
+    },
+    {
+      "level": "CM1",
+      "subject": "emc",
+      "domain": "comment-faire-societe",
+      "title": "Comment faire société",
+      "description": "Notions abordées\nFraternité et empathie\n\nContenus d’enseignement\n• Comprendre la notion de fraternité, valeur et principe de la\nRépublique ;\n• comprendre ce qu’implique et permet l’empathie.\n\nDémarches et situations d’apprentissage possibles\nÀ l’occasion d’un débat réglé, amener l’élève à exprimer ses opinions personnelles tout en tenant compte de la sensibilité des autres (nuancer son propos, modérer son attitude).\nPar une discussion collective, amener les élèves à définir égoïsme et altruisme.\nÀ partir de situations de tensions entre élèves, réelles ou fictives, faire réfléchir les élèves à ce que cela implique d’être un élève parmi d’autres élèves (tolérance envers autrui et ses idées en dehors de la camaraderie et de l’amitié).\nDans le cadre du développement des compétences psychosociales, développer l’empathie comme moteur pour lutter contre les discriminations, la violence physique ou verbale, le harcèlement, les cyberviolences.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 81
+    },
+    {
+      "level": "CM2",
+      "subject": "emc",
+      "domain": "citoyennete-et-nationalite",
+      "title": "Citoyenneté et nationalité",
+      "description": "Notions abordées\nCitoyenneté\nDroits civils et politiques\nDevoirs\nSymboles républicains\n\nContenus d’enseignement\n• Connaître les conditions d’acquisition de la nationalité française : montrer le lien étroit entre citoyenneté et nationalité. Un citoyen bénéficie de droits civils, puis politiques à sa majorité, et tout individu bénéficie de droits civils ;\n• connaître le rôle politique des citoyennes et des citoyens : ils ont vocation à participer à la vie politique du pays et à l’évolution des institutions (découverte des procédures générales d’élaboration de la loi) ;\n• connaître les devoirs du citoyen et de toute personne résidant sur le territoire national : respecter les lois, contribuer à financer les dépenses publiques. Chaque citoyen doit respecter les droits des autres qui sont identiques aux siens (Déclaration des droits de l’homme et du citoyen, art. 3 et 13) ;\n• comprendre que le terme de devoir peut aussi désigner une réalité plus morale, qui doit guider le citoyen dans son comportement dans l’espace public ;\n• connaître et comprendre les symboles républicains mentionnés par la Constitution : drapeau, hymne, devise, et d’autres coutumiers comme Marianne ; connaître la fête nationale du 14 juillet (héritière de la Fête de la Fédération de 1790) ; comprendre la nécessité de respecter ces symboles ;\n• savoir que la République française est membre de l’Union européenne (UE).\n\nDémarches et situations d’apprentissage possibles\nÀ partir de l’article 7 de la Convention internationale des droits de l’enfant, faire comprendre que tout enfant possède dès sa naissance des droits, dont celui d’acquérir une nationalité. Par des exemples choisis illustrant des droits, comprendre qu’en France, tout individu bénéficie de droits comme celui à l’éducation, d’être soigné, etc.\nL’élève doit être en mesure à partir de la lecture d’articles choisis de la Déclaration des droits de l’homme et du citoyen (DDHC) de citer quelques droits individuels et collectifs comme le droit à la liberté d’expression (art. 11), d’opinion (art. 10), le droit à la sûreté (art. 2). Il doit savoir les distinguer des droits politiques comme le droit de vote et d’éligibilité qui permettent de participer aux décisions de la vie publique. Ces droits sont illustrés avec des situations concrètes de la vie quotidienne.\nL’expérience des conseillers municipaux juniors est considérée en vue d’expliquer le rôle politique du citoyen qui, par le vote, participe à la vie de sa cité. Une rencontre avec des élus locaux (maire de la commune, conseillers municipaux) peut être ainsi l’occasion pour les élèves d’appréhender l’engagement de citoyennes et de citoyens actifs qui se sont portés candidats à une élection municipale, et de comprendre les modalités d’exercice de leur mandat local.\nLa participation au concours Le Parlement des enfants favorise la pratique du dialogue et du débat démocratique des élèves. Cette action éducative permet aux élèves de découvrir le rôle du législateur.\nL’étude de plusieurs articles de la DDHC permet également de caractériser différents devoirs du citoyen, comme sa participation au financement des charges supportées par l’État par le paiement de l’impôt (art. 13).\nEn expliquant que les électeurs et les électrices sont à l’origine des lois en vigueur par l’intermédiaire de leurs représentants démocratiquement élus, et en se référant à l’article 3 de la DDHC et l’article 3 de la Constitution affirmant que la souveraineté nationale appartient au peuple, l’élève doit comprendre que les citoyennes et les citoyens participent de l’élaboration des lois en même temps qu’ils doivent les respecter.\nLa description d’une carte électorale peut être l’occasion de faire réfléchir à la notion de devoir civique à partir de la mention « Voter est un droit, c’est aussi un devoir civique » et de faire comprendre que par leur vote citoyennes et citoyens assurent le bon fonctionnement de la démocratie.\n[EDD] Des exemples choisis de comportements dans la vie quotidienne (recyclage, réduction des déchets, lutte contre le gaspillage, etc.) sont mis en lien avec l’éco-citoyenneté et présentés comme un autre exemple de devoir civique, celui de défendre l’environnement.\nLa République est héritière d’une histoire, elle se rend visible par des symboles fédérateurs. Connaître des lieux de la mémoire collective et les dates de commémorations, et faire apparaître ce que nous devons aux générations antérieures (visiter des lieux de mémoire ; lire un témoignage d’ancien combattant ; identifier des traces laissées par l’histoire). Participer à la commémoration du 11 novembre.\nConnaître le drapeau européen, comprendre pourquoi il est associé au drapeau tricolore sur les bâtiments publics et reconnaitre l’hymne européen.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 81
+    },
+    {
+      "level": "CM2",
+      "subject": "emc",
+      "domain": "libertes-et-droits-fondamentaux",
+      "title": "Libertés et droits fondamentaux",
+      "description": "Notions abordées\nLiberté\nDroits fondamentaux\n\nContenus d’enseignement\n• Faire connaître les droits et libertés fondamentaux institués par la Déclaration des droits de l’homme et du citoyen (1789), la Déclaration universelle des droits de l’homme (1948) et la Charte des droits fondamentaux de l’Union européenne (2000) ;\n• mettre en avant certains droits politiques, économiques et sociaux qui en découlent : suffrage universel, droit à l’emploi, à la protection de la santé, à la gratuité de l’enseignement public, accès à la culture, droits environnementaux (Charte de l’environnement) ;\n• montrer que les droits fondamentaux s’exercent dans le cadre de la loi (exemple de la liberté d’expression) ;\n• approfondir avec les droits dits « de troisième génération », qui résultent du droit de chacun de « vivre dans un environnement équilibré et respectueux de la santé » (art. 1er de la Charte de l’environnement).\n\nDémarches et situations d’apprentissage possibles\nAborder des textes qui recensent les libertés et droits fondamentaux reconnus en France (depuis la Déclaration des droits de l’homme et du citoyen jusqu’à la Constitution de 1958) et au sein de l’Union européenne (Charte des droits fondamentaux).\nDécouvrir les libertés fondamentales, à la fois individuelles et collectives (liberté d’expression, liberté d’opinion, liberté d’association) ; expliquer que ces libertés comportent aussi des limites pour que la liberté des uns n’entrave pas celle des autres (art. 4 DDHC). Ainsi, la liberté d’expression énoncée à l’article 11 de la DDHC peut être mise en lien avec la loi du 29 juillet 1881 sur la liberté de la presse, de l’imprimerie et de la librairie, encadrant cette liberté.\nLire et expliquer les articles 1 et 2 de la DDHC (les droits fondamentaux et leurs fondements.)\n[EDD] Expliquer comment la référence aux droits de l’homme permet de s’attaquer aux problèmes environnementaux (exemple de la Convention de Berne relative à la conservation de la vie sauvage et du milieu naturel de l’Europe, 1979). Présenter la Charte de l’environnement.\nUn travail sur la liberté d’expression, abordée dans le cadre des médias d’information, peut être et mené lors de la Semaine de la presse et des médias dans l’école.\nEn lien avec les articles 13 et 17 (CIDE), lier la question des libertés et du droit à la découverte des réseaux sociaux (qui ne sont pas un espace de non-droit) et la liberté d’expression. Aborder la notion de pseudonymes et d’anonymat.\n[EMI] Aborder la question de la liberté d’expression par l’exemple de la liberté de la presse à travers le monde. Faire comprendre que l’accès à une information fiable et vérifiée est essentiel en démocratie. Appréhender la notion de « désinformation » avec les élèves (et ses possibles conséquences). Consolider les bonnes pratiques face à l’information (évoquer par exemple les lois de 2018 relatives à la manipulation de l’information).",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 82
+    },
+    {
+      "level": "CM2",
+      "subject": "emc",
+      "domain": "respecter-les-droits-de-tous",
+      "title": "Respecter les droits de tous",
+      "description": "Notions abordées\nDiscriminations\nStéréotypes\n\nContenus d’enseignement\n• Montrer que la lutte contre les discriminations suppose la déconstruction des préjugés et des stéréotypes ;\n• faire reconnaitre les atteintes aux personnes : le racisme, l’antisémitisme, le sexisme, la xénophobie, l’homophobie, le harcèlement ; savoir que l’expression des discriminations est sanctionnée par la loi.\n\nDémarches et situations d’apprentissage possibles\n[EMI] Conduire une réflexion avec les élèves sur le respect dans un contexte numérique et, notamment, celui des réseaux sociaux : étudier le rôle des médias dans la construction et le renforcement des stéréotypes et des préjugés ; aborder la notion de « haine » ; questionner le rôle des réseaux sociaux et leur mécanique de diffusion de contenus irrespectueux ; faire comprendre que la diffusion et la rediffusion de ces contenus constituent des manières de porter atteinte à la dignité et à la sécurité des personnes ; expliquer pourquoi ils sont punis par la loi.\nLes élèves comprennent le rôle du témoin de situations de discriminations ou de harcèlement et l’importance de signaler celles-ci.\nCette démarche peut s’inscrire dans le programme Phare.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 83
+    },
+    {
+      "level": "CM2",
+      "subject": "emc",
+      "domain": "a-l-ecole-laique",
+      "title": "À l’école laïque",
+      "description": "Notions abordées\nLaïcité (vue en CE1)\n\nContenus d’enseignement\n• Le respect des croyances est assuré, mais, comme ailleurs, leur expression est limitée par la loi. Celle-ci protège les élèves de toute influence religieuse et préserve leur liberté de conscience ;\n• nul ne peut être discriminé pour sa croyance ou ses convictions, mais nul n’a non plus le droit d’imposer ses croyances ou ses convictions aux autres.\n\nDémarches et situations d’apprentissage possibles\nLes élèves sont sensibilisés au respect de la diversité des croyances et des convictions de chacun dans les limites fixées par la loi.\nÀ partir de la lecture et de l’étude d’articles de la Charte de la laïcité, les élèves expliquent pourquoi l’école est laïque et discernent les comportements remettant en cause la laïcité (art. 13 du préambule de la Constitution de 1946, loi du 15 mars 2004). Des références historiques comme les lois scolaires de 1881-1882 peuvent être mobilisées pour démontrer l’ancrage historique de la laïcité et la place particulière de l’école dans la conquête de ce principe. Une approche de la loi de 1905 permet de comprendre la laïcité comme principe d’organisation de notre société.\nCes démarches peuvent être mises en œuvre à l’occasion de la Journée de la laïcité du 9 décembre.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 83
+    },
+    {
+      "level": "CM1",
+      "subject": "evar",
+      "domain": "se-connaitre-vivre-et-grandir-avec-son-corps",
+      "title": "Se connaître, vivre et grandir avec son corps",
+      "description": "Objectif d'apprentissage : Connaître les changements de son corps.\n\nNotions et compétences\n• Connaître les principaux changements à la puberté.\n• Prendre conscience que ces changements sont normaux et apprendre à les respecter.\n• Comprendre qu’il est important de se sentir bien dans son corps et de l’écouter.\n• Comprendre que la puberté se produit à des âges différents selon les individus et qu’elle n’a pas les mêmes effets.\n• Comprendre pourquoi se moquer de quelqu’un est un comportement néfaste.\n• Apprendre à parler des autres et aux autres de manière positive.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Partir des représentations des élèves de ce qu’est la puberté pour construire une définition scientifique, la relier à la capacité à se reproduire, comparer des similitudes et des différences entre les filles et les garçons s’agissant des modifications qui apparaissent à la puberté.\n• Repérer ce qui relève d’une brimade, d’une humiliation, ou d’une stigmatisation en lien avec les changements du corps à la puberté et faire décrire l’impact négatif que cela peut avoir sur celui qui les subit, apprendre à ne pas y contribuer et à y réagir de manière adaptée.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 137
+    },
+    {
+      "level": "CM1",
+      "subject": "evar",
+      "domain": "rencontrer-les-autres-et-construire-des-relations-s-y-epanouir",
+      "title": "Rencontrer les autres et construire des relations, s’y épanouir",
+      "description": "Objectif d'apprentissage : Apprendre à développer des relations constructives et à repérer les situations de harcèlement.\n\nNotions et compétences\n• Développer sa capacité d’écoute et l’attention portée aux autres.\n• Résoudre des conflits de façon constructive.\n• Exprimer son consentement ou son refus.\n• Définir et reconnaître le harcèlement et ses différentes formes, en particulier le harcèlement sexiste et sexuel.\n• Comprendre que tout acte de harcèlement ou d’intimidation est irrespectueux et néfaste, qu’il a des conséquences graves et peut être sanctionné par la loi.\n• Prendre conscience que les victimes n’en sont jamais responsables et qu’il est de la responsabilité de chaque témoin de signaler les actes de harcèlement ou d’intimidation.\n• Savoir où et comment demander de l’aide pour soi ou autrui.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Faire preuve d’empathie à travers l’analyse de situations de classe (temps de médiation ou de résolution de conflits) et à travers des situations fictives : être capable d’identifier les émotions et les sentiments des personnages et le lien avec les actions/évènements.\n• Identifier les aides pour gérer ses émotions difficiles\n(par exemple la colère, l’anxiété) : possibilité de signaler une difficulté avec une carte ou un code, possibilité de s’isoler dans un lieu spécifique.\n• Prendre en compte ce que ressent l’autre, exprimer son consentement ou son refus (mettre en place des jeux de rôle et faire jouer plusieurs fois les situations pour lister les différentes réactions possibles et leurs conséquences).\n• Étudier des situations fictives pour :\n- distinguer le harcèlement, l’intimidation, les disputes et les moqueries ;\n- caractériser le harcèlement (une violence sous différentes formes, une récurrence, un isolement de la victime) ;\n- mettre en évidence que le harcèlement se fonde sur le rejet de la différence et sur la stigmatisation ;\n- proposer des manières de réagir pour prévenir ou faire cesser une situation de harcèlement.\n• Identifier les différentes manières, bonnes ou mauvaises, dont les pairs peuvent influencer nos comportements, réfléchir aux moyens de résister à la pression négative des pairs et d’encourager l’influence positive des pairs.\n• Identifier l’importance pour une victime de chercher du soutien ; réfléchir aux actions possibles pour soutenir les personnes victimes (pratiquer une écoute empathique, apporter du soutien solidaire à la victime, chercher de l’aide en alertant un adulte de confiance) ; prendre connaissance du numéro d’alerte 3018.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 137
+    },
+    {
+      "level": "CM1",
+      "subject": "evar",
+      "domain": "trouver-sa-place-dans-la-societe-y-etre-libre-et-responsable",
+      "title": "Trouver sa place dans la société, y être libre et responsable",
+      "description": "Objectif d'apprentissage : Promouvoir des relations égalitaires et positives ; comprendre les stéréotypes pour lutter contre les discriminations.\n\nNotions et compétences\n• Définir ce que sont les stéréotypes et les préjugés.\n• Comprendre en quoi les stéréotypes et les représentations liées au genre ont une influence sur la manière dont les individus vivent leur vie et peuvent être à l’origine de discriminations.\n• Agir pour lutter contre les stéréotypes, les préjugés et les discriminations.\n• Comprendre qu’on peut choisir librement une activité ou un métier (qu’on soit une fille ou un garçon) en fonction de ses motivations ou de ses compétences.\n• Se sentir libre de ses choix pour une activité ou une passion.\n• Savoir penser de façon critique : apprendre à résister à la pression sociale sans préjugés ni discriminations.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Lire et exploiter des articles de presse, des données chiffrées (pourcentages, proportions et représentations graphiques) et des textes de loi pour identifier des inégalités entre les femmes et les hommes dans l’histoire ou encore présentes de nos jours (professionnelles, politiques, financières, dans la sphère familiale), ou des situations de violences ; rechercher des conceptions du genre ou des stéréotypes qui en sont à l’origine.\n• Étudier des extraits de la Convention sur l’élimination de toutes les formes de discrimination à l’égard des femmes.\n• Découvrir des femmes ayant joué un rôle important dans l’histoire, les arts, les sciences et le sport ; découvrir des femmes exerçant des métiers traditionnellement associés à la masculinité et des hommes exerçant des métiers traditionnellement associés à la féminité.\n• Analyser les incidences des idéaux de beauté diffusés par les médias (réseaux sociaux, publicités), la littérature, la musique, le cinéma sur l’image et l’estime de soi.\n• Décrire et analyser une campagne de sensibilisation institutionnelle à l’égalité femmes-hommes.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 138
+    },
+    {
+      "level": "CM2",
+      "subject": "evar",
+      "domain": "se-connaitre-vivre-et-grandir-avec-son-corps",
+      "title": "Se connaître, vivre et grandir avec son corps",
+      "description": "Objectif d'apprentissage : Connaître et comprendre les changements de son corps et celui des autres.\n\nNotions et compétences\n• Connaître les changements du corps lors de la puberté et savoir qu’ils ne se produisent pas au même moment chez tous les enfants.\n• Nommer le nom et la fonction des organes reproducteurs.\n• Apprendre scientifiquement ce que sont les menstruations (règles) et qu’elles sont une composante normale et naturelle du développement physique des filles, et ne doivent pas faire l’objet de tabous ou de moqueries.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• À partir de documents scientifiques et en lien avec le programme de sciences et technologie, décrire et expliquer les changements physiques liés à la puberté, le mécanisme des règles et l’impact sur la vie quotidienne.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 138
+    },
+    {
+      "level": "CM2",
+      "subject": "evar",
+      "domain": "rencontrer-les-autres-et-construire-des-relations-s-y-epanouir",
+      "title": "Rencontrer les autres et construire des relations, s’y épanouir",
+      "description": "Objectif d'apprentissage : Promouvoir des relations positives, apprendre à repérer et se protéger des violences sexistes et sexuelles.\n\nNotions et compétences\n• Savoir que les relations entre individus peuvent traduire différents types de relations affectives (par exemple, l’affection entre amis, l’amour entre parents, l’amour au sein de la famille, l’amour entre partenaires) et qu’il existe des façons différentes d’exprimer son amour.\n• Nommer divers sentiments qui peuvent être éprouvés dans les relations interpersonnelles.\n• Exprimer ses émotions.\n• Demander et s’assurer du consentement ; exprimer son consentement ou son refus ; comprendre et respecter le refus des autres.\n• Comprendre qu’il existe des mots et des gestes qui constituent des violences : violences verbales, physiques, psychologiques, sexistes, sexuelles (dont l’inceste) ; savoir identifier ces situations et percevoir les relations d’emprise.\n• Prendre conscience que les violences sexuelles, quel qu’en soit l’auteur, constituent toujours une violation des droits humains et que les victimes n’en sont jamais responsables.\n• Savoir comment chercher de l’aide et du soutien lorsque l’on est victime de violences.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Lire et comprendre des œuvres littéraires (poésie, théâtre, romans), écouter et comprendre une chanson pour identifier des sentiments positifs (tels que l’amour, la confiance, le respect, la loyauté, la solidarité) et des sentiments négatifs (la jalousie, la déception, la tristesse, la culpabilité).\n• Repérer les différentes formes d’expression de ses sentiments ou ses émotions aux personnes que l’on aime, selon les personnes (parents, famille, amis, autres personnes), selon les sentiments. Réfléchir aux gestes et attitudes appropriés pour les exprimer, ainsi qu’à ceux qui ne sont pas acceptables et doivent être signalés.\n• Rédiger un texte sur ses propres représentations de l’amitié, les comparer avec celles des autres et définir ensemble ce qu’est l’amitié.\n• Réfléchir à ce que signifie « témoigner de la confiance »,\n« témoigner du respect », notamment lors d’« ateliers à visée réflexive », par exemple en s’interrogeant sur ce qu’est un secret et ce qui le différencie d’une situation de danger ou de violence qu’il est important de signaler et en expliquant comment identifier un adulte de confiance à qui se confier.\n• Définir ce que sont les violences physiques, psychologiques, verbales, sexuelles (dont l’inceste), apprendre à les reconnaître et réfléchir ensemble à qui parler, à qui demander de l’aide, pour soi ou autrui.\n• Prendre connaissance des numéros d’urgence : le 119\n(enfance en danger) ou le 30 18 (harcèlement) s’il est difficile d’aller voir un adulte de confiance.\n• Apprendre à communiquer avec des formulations claires et sans moquerie (être capable de rappeler les règles d’une communication efficace, respectueuse afin de pouvoir s’exprimer et poser des questions dans un cadre sécurisant au début de chaque séance d’éducation à la vie affective et relationnelle).",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 139
+    },
+    {
+      "level": "CM2",
+      "subject": "evar",
+      "domain": "trouver-sa-place-dans-la-societe-y-etre-libre-et-responsable",
+      "title": "Trouver sa place dans la société, y être libre et responsable",
+      "description": "Objectif d'apprentissage : Prévenir les risques liés à l’usage du numérique et d’Internet.\n\nNotions et compétences\n• Comprendre ce qu’est la majorité numérique et son objectif de protection des enfants.\n• Devenir acteur de sa protection sur\nInternet et savoir identifier un adulte de confiance à qui s’adresser si quelque chose qui a été vu sur Internet ou sur les réseaux sociaux perturbe ou fait peur.\n• Prendre conscience que l’utilisation d’Internet et des réseaux sociaux présente des dangers et nécessite des mesures particulières, notamment car des images et des médias sexuellement explicites, interdits pour les mineurs, violents et choquants y sont accessibles. education.gouv.fr\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Se familiariser avec les notions de sécurité et de protection sur Internet, évaluer ses représentations et connaissances autour des risques et des enjeux de protection sur Internet, les réseaux sociaux, les plateformes de jeux vidéo, la toile : droit à l’image ; protection de la vie privée ; risque de cyberharcèlement et cyberviolences.\n• Prendre connaissance des dispositifs de signalement et des lois en vigueur, notamment par rapport à l’interdiction des réseaux sociaux aux moins de\n13 ans ; la majorité numérique à 15 ans, la protection du droit à l’image, la protection des mineurs contre la pornographie en ligne.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 139
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "competences-travaillees",
+      "title": "Expérimenter, produire, créer",
+      "description": "Compétences travaillées\n- Choisir, organiser et mobiliser des gestes, des outils et des matériaux en fonction des effets qu’ils produisent.\n- Représenter le monde environnant ou donner forme à son imaginaire en explorant divers domaines (dessin, collage, modelage, sculpture, photographie, vidéo…).\n- Rechercher une expression personnelle en s’éloignant des stéréotypes.\n- Intégrer l’usage des outils informatiques de travail de l’image et de recherche d’information, au service de la pratique plastique.\n\nDomaines du socle\n1, 2, 4, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 141
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "competences-travaillees",
+      "title": "Mettre en œuvre un projet artistique",
+      "description": "Compétences travaillées\n- Identifier les principaux outils et compétences nécessaires à la réalisation d’un projet artistique.\n- Se repérer dans les étapes de la réalisation d’une production plastique individuelle ou collective, anticiper les difficultés éventuelles.\n- Identifier et assumer sa part de responsabilité dans un processus coopératif de création.\n- Adapter son projet en fonction des contraintes de réalisation et de la prise en compte du spectateur.\n\nDomaines du socle\n2, 3, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 141
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "competences-travaillees",
+      "title": "S’exprimer, analyser sa pratique, celle de ses pairs ; établir une relation avec celle des artistes, s’ouvrir à l’altérité",
+      "description": "Compétences travaillées\n- Décrire et interroger à l’aide d’un vocabulaire spécifique ses productions plastiques, celles de ses pairs et des œuvres d’art étudiées en classe.\n- Justifier des choix pour rendre compte du cheminement qui conduit de l’intention à la réalisation.\n- Formuler une expression juste de ses émotions, en prenant appui sur ses propres réalisations plastiques, celles des autres élèves et des œuvres d’art.\n\nDomaines du socle\n1, 3",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 142
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "competences-travaillees",
+      "title": "Se repérer dans les domaines liés aux arts plastiques, être sensible aux questions de l’art",
+      "description": "Compétences travaillées\n- Repérer, pour les dépasser, certains a priori et stéréotypes culturels et artistiques.\n- Identifier quelques caractéristiques qui inscrivent une œuvre d’art dans une aire géographique ou culturelle et dans un temps historique, contemporain, proche ou lointain.\n- Décrire des œuvres d’art, en proposer une compréhension personnelle argumentée.\n\nDomaines du socle\n1, 3, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 142
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "questionnements",
+      "title": "La représentation plastique et les dispositifs de présentation",
+      "description": "Questionnements\n La ressemblance : découverte, prise de conscience et appropriation de la valeur expressive de l’écart dans la représentation.\n L’autonomie du geste graphique, pictural, sculptural : ses incidences sur la représentation, sur l’unicité de l’œuvre, son lien - U aux notions d’original, de copie, de multiple et de série.\n Les différentes catégories d’images, leurs procédés de fabrication, leurs transformations : la différence entre images à caractère artistique et images scientifiques ou documentaires, l’image dessinée, peinte, photographiée, filmée, la transformation d’images existantes dans une visée poétique ou artistique.\n La narration visuelle : les compositions plastiques, en deux et en trois dimensions, à des témo fins de récit ou de témoignage, l’organisation des images fixes et animées pour raconter.\n La mise en regard et en espace : ses modalités (présence ou absence du cadre, du socle, du piédestal, etc.), ses contextes\n(l’espace quotidien privé ou public, l’écran individuel ou collectif, la vitrine, le musée, etc.), l’exploration des présentations des productions plastiques et des œuvres (lieux : salle d’exposition, installation, in situ, l’intégration dans des espaces existants, etc.).\n La prise en compte du spectateur, de l’effet recherché : découverte des modalités de présentation afin de permettre la réception d’une production plastique ou d’une œuvre\n(accrochage, mise en espace, mise en scène, frontalité, circulation, parcours, participation ou passivité du spectateur, etc.).\n\nExemples de situations, d’activités et de ressources pour l’élève\n- Recherche d’imitation, d‘accentuation ou d’interprétation, d’éloignement des caractéristiques du réel dans une représentation, le surgissement d’autre chose, etc. tilisation de l’appareil photographique ou de la caméra, notamment numériques, pour produire des images ; intervention sur les images déjà existantes pour en modifier le sens par le collage, le dessin, la peinture, le montage, par les possibilités des outils numériques.\n- Mise en œuvre, en deux et trois dimensions, de principes d’organisation et d’agencements plastiques explicites pour raconter ou igner ; productions plastiques exprimant l’espace et le temps, également au moyen d’images animées (ralenti, accélération, séquençage, etc.).\n- Observation et analyse d’œuvres ou d’images ; comparaison d’œuvres différentes sur une même question ou dans d’autres arts ; découverte et observation dans l’environnement proche de réalisations ou de situations liées à la représentation et ses dispositifs.\n- Exploration des divers modalités et lieux de présentation de sa production et de l’œuvre ; rôle du rapport d’échelle.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 143
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "questionnements",
+      "title": "Les fabrications et la relation entre l’objet et l’espace",
+      "description": "Questionnements\n- L’hétérogénéité et la cohérence plastiques : les questions de choix et de relations formelles entre constituants plastiques divers, la qualité des effets plastiques induits ; le sens produit par des techniques mixtes dans les pratiques bidimensionnelles et dans les fabrications en trois dimensions.\n- L’invention, la fabrication, les détournements, les mises en scène des objets : création d’objets, intervention sur des objets, leur transformation ou manipulation à des fins narratives, symboliques ou poétiques ; la prise en compte des statuts de l’objet\n(artistique, symbolique, utilitaire, de communication) ; la relation entre forme et fonction.\n- L’espace en trois dimensions : découverte et expérimentation du travail en volume\n(modelage, assemblage, construction, installation, etc.) ; les notions de forme fermée et forme ouverte, de contour et de limite, de vide et de plein, d’intérieur et d’extérieur, d’enveloppe et de structure, de passage et de transition ; les interpénétrations entre l’espace de l’œuvre et l’espace du spectateur.\n\nExemples de situations, d’activités et de ressources pour l’élève\n- Prise en compte des qualités formelles de matériaux, d’objets ou d’images dans leur association au profit d’un effet, d’une organisation, d’une intention (collage d’éléments hétéroclites, association d’images disparates, intrusion de perturbations, etc.).\n- Modification des qualités physiques d’un objet, expérience de la dimension poétique qui peut ainsi être provoquée.\n- Exploration des conditions du déploiement de volumes dans l’espace, en lien notamment avec l’architecture (équilibre et déséquilibre ; forme ouverte, fermée).\n- Création, fabrication, transformation d’objets en lien avec des situations à forte charge symbolique ; jeux sur les relations entre formes et fonction, entre dimension symbolique et qualités plastiques.\n- Observation et analyse d’œuvres, d’architectures, d’objets ; comparaison d’œuvres différentes sur une même question ou dans d’autres arts ; découverte et observation dans l’environnement proche de réalisations ou de situations porteuses des questions que posent l’espace, l’objet et l’architecture.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 144
+    },
+    {
+      "level": "commun",
+      "subject": "arts-plastiques",
+      "domain": "questionnements",
+      "title": "La matérialité de la production plastique et la sensibilité aux constituants de l’œuvre",
+      "description": "Questionnements\n- La réalité concrète d’une production ou d’une œuvre : le rôle de la matérialité dans les effets sensibles que produit une œuvre ; faire l’expérience de la matérialité de l’œuvre, en tirer parti, comprendre qu’en art l’objet et l’image peuvent aussi devenir matériau.\n- Les qualités physiques des matériaux : caractéristiques des matériaux (matériaux de récupération, matériaux non transformés, matériaux issus de transformations physiques ou chimiques, biomatériaux), incidences de leurs caractéristiques (porosité, rugosité, liquidité, malléabilité, etc.) sur la pratique plastique en deux dimensions (transparences, épaisseurs, mélanges homogènes et hétérogènes, collages, etc.) et en volume\n(stratifications, assemblages, empilements, tressages, emboîtements, adjonctions d’objets ou de fragments d’objets, etc.), sur l’invention de formes ou de techniques, sur la production de sens.\n- Les effets du geste et de l’instrument : les qualités plastiques et les effets visuels obtenus par la mise en œuvre d’outils, de médiums et de supports variés ; par l’élargissement de la notion d’outil — la main, les brosses et pinceaux de caractéristiques et tailles diverses, les chiffons, les éponges, les outils inventés, etc. — ; par les dialogues entre les instruments et la matière — touche, trace, texture, facture, griffure, traînée, découpe, coulure, etc. — ; par l’amplitude ou la retenue du geste, sa maîtrise ou son imprévisibilité.\n- La matérialité et la qualité de la couleur : la découverte des relations entre sensation colorée et qualités physiques de la matière colorée (pigments, substances, liants, siccatifs, etc.), des effets induits par les usages (jus, glacis, empâtement, couverture, aplat, plage, giclure, etc.), les supports, les mélanges avec d’autres médiums ; la compréhension des dimensions sensorielles de la couleur, notamment les interrelations entre quantité\n(formats, surfaces, étendue, environnement) et qualité (teintes, intensité, nuances, lumière, etc.).\n\nExemples de situations, d’activités et de ressources pour l’élève\n- Expérience, observation et interprétation du rôle de la matière dans une pratique plastique : lui donner forme, l’éprouver, jouer de ses caractéristiques physiques, des textures, pour nourrir un projet artistique ; identification de la part du hasard, de celle de l’intention.\n- Exploration des qualités physiques des matériaux, des médiums et des supports pour peindre ou dessiner, pour sculpter ou construire.\n- Découverte et utilisation des qualités plastiques et des effets visuels obtenus par la mise en œuvre et les interactions entre outils, médiums et supports variés.\n- Mise en œuvre de l’amplitude ou la retenue du geste, sa maîtrise ou son imprévisibilité (désir d’agir sur le support, de laisser trace, affirmation des aspects physiques, matériels, gestuels, rythmes, vitesse, étendue ou profondeur dans son rapport aux limites, aux bords, à la matérialité du support ou du médium, etc.).\n- Productions engageant des liens entre les qualités de la matière colorée\n(pigments, substances, liants, siccatifs, etc.), ses usages (jus, glacis, empâtement, couverture, aplat, plage, giclure, etc.) ; les effets induits par les supports et les mélanges avec d’autres médiums.\n- Observation et analyse d’œuvres ; comparaison d’œuvres différentes sur une même question ou dans d’autres arts ; découverte et observation dans l’environnement proche de réalisations mettant en évidence le rôle de la matérialité et de la couleur.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 144
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "competences-travaillees",
+      "title": "Chanter et interpréter",
+      "description": "Compétences travaillées\n- Reproduire et interpréter un modèle mélodique et rythmique.\n- Interpréter un répertoire varié avec expressivité.\n\nDomaines du socle\n1, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 147
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "competences-travaillees",
+      "title": "Écouter, comparer et commenter",
+      "description": "Compétences travaillées\n- Décrire et comparer des éléments sonores issus de contextes variés, artistiques ou naturels.\n- Identifier et nommer ressemblances et différences dans deux extraits musicaux.\n- Identifier quelques caractéristiques qui inscrivent une œuvre musicale dans une aire géographique ou culturelle et dans un temps historique contemporain, proche ou lointain.\n\nDomaines du socle\n1, 3, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 147
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "competences-travaillees",
+      "title": "Explorer, imaginer et créer",
+      "description": "Compétences travaillées\n- Imaginer l’organisation de différents éléments sonores.\n- Faire des propositions personnelles lors de moments de création, d’invention et d’interprétation.\n\nDomaines du socle\n1, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 147
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "competences-travaillees",
+      "title": "Échanger, partager et argumenter",
+      "description": "Compétences travaillées\n- Argumenter un jugement sur une musique.\n- Écouter et respecter le point de vue des autres et l’expression de leur sensibilité.\n\nDomaines du socle\n1, 3, 5",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 147
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "connaissances-et-competences-associees",
+      "title": "Chanter et interpréter",
+      "description": "Connaissances et compétences associées\n- Reproduire et interpréter un modèle mélodique et rythmique.\n- Chanter une mélodie simple avec une intonation juste et une intention expressive.\n- Mémoriser et chanter par cœur un chant appris par imitation, soutenir un bref moment de chant en solo.\n- Interpréter un chant avec expressivité en respectant plusieurs choix et contraintes précédemment indiqués.\n- Tenir sa partie dans un bref moment de polyphonie.\n- Mobiliser son corps pour interpréter, le cas échéant avec des instruments.\n- Identifier les difficultés rencontrées dans l’interprétation d’un chant.\n• Répertoire de chansons diverses.\n• Paramètres du son et techniques vocales pour en jouer de façon expressive.\n• Vocabulaire de l’expression : quelques nuances simples, tempo, caractère, etc.\n• Polyphonie : rôle complémentaire des parties simultanées.\n• Interprétation d’une musique : compréhension du terme et usage approprié à propos d’une œuvre écoutée et d’une musique produite en classe.\n\nExemples de situations, d’activités et de ressources pour l’élève\nApprentissage et interprétation de chansons de différents styles.\nJeux d’interprétation d’une phrase mélodique, d’un couplet de chanson en lien avec des intentions expressives.\nJeux d’interprétation d’une phrase mélodique en jouant sur les paramètres mobilisables : timbre, intensité, espace (en mouvement, en plusieurs groupes), durée (tempo), hauteurs.\nUtilisation d’instruments.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 148
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "connaissances-et-competences-associees",
+      "title": "Écouter, comparer et commenter",
+      "description": "Connaissances et compétences associées\n- Décrire et comparer des éléments sonores issus de la biodiversité, de contextes musicaux, d’aires géographiques ou culturelles différents et dans un temps historique, contemporain, proche ou lointain.\n- Identifier et nommer ressemblances et différences dans deux extraits musicaux.\n- Repérer et nommer une organisation simple dans un extrait musical : répétition d’une mélodie, d’un motif rythmique, d’un thème, d’une partie caractéristique, etc. ; en déduire une forme simple (couplet/refrain,\nABA par exemple).\n- Associer la découverte d’une œuvre à des connaissances construites dans d’autres domaines enseignés.\n Vocabulaire simple pour décrire la musique.\n Méthodes pour comparer des musiques.\n Repères simples dans le temps et dans l’espace.\n Quelques grandes œuvres du patrimoine.\n Principales caractéristiques de l’orchestre symphonique.\n Formes de production variées : vocales, instrumentales, solistes.\n\nExemples de situations, d’activités et de ressources pour l’élève\nÉcoutes préparées : ensemble de termes donnés et à utiliser pour la description et le commentaire.\nÉcoutes préparées (et/ou comparées) selon un angle d’écoute préalablement identifié : le rythme, la répétition, le timbre, la mélodie, etc.\nComparaison d’interprétations d’une œuvre donnée.\nÉcoute de brefs extraits musicaux et jeux d’association par ressemblances.\nCodage (schématisation) de brefs extraits et comparaison.\nComparaison avec des œuvres d’autres domaines artistiques : image fixe et animée, danse.\nComparaison d’usages de la musique à l’image animée\n(cinéma).\nPrésentation par un élève (ou un groupe d’élèves) d’un extrait déjà écouté et travaillé en classe en utilisant le vocabulaire approprié.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 148
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "connaissances-et-competences-associees",
+      "title": "Explorer, imaginer et créer",
+      "description": "Connaissances et compétences associées\n- Expérimenter les paramètres du son et en imaginer en Jeux conséquence des utilisations possibles.\n- Imaginer des représentations graphiques pour organiser une succession de sons et d’événements sonores.\n- Inventer une organisation simple à partir de sources sonores sélectionnées (dont la voix) et l’interpréter.\n Développement du lexique pour décrire le son instrumental, le son vocal et les objets sonores dans les domaines de la hauteur, du timbre, de la durée, de l’intensité.\n Diversité des matériaux sonores et catégories classées par caractéristiques dominantes.\n Les postures de l’explorateur du son puis du compositeur : produire, écouter, trier, choisir, organiser, composer.\n Le projet graphique (partition adaptée pour organiser la mémoire) et sa traduction sonore.\n Les exigences de la musique collective : écoute de l’autre, respect de ses propositions.\n\nExemples de situations, d’activités et de ressources pour l’élève\nvocaux associant des objets sonores.\nPropositions et réalisations d’apports personnels et originaux lors d’un moment d’interprétation.\nManipulation d’objets sonores à l’aide d’outils numériques appropriés.\nRéalisations de partitions graphiques et comparaison des résultats.\nComposition de partitions graphiques et réalisation sonores.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 149
+    },
+    {
+      "level": "commun",
+      "subject": "education-musicale",
+      "domain": "connaissances-et-competences-associees",
+      "title": "Échanger, partager et argumenter",
+      "description": "Connaissances et compétences associées\n- Exprimer ses goûts au-delà de son ressenti immédiat.\n- Écouter et respecter le point de vue des autres et l’expression de leur sensibilité.\n- Argumenter un jugement sur une musique tout en respectant celui des autres.\n- Argumenter un choix dans la perspective d’une interprétation collective.\n Notions de respect, de bienveillance, de tolérance.\n Vocabulaire adapté à l’expression et l’argumentation de son point de vue personnel sur la musique.\n Conditions d’un travail collectif : concentration, écoute, respect, auto-évaluation, etc.\n Règles et contraintes du travail musical collectif visant l’expression d’un avis partagé comme une production sonore de qualité.\n\nExemples de situations, d’activités et de ressources pour l’élève\nExpression et partage des points de vue personnels sur la musique écoutée.\nDébats argumentés sur des musiques relevant d’une actualité médiatisée connue des élèves.\nDéfinition collective de règles d’un jeu vocal ; échanges et débats critiques sur le résultat en vue d’une nouvelle réalisation.\nCritique d’enregistrement de la production vocale (chant, jeux vocaux, improvisation) de la classe pour améliorer son interprétation.",
+      "source_file": "docs/programme-cm1-cm2.pdf",
+      "source_page": 149
+    },
+    {
+      "level": "CM1",
       "subject": "sciences-et-technologie",
       "domain": "la-matiere-les-mouvements-et-les-signaux",
       "title": "États et constitution de la matière à l’échelle macroscopique",
@@ -1583,419 +1989,6 @@
       "description": "Algorithmes et programmation\nComprendre un algorithme agissant sur le comportement d’un objet technique.\nModifier, tester et valider un programme au regard du comportement de l’objet programmé.",
       "source_file": "docs/programme-cm1-cm2.pdf",
       "source_page": 107
-    },
-    {
-      "level": "CM1",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 1 : La vie quotidienne au Moyen Âge (XIe - XIIIe siècles) (première et deuxième période)",
-      "description": "Question : Comment les femmes et les hommes vivaient-ils au Moyen Âge ?\n\nMots-clés : abbaye, art gothique, art roman, cathédrale, château, clergé, corvée, dime, Église/églises, paroisse, paysanne et paysan, seigneur, seigneurie.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les cadres de la vie des femmes et des hommes : la seigneurie (la domination d’un seigneur sur un territoire et les hommes qui y vivent) et la paroisse (l’encadrement par l’Église de la vie des femmes et des hommes de leur naissance à leur mort).\n- Les modes de vie des seigneurs, des paysannes et des paysans et des habitants des villes\n- Le rôle de l’Église.\n\nAttendus (connaissances et compétences)\n- Décrire les fonctions d’un château\n(lieu de protection, lieu de vie du seigneur, symbole de la puissance du seigneur) ou\nDécrire le fonctionnement d’une seigneurie.\n- Raconter la vie quotidienne des paysannes et des paysans\n(calendrier annuel des travaux, obligations envers le seigneur, l’Église, etc.). ou\nDécrire les activités des villes au\nMoyen Âge (marché et foire, artisanat, etc.).\n- Décrire le rôle social de l’Église\n(assistance aux pauvres et malades, enseignement).\n- Différencier l’art roman de l’art gothique.\n\nRepères\nSituer le Moyen Âge sur une frise chronologique (476-1492) et identifier la période du XIe au XIIIe siècle.\nUne abbaye dans l’espace proche des élèves ou l’abbaye de Cluny.\nUne cathédrale dans l’espace proche des élèves ou Notre-Dame de Paris.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 111
-    },
-    {
-      "level": "CM1",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 2 : La monarchie en France (XVIe – XVIIe siècles) (deuxième et troisième périodes)",
-      "description": "Question : Comment le roi incarne-t-il le pouvoir aux XVIe et XVIIe siècles ?\n\nMots-clés : artiste, catholique, guerres de religion, mécène, monarchie absolue, noblesse, protestant, société d’ordres.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Un roi mécène de la Renaissance,\nFrançois Ier (1515-1547).\n- Un roi pacificateur du royaume,\nHenri IV (1589-1610).\n- Un roi qui affirme son pouvoir absolu,\nLouis XIV (1643-1715).\n- Une société d’Ancien Régime divisée en trois ordres (clergé, noblesse, tiers état).\n\nAttendus (connaissances et compétences)\n- Situer sur une frise chronologique les règnes de François Ier, Henri IV et\nLouis XIV.\n- Expliquer avec l’exemple de\nFrançois Ier et de Léonard de Vinci le rôle d’un roi dans la diffusion de la\nRenaissance.\n- Expliquer comment Henri IV pacifie le royaume de France dans le contexte des guerres de religion.\n- Expliquer comment le château de\nVersailles exprime le pouvoir absolu du roi.\n- Décrire le rôle des femmes à la Cour de Versailles.\n- Décrire l’organisation de la société d’ordres majoritairement composée de paysans.\n\nRepères\n1515 : début du séjour de Léonard de\nVinci en France jusqu’à sa mort en 1519.\n1598 : édit de Nantes.\n1643-1715 : règne de Louis XIV.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 112
-    },
-    {
-      "level": "CM1",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 3 : Explorations et conquêtes par les Européens du XVe au XVIIe siècle (quatrième période)",
-      "description": "Question : Pourquoi les Européens explorent-ils le monde et comment cela mène-t-il à la première colonisation ?\n\nMots-clés : boussole, caravelle, carte, commerce triangulaire, empire colonial, esclavage, plantation, traite.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les progrès techniques qui ont permis aux Européens de s’aventurer vers de nouveaux territoires.\n- La constitution des premiers empires coloniaux en Amérique.\n- La traite des esclaves entre l’Afrique et l’Amérique et la vie des esclaves dans les plantations.                          -\n- Les échanges commerciaux avec les colonies.\n\nAttendus (connaissances et compétences)\n- Mémoriser le nom de plusieurs          1492 : Christophe Colomb débarque en inventions permettant la navigation au Amérique. grand large.                           1519-1522 : l’expédition de Magellan fait\n- Localiser les grands empires coloniaux le tour du monde. sur une carte.                         1685 : Édit royal de Louis XIV dit le\n- Citer des conséquences de ces            « Code noir ». conquêtes sur les populations amérindiennes.\nDécrire les conditions de vie des esclaves dans une plantation.\n- Nommer quelques denrées issues de ces colonies (tomate, chocolat, haricot, pomme de terre, sucre de canne, etc.).",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 112,
-      "needs_review": true
-    },
-    {
-      "level": "CM1",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 4 : 1789, une année révolutionnaire en France (cinquième période)",
-      "description": "Question : Comment l’année 1789 met-elle fin à la monarchie absolue et à la société d’ordres ?\n\nMots-clés : Ancien Régime, citoyenneté, constitution, droits de l’Homme, égalité, l’Encyclopédie, liberté, les Lumières, Révolution, souveraineté nationale.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Le contexte social, économique et intellectuel du royaume de France en\n1789.\n- 1789, fin de la monarchie absolue et de l’Ancien Régime.\n- L’affirmation des nouveaux principes d’organisation de la société.\n\nAttendus (connaissances et compétences)\n- Décrire le contexte social, économique et intellectuel du royaume en 1789.\n- Citer des idées des Lumières.\n- Compléter une frise chronologique avec les évènements marquants de l’année 1789.\n- Raconter la vie et l’action d’une femme ou de femmes au cours de l’année 1789.\n- Citer les principaux droits énoncés dans la Déclaration des Droits de l’Homme et du Citoyen.\n\nRepères\nUn ou une philosophe des Lumières.\nPrintemps 1789 : rédaction des cahiers de doléances et réunion des États-\nGénéraux.\n14 juillet : prise de la Bastille.\nNuit du 4 aout : abolition des privilèges.\n26 aout : Déclaration des Droits de l’Homme et du Citoyen.\n5-6 octobre 1789 : marche des femmes à\nVersailles.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 113
-    },
-    {
-      "level": "CM2",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 1 : De la République à l’Empire (1792-1815) (première période)",
-      "description": "Question : Comment la République et l’Empire ont-ils transformé la vie des Français et des Françaises ?\n\nMots-clés : empereur/empire, esclavage, le Code civil, liberté de la presse, lycée, préfet.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La chute du roi et l’avènement de la\nRépublique dans un contexte de guerre.                               -\n- Les étapes qui conduisent Bonaparte à devenir empereur et à dominer une     - partie de l’Europe.\n- Les grandes réformes de la période napoléonienne et la remise en cause de certains acquis de la Révolution.\n\nAttendus (connaissances et compétences)\n- Raconter comment les Français et les          Mars 1792 : Pétition de 319 femmes\nFrançaises participent à la vie               (Pauline Léon) pour s’organiser en garde politique depuis 1789.                        nationale.\nRaconter la chute du roi et la         Avril 1792 : composition de La naissance  de la République.           Marseillaise.\nRaconter le combat pour l’abolition de Septembre 1792 : naissance de la l’esclavage.                           République.\n- Expliquer comment Bonaparte devient 1794 : première abolition de l’esclavage. empereur.                           1802 : rétablissement de l’esclavage.\n- Nommer des réformes menées par                2 décembre 1804 : sacre de Napoléon\nNapoléon Bonaparte (Code civil,               Bonaparte qui devient Napoléon Ier. lycées, rétablissement de l’esclavage, etc.).",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 113,
-      "needs_review": true
-    },
-    {
-      "level": "CM2",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 2 : Vers une France républicaine : la IIe République (1848-1852) et la IIIe République de 1870 à 1914",
-      "description": "Question : Comment la France est-elle devenue une République ?\n\nMots-clés : abolition de l’esclavage, colonisation, démocratie, laïcité, république, suffrage universel masculin.\n\nObjectifs d’apprentissage\n(deuxième période)\nConnaitre et comprendre :\n- Les lois protectrices des droits et libertés.\n- Les lieux, les symboles et les rites de la\nRépublique (en remobilisant les acquis de l’enseignement moral et civique).\n- La constitution d’un empire colonial.\n\nAttendus (connaissances et compétences)\n- Nommer de grandes lois fondatrices de la République : le suffrage universel masculin, l’abolition de l’esclavage, la liberté de la presse, les lois scolaires, la laïcité.\n- Nommer les symboles de la\nRépublique : le drapeau tricolore, le 14 juillet, Marianne, la Marseillaise, la devise.\n- Localiser sur un planisphère les territoires de l’empire colonial français au début du XXe siècle.\n\nRepères\n1848 : suffrage universel masculin et abolition définitive de l’esclavage.\n1882-1886 : lois Ferry sur l’École.\n9 décembre 1905 : séparation des Églises et de l’État.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 113
-    },
-    {
-      "level": "CM2",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 3 : L’âge industriel en France au XIXe siècle (deuxième période)",
-      "description": "Question : Quelles sont les transformations économiques et sociales en France au XIXe siècle ?\n\nMots-clés : atelier, bourgeois, grève, industrialisation, mine, ouvrier, syndicat, urbanisation, usine, vaccin.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :                 - Expliquer les transformations de la vie\n- Les progrès techniques et scientifiques   quotidienne en lien avec les progrès\n(sources d’énergie, chemin de fer,        techniques et scientifiques. usines, progrès de la médecine) et      - Nommer quelques progrès de la leurs conséquences sur les modes de       médecine. vie.                                    - Décrire les conditions de vie et les\n- Les transformations de la société :           luttes sociales des ouvrières et des bourgeois et ouvriers dans une société        ouvriers (à la mine, à l’atelier, à l’usine), qui reste très majoritairement rurale.        la vie quotidienne des bourgeoises et des bourgeois.\n\nAttendus (connaissances et compétences)\nDébut XIXe siècle : invention de la locomotive (Stephenson).\nFin du XIXe siècle : invention du vaccin contre la rage par Pasteur.\nSeconde moitié du XIXe siècle : droit de grève et loi relative à la liberté syndicale.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 114,
-      "needs_review": true
-    },
-    {
-      "level": "CM2",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 4 : La France dans la Première Guerre mondiale (1914-1918) (troisième période)",
-      "description": "Question : Comment la Première Guerre mondiale a-t-elle bouleversé la société française ?\n\nMots-clés : armistice, guerre de mouvement / guerre de position, poilus.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Le nord et l’est de la France, lieu des principaux combats sur le front occidental.\n- La vie des soldats sur le front.\n- Une guerre qui mobilise toute la population et l’économie de la métropole et des colonies.\n- Le bilan humain de la Première Guerre mondiale.\n\nAttendus (connaissances et compétences)\n- Situer sur une frise chronologique la\nPremière Guerre mondiale.\n- Raconter la vie sur le front : combats et conditions de vie.\n- Expliquer la mobilisation humaine - notamment le rôle des femmes -, économique, industrielle et culturelle.\n- Mémoriser quelques éléments du bilan humain de la guerre, dont le nombre total de morts au combat (10 millions dont 1,4 millions de Français).\n\nRepères\n1914-1918 : Première Guerre mondiale.\nUne grande bataille de la Première\nGuerre mondiale en France.\n11 novembre 1918 : armistice.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 114
-    },
-    {
-      "level": "CM2",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 5 : La France pendant la Seconde Guerre mondiale (1939-1945) (quatrième période)",
-      "description": "Question : Comment la France a-t-elle vécu la défaite, l’Occupation puis la Libération ?\n\nMots-clés : antisémitisme, collaboration, nazisme, régime de Vichy, résistance.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les principales phases de la Seconde\nGuerre mondiale en France.\n- Les conditions de vie sous l’Occupation.\n- La résistance à l’occupant.\n- Le rôle du régime de Vichy dans l’extermination des Juifs et les persécutions des Tsiganes.\n- Le bilan humain de la Seconde\nGuerre mondiale.\n\nAttendus (connaissances et compétences)\n- Mémoriser les étapes de la Seconde\nGuerre mondiale en France : « drôle de guerre », défaite de juin 1940, occupation et collaboration, libération.\n- Décrire les difficultés de la vie sous l’Occupation.\n- Identifier le rôle du général de Gaulle ou de Jean Moulin dans la Résistance.\n- Décrire le rôle de Philippe Pétain et la politique antisémite du régime de\nVichy, expliquer sa participation au processus d’extermination des Juifs ou\nExpliquer, à partir d’un exemple, l’action des « Justes parmi les\nNations ».\n- Mémoriser quelques éléments du bilan humain de la guerre : entre 60 et 70 millions de morts dans le monde, dont 6 millions de Juifs (60 % des Juifs d’Europe).\n\nRepères\n1939-1945 : Seconde Guerre mondiale.\n18 juin 1940 : appel du général de\nGaulle.\n1942 : rafle du Vel d’Hiv’.\n6 juin 1944 : débarquement des Alliés en Normandie.\n8 mai 1945 : capitulation de l’Allemagne nazie.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 114
-    },
-    {
-      "level": "CM2",
-      "subject": "histoire",
-      "domain": null,
-      "title": "Thème 6 : la France depuis 1945 : 80 ans de transformations (cinquième période)",
-      "description": "Question : Comment expliquer la longue période de paix et de transformation depuis 1945 ?\n\nMots-clés : innovation, loisir, Sécurité sociale, société de consommation, traité.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Une République démocratique et sociale depuis 1946.\n- Une société profondément transformée depuis 1945 (transports, modes de vie, etc.).\n- La France, actrice de la construction européenne.\n\nAttendus (connaissances et compétences)\n- Citer un exemple de réforme sociale et un exemple de droit des femmes.\n- Citer la date de la fondation de la\nVe République.\n- Décrire les transformations de la société française depuis 1945.\n- Raconter les grandes étapes de la construction européenne.\n\nRepères\n1944 : droit de vote des femmes.\n1957 : traité de Rome créant la CEE.\n1958 : fondation de la Ve République avec le général de Gaulle.\n1965 : les Françaises peuvent travailler sans l’autorisation de leur époux et ouvrir un compte bancaire.\n2000 : l’euro remplace le franc.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 115
-    },
-    {
-      "level": "CM1",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 1 : Se nourrir (1 ou 2 périodes au choix)",
-      "description": "Question : Comment se nourrit-on dans le monde ?\n\nMots-clés : malnutrition/sous-nutrition, produit agricole/produit alimentaire transformé.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La diversité des pratiques alimentaires dans le monde.\n- La provenance des principaux aliments que les élèves consomment.\n\nAttendus (connaissances et compétences)\nDécrire :\n- Les différences des pratiques alimentaires entre un pays riche et un pays en développement.\n- La différence entre produits agricoles et produits transformés.\n- La chaine de production d’un aliment consommé (yaourt, biscuit, fruit, etc.).\n\nRepères\nDeux pays à ration alimentaire très riche situés sur deux continents différents.\nDeux pays à ration alimentaire insuffisante situés sur deux continents différents.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 118
-    },
-    {
-      "level": "CM1",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 2 : Les inégalités dans le monde (1 ou 2 périodes au choix)",
-      "description": "Question : Comment décrire les inégalités de niveau de vie dans le monde ?\n\nMots-clés : inégalités.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- L’inégal accès :\n• à l’eau ; ou\n• à la santé ; ou\n• à l’éducation.\n\nAttendus (connaissances et compétences)\n- Identifier les manifestations des inégalités de niveau de vie dans le monde.\n- Localiser et nommer sur un planisphère les aires régionales.\n\nRepères\nAfrique\n- Afrique subsaharienne.\n- Maghreb.\nAmérique\n- Amérique du Nord.\n- Amérique du Sud.\nAsie\n- Asie du Sud-Est.\n- Asie de l’Est.\nEurope.\nOcéanie.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 118
-    },
-    {
-      "level": "CM1",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 3 : Se déplacer (1 période)",
-      "description": "Question : Comment se déplace-t-on dans le monde ?\n\nMots clés : avion/aéroport, bateau/port, marche, métro/station, train/gare, vélo/voie cyclable, voiture/route.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Les modalités de déplacement des élèves de la classe (dont la marche) à différentes échelles de temps (par exemple, journée, semaine, etc.).\n- Les principaux modes de transport de personnes et les infrastructures associées (avion/aéroport ; bateau/port ; train/gare ; voiture/route ; métro/station ; vélo/voie cyclable).\n\nAttendus (connaissances et compétences)\n- Identifier la diversité des modalités de déplacement au cours de différentes périodes de temps (par exemple journée, semaine, etc.), en les associant à la distance à parcourir.\n\nRepères\nDeux unités de mesure des déplacements :\n- Distance kilométrique.\n- Distance en temps.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 119
-    },
-    {
-      "level": "CM1",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 4 : Communiquer dans le monde avec Internet (1 période)",
-      "description": "Question : Comment communique-t-on avec Internet dans le monde ?\n\nMots-clés : câble sous-marins, internet, réseau, satellite.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La diversité des usages d’Internet à partir des pratiques des élèves.\n- Le fonctionnement d’Internet grâce à un réseau de câbles et de satellites qui - connectent les espaces à l’échelle mondiale.\n- L’inégal accès à Internet à l’échelle mondiale et à l’échelle de la France.\n\nAttendus (connaissances et compétences)\n- Expliquer qu’Internet repose sur un réseau de câbles continentaux et sous- marins reliant les aires régionales, ainsi que sur des satellites.\nDécrire les inégalités d’accès à internet :\n• à l’échelle mondiale à partir de la carte du taux d’accès de la population ayant accès à Internet, par pays ;\n• à l’échelle nationale à partir de la carte du déploiement de la 5G en\nFrance.\n\nRepères\nLes principales concentrations de câbles sous-marin.\nUne aire régionale très bien reliée à\nInternet.\nUne aire régionale faiblement reliée à\nInternet.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 119
-    },
-    {
-      "level": "CM2",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 1 : L’organisation du territoire français (2 périodes)",
-      "description": "Question : Comment est organisé le territoire français ?\n\nMots-clés : commune, département, région, TGV.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La localisation des centres urbains et des axes de transport les plus importants en France.\n- Le découpage administratif du territoire français.\n- Les principales caractéristiques d’au moins deux Régions dont celle de l’école.\n\nAttendus (connaissances et compétences)\n- Localiser et nommer sur un fond de carte les repères du thème.\n\nRepères\nLes cinq principales agglomérations françaises.\nLes principaux axes de transports autoroutiers et ferroviaires.\nLes dix-huit Régions administratives et leur capitale régionale.\nLe département où vit l’élève.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 119
-    },
-    {
-      "level": "CM2",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 2 : Les usages de l’eau douce en France (2 périodes)",
-      "description": "Question : Pourquoi gérer l’eau douce en France ?\n\nMots-clés : conflit d’usages, nappe phréatique.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- Que l’eau est une ressource limitée.\n- Les différents usages de l’eau en\nFrance.\n- Les concurrences entre les usages de l’eau en France.\n\nAttendus (connaissances et compétences)\n- Décrire les différents usages de l’eau      Les grands fleuves français (Garonne, en France.                                  Loire, Maroni, Rhin, Rhône, Seine).\n- À partir d’un exemple précis, expliquer Les principaux massifs de montagne que l’eau est une ressource convoitée français (Alpes, Corse, Jura, Massif faisant l’objet de conflits d’usages.   central, Pyrénées, Vosges).\nDeux grands lacs français dont un lac naturel.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 120,
-      "needs_review": true
-    },
-    {
-      "level": "CM2",
-      "subject": "geographie",
-      "domain": null,
-      "title": "Thème 3 : l’Union européenne (1 période)",
-      "description": "Question : Qu’est-ce que l’Union européenne ?\n\nMots-clés : Europe, Union européenne.\n\nObjectifs d’apprentissage\nConnaitre et comprendre :\n- La différence entre Europe et Union européenne.\n- Un aménagement réalisé avec le soutien de l’UE dans la région de l’école.\n\nAttendus (connaissances et compétences)\n- Expliquer la différence entre le continent (Europe) et la construction politique (Union européenne).\n- Localiser et nommer dix pays membres de l’UE (dont les six pays fondateurs).\n\nRepères\nL’UE sur un fond de carte représentant l’Europe dans ses limites conventionnelles.\n1957 : Traité de Rome.\n1992 : Traité de Maastricht.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 120
-    },
-    {
-      "level": "CM1",
-      "subject": "emc",
-      "domain": "civisme-et-citoyennete",
-      "title": "Civisme et citoyenneté",
-      "description": "Notions abordées\nCivisme\nSobriété numérique\nIncivilités\nDémocratie\n\nContenus d’enseignement\n• Définir le civisme comme l’action d’un individu en fonction du bien public et dans le respect des règles ;\n• aborder des exemples de comportement civique dans la classe, l’école, dans la vie quotidienne, en ligne, et en faveur de l’environnement ;\n• connaître et appliquer les règles de civilité en société ; identifier les incivilités et comprendre pourquoi elles nuisent à la vie en commun ;\n• apprendre la signification du terme « démocratie » et le fonctionnement du suffrage direct.\n\nDémarches et situations d’apprentissage possibles\nSensibiliser les élèves à l’engagement individuel et collectif en s’appuyant sur des exemples concrets.\n[EDD] Prendre en charge des aspects de la vie collective et de l’environnement en développant une conscience civique et écologique\n(notamment en partageant harmonieusement les lieux de vie et en respectant l’environnement).\nReconnaitre des situations de danger, alerter et se mettre en sécurité\n(APS, APER).\n[EMI] Afin de développer un civisme numérique, s’appuyer sur la charte pour l’éducation à la culture et à la citoyenneté numériques. Plus particulièrement :\n-   travailler sur les espaces de travail accessibles aux élèves (espace numérique de travail, blog de classe, d’école, etc.) ;\n-   penser cet apprentissage comme une déclinaison en ligne de ce qu’on leur demande de faire hors ligne ;\n-   renforcer les compétences des élèves en matière de recherche info- documentaire en ligne : appréhender le lien entre image et texte, distinguer émetteur et récepteur, aborder la notion de « source », interroger la notion d’information ;\n-   produire et diffuser de l’information en classe (initier à la pratique médiatique) ;\n-   envisager les conséquences en matière environnementale des usages du numérique (par exemple la consommation énergétique des serveurs, des applications, etc.) et souligner l’importance d’une sobriété numérique ;\n-   aborder la question du droit à la déconnexion numérique et de son importance pour la santé mentale et physique. Cette démarche contribue au développement des compétences numériques\n(CRCN).\nMontrer comment la politesse fait partie du civisme par la connaissance volontaire des règles et le respect des autres qu’elle implique. Montrer en s’appuyant sur des exemples pourquoi les incivilités nuisent à la collectivité.\nExposer les principes généraux de la démocratie en France en abordant les notions de citoyenneté, de vote et de participation aux décisions.\nExpliciter les articles 3, 6 et 16 de la Déclaration des droits de l’homme et du citoyen (DDHC) : articuler une réflexion sur la démocratie scolaire\n(conseils d’élèves, conseils de classe, etc.) et les notions de souveraineté populaire, de volonté générale, d’égalité devant la loi et de séparation des pouvoirs.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 80
-    },
-    {
-      "level": "CM1",
-      "subject": "emc",
-      "domain": "l-egalite-dans-la-dignite",
-      "title": "L’égalité dans la dignité",
-      "description": "Notions abordées\nÉgalité, dignité, discriminations\nTolérance\n\nContenus d’enseignement\n• Comprendre la notion d’égalité en droit ;\n• comprendre ce qu’implique le principe de dignité de la personne humaine.\n\nDémarches et situations d’apprentissage possibles\nÀ partir de situations réelles ou fictives, identifier des situations dans lesquelles l’égalité n’est pas respectée et des situations de discrimination ou d’atteintes à la personne d’autrui.\nDans le cadre d’activités de groupe, développer chez l’élève le respect de son intégrité personnelle et de celle des autres, dans leur diversité (croyances, convictions, etc.). Mettre en place des situations permettant à chacun d’assumer ses choix et de respecter ceux des autres.\n[EMI] Aborder le phénomène des cyberviolences ; démontrer que ces actes peuvent entraîner du harcèlement en ligne ; rappeler la règle et le droit ; faire le lien avec le CRCN.\nCes démarches peuvent s’appuyer sur le programme d’éducation à la vie affective et relationnelle et le dispositif Phare.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 80
-    },
-    {
-      "level": "CM1",
-      "subject": "emc",
-      "domain": "comment-faire-societe",
-      "title": "Comment faire société",
-      "description": "Notions abordées\nFraternité et empathie\n\nContenus d’enseignement\n• Comprendre la notion de fraternité, valeur et principe de la\nRépublique ;\n• comprendre ce qu’implique et permet l’empathie.\n\nDémarches et situations d’apprentissage possibles\nÀ l’occasion d’un débat réglé, amener l’élève à exprimer ses opinions personnelles tout en tenant compte de la sensibilité des autres (nuancer son propos, modérer son attitude).\nPar une discussion collective, amener les élèves à définir égoïsme et altruisme.\nÀ partir de situations de tensions entre élèves, réelles ou fictives, faire réfléchir les élèves à ce que cela implique d’être un élève parmi d’autres élèves (tolérance envers autrui et ses idées en dehors de la camaraderie et de l’amitié).\nDans le cadre du développement des compétences psychosociales, développer l’empathie comme moteur pour lutter contre les discriminations, la violence physique ou verbale, le harcèlement, les cyberviolences.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 81
-    },
-    {
-      "level": "CM2",
-      "subject": "emc",
-      "domain": "citoyennete-et-nationalite",
-      "title": "Citoyenneté et nationalité",
-      "description": "Notions abordées\nCitoyenneté\nDroits civils et politiques\nDevoirs\nSymboles républicains\n\nContenus d’enseignement\n• Connaître les conditions d’acquisition de la nationalité française : montrer le lien étroit entre citoyenneté et nationalité. Un citoyen bénéficie de droits civils, puis politiques à sa majorité, et tout individu bénéficie de droits civils ;\n• connaître le rôle politique des citoyennes et des citoyens : ils ont vocation à participer à la vie politique du pays et à l’évolution des institutions (découverte des procédures générales d’élaboration de la loi) ;\n• connaître les devoirs du citoyen et de toute personne résidant sur le territoire national :\n\nDémarches et situations d’apprentissage possibles\nÀ partir de l’article 7 de la Convention internationale des droits de l’enfant, faire comprendre que tout enfant possède dès sa naissance des droits, dont celui d’acquérir une nationalité. Par des exemples choisis illustrant des droits, comprendre qu’en France, tout individu bénéficie de droits comme celui à l’éducation, d’être soigné, etc.\nL’élève doit être en mesure à partir de la lecture d’articles choisis de la\nDéclaration des droits de l’homme et du citoyen (DDHC) de citer quelques droits individuels et collectifs comme le droit à la liberté d’expression (art. 11), d’opinion (art. 10), le droit à la sûreté (art. 2). Il doit savoir les distinguer des droits politiques comme le droit de vote et d’éligibilité qui permettent de participer aux décisions de la vie publique. Ces droits sont illustrés avec des situations concrètes de la vie quotidienne.\nL’expérience des conseillers municipaux juniors est considérée en vue d’expliquer le rôle politique du citoyen qui, par le vote, participe à la vie de sa cité. Une rencontre avec des élus locaux (maire de la commune, conseillers municipaux) peut être ainsi l’occasion pour les élèves d’appréhender l’engagement de citoyennes et de citoyens actifs qui se sont portés candidats à une élection municipale, et de comprendre les modalités d’exercice de leur mandat local.\nLa participation au concours Le Parlement des enfants favorise la pratique du dialogue et du débat démocratique des élèves. Cette action éducative permet aux élèves de découvrir le rôle du législateur.\nL’étude de plusieurs articles de la DDHC permet également de caractériser différents devoirs du citoyen, comme sa participation au financement des charges supportées par l’État par le paiement de l’impôt (art. 13). respecter les lois,           En expliquant que les électeurs et les électrices sont à l’origine des lois contribuer à financer les     en vigueur par l’intermédiaire de leurs représentants démocratiquement dépenses publiques.           élus, et en se référant à l’article 3 de la DDHC et l’article 3 de la\nChaque citoyen doit           Constitution affirmant que la souveraineté nationale appartient au respecter les droits des      peuple, l’élève doit comprendre que les citoyennes et les citoyens autres qui sont               participent de l’élaboration des lois en même temps qu’ils doivent les identiques aux siens          respecter.\n(Déclaration des droits de l’homme et du citoyen, art. 3 et 13) ;\n• comprendre que le terme La description d’une carte électorale peut être l’occasion de faire de devoir peut aussi       réfléchir à la notion de devoir civique à partir de la mention « Voter est désigner une réalité plus un droit, c’est aussi un devoir civique » et de faire comprendre que par morale, qui doit guider le leur vote citoyennes et citoyens assurent le bon fonctionnement de la citoyen dans son           démocratie. comportement dans          [EDD] Des exemples choisis de comportements dans la vie quotidienne l’espace public ;          (recyclage, réduction des déchets, lutte contre le gaspillage, etc.) sont mis en lien avec l’éco-citoyenneté et présentés comme un autre exemple de devoir civique, celui de défendre l’environnement.\n• connaître et comprendre       La République est héritière d’une histoire, elle se rend visible par des les symboles républicains     symboles fédérateurs. Connaître des lieux de la mémoire collective et mentionnés par la             les dates de commémorations, et faire apparaître ce que nous devons\nConstitution : drapeau,       aux générations antérieures (visiter des lieux de mémoire ; lire un hymne, devise, et             témoignage d’ancien combattant ; identifier des traces laissées par d’autres coutumiers           l’histoire). Participer à la commémoration du 11 novembre. comme Marianne ;              Connaître le drapeau européen, comprendre pourquoi il est associé au connaître la fête             drapeau tricolore sur les bâtiments publics et reconnaitre l’hymne nationale du 14 juillet       européen.\n(héritière de la Fête de la\nFédération de 1790) ; comprendre la nécessité de respecter ces symboles ;\n• savoir que la République française est membre de l’Union européenne (UE).",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 81,
-      "needs_review": true
-    },
-    {
-      "level": "CM2",
-      "subject": "emc",
-      "domain": "libertes-et-droits-fondamentaux",
-      "title": "Libertés et droits fondamentaux",
-      "description": "Notions abordées\nLiberté\nDroits fondamentaux\n\nContenus d’enseignement\n• Faire connaître les droits et libertés fondamentaux institués par la\nDéclaration des droits de l’homme et du citoyen\n(1789), la Déclaration universelle des droits de l’homme (1948) et la\nCharte des droits fondamentaux de l’Union européenne (2000) ;\n• mettre en avant certains droits politiques, économiques et sociaux qui en découlent : suffrage universel, droit à l’emploi, à la protection de la santé, à la gratuité de l’enseignement public, accès à la culture, droits environnementaux\n(Charte de l’environnement) ;\n\nDémarches et situations d’apprentissage possibles\nAborder des textes qui recensent les libertés et droits fondamentaux reconnus en France (depuis la Déclaration des droits de l’homme et du citoyen jusqu’à la Constitution de 1958) et au sein de l’Union européenne (Charte des droits fondamentaux).\nDécouvrir les libertés fondamentales, à la fois individuelles et collectives\n(liberté d’expression, liberté d’opinion, liberté d’association) ; expliquer que ces libertés comportent aussi des limites pour que la liberté des uns n’entrave pas celle des autres (art. 4 DDHC). Ainsi, la liberté d’expression énoncée à l’article 11 de la DDHC peut être mise en lien avec la loi du 29 juillet 1881 sur la liberté de la presse, de l’imprimerie et de la librairie, encadrant cette liberté.\nLire et expliquer les articles 1 et 2 de la DDHC (les droits fondamentaux et leurs fondements.)\n[EDD] Expliquer comment la référence aux droits de l’homme permet de s’attaquer aux problèmes environnementaux (exemple de la Convention de Berne relative à la conservation de la vie sauvage et du milieu naturel de l’Europe, 1979). Présenter la Charte de l’environnement.\n• montrer que les droits  Un travail sur la liberté d’expression, abordée dans le cadre des médias fondamentaux s’exercent d’information, peut être et mené lors de la Semaine de la presse et des dans le cadre de la loi médias dans l’école.\n(exemple de la liberté d’expression) ;\n• approfondir avec les       En lien avec les articles 13 et 17 (CIDE), lier la question des libertés et du droits dits « de troisième droit à la découverte des réseaux sociaux (qui ne sont pas un espace de génération », qui          non-droit) et la liberté d’expression. Aborder la notion de pseudonymes résultent du droit de      et d’anonymat. chacun de « vivre dans un [EMI] Aborder la question de la liberté d’expression par l’exemple de la environnement équilibré liberté de la presse à travers le monde. Faire comprendre que l’accès à et respectueux de la       une information fiable et vérifiée est essentiel en démocratie. santé » (art. 1er de la    Appréhender la notion de « désinformation » avec les élèves (et ses\nCharte de                  possibles conséquences). Consolider les bonnes pratiques face à l’environnement).          l’information (évoquer par exemple les lois de 2018 relatives à la manipulation de l’information).",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 82,
-      "needs_review": true
-    },
-    {
-      "level": "CM2",
-      "subject": "emc",
-      "domain": "respecter-les-droits-de-tous",
-      "title": "Respecter les droits de tous",
-      "description": "Notions abordées\nDiscriminations\nStéréotypes\n\nContenus d’enseignement\n• Montrer que la lutte contre les discriminations suppose la déconstruction des préjugés et des stéréotypes ;\n• faire reconnaitre les atteintes aux personnes : le racisme, l’antisémitisme, le sexisme, la xénophobie, l’homophobie, le harcèlement ; savoir que l’expression des discriminations est sanctionnée par la loi.\n\nDémarches et situations d’apprentissage possibles\n[EMI] Conduire une réflexion avec les élèves sur le respect dans un contexte numérique et, notamment, celui des réseaux sociaux : étudier le rôle des médias dans la construction et le renforcement des stéréotypes et des préjugés ; aborder la notion de « haine » ; questionner le rôle des réseaux sociaux et leur mécanique de diffusion de contenus irrespectueux ; faire comprendre que la diffusion et la rediffusion de ces contenus constituent des manières de porter atteinte à la dignité et à la sécurité des personnes ; expliquer pourquoi ils sont punis par la loi.\nLes élèves comprennent le rôle du témoin de situations de discriminations ou de harcèlement et l’importance de signaler celles-ci.\nCette démarche peut s’inscrire dans le programme Phare.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 83
-    },
-    {
-      "level": "CM2",
-      "subject": "emc",
-      "domain": "a-l-ecole-laique",
-      "title": "À l’école laïque",
-      "description": "Notions abordées\nLaïcité (vue en\nCE1)\n\nContenus d’enseignement\n• Le respect des croyances Les élèves sont sensibilisés au respect de la diversité des croyances et est assuré, mais, comme des convictions de chacun dans les limites fixées par la loi. ailleurs, leur expression   À partir de la lecture et de l’étude d’articles de la Charte de la laïcité, les est limitée par la loi.     élèves expliquent pourquoi l’école est laïque et discernent les\nCelle-ci protège les élèves comportements remettant en cause la laïcité (art. 13 du préambule de la de toute influence          Constitution de 1946, loi du 15 mars 2004). Des références historiques religieuse et préserve leur comme les lois scolaires de 1881-1882 peuvent être mobilisées pour liberté de conscience ;     démontrer l’ancrage historique de la laïcité et la place particulière de\n• nul ne peut être            l’école dans la conquête de ce principe. Une approche de la loi de 1905 discriminé pour sa          permet de comprendre la laïcité comme principe d’organisation de croyance ou ses             notre société. convictions, mais nul n’a Ces démarches peuvent être mises en œuvre à l’occasion de la Journée non plus le droit           de la laïcité du 9 décembre. d’imposer ses croyances ou ses convictions aux autres.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 83,
-      "needs_review": true
-    },
-    {
-      "level": "CM1",
-      "subject": "evar",
-      "domain": "se-connaitre-vivre-et-grandir-avec-son-corps",
-      "title": "Se connaître, vivre et grandir avec son corps",
-      "description": "Objectif d'apprentissage : Connaître les changements de son corps.\n\nNotions et compétences\n• Connaître les principaux changements à la puberté.\n• Prendre conscience que ces changements sont normaux et apprendre à les respecter.\n• Comprendre qu’il est important de se sentir bien dans son corps et de l’écouter.\n• Comprendre que la puberté se produit à des âges différents selon les individus et qu’elle n’a pas les mêmes effets.\n• Comprendre pourquoi se moquer de quelqu’un est un comportement néfaste.\n• Apprendre à parler des autres et aux autres de manière positive.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Partir des représentations des élèves de ce qu’est la puberté pour construire une définition scientifique, la relier à la capacité à se reproduire, comparer des similitudes et des différences entre les filles et les garçons s’agissant des modifications qui apparaissent à la puberté.\n• Repérer ce qui relève d’une brimade, d’une humiliation, ou d’une stigmatisation en lien avec les changements du corps à la puberté et faire décrire l’impact négatif que cela peut avoir sur celui qui les subit, apprendre à ne pas y contribuer et à y réagir de manière adaptée.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 137
-    },
-    {
-      "level": "CM1",
-      "subject": "evar",
-      "domain": "rencontrer-les-autres-et-construire-des-relations-s-y-epanouir",
-      "title": "Rencontrer les autres et construire des relations, s’y épanouir",
-      "description": "Objectif d'apprentissage : Apprendre à développer des relations constructives et à repérer les situations de harcèlement.\n\nNotions et compétences\n• Développer sa capacité d’écoute et l’attention portée aux autres.\n• Résoudre des conflits de façon constructive.\n• Exprimer son consentement ou son refus.\n• Définir et reconnaître le harcèlement et ses différentes formes, en particulier le harcèlement sexiste et sexuel.\n• Comprendre que tout acte de harcèlement ou d’intimidation est irrespectueux et néfaste, qu’il a des conséquences graves et peut être sanctionné par la loi.\n• Prendre conscience que les victimes n’en sont jamais responsables et qu’il est de la responsabilité de chaque témoin de signaler les actes de harcèlement ou d’intimidation.\n• Savoir où et comment demander de l’aide pour soi ou autrui.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Faire preuve d’empathie à travers l’analyse de situations de classe (temps de médiation ou de résolution de conflits) et à travers des situations fictives : être capable d’identifier les émotions et les sentiments des personnages et le lien avec les actions/évènements.\n• Identifier les aides pour gérer ses émotions difficiles\n(par exemple la colère, l’anxiété) : possibilité de signaler une difficulté avec une carte ou un code, possibilité de s’isoler dans un lieu spécifique.\n• Prendre en compte ce que ressent l’autre, exprimer son consentement ou son refus (mettre en place des jeux de rôle et faire jouer plusieurs fois les situations pour lister les différentes réactions possibles et leurs conséquences).\n• Étudier des situations fictives pour :\n- distinguer le harcèlement, l’intimidation, les disputes et les moqueries ;\n- caractériser le harcèlement (une violence sous différentes formes, une récurrence, un isolement de la victime) ;\n- mettre en évidence que le harcèlement se fonde sur le rejet de la différence et sur la stigmatisation ;\n- proposer des manières de réagir pour prévenir ou faire cesser une situation de harcèlement.\n• Identifier les différentes manières, bonnes ou mauvaises, dont les pairs peuvent influencer nos comportements, réfléchir aux moyens de résister à la pression négative des pairs et d’encourager l’influence positive des pairs.\n• Identifier l’importance pour une victime de chercher du soutien ; réfléchir aux actions possibles pour soutenir les personnes victimes (pratiquer une écoute empathique, apporter du soutien solidaire à la victime, chercher de l’aide en alertant un adulte de confiance) ; prendre connaissance du numéro d’alerte 3018.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 137
-    },
-    {
-      "level": "CM1",
-      "subject": "evar",
-      "domain": "trouver-sa-place-dans-la-societe-y-etre-libre-et-responsable",
-      "title": "Trouver sa place dans la société, y être libre et responsable",
-      "description": "Objectif d'apprentissage : Promouvoir des relations égalitaires et positives ; comprendre les stéréotypes pour lutter contre les discriminations.\n\nNotions et compétences\n• Définir ce que sont les stéréotypes et les préjugés.\n• Comprendre en quoi les stéréotypes et les représentations liées au genre ont une influence sur la manière dont les individus vivent leur vie et peuvent être à l’origine de discriminations.\n• Agir pour lutter contre les stéréotypes, les préjugés et les discriminations.\n• Comprendre qu’on peut choisir librement une activité ou un métier (qu’on soit une fille ou un garçon) en fonction de ses motivations ou de ses compétences.\n• Se sentir libre de ses choix pour une activité ou une passion.\n• Savoir penser de façon critique : apprendre à résister à la pression sociale sans préjugés ni discriminations.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Lire et exploiter des articles de presse, des données chiffrées (pourcentages, proportions et représentations graphiques) et des textes de loi pour identifier des inégalités entre les femmes et les hommes dans l’histoire ou encore présentes de nos jours (professionnelles, politiques, financières, dans la sphère familiale), ou des situations de violences ; rechercher des conceptions du genre ou des stéréotypes qui en sont à l’origine.\n• Étudier des extraits de la Convention sur l’élimination de toutes les formes de discrimination à l’égard des femmes.\n• Découvrir des femmes ayant joué un rôle important dans l’histoire, les arts, les sciences et le sport ; découvrir des femmes exerçant des métiers traditionnellement associés à la masculinité et des hommes exerçant des métiers traditionnellement associés à la féminité.\n• Analyser les incidences des idéaux de beauté diffusés par les médias (réseaux sociaux, publicités), la littérature, la musique, le cinéma sur l’image et l’estime de soi.\n• Décrire et analyser une campagne de sensibilisation institutionnelle à l’égalité femmes-hommes.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 138
-    },
-    {
-      "level": "CM2",
-      "subject": "evar",
-      "domain": "se-connaitre-vivre-et-grandir-avec-son-corps",
-      "title": "Se connaître, vivre et grandir avec son corps",
-      "description": "Objectif d'apprentissage : Connaître et comprendre les changements de son corps et celui des autres.\n\nNotions et compétences\n• Connaître les changements du corps lors de la puberté et savoir qu’ils ne se produisent pas au même moment chez tous les enfants.\n• Nommer le nom et la fonction des organes reproducteurs.\n• Apprendre scientifiquement ce que sont les menstruations (règles) et qu’elles sont une composante normale et naturelle du développement physique des filles, et ne doivent pas faire l’objet de tabous ou de moqueries.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• À partir de documents scientifiques et en lien avec le programme de sciences et technologie, décrire et expliquer les changements physiques liés à la puberté, le mécanisme des règles et l’impact sur la vie quotidienne.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 138
-    },
-    {
-      "level": "CM2",
-      "subject": "evar",
-      "domain": "rencontrer-les-autres-et-construire-des-relations-s-y-epanouir",
-      "title": "Rencontrer les autres et construire des relations, s’y épanouir",
-      "description": "Objectif d'apprentissage : Promouvoir des relations positives, apprendre à repérer et se protéger des violences sexistes et sexuelles.\n\nNotions et compétences\n• Savoir que les relations entre individus peuvent traduire différents types de relations affectives (par exemple, l’affection entre amis, l’amour entre parents, l’amour au sein de la famille, l’amour entre partenaires) et qu’il existe des façons différentes d’exprimer son amour.\n• Nommer divers sentiments qui peuvent être éprouvés dans les relations interpersonnelles.\n• Exprimer ses émotions.\n• Demander et s’assurer du consentement ; exprimer son consentement ou son refus ; comprendre et respecter le refus des autres.\n• Comprendre qu’il existe des mots et des gestes qui constituent des violences : violences verbales, physiques, psychologiques, sexistes, sexuelles (dont l’inceste) ; savoir identifier ces situations et percevoir les relations d’emprise.\n• Prendre conscience que les violences sexuelles, quel qu’en soit l’auteur, constituent toujours une violation des droits humains et que les victimes n’en sont jamais responsables.\n• Savoir comment chercher de l’aide et du soutien lorsque l’on est victime de violences.\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Lire et comprendre des œuvres littéraires (poésie, théâtre, romans), écouter et comprendre une chanson pour identifier des sentiments positifs (tels que l’amour, la confiance, le respect, la loyauté, la solidarité) et des sentiments négatifs (la jalousie, la déception, la tristesse, la culpabilité).\n• Repérer les différentes formes d’expression de ses sentiments ou ses émotions aux personnes que l’on aime, selon les personnes (parents, famille, amis, autres personnes), selon les sentiments. Réfléchir aux gestes et attitudes appropriés pour les exprimer, ainsi qu’à ceux qui ne sont pas acceptables et doivent être signalés.\n• Rédiger un texte sur ses propres représentations de l’amitié, les comparer avec celles des autres et définir ensemble ce qu’est l’amitié.\n• Réfléchir à ce que signifie « témoigner de la confiance »,\n« témoigner du respect », notamment lors d’« ateliers à visée réflexive », par exemple en s’interrogeant sur ce qu’est un secret et ce qui le différencie d’une situation de danger ou de violence qu’il est important de signaler et en expliquant comment identifier un adulte de confiance à qui se confier.\n• Définir ce que sont les violences physiques, psychologiques, verbales, sexuelles (dont l’inceste), apprendre à les reconnaître et réfléchir ensemble à qui parler, à qui demander de l’aide, pour soi ou autrui.\n• Prendre connaissance des numéros d’urgence : le 119\n(enfance en danger) ou le 30 18 (harcèlement) s’il est difficile d’aller voir un adulte de confiance.\n• Apprendre à communiquer avec des formulations claires et sans moquerie (être capable de rappeler les règles d’une communication efficace, respectueuse afin de pouvoir s’exprimer et poser des questions dans un cadre sécurisant au début de chaque séance d’éducation à la vie affective et relationnelle).",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 139
-    },
-    {
-      "level": "CM2",
-      "subject": "evar",
-      "domain": "trouver-sa-place-dans-la-societe-y-etre-libre-et-responsable",
-      "title": "Trouver sa place dans la société, y être libre et responsable",
-      "description": "Objectif d'apprentissage : Prévenir les risques liés à l’usage du numérique et d’Internet.\n\nNotions et compétences\n• Comprendre ce qu’est la majorité numérique et son objectif de protection des enfants.\n• Devenir acteur de sa protection sur\nInternet et savoir identifier un adulte de confiance à qui s’adresser si quelque chose qui a été vu sur Internet ou sur les réseaux sociaux perturbe ou fait peur.\n• Prendre conscience que l’utilisation d’Internet et des réseaux sociaux présente des dangers et nécessite des mesures particulières, notamment car des images et des médias sexuellement explicites, interdits pour les mineurs, violents et choquants y sont accessibles. education.gouv.fr\n\nPropositions de démarches et d’activités pour les séances ou temps d’enseignement spécifiques\n• Se familiariser avec les notions de sécurité et de protection sur Internet, évaluer ses représentations et connaissances autour des risques et des enjeux de protection sur Internet, les réseaux sociaux, les plateformes de jeux vidéo, la toile : droit à l’image ; protection de la vie privée ; risque de cyberharcèlement et cyberviolences.\n• Prendre connaissance des dispositifs de signalement et des lois en vigueur, notamment par rapport à l’interdiction des réseaux sociaux aux moins de\n13 ans ; la majorité numérique à 15 ans, la protection du droit à l’image, la protection des mineurs contre la pornographie en ligne.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 139
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "competences-travaillees",
-      "title": "Expérimenter, produire, créer",
-      "description": "Compétences travaillées\n- Choisir, organiser et mobiliser des gestes, des outils et des matériaux en fonction des effets qu’ils produisent.\n- Représenter le monde environnant ou donner forme à son imaginaire en explorant divers domaines (dessin, collage, modelage, sculpture, photographie, vidéo…).\n- Rechercher une expression personnelle en s’éloignant des stéréotypes.\n- Intégrer l’usage des outils informatiques de travail de l’image et de recherche d’information, au service de la pratique plastique.\n\nDomaines du socle\n1, 2, 4, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 141
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "competences-travaillees",
-      "title": "Mettre en œuvre un projet artistique",
-      "description": "Compétences travaillées\n- Identifier les principaux outils et compétences nécessaires à la réalisation d’un projet artistique.\n- Se repérer dans les étapes de la réalisation d’une production plastique individuelle ou collective, anticiper les difficultés éventuelles.\n- Identifier et assumer sa part de responsabilité dans un processus coopératif de création.\n- Adapter son projet en fonction des contraintes de réalisation et de la prise en compte du spectateur.\n\nDomaines du socle\n2, 3, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 141
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "competences-travaillees",
-      "title": "S’exprimer, analyser sa pratique, celle de ses pairs ; établir une relation avec celle des artistes, s’ouvrir à l’altérité",
-      "description": "Compétences travaillées\n- Décrire et interroger à l’aide d’un vocabulaire spécifique ses productions plastiques, celles de ses pairs et des œuvres d’art étudiées en classe.\n- Justifier des choix pour rendre compte du cheminement qui conduit de l’intention à la réalisation.\n- Formuler une expression juste de ses émotions, en prenant appui sur ses propres réalisations plastiques, celles des autres élèves et des œuvres d’art.\n\nDomaines du socle\n1, 3",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 142
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "competences-travaillees",
-      "title": "Se repérer dans les domaines liés aux arts plastiques, être sensible aux questions de l’art",
-      "description": "Compétences travaillées\n- Repérer, pour les dépasser, certains a priori et stéréotypes culturels et artistiques.\n- Identifier quelques caractéristiques qui inscrivent une œuvre d’art dans une aire géographique ou culturelle et dans un temps historique, contemporain, proche ou lointain.\n- Décrire des œuvres d’art, en proposer une compréhension personnelle argumentée.\n\nDomaines du socle\n1, 3, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 142
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "questionnements",
-      "title": "La représentation plastique et les dispositifs de présentation",
-      "description": "Questionnements\n La ressemblance : découverte, prise de conscience et appropriation de la valeur expressive de l’écart dans la représentation.\n L’autonomie du geste graphique, pictural, sculptural : ses incidences sur la représentation, sur l’unicité de l’œuvre, son lien - U aux notions d’original, de copie, de multiple et de série.\n Les différentes catégories d’images, leurs procédés de fabrication, leurs transformations : la différence entre images à caractère artistique et images scientifiques ou documentaires, l’image dessinée, peinte, photographiée, filmée, la transformation d’images existantes dans une visée poétique ou artistique.\n La narration visuelle : les compositions plastiques, en deux et en trois dimensions, à des témo fins de récit ou de témoignage, l’organisation des images fixes et animées pour raconter.\n La mise en regard et en espace : ses modalités (présence ou absence du cadre, du socle, du piédestal, etc.), ses contextes\n(l’espace quotidien privé ou public, l’écran individuel ou collectif, la vitrine, le musée, etc.), l’exploration des présentations des productions plastiques et des œuvres (lieux : salle d’exposition, installation, in situ, l’intégration dans des espaces existants, etc.).\n La prise en compte du spectateur, de l’effet recherché : découverte des modalités de présentation afin de permettre la réception d’une production plastique ou d’une œuvre\n(accrochage, mise en espace, mise en scène, frontalité, circulation, parcours, participation ou passivité du spectateur, etc.).\n\nExemples de situations, d’activités et de ressources pour l’élève\n- Recherche d’imitation, d‘accentuation ou d’interprétation, d’éloignement des caractéristiques du réel dans une représentation, le surgissement d’autre chose, etc. tilisation de l’appareil photographique ou de la caméra, notamment numériques, pour produire des images ; intervention sur les images déjà existantes pour en modifier le sens par le collage, le dessin, la peinture, le montage, par les possibilités des outils numériques.\n- Mise en œuvre, en deux et trois dimensions, de principes d’organisation et d’agencements plastiques explicites pour raconter ou igner ; productions plastiques exprimant l’espace et le temps, également au moyen d’images animées (ralenti, accélération, séquençage, etc.).\n- Observation et analyse d’œuvres ou d’images ; comparaison d’œuvres différentes sur une même question ou dans d’autres arts ; découverte et observation dans l’environnement proche de réalisations ou de situations liées à la représentation et ses dispositifs.\n- Exploration des divers modalités et lieux de présentation de sa production et de l’œuvre ; rôle du rapport d’échelle.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 143
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "questionnements",
-      "title": "Les fabrications et la relation entre l’objet et l’espace",
-      "description": "Questionnements\n- L’hétérogénéité et la cohérence plastiques : les questions de choix et de relations formelles entre constituants plastiques divers, la qualité des effets plastiques induits ; le sens produit par des techniques mixtes dans les pratiques bidimensionnelles et dans les fabrications en trois dimensions.\n- L’invention, la fabrication, les détournements, les mises en scène des objets : création d’objets, intervention sur des objets, leur transformation ou manipulation à des fins narratives, symboliques ou poétiques ; la prise en compte des statuts de l’objet\n(artistique, symbolique, utilitaire, de communication) ; la relation entre forme et fonction.\n- L’espace en trois dimensions : découverte et expérimentation du travail en volume\n(modelage, assemblage, construction, installation, etc.) ; les notions de forme fermée et forme ouverte, de contour et de limite, de vide et de plein, d’intérieur et d’extérieur, d’enveloppe et de structure, de passage et de transition ; les interpénétrations entre l’espace de l’œuvre et l’espace du spectateur.\n\nExemples de situations, d’activités et de ressources pour l’élève\n- Prise en compte des qualités formelles de matériaux, d’objets ou d’images dans leur association au profit d’un effet, d’une organisation, d’une intention (collage d’éléments hétéroclites, association d’images disparates, intrusion de perturbations, etc.).\n- Modification des qualités physiques d’un objet, expérience de la dimension poétique qui peut ainsi être provoquée.\n- Exploration des conditions du déploiement de volumes dans l’espace, en lien notamment avec l’architecture (équilibre et déséquilibre ; forme ouverte, fermée).\n- Création, fabrication, transformation d’objets en lien avec des situations à forte charge symbolique ; jeux sur les relations entre formes et fonction, entre dimension symbolique et qualités plastiques.\n- Observation et analyse d’œuvres, d’architectures, d’objets ; comparaison d’œuvres différentes sur une même question ou dans d’autres arts ; découverte et observation dans l’environnement proche de réalisations ou de situations porteuses des questions que posent l’espace, l’objet et l’architecture.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 144
-    },
-    {
-      "level": "commun",
-      "subject": "arts-plastiques",
-      "domain": "questionnements",
-      "title": "La matérialité de la production plastique et la sensibilité aux constituants de l’œuvre",
-      "description": "Questionnements\n- La réalité concrète d’une production ou d’une œuvre : le rôle de la matérialité dans les effets sensibles que produit une œuvre ; faire l’expérience de la matérialité de l’œuvre, en tirer parti, comprendre qu’en art l’objet et l’image peuvent aussi devenir matériau.\n- Les qualités physiques des matériaux : caractéristiques des matériaux (matériaux de récupération, matériaux non transformés, matériaux issus de transformations physiques ou chimiques, biomatériaux), incidences de leurs caractéristiques (porosité, rugosité, liquidité, malléabilité, etc.) sur la pratique plastique en deux dimensions (transparences, épaisseurs, mélanges homogènes et hétérogènes, collages, etc.) et en volume\n(stratifications, assemblages, empilements, tressages, emboîtements, adjonctions d’objets ou de fragments d’objets, etc.), sur l’invention de formes ou de techniques, sur la production de sens.\n- Les effets du geste et de l’instrument : les qualités plastiques et les effets visuels obtenus par la mise en œuvre d’outils, de médiums et de supports variés ; par l’élargissement de la notion d’outil — la main, les brosses et pinceaux de caractéristiques et tailles diverses, les chiffons, les éponges, les outils inventés, etc. — ; par les dialogues entre les instruments et la matière — touche, trace, texture, facture, griffure, traînée, découpe, coulure, etc. — ; par l’amplitude ou la retenue du geste, sa maîtrise ou son imprévisibilité.\n- La matérialité et la qualité de la couleur : la découverte des relations entre sensation colorée et qualités physiques de la matière colorée (pigments, substances, liants, siccatifs, etc.), des effets induits par les usages (jus, glacis, empâtement, couverture, aplat, plage, giclure, etc.), les supports, les mélanges avec d’autres médiums ; la compréhension des dimensions sensorielles de la couleur, notamment les interrelations entre quantité\n(formats, surfaces, étendue, environnement) et qualité (teintes, intensité, nuances, lumière, etc.).\n\nExemples de situations, d’activités et de ressources pour l’élève\n- Expérience, observation et interprétation du rôle de la matière dans une pratique plastique : lui donner forme, l’éprouver, jouer de ses caractéristiques physiques, des textures, pour nourrir un projet artistique ; identification de la part du hasard, de celle de l’intention.\n- Exploration des qualités physiques des matériaux, des médiums et des supports pour peindre ou dessiner, pour sculpter ou construire.\n- Découverte et utilisation des qualités plastiques et des effets visuels obtenus par la mise en œuvre et les interactions entre outils, médiums et supports variés.\n- Mise en œuvre de l’amplitude ou la retenue du geste, sa maîtrise ou son imprévisibilité (désir d’agir sur le support, de laisser trace, affirmation des aspects physiques, matériels, gestuels, rythmes, vitesse, étendue ou profondeur dans son rapport aux limites, aux bords, à la matérialité du support ou du médium, etc.).\n- Productions engageant des liens entre les qualités de la matière colorée\n(pigments, substances, liants, siccatifs, etc.), ses usages (jus, glacis, empâtement, couverture, aplat, plage, giclure, etc.) ; les effets induits par les supports et les mélanges avec d’autres médiums.\n- Observation et analyse d’œuvres ; comparaison d’œuvres différentes sur une même question ou dans d’autres arts ; découverte et observation dans l’environnement proche de réalisations mettant en évidence le rôle de la matérialité et de la couleur.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 144
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "competences-travaillees",
-      "title": "Chanter et interpréter",
-      "description": "Compétences travaillées\n- Reproduire et interpréter un modèle mélodique et rythmique.\n- Interpréter un répertoire varié avec expressivité.\n\nDomaines du socle\n1, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 147
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "competences-travaillees",
-      "title": "Écouter, comparer et commenter",
-      "description": "Compétences travaillées\n- Décrire et comparer des éléments sonores issus de contextes variés, artistiques ou naturels.\n- Identifier et nommer ressemblances et différences dans deux extraits musicaux.\n- Identifier quelques caractéristiques qui inscrivent une œuvre musicale dans une aire géographique ou culturelle et dans un temps historique contemporain, proche ou lointain.\n\nDomaines du socle\n1, 3, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 147
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "competences-travaillees",
-      "title": "Explorer, imaginer et créer",
-      "description": "Compétences travaillées\n- Imaginer l’organisation de différents éléments sonores.\n- Faire des propositions personnelles lors de moments de création, d’invention et d’interprétation.\n\nDomaines du socle\n1, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 147
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "competences-travaillees",
-      "title": "Échanger, partager et argumenter",
-      "description": "Compétences travaillées\n- Argumenter un jugement sur une musique.\n- Écouter et respecter le point de vue des autres et l’expression de leur sensibilité.\n\nDomaines du socle\n1, 3, 5",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 147
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "connaissances-et-competences-associees",
-      "title": "Chanter et interpréter",
-      "description": "Connaissances et compétences associées\n- Reproduire et interpréter un modèle mélodique et             Apprentissage et interprétation rythmique.                                                   de chansons de différents styles.\n- Chanter une mélodie simple avec une intonation juste Jeux d’interprétation d’une et une intention expressive.                                 phrase mélodique, d’un couplet\n- Mémoriser et chanter par cœur un chant appris par            de chanson en lien avec des imitation, soutenir un bref moment de chant en solo.         intentions expressives.\n- Interpréter un chant avec expressivité en respectant         Jeux d’interprétation d’une plusieurs choix et contraintes précédemment indiqués. phrase mélodique en jouant sur\n- Tenir sa partie dans un bref moment de polyphonie.           les paramètres mobilisables :\n- Mobiliser son corps pour interpréter, le cas échéant         timbre, intensité, espace (en avec des instruments.                                        mouvement, en plusieurs\n- Identifier les difficultés rencontrées dans l’interprétation groupes), durée (tempo), d’un chant.                                                  hauteurs.\n Répertoire de chansons diverses.                             Utilisation d’instruments.\n Paramètres du son et techniques vocales pour en jouer de façon expressive.\n Vocabulaire de l’expression : quelques nuances simples, tempo, caractère, etc.\n Polyphonie : rôle complémentaire des parties simultanées.\n Interprétation d’une musique : compréhension du terme et usage approprié à propos d’une œuvre écoutée et d’une musique produite en classe.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 148,
-      "needs_review": true
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "connaissances-et-competences-associees",
-      "title": "Écouter, comparer et commenter",
-      "description": "Connaissances et compétences associées\n- Décrire et comparer des éléments sonores issus de la biodiversité, de contextes musicaux, d’aires géographiques ou culturelles différents et dans un temps historique, contemporain, proche ou lointain.\n- Identifier et nommer ressemblances et différences dans deux extraits musicaux.\n- Repérer et nommer une organisation simple dans un extrait musical : répétition d’une mélodie, d’un motif rythmique, d’un thème, d’une partie caractéristique, etc. ; en déduire une forme simple (couplet/refrain,\nABA par exemple).\n- Associer la découverte d’une œuvre à des connaissances construites dans d’autres domaines enseignés.\n Vocabulaire simple pour décrire la musique.\n Méthodes pour comparer des musiques.\n Repères simples dans le temps et dans l’espace.\n Quelques grandes œuvres du patrimoine.\n Principales caractéristiques de l’orchestre symphonique.\n Formes de production variées : vocales, instrumentales, solistes.\n\nExemples de situations, d’activités et de ressources pour l’élève\nÉcoutes préparées : ensemble de termes donnés et à utiliser pour la description et le commentaire.\nÉcoutes préparées (et/ou comparées) selon un angle d’écoute préalablement identifié : le rythme, la répétition, le timbre, la mélodie, etc.\nComparaison d’interprétations d’une œuvre donnée.\nÉcoute de brefs extraits musicaux et jeux d’association par ressemblances.\nCodage (schématisation) de brefs extraits et comparaison.\nComparaison avec des œuvres d’autres domaines artistiques : image fixe et animée, danse.\nComparaison d’usages de la musique à l’image animée\n(cinéma).\nPrésentation par un élève (ou un groupe d’élèves) d’un extrait déjà écouté et travaillé en classe en utilisant le vocabulaire approprié.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 148
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "connaissances-et-competences-associees",
-      "title": "Explorer, imaginer et créer",
-      "description": "Connaissances et compétences associées\n- Expérimenter les paramètres du son et en imaginer en Jeux conséquence des utilisations possibles.\n- Imaginer des représentations graphiques pour organiser une succession de sons et d’événements sonores.\n- Inventer une organisation simple à partir de sources sonores sélectionnées (dont la voix) et l’interpréter.\n Développement du lexique pour décrire le son instrumental, le son vocal et les objets sonores dans les domaines de la hauteur, du timbre, de la durée, de l’intensité.\n Diversité des matériaux sonores et catégories classées par caractéristiques dominantes.\n Les postures de l’explorateur du son puis du compositeur : produire, écouter, trier, choisir, organiser, composer.\n Le projet graphique (partition adaptée pour organiser la mémoire) et sa traduction sonore.\n Les exigences de la musique collective : écoute de l’autre, respect de ses propositions.\n\nExemples de situations, d’activités et de ressources pour l’élève\nvocaux associant des objets sonores.\nPropositions et réalisations d’apports personnels et originaux lors d’un moment d’interprétation.\nManipulation d’objets sonores à l’aide d’outils numériques appropriés.\nRéalisations de partitions graphiques et comparaison des résultats.\nComposition de partitions graphiques et réalisation sonores.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 149
-    },
-    {
-      "level": "commun",
-      "subject": "education-musicale",
-      "domain": "connaissances-et-competences-associees",
-      "title": "Échanger, partager et argumenter",
-      "description": "Connaissances et compétences associées\n- Exprimer ses goûts au-delà de son ressenti immédiat.\n- Écouter et respecter le point de vue des autres et l’expression de leur sensibilité.\n- Argumenter un jugement sur une musique tout en respectant celui des autres.\n- Argumenter un choix dans la perspective d’une interprétation collective.\n Notions de respect, de bienveillance, de tolérance.\n Vocabulaire adapté à l’expression et l’argumentation de son point de vue personnel sur la musique.\n Conditions d’un travail collectif : concentration, écoute, respect, auto-évaluation, etc.\n Règles et contraintes du travail musical collectif visant l’expression d’un avis partagé comme une production sonore de qualité.\n\nExemples de situations, d’activités et de ressources pour l’élève\nExpression et partage des points de vue personnels sur la musique écoutée.\nDébats argumentés sur des musiques relevant d’une actualité médiatisée connue des élèves.\nDéfinition collective de règles d’un jeu vocal ; échanges et débats critiques sur le résultat en vue d’une nouvelle réalisation.\nCritique d’enregistrement de la production vocale (chant, jeux vocaux, improvisation) de la classe pour améliorer son interprétation.",
-      "source_file": "docs/programme-cm1-cm2.pdf",
-      "source_page": 149
     }
   ]
 }
