@@ -13,3 +13,58 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/*
+ * An auto-growing textarea.
+ *
+ * The field and a hidden copy of its own text share one grid cell, so the cell is as tall
+ * as the text and the field fills it. No JavaScript measures anything, nothing is clipped
+ * on screen, and — which is the point — nothing is clipped in print either: the printed
+ * cahier journal shows the whole bilan (ADR-0030). The padding and the font live on the
+ * wrapper so that the copy and the field measure identically.
+ */
+.autogrow {
+  display: grid;
+}
+
+.autogrow::after {
+  content: attr(data-value) " ";
+  grid-area: 1 / 1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  visibility: hidden;
+}
+
+.autogrow > textarea {
+  grid-area: 1 / 1;
+  font: inherit;
+  line-height: inherit;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  resize: none;
+}
+
+/*
+ * The printed cahier journal, on the model of `docs/exemple-cahier-journal-quotidien.pdf`.
+ *
+ * There is no separate route: what prints is the vue Jour with everything that is not the
+ * cahier journal taken off (ADR-0030). The fields keep their text and lose their chrome —
+ * a printed cahier journal must not look like a form.
+ */
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .autogrow > textarea,
+  input {
+    background: transparent !important;
+    color: #000 !important;
+  }
+}

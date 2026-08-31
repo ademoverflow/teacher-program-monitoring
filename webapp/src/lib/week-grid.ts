@@ -1,5 +1,6 @@
 import type { SubjectRef } from "@/lib/api/shared";
 import type { DayInWeek, WeekCell, WeekDetail } from "@/lib/api/weeks";
+import { breakLabelFor, minutesToTime } from "@/lib/breaks";
 import { timeToMinutes } from "@/lib/dates";
 
 /**
@@ -10,7 +11,7 @@ import { timeToMinutes } from "@/lib/dates";
  * bands. For this EDT that gives thirteen, and every band of every jour is covered by
  * exactly one créneau — apart from two that no créneau covers at all, which are la
  * récréation and la pause méridienne. They have no row in `timetable_slots`; the front
- * finds the hole and §4.1 names it.
+ * finds the hole and `lib/breaks.ts` names it from §4.1.
  *
  * That derivation is what makes vendredi fall into place. Its 11h30-12h00 and 12h00-12h30
  * cells do not sit on the 11h30-12h15 / 12h15-12h30 boundaries the other jours use
@@ -22,12 +23,6 @@ import { timeToMinutes } from "@/lib/dates";
  * the three traps of the phase — S1's missing lundi, a jour chômé, a cellule holding two
  * séances — are tested against a frozen response with no network and no DOM.
  */
-
-/** The two breaks §4.1 prints, which are gaps between créneaux rather than créneaux. */
-const BREAKS: { startsAt: string; endsAt: string; label: string }[] = [
-	{ startsAt: "10:15", endsAt: "10:45", label: "Récréation" },
-	{ startsAt: "12:30", endsAt: "14:00", label: "Pause méridienne" },
-];
 
 /** One horizontal band of the grid: a stretch of the day no créneau boundary cuts. */
 export interface GridBand {
@@ -72,23 +67,6 @@ export interface WeekGrid {
 
 /** CM1 before CM2 before commun — the order §4.1 prints a split hour in. */
 const LEVEL_ORDER: Record<string, number> = { CM1: 0, CM2: 1, commun: 2 };
-
-function breakLabelFor(
-	startMinutes: number,
-	endMinutes: number,
-): string | null {
-	const found = BREAKS.find(
-		(candidate) =>
-			timeToMinutes(candidate.startsAt) === startMinutes &&
-			timeToMinutes(candidate.endsAt) === endMinutes,
-	);
-	return found?.label ?? null;
-}
-
-function minutesToTime(minutes: number): string {
-	const hours = Math.floor(minutes / 60);
-	return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}:00`;
-}
 
 /** Group a jour's cellules by the exact time range of their créneau, in clock order. */
 function groupByRange(day: DayInWeek): WeekCell[][] {

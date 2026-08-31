@@ -1,0 +1,20 @@
+{
+	"id": "0e5812ee-713e-47fc-8624-082293c7b25d",
+	"date": "2027-03-29",
+	"day_of_week": 1,
+	"is_off": true,
+	"off_reason": "Lundi de P\u00e2ques",
+	"week_number": 25,
+	"number_in_period": 6,
+	"period": {
+		"id": "8bffb672-a90f-4e8c-a068-5447bcc8c64b",
+		"code": "P4",
+		"label": "P\u00e9riode 4",
+		"starts_on": "2027-02-22",
+		"ends_on": "2027-04-02"
+	},
+	"previous_day": "2027-03-26",
+	"next_day": "2027-03-30",
+	"has_journal": false,
+	"sessions": []
+}
