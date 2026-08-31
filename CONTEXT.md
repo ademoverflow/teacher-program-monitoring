@@ -64,6 +64,20 @@ niveau; two *cellules* at one hour mean the EDT itself has two créneaux there. 
 distinction is what the grid draws differently: stacked inside one box, or side by side.
 _Avoid_: cell, slot — « créneau » is the gabarit's row, a cellule is that row on a day
 
+**Bande** (`GridBand`):
+One row of the semaine grid: a stretch of the day that no créneau boundary cuts. The bandes
+are not written down anywhere — they are derived from the créneaux' own hours, so a cellule
+spans as many of them as its créneau lasts. Vendredi's 11h30-12h00 and the other jours'
+11h30-12h15 are why: they overlap without matching, and only a bande finer than either can
+hold both (ADR-0024).
+_Avoid_: row, time slot, ligne — « créneau » is the gabarit's row
+
+**Récréation** and **pause méridienne** (a bande no créneau covers):
+The two breaks §4.1 prints, 10h15-10h45 and 12h30-14h00. Neither is a créneau and neither
+has a row in `timetable_slots`: they are the gaps the gabarit leaves, and the grid finds
+them rather than being told where they are.
+_Avoid_: break, pause (unqualified) — « vacances » is the school-holiday stretch
+
 **Créneau splitté** (a créneau whose **niveau** is CM1 or CM2):
 A time range where the two levels do different things, so the same cell of the timetable is two
 créneaux — one per niveau — running at the same time.

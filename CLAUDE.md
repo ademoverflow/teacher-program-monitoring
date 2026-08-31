@@ -83,10 +83,13 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │   └── tests/              # conftest.py holds the shared DB fixtures
 ├── webapp/                  # React SPA frontend
 │   └── src/
-│       ├── main.tsx        # App bootstrap with router
-│       ├── App.tsx         # Home page (API health)
+│       ├── main.tsx        # App bootstrap
+│       ├── router.tsx      # TanStack Router route tree (French paths)
 │       ├── env.ts          # T3 Env configuration
-│       ├── lib/            # Typed API client (api.ts)
+│       ├── pages/          # One default-exported page per route
+│       ├── components/     # Named-export components (AppLayout, WeekGrid…)
+│       ├── lib/            # Typed API client (api/), dates, colors, week-grid
+│       ├── test/           # Render helpers + API responses frozen from a seeded stack
 │       └── integrations/   # Library integrations
 ├── docs/                    # Source PDFs (§3) + adr/ + agents/ (skill conventions)
 ├── scripts/                 # Development utilities
@@ -162,7 +165,7 @@ const route = createRoute({
 });
 ```
 
-**TanStack Query** (always through the typed client in `webapp/src/lib/api.ts`):
+**TanStack Query** (always through the typed client in `webapp/src/lib/api/`):
 ```typescript
 import { useQuery } from "@tanstack/react-query";
 import { apiGet } from "@/lib/api";
@@ -217,7 +220,11 @@ reads nothing.
 
 ### JavaScript Tests
 
-Framework: Vitest + Testing Library
+Framework: Vitest + Testing Library. `webapp/src/test/app.tsx` mounts the real router at a
+chosen URL over a stubbed `fetch`; `webapp/src/test/fixtures/` holds responses captured
+verbatim from a seeded stack, so the grid's assembly is tested without a network or a
+database. `webapp/src/test/setup.ts` registers Testing Library's cleanup (vitest runs
+without global hooks, so it does not register itself).
 
 ## Development Workflow
 
@@ -297,7 +304,10 @@ Available via `/skill-name` in Claude Code:
 | Purpose | File |
 |---------|------|
 | Makefile | `Makefile` |
-| API client (webapp) | `webapp/src/lib/api.ts` |
+| API client (webapp) | `webapp/src/lib/api/` |
+| Route tree (webapp) | `webapp/src/router.tsx` |
+| Semaine grid assembly | `webapp/src/lib/week-grid.ts` |
+| Frozen API responses (tests) | `webapp/src/test/fixtures/` |
 | FastAPI app | `core/src/core/main.py` |
 | Settings | `core/src/core/settings.py` |
 | Database | `core/src/core/database.py` |
