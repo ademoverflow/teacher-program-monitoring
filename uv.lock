@@ -364,7 +364,7 @@ wheels = [
 
 [[package]]
 name = "core"
-version = "0.0.0"
+version = "1.0.0"
 source = { editable = "core" }
 dependencies = [
     { name = "alembic" },
@@ -2057,7 +2057,7 @@ wheels = [
 
 [[package]]
 name = "teacher-program-monitoring"
-version = "0.0.0"
+version = "1.0.0"
 source = { virtual = "." }
 
 [package.dev-dependencies]
