@@ -69,7 +69,7 @@ All under `/api`.
 | DELETE | `/sessions/{id}` | remove a séance |
 | GET | `/program-items` | filtered by niveau/matière/domaine, `?q=` full-text |
 | GET | `/program-items/{id}` | one item, with its source reference |
-| GET | `/program-items/{id}/sessions` | « voir les séances liées » (§7 écran 4) |
+| GET | `/sessions?program_item_id=` | « voir les séances liées » (§7 écran 4) |
 | GET | `/journal/{date}` | the day's cahier journal |
 | POST | `/journal/{date}/initialise` | fill it from the day's séances, once |
 | POST | `/journal/{date}/entries` | add a ligne |

@@ -36,6 +36,7 @@ from core.schemas import (
     HolidayOut,
     PeriodRef,
     PeriodSummary,
+    ProgramItemOut,
     ProgramItemRef,
     SequenceRef,
     SequenceStepRef,
@@ -544,3 +545,90 @@ async def load_subjects(session: AsyncSession) -> list[SubjectWithDomains]:
         )
         for row in (await session.execute(select(subjects).order_by(subjects.c.label))).all()
     ]
+
+
+@dataclass(frozen=True, slots=True)
+class ProgramQuery:
+    """What the programme browser is asking for — §7 écran 4's filters and its search."""
+
+    level: Level | None = None
+    subject: str | None = None
+    domain: str | None = None
+    text: str | None = None
+    needs_review: bool | None = None
+    limit: int = 50
+    offset: int = 0
+
+
+async def search_program_items(
+    session: AsyncSession, query: ProgramQuery
+) -> tuple[list[ProgramItemOut], int]:
+    """Filter and search the items de programme, and say how many matched in all.
+
+    The search is Postgres': ``websearch_to_tsquery('french', …)`` against the generated
+    ``search_vector`` column and its GIN index, never an ``ILIKE`` — which is what lets
+    « fractions » find « fraction » and what §6 asks for. Results are ranked when there is
+    a search and ordered by ``source_order`` when there is not, because the order the
+    programme prints its blocks in is the only order they have (their id is a random UUID).
+    """
+    items, subjects, domains = table_of(ProgramItem), table_of(Subject), table_of(Domain)
+    filters = []
+    if query.level is not None:
+        filters.append(items.c.level == query.level.value)
+    if query.subject:
+        filters.append(
+            items.c.subject_id.in_(select(subjects.c.id).where(subjects.c.code == query.subject))
+        )
+    if query.domain:
+        filters.append(
+            items.c.domain_id.in_(select(domains.c.id).where(domains.c.code == query.domain))
+        )
+    if query.needs_review is not None:
+        filters.append(items.c.needs_review.is_(query.needs_review))
+
+    matched = None
+    if query.text and query.text.strip():
+        matched = func.websearch_to_tsquery("french", query.text)
+        filters.append(items.c.search_vector.op("@@")(matched))
+
+    total = (
+        await session.execute(select(func.count()).select_from(items).where(*filters))
+    ).scalar_one()
+    ordering = (
+        [func.ts_rank(items.c.search_vector, matched).desc(), items.c.source_order]
+        if matched is not None
+        else [items.c.source_order]
+    )
+    rows = (
+        await session.execute(
+            select(items)
+            .where(*filters)
+            .order_by(*ordering)
+            .limit(query.limit)
+            .offset(query.offset)
+        )
+    ).all()
+
+    reference = await load_reference(session)
+    return [_program_item_out(row, reference) for row in rows], total
+
+
+def _program_item_out(row: Row, reference: Reference) -> ProgramItemOut:
+    """Render one item de programme with everything the browser shows of it."""
+    return ProgramItemOut(
+        **program_item_ref(row, reference).model_dump(),
+        description=row.description,
+        source_file=row.source_file,
+        source_page=row.source_page,
+        source_order=row.source_order,
+        needs_review=row.needs_review,
+    )
+
+
+async def load_program_item(session: AsyncSession, identifier: uuid.UUID) -> ProgramItemOut | None:
+    """Read one item de programme, or ``None`` if there is no such item."""
+    items = table_of(ProgramItem)
+    row = (await session.execute(select(items).where(items.c.id == identifier))).one_or_none()
+    if row is None:
+        return None
+    return _program_item_out(row, await load_reference(session))
