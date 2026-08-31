@@ -1,6 +1,6 @@
 {
 	"name": "teacher-program-monitoring",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"private": true,
 	"packageManager": "pnpm@10.23.0",
 	"workspaces": [

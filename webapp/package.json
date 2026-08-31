@@ -2,7 +2,7 @@
   "name": "webapp",
   "private": true,
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite --port 3000 --host 0.0.0.0",
     "build": "vite build && tsc",
