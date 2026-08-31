@@ -9,9 +9,12 @@ from core import __version__
 from core.routers import (
     calendar_router,
     days_router,
+    generation_router,
     health_router,
+    journal_router,
     program_items_router,
     sessions_router,
+    settings_router,
     subjects_router,
     timetable_router,
     weeks_router,
@@ -54,6 +57,9 @@ for router in (
     weeks_router,
     days_router,
     sessions_router,
+    journal_router,
     program_items_router,
+    generation_router,
+    settings_router,
 ):
     app.include_router(router, prefix=API_PREFIX)

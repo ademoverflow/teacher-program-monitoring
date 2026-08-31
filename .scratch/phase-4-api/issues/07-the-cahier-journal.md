@@ -1,7 +1,7 @@
 # 07 - The cahier journal: initialise it once, then let it live
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 05
 
 There are zero `journal_entries` today. §8 Phase 4 asks for « l'initialisation du cahier
