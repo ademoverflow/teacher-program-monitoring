@@ -10,8 +10,8 @@ from datetime import date
 
 import pytest
 from core.database import async_db_url
-from core.services.programmation import plan_input_from_seeds, plan_year
-from core.services.programmation.writer import generate_year, load_plan_input
+from core.services.planning import plan_input_from_seeds, plan_year
+from core.services.planning.writer import generate_year, load_plan_input
 from core.services.seed_files import load_program_items
 from core.services.seeding import seed_database
 from sqlalchemy import text

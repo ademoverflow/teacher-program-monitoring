@@ -5,7 +5,7 @@ names the périodes it is meant to occupy — « Thème 2 : La monarchie en Fran
 XVIIe siècles) (deuxième et troisième périodes) ». No other matière's programme does
 that, so these two are the only ones the generator is *told* where to put rather than
 deciding, and the reading is done in
-`core/services/programmation/themes.py` rather than spread over the year like everything
+`core/services/planning/themes.py` rather than spread over the year like everything
 else (ADR-0015).
 
 The mention is always parenthesised and always says « période ». Ten thèmes d'histoire

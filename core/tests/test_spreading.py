@@ -1,6 +1,6 @@
 """The one rule that spreads a progression over the year's créneaux."""
 
-from core.services.programmation.spreading import shares, spread
+from core.services.planning.spreading import shares, spread
 
 WORKED_MONDAYS = 33
 CRENEAUX = 3

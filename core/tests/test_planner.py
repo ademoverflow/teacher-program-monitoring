@@ -9,9 +9,9 @@ from datetime import date
 
 from core.models.level import Level
 from core.models.weekday import Weekday
-from core.services.programmation import plan_input_from_seeds, plan_year
-from core.services.programmation.inputs import Sequence as MethodSequence
-from core.services.programmation.planner import (
+from core.services.planning import ProblemKind, plan_input_from_seeds, plan_year
+from core.services.planning.inputs import Sequence as MethodSequence
+from core.services.planning.planner import (
     MATHS_SESSIONS_PER_SEQUENCE,
     OEUVRE_SUIVIE_LABEL,
     REVISION_SUFFIX,
@@ -20,7 +20,7 @@ from core.services.programmation.planner import (
     is_retz,
     session_levels,
 )
-from core.services.programmation.themes import assign_periods
+from core.services.planning.themes import assign_periods
 
 PLAN_INPUT = plan_input_from_seeds()
 PLAN = plan_year(PLAN_INPUT)
@@ -41,6 +41,7 @@ MATHS_SEQUENCES = 35
 RETZ_SEQUENCES = 21
 OEUVRE_CRENEAUX = 33
 LITTERATURE_STEPS = 36
+OEUVRES = 8
 
 
 def _week(session: SessionDraft) -> int:
@@ -177,7 +178,10 @@ def test_a_semaine_short_of_maths_creneaux_places_fewer_and_says_so() -> None:
 
     assert short == set(range(1, MATHS_SEQUENCES + 1))
     assert lacking == {1, 25, 28, 30}
-    assert sum("créneaux de mathématiques" in problem for problem in PLAN.problems) == 8  # noqa: PLR2004
+    reported = [p for p in PLAN.problems if "créneaux de mathématiques" in p.message]
+
+    assert len(reported) == 2 * len(lacking)
+    assert {p.kind for p in reported} == {ProblemKind.CALENDRIER}
 
 
 def test_the_last_semaine_is_the_marge_the_calendar_leaves() -> None:
@@ -306,9 +310,25 @@ def test_an_oeuvre_never_starts_before_the_periode_it_is_read_in() -> None:
         assert order.index(PERIOD_OF[_week(session)]) >= order.index(oeuvre.period_code)
 
 
+def test_two_of_the_eight_oeuvres_are_never_read() -> None:
+    """The year is short: six œuvres get séances, and the report names the other two.
+
+    « Hansel et Gretel » is the repli §4.5 keeps in reserve and « Zathura » has no
+    weekly planning in the source at all (ADR-0017).
+    """
+    read = {_sequence_of(session).title for session in PLAN.sessions if session.sequence_step}
+
+    oeuvres = PLAN_INPUT.sequences_of("litterature")
+
+    assert len(oeuvres) == OEUVRES
+    assert PLAN.sequences_placed["litterature"] == OEUVRES - 2
+    assert len(read) == OEUVRES - 2
+    assert {oeuvre.title for oeuvre in oeuvres} - read == {"Hansel et Gretel", "Zathura"}
+
+
 def test_the_repli_and_the_oeuvre_without_a_planning_are_reported() -> None:
     """§4.5 makes Hansel the repli; the source gives Zathura no weekly planning (ADR-0017)."""
-    problems = "\n".join(PLAN.problems)
+    problems = "\n".join(problem.message for problem in PLAN.problems)
 
     assert "Zathura" in problems
     assert "Hansel et Gretel" in problems
@@ -448,12 +468,24 @@ def test_the_friday_creneau_carries_the_dictee_bilan_and_the_poesie() -> None:
 # ------------------------------------------------------------------- le rapport
 
 
-def test_the_report_only_holds_what_the_calendar_takes_away() -> None:
-    """Every problem is a jour chômé or a lundi the year does not have (§10)."""
+def test_the_validation_report_holds_no_error() -> None:
+    """§8 Phase 3: « rapport de validation sans erreur ».
+
+    The year always has something to report — S1 has no lundi, four jours are chômés,
+    and the littérature planning is longer than the year — but none of it is an error.
+    """
+    kinds = Counter(problem.kind for problem in PLAN.problems)
+
+    assert not [problem for problem in PLAN.problems if problem.kind is ProblemKind.ERREUR]
+    assert kinds == {ProblemKind.CALENDRIER: 11, ProblemKind.SOURCE: 1}
+
+
+def test_every_reported_impossibility_names_what_the_year_took_away() -> None:
+    """A report line the teacher cannot act on is worse than none."""
     expected = ("créneaux de mathématiques", "Lecture — Œuvre suivie", "planning hebdomadaire")
 
     assert PLAN.problems
-    assert all(any(reason in problem for reason in expected) for problem in PLAN.problems)
+    assert all(any(reason in problem.message for reason in expected) for problem in PLAN.problems)
 
 
 def test_the_plan_is_the_same_every_time_it_is_built() -> None:

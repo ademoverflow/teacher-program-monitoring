@@ -11,8 +11,8 @@ import logging
 import time
 from datetime import date
 
-from core.generate import render
-from core.services.programmation.writer import generate
+from core.services.planning.report import render
+from core.services.planning.writer import generate
 from core.services.seeding import seed
 
 

@@ -10,7 +10,7 @@ import re
 import unicodedata
 from dataclasses import dataclass
 
-from core.services.programmation.inputs import ProgramItem
+from core.services.planning.inputs import ProgramItem
 
 PERIOD_CODES = ("P1", "P2", "P3", "P4", "P5")
 
@@ -53,7 +53,7 @@ def _fold(text: str) -> str:
     )
 
 
-def _read(text: str) -> ThemePeriods | None:
+def _read_periods(text: str) -> ThemePeriods | None:
     """Read the bracketed mention of périodes out of one piece of text."""
     for match in _BRACKETED.finditer(text):
         inside = match.group(1)
@@ -77,7 +77,7 @@ def periods_of(theme: ProgramItem) -> ThemePeriods | None:
     description is read at all; it is only read when the heading says nothing, so a
     « période napoléonienne » in a body of text cannot be mistaken for a placement.
     """
-    return _read(theme.title) or _read(theme.description or "")
+    return _read_periods(theme.title) or _read_periods(theme.description or "")
 
 
 def assign_periods(themes: tuple[ProgramItem, ...]) -> dict[str, tuple[str, ...]]:

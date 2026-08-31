@@ -67,12 +67,13 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │   ├── src/core/
 │   │   ├── __main__.py     # Entry point
 │   │   ├── seed.py         # `make seed` entry point
+│   │   ├── generate.py     # `make generate` entry point
 │   │   ├── main.py         # FastAPI app setup
 │   │   ├── settings.py     # Pydantic settings
 │   │   ├── database.py     # Async SQLAlchemy setup
 │   │   ├── routers/        # API route handlers
 │   │   ├── models/         # SQLModel data models
-│   │   ├── services/       # Business logic (calendar, seed loader)
+│   │   ├── services/       # Business logic (calendar, seed loader, programmation)
 │   │   ├── logger/         # Structured logging
 │   │   └── alembic/        # Database migrations
 │   └── tests/
@@ -252,7 +253,8 @@ make shell-db       # Bash into database container
 make install        # Install all dependencies (Python + JS)
                     # (host-side check/test targets do this on their own when needed)
 make env            # Create .env from env.example (host UID/GID) if missing
-make seed           # Load the versioned JSON seeds into the database (idempotent)
+make seed           # Load the seeds and generate the programmation (idempotent)
+make generate       # Regenerate the year's séances from what is already seeded
 make clean          # Remove caches and build artifacts
 make ip             # Show local IP and service URLs
 ```
@@ -291,6 +293,7 @@ Available via `/skill-name` in Claude Code:
 | Architecture decisions | `docs/adr/` |
 | Data models | `core/src/core/models/` |
 | Calendar expansion | `core/src/core/services/school_calendar.py` |
+| Year generation | `core/src/core/services/planning/` |
 | Seed loader | `core/src/core/services/seeding.py` |
 | JSON seeds | `core/seed/` |
 | Curriculum extraction | `scripts/extract_program_items.py` (+ `curriculum_map.py`) |

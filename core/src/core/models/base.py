@@ -1,4 +1,4 @@
-"""Shared column patterns for every table.
+"""Shared column patterns for every table, and the way to reach a table itself.
 
 Every table follows ``models/user.py``: a UUID primary key defaulted by Postgres and
 server-side ``created_at``/``updated_at``. These are functions rather than a shared
@@ -10,8 +10,17 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from sqlalchemy import UUID, CheckConstraint, Column, DateTime, ForeignKey, text
-from sqlmodel import Field
+from sqlalchemy import UUID, CheckConstraint, Column, DateTime, ForeignKey, Table, text
+from sqlmodel import Field, SQLModel
+
+
+def table_of(model: type[SQLModel]) -> Table:
+    """Return the SQLAlchemy table behind a SQLModel table class.
+
+    The bulk writers — the seed loader and the year generator — build their statements
+    on the table rather than the mapped class, and both reach it through here.
+    """
+    return SQLModel.metadata.tables[str(model.__tablename__)]
 
 
 def uuid_primary_key() -> Any:  # noqa: ANN401

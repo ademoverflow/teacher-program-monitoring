@@ -86,6 +86,13 @@ A book read with the class over several semaines. The literature méthodo is a l
 rather than of notions, so an œuvre *is* a séquence: "Charlie et la chocolaterie" is séquence 1.
 _Avoid_: book, text, reading
 
+**Programmation** (`planning`):
+The whole year's séances, worked out once from the calendar, the EDT and the méthodos.
+The teacher can regenerate it, in whole or by période, and it is deterministic: the same
+inputs always give the same year.
+_Avoid_: schedule, timetable — « emploi du temps » is the weekly gabarit, this is the
+year filled in against it
+
 **Rituel** (a créneau of twenty minutes or less):
 A short cell that comes back every day at the same time — l'accueil, le calcul mental, la
 lecture offerte, la dictée du jour. A rituel repeats rather than progresses: it works the

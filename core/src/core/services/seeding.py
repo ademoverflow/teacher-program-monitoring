@@ -12,13 +12,14 @@ else — a séance, a cahier journal — alone.
 import uuid
 from typing import Any
 
-from sqlalchemy import Table, select, text
+from sqlalchemy import select, text
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import SQLModel
 
 from core.database import engine
 from core.models.app_setting import AppSetting
+from core.models.base import table_of
 from core.models.calendar import Period, SchoolDay, SchoolHoliday, SchoolYear, Week
 from core.models.curriculum import Domain, ProgramItem, Subject
 from core.models.level import Level
@@ -37,11 +38,6 @@ from core.services.seed_files import (
 Row = dict[str, Any]
 
 
-def _table(model: type[SQLModel]) -> Table:
-    """Return the SQLAlchemy table behind a SQLModel table class."""
-    return SQLModel.metadata.tables[str(model.__tablename__)]
-
-
 async def _upsert(
     session: AsyncSession,
     model: type[SQLModel],
@@ -54,7 +50,7 @@ async def _upsert(
     if not rows:
         return 0
 
-    table = _table(model)
+    table = table_of(model)
     statement = insert(table).values(list(rows))
     updatable = {
         column: statement.excluded[column] for column in rows[0] if column not in (on or ())
@@ -74,11 +70,14 @@ async def _insert_missing(session: AsyncSession, model: type[SQLModel], rows: li
     Used for the rows the seed *starts* the teacher off with rather than owns: the
     alternances of §4.1 are explicitly « à paramétrer, modifiable dans l'app », so a
     later ``make seed`` must not undo a choice she has changed (ADR-0013).
+
+    Returns how many rows the seed describes, not how many were written — the same thing
+    ``_upsert`` returns, which is also a count of rows described rather than inserted.
     """
     if not rows:
         return 0
 
-    statement = insert(_table(model)).values(list(rows)).on_conflict_do_nothing()
+    statement = insert(table_of(model)).values(list(rows)).on_conflict_do_nothing()
     await session.execute(statement)
     return len(rows)
 
@@ -89,7 +88,7 @@ async def _ids_by(session: AsyncSession, model: type[SQLModel], *key: str) -> di
     Pass every column of the natural key: a période's code or a semaine's number
     only identifies a row within its school year.
     """
-    table = _table(model)
+    table = table_of(model)
     columns = [table.c[name] for name in key]
     result = await session.execute(select(table.c.id, *columns))
     return {

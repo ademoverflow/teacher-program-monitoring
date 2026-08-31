@@ -1,7 +1,7 @@
 # 09 - Acceptance: sample the year by hand, write the ADRs
 
 Type: task
-Status: ready-for-agent
+Status: resolved
 Blocked by: 08
 
 §8 Phase 3 acceptance:

@@ -1,16 +1,17 @@
 """What the planner needs to know, as plain frozen data.
 
 The placement rules are where the bugs live, and CI has no Postgres, so nothing in
-``core.services.programmation`` touches a session: the planner reads these dataclasses
+``core.services.planning`` touches a session: the planner reads these dataclasses
 and returns séance drafts. Two builders fill them — one from the versioned seeds
 (``plan_input_from_seeds``, used by the tests) and one from the database
-(``core.services.programmation.writer``) — and both spell the keys the same way, so a
+(``core.services.planning.writer``) — and both spell the keys the same way, so a
 draft can be written back without the planner ever knowing a UUID.
 """
 
 from dataclasses import dataclass, field
 from datetime import date, time
 
+from core.models.alternation import AlternationMode
 from core.models.level import Level
 from core.models.weekday import Weekday
 from core.services.school_calendar import build_school_calendar
@@ -21,6 +22,9 @@ from core.services.seed_files import (
     load_settings,
     load_timetable,
 )
+
+# The réglages that resolve an alternance are keyed « alternance.<groupe> ».
+ALTERNATION_PREFIX = "alternance."
 
 # A créneau of 20 minutes or less is a rituel: it repeats every day rather than
 # advancing through a programme (MASTER-PROMPT.md §4.1 prints them as the short cells,
@@ -141,7 +145,7 @@ class Alternation:
     """How one ``alternation_group`` resolves to a matière (ADR-0002, ADR-0013)."""
 
     group: str
-    mode: str
+    mode: AlternationMode
     subjects: tuple[str, ...] = ()
     slots: tuple[AlternationSlot, ...] = ()
 
@@ -160,7 +164,19 @@ class PlanInput:
     _weeks_by_number: dict[int, PlannedWeek] = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
-        """Index the semaines: every day and every créneau is placed through one."""
+        """Put the year in order and index the semaines.
+
+        The ordering is normalised here rather than trusted from the caller: the seeds
+        come in file order and the database comes in whatever order it likes, and the
+        plan has to be the same either way.
+        """
+        object.__setattr__(self, "weeks", tuple(sorted(self.weeks, key=lambda w: w.number)))
+        object.__setattr__(self, "days", tuple(sorted(self.days, key=lambda d: d.date)))
+        object.__setattr__(
+            self,
+            "slots",
+            tuple(sorted(self.slots, key=lambda s: (s.day_of_week, s.starts_at, s.level.value))),
+        )
         object.__setattr__(self, "_weeks_by_number", {week.number: week for week in self.weeks})
 
     def week(self, number: int) -> PlannedWeek:
@@ -294,8 +310,8 @@ def plan_input_from_seeds() -> PlanInput:
     )
     alternations = tuple(
         Alternation(
-            group=setting.key.removeprefix("alternance."),
-            mode=setting.value.mode,
+            group=setting.key.removeprefix(ALTERNATION_PREFIX),
+            mode=AlternationMode(setting.value.mode),
             subjects=tuple(setting.value.subjects),
             slots=tuple(
                 AlternationSlot(
@@ -307,7 +323,7 @@ def plan_input_from_seeds() -> PlanInput:
             ),
         )
         for setting in load_settings()
-        if setting.key.startswith("alternance.")
+        if setting.key.startswith(ALTERNATION_PREFIX)
     )
     return PlanInput(
         weeks=weeks,
@@ -320,6 +336,7 @@ def plan_input_from_seeds() -> PlanInput:
 
 
 __all__ = [
+    "ALTERNATION_PREFIX",
     "Alternation",
     "AlternationSlot",
     "PlanInput",

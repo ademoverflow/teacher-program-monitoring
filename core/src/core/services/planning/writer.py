@@ -12,11 +12,13 @@ from dataclasses import dataclass
 from datetime import date, time
 from typing import Any
 
-from sqlalchemy import Table, delete, select, text
+from sqlalchemy import delete, select, text
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlmodel import SQLModel
 
+from core.database import engine
+from core.models.app_setting import AppSetting
+from core.models.base import table_of
 from core.models.calendar import Period, SchoolDay, Week
 from core.models.curriculum import Domain, ProgramItem, Subject
 from core.models.journal import JournalEntry
@@ -26,7 +28,8 @@ from core.models.sequence import Sequence as SequenceModel
 from core.models.sequence import SequenceSession
 from core.models.timetable import TimetableSlot
 from core.models.weekday import FRENCH_WEEKDAYS, Weekday
-from core.services.programmation.inputs import (
+from core.services.planning.inputs import (
+    ALTERNATION_PREFIX,
     Alternation,
     AlternationSlot,
     PlanInput,
@@ -37,16 +40,18 @@ from core.services.programmation.inputs import (
     sequence_session_key,
     slot_key,
 )
-from core.services.programmation.inputs import ProgramItem as PlanProgramItem
-from core.services.programmation.inputs import Sequence as PlanSequence
-from core.services.programmation.inputs import SequenceStep as PlanSequenceStep
-from core.services.programmation.inputs import Slot as PlanSlot
-from core.services.programmation.planner import SessionDraft, plan_year
+from core.services.planning.inputs import ProgramItem as PlanProgramItem
+from core.services.planning.inputs import Sequence as PlanSequence
+from core.services.planning.inputs import SequenceStep as PlanSequenceStep
+from core.services.planning.inputs import Slot as PlanSlot
+from core.services.planning.planner import SessionDraft, plan_year
+from core.services.planning.problems import Problem, ProblemKind
 
-ALTERNATION_PREFIX = "alternance."
-# One statement per batch rather than one per séance: there are over 1700 of them and
-# §8 gives the whole generation under a minute.
-BATCH = 500
+# One statement per batch rather than one per séance: there are over 1700 séances and
+# four times as many links, and §8 gives the whole generation under a minute.
+SESSION_BATCH = 500
+LINK_BATCH = 2000
+DELETED_LINK_BATCH = 5000
 
 
 @dataclass(frozen=True, slots=True)
@@ -62,20 +67,23 @@ class GenerationReport:
     program_links: int
     sequences_placed: dict[str, int]
     alternations: dict[str, int]
-    problems: tuple[str, ...]
+    # The whole year's, always: a progression is cut over the whole year even when only
+    # one période is written, so restricting the report to that période would hide the
+    # reason a séance in it looks the way it does.
+    problems: tuple[Problem, ...]
+
+    @property
+    def errors(self) -> tuple[Problem, ...]:
+        """The lines that are the generator's fault rather than the calendar's."""
+        return tuple(problem for problem in self.problems if problem.kind is ProblemKind.ERREUR)
 
     @property
     def is_clean(self) -> bool:
-        """Say whether the generation hit nothing it had to report."""
-        return not self.problems
+        """Say whether §8's « rapport de validation sans erreur » holds."""
+        return not self.errors
 
 
-def _table(model: type[SQLModel]) -> Table:
-    """Return the SQLAlchemy table behind a SQLModel table class."""
-    return SQLModel.metadata.tables[str(model.__tablename__)]
-
-
-def _batches(rows: Sequence[Any], size: int = BATCH) -> Iterator[Sequence[Any]]:
+def _batches(rows: Sequence[Any], size: int) -> Iterator[Sequence[Any]]:
     """Cut a list of rows into statement-sized batches."""
     for start in range(0, len(rows), size):
         yield rows[start : start + size]
@@ -87,7 +95,7 @@ async def load_plan_input(session: AsyncSession) -> PlanInput:
     The planner is given the same shape whether it is fed from here or from the seed
     files, which is what lets the placement rules be tested where there is no Postgres.
     """
-    weeks_table, periods_table = _table(Week), _table(Period)
+    weeks_table, periods_table = table_of(Week), table_of(Period)
     rows = (
         await session.execute(
             select(
@@ -110,11 +118,13 @@ async def load_plan_input(session: AsyncSession) -> PlanInput:
             week_number=numbers[row.week_id],
             is_off=row.is_off,
         )
-        for row in (await session.execute(select(_table(SchoolDay)))).all()
+        for row in (await session.execute(select(table_of(SchoolDay)))).all()
     )
 
-    subjects = {row.id: row.code for row in (await session.execute(select(_table(Subject)))).all()}
-    domains = {row.id: row.code for row in (await session.execute(select(_table(Domain)))).all()}
+    subjects = {
+        row.id: row.code for row in (await session.execute(select(table_of(Subject)))).all()
+    }
+    domains = {row.id: row.code for row in (await session.execute(select(table_of(Domain)))).all()}
 
     slots = tuple(
         PlanSlot(
@@ -129,13 +139,13 @@ async def load_plan_input(session: AsyncSession) -> PlanInput:
             level=Level(row.level),
             alternation_group=row.alternation_group,
         )
-        for row in (await session.execute(select(_table(TimetableSlot)))).all()
+        for row in (await session.execute(select(table_of(TimetableSlot)))).all()
     )
 
     steps: dict[uuid.UUID, list[PlanSequenceStep]] = {}
-    sequence_rows = (await session.execute(select(_table(SequenceModel)))).all()
+    sequence_rows = (await session.execute(select(table_of(SequenceModel)))).all()
     named = {row.id: (row.method, row.number) for row in sequence_rows}
-    for row in (await session.execute(select(_table(SequenceSession)))).all():
+    for row in (await session.execute(select(table_of(SequenceSession)))).all():
         method, number = named[row.sequence_id]
         steps.setdefault(row.sequence_id, []).append(
             PlanSequenceStep(
@@ -162,7 +172,7 @@ async def load_plan_input(session: AsyncSession) -> PlanInput:
         for row in sequence_rows
     )
 
-    items = _table(ProgramItem)
+    items = table_of(ProgramItem)
     program_items = tuple(
         PlanProgramItem(
             key=program_item_key(
@@ -177,10 +187,16 @@ async def load_plan_input(session: AsyncSession) -> PlanInput:
         for row in (await session.execute(select(items).order_by(items.c.source_order))).all()
     )
 
+    settings = table_of(AppSetting)
     alternations = tuple(
         _alternation(row.key.removeprefix(ALTERNATION_PREFIX), row.value)
-        for row in (await session.execute(text("SELECT key, value FROM app_settings"))).all()
-        if row.key.startswith(ALTERNATION_PREFIX)
+        for row in (
+            await session.execute(
+                select(settings.c.key, settings.c.value).where(
+                    settings.c.key.startswith(ALTERNATION_PREFIX)
+                )
+            )
+        ).all()
     )
 
     return PlanInput(
@@ -223,11 +239,11 @@ async def _untouchable_days(session: AsyncSession, reference: date) -> set[date]
     §10: « Les cahiers journaux et les jours passés ne sont jamais écrasés ». No cahier
     journal exists yet, and the rule still lives here rather than waiting for Phase 6.
     """
-    days = _table(SchoolDay)
+    days = table_of(SchoolDay)
     past = await session.execute(select(days.c.date).where(days.c.date < reference))
     written = await session.execute(
         select(days.c.date)
-        .join(_table(JournalEntry), _table(JournalEntry).c.school_day_id == days.c.id)
+        .join(table_of(JournalEntry), table_of(JournalEntry).c.school_day_id == days.c.id)
         .distinct()
     )
     return {row.date for row in past.all()} | {row.date for row in written.all()}
@@ -248,13 +264,13 @@ class _Keys:
     @classmethod
     async def load(cls, session: AsyncSession) -> "_Keys":
         """Read every table the drafts point at."""
-        days = _table(SchoolDay)
-        slots = _table(TimetableSlot)
-        sequences = _table(SequenceModel)
-        steps = _table(SequenceSession)
-        subjects = _table(Subject)
-        domains = _table(Domain)
-        items = _table(ProgramItem)
+        days = table_of(SchoolDay)
+        slots = table_of(TimetableSlot)
+        sequences = table_of(SequenceModel)
+        steps = table_of(SequenceSession)
+        subjects = table_of(Subject)
+        domains = table_of(Domain)
+        items = table_of(ProgramItem)
 
         named = {
             row.id: (row.method, row.number)
@@ -370,9 +386,9 @@ async def _write(session: AsyncSession, drafts: Sequence[SessionDraft], keys: _K
     if not drafts:
         return 0
 
-    table = _table(PlannedSession)
+    table = table_of(PlannedSession)
     identifiers: dict[tuple[uuid.UUID, uuid.UUID, str], uuid.UUID] = {}
-    for batch in _batches([_row(draft, keys) for draft in drafts]):
+    for batch in _batches([_row(draft, keys) for draft in drafts], SESSION_BATCH):
         insertion = insert(table).values(list(batch))
         updatable = {
             column: insertion.excluded[column]
@@ -386,9 +402,9 @@ async def _write(session: AsyncSession, drafts: Sequence[SessionDraft], keys: _K
         for row in (await session.execute(statement)).all():
             identifiers[row.school_day_id, row.timetable_slot_id, row.level] = row.id
 
-    links = _table(PlannedSessionProgramItem)
+    links = table_of(PlannedSessionProgramItem)
     session_ids = list(identifiers.values())
-    for batch in _batches(session_ids, size=5000):
+    for batch in _batches(session_ids, DELETED_LINK_BATCH):
         await session.execute(delete(links).where(links.c.planned_session_id.in_(list(batch))))
 
     rows = [
@@ -401,15 +417,13 @@ async def _write(session: AsyncSession, drafts: Sequence[SessionDraft], keys: _K
         for draft in drafts
         for item in draft.program_items
     ]
-    for batch in _batches(rows, size=2000):
+    for batch in _batches(rows, LINK_BATCH):
         await session.execute(insert(links).values(list(batch)).on_conflict_do_nothing())
     return len(rows)
 
 
 async def generate(reference_date: date | None = None) -> GenerationReport:
     """Entry point for ``make generate``: plan the year and commit it."""
-    from core.database import engine  # noqa: PLC0415
-
     async with AsyncSession(engine) as session:
         report = await generate_year(session, reference_date=reference_date or date.today())  # noqa: DTZ011
         await session.commit()

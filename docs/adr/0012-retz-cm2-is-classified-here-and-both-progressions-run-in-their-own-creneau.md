@@ -4,7 +4,7 @@ The EDT teaches grammaire on Monday and conjugaison on Tuesday, in two separate
 créneaux, so every RETZ séquence has to be one or the other. The CM1 progression says
 which — it prints a colour legend, and Phase 2 copied it into `sequences.domain_id`
 (ADR-0006). The CM2 progression is a sommaire with no legend, so the classification is
-made in `core/services/programmation/retz.py` and is a Phase 3 decision.
+made in `core/services/planning/retz.py` and is a Phase 3 decision.
 
 Fifteen of the twenty-one CM2 séquences print a notion the CM1 progression also prints,
 and take the domaine CM1's colours give it — that half is read off the source, and the
