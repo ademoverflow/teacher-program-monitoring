@@ -1,0 +1,10 @@
+{
+	"date": "2026-09-07",
+	"week_number": 2,
+	"number_in_period": 2,
+	"period_code": "P1",
+	"is_off": false,
+	"off_reason": null,
+	"initialised": false,
+	"entries": []
+}

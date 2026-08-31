@@ -1,0 +1,143 @@
+{
+	"date": "2026-09-07",
+	"week_number": 2,
+	"number_in_period": 2,
+	"period_code": "P1",
+	"is_off": false,
+	"off_reason": null,
+	"initialised": true,
+	"entries": [
+		{
+			"id": "e71bb4fb-d3bd-4427-b153-7d37cf3e56c3",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "003da693-225b-40e3-97c1-fb84c019d714",
+			"discipline": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+			"duration_minutes": 10,
+			"objectives": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+			"bilan": null,
+			"notes": null,
+			"position": 1
+		},
+		{
+			"id": "117344d0-6cbf-4af5-abdd-7bcb739c7db1",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "e8271b57-f377-46a3-b118-c72486012d50",
+			"discipline": "\u00c9tude de la langue \u2014 Grammaire (CM1)",
+			"duration_minutes": 45,
+			"objectives": "S\u00e9quence 1 \u2014 Les groupes dans la phrase (s\u00e9ance 1/2)\nD\u00e9coupage de la phrase en groupes indispensables ou non.",
+			"bilan": null,
+			"notes": null,
+			"position": 2
+		},
+		{
+			"id": "0466a3af-d31c-4b4e-9039-77782c0bb799",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "22586c08-34f0-4d27-a209-9ae5dd0ceaba",
+			"discipline": "\u00c9tude de la langue \u2014 Grammaire (CM2)",
+			"duration_minutes": 45,
+			"objectives": "S\u00e9quence 1 \u2014 Les groupes dans la phrase (s\u00e9ance 1/2)",
+			"bilan": null,
+			"notes": null,
+			"position": 3
+		},
+		{
+			"id": "5e886772-d5bc-4b82-916f-d8146879a6dd",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "43f1174f-ba0a-420d-b656-31c65e2bd9bd",
+			"discipline": "Calcul mental",
+			"duration_minutes": 20,
+			"objectives": "Calcul mental\nCM1 \u2014 M\u00e9moriser des faits num\u00e9riques\nCM1 \u2014 Utiliser ses connaissances en num\u00e9ration pour calculer mentalement\nCM1 \u2014 Apprendre des proc\u00e9dures de calcul mental\nCM2 \u2014 M\u00e9moriser des faits num\u00e9riques\nCM2 \u2014 Utiliser ses connaissances en num\u00e9ration pour calculer mentalement\nCM2 \u2014 Apprendre des proc\u00e9dures de calcul mental",
+			"bilan": null,
+			"notes": null,
+			"position": 4
+		},
+		{
+			"id": "ab334896-55b0-4eb9-8781-a8527995d6ef",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "db5430f0-0a66-44d3-83c4-ec62c3e7dfe1",
+			"discipline": "Math\u00e9matiques \u2014 Nombres (CM1)",
+			"duration_minutes": 45,
+			"objectives": "S\u00e9quence 2 \u2014 Fractions-1 (s\u00e9ance 1/4)",
+			"bilan": null,
+			"notes": null,
+			"position": 5
+		},
+		{
+			"id": "4509bbb9-cb5f-437c-86fe-3a7b6b2f92db",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "f75a8912-930b-453f-8edc-bfc2b5940fb5",
+			"discipline": "Math\u00e9matiques \u2014 Nombres (CM2)",
+			"duration_minutes": 45,
+			"objectives": "S\u00e9quence 2 \u2014 Aires-1 (s\u00e9ance 1/4)",
+			"bilan": null,
+			"notes": null,
+			"position": 6
+		},
+		{
+			"id": "e3314ef7-c1f0-437d-aec6-53de4c616584",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "2d9b238d-d577-4bd0-94b2-80703a8ab253",
+			"discipline": "Lecture \u2014 \u0152uvre suivie",
+			"duration_minutes": 45,
+			"objectives": "Charlie et la chocolaterie \u2014 Semaine 1\nOrganisation sur 7 semaines\n\nTh\u00e8me 1 \u2014 H\u00e9ros et H\u00e9ro\u00efnes\n\n-D\u00e9couvrir des \u0153uvres, des textes et des documents mettant en sc\u00e8ne des types de h\u00e9ros/h\u00e9ro\u00efnes bien identifi\u00e9s ou qui se r\u00e9v\u00e8lent comme tels.\n-Comprendre les qualit\u00e9s et les valeurs qui caract\u00e9risent un h\u00e9ros/une h\u00e9ro\u00efne.\n-s'interroger sur les valeurs socio-culturelles et les qualit\u00e9s humaines dont il/elle est porteur, sur l'identification ou la projection possible sur le lecteur.",
+			"bilan": null,
+			"notes": null,
+			"position": 7
+		},
+		{
+			"id": "66c7ff94-faaa-4722-9981-a25ab451038d",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "517ab03d-9219-40ce-9d92-4879619feb15",
+			"discipline": "Dict\u00e9e du jour",
+			"duration_minutes": 15,
+			"objectives": "Dict\u00e9e du jour\nCM1 \u2014 Identifier les classes de mots subissant des variations\nCM1 \u2014 R\u00e9aliser la cha\u00eene d\u2019accords au sein du groupe nominal\nCM1 \u2014 Accorder le sujet et le verbe\nCM2 \u2014 Identifier les classes de mots subissant des variations\nCM2 \u2014 R\u00e9aliser la cha\u00eene d\u2019accords au sein du groupe nominal\nCM2 \u2014 Accorder le sujet et le verbe",
+			"bilan": null,
+			"notes": null,
+			"position": 8
+		},
+		{
+			"id": "069de7dc-655e-4049-af5e-8d68a4694778",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "951d5c31-f845-4443-8206-6b847ca81503",
+			"discipline": "Lecture offerte / lecture personnelle",
+			"duration_minutes": 15,
+			"objectives": "Lecture offerte / lecture personnelle\nCM1 \u2014 Lire avec fluidit\u00e9\nCM1 \u2014 Lire \u00e0 voix haute avec expressivit\u00e9\nCM1 \u2014 Lire et comprendre seul des textes, des documents et des images\nCM1 \u2014 Lire et comprendre des textes, des documents et des images pour apprendre dans toutes les disciplines\nCM1 \u2014 Lire une \u0153uvre et se l\u2019approprier\nCM2 \u2014 Lire avec fluidit\u00e9\nCM2 \u2014 Lire \u00e0 voix haute avec expressivit\u00e9\nCM2 \u2014 Lire et comprendre seul des textes, des documents et des images\nCM2 \u2014 Lire et comprendre des textes, des documents et des images pour apprendre dans toutes les disciplines\nCM2 \u2014 Lire une \u0153uvre et se l\u2019approprier",
+			"bilan": null,
+			"notes": null,
+			"position": 9
+		},
+		{
+			"id": "4a537690-13f1-4455-903e-c8b75a33e514",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "5eb4c2a1-91aa-4bf9-9bea-6d09c3211520",
+			"discipline": "Sciences et technologie",
+			"duration_minutes": 45,
+			"objectives": "\u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique\nCM1 \u2014 \u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique\nCM2 \u2014 \u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique",
+			"bilan": null,
+			"notes": null,
+			"position": 10
+		},
+		{
+			"id": "a3ed3fbf-ab77-46f9-a9de-964cb7e8111e",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "62870c93-4d7f-4ec8-8683-5380d0e1fcbb",
+			"discipline": "Anglais",
+			"duration_minutes": 45,
+			"objectives": "Anglais\nCM1 \u2014 Suivre le fil d\u2019une histoire simple (CO-CM1)\nCM2 \u2014 Suivre le fil d\u2019une histoire simple (CO-CM2)",
+			"bilan": null,
+			"notes": null,
+			"position": 11
+		},
+		{
+			"id": "3f567a52-09c2-4640-a1dd-70d855983e6f",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"planned_session_id": "163b97aa-5144-4fde-b894-23dff0131e33",
+			"discipline": "Arts plastiques",
+			"duration_minutes": 45,
+			"objectives": "Exp\u00e9rimenter, produire, cr\u00e9er",
+			"bilan": null,
+			"notes": null,
+			"position": 12
+		}
+	]
+}

@@ -1,0 +1,1092 @@
+{
+	"id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+	"date": "2026-09-07",
+	"day_of_week": 1,
+	"is_off": false,
+	"off_reason": null,
+	"week_number": 2,
+	"number_in_period": 2,
+	"period": {
+		"id": "e4d03005-ab28-40d0-ab9b-907cd768e0dd",
+		"code": "P1",
+		"label": "P\u00e9riode 1",
+		"starts_on": "2026-09-01",
+		"ends_on": "2026-10-16"
+	},
+	"previous_day": "2026-09-04",
+	"next_day": "2026-09-08",
+	"has_journal": false,
+	"sessions": [
+		{
+			"id": "003da693-225b-40e3-97c1-fb84c019d714",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "88afabb9-706b-4d75-a83f-1a7c3bf0b94c",
+			"level": "commun",
+			"title": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+			"status": "planifi\u00e9e",
+			"position": 1,
+			"subject": null,
+			"domain": null,
+			"sequence": null,
+			"objectives": null,
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "88afabb9-706b-4d75-a83f-1a7c3bf0b94c",
+				"day_of_week": 1,
+				"starts_at": "09:00:00",
+				"ends_at": "09:10:00",
+				"duration_minutes": 10,
+				"label": "Accueil \u00b7 rituel de langue \u00b7 plan de travail",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": null,
+				"domain": null
+			},
+			"sequence_session": null,
+			"program_items": []
+		},
+		{
+			"id": "e8271b57-f377-46a3-b118-c72486012d50",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "af22b1f2-2a56-444e-a9ed-15e292930e0b",
+			"level": "CM1",
+			"title": "S\u00e9quence 1 \u2014 Les groupes dans la phrase (s\u00e9ance 1/2)",
+			"status": "planifi\u00e9e",
+			"position": 2,
+			"subject": {
+				"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+				"code": "francais",
+				"label": "Fran\u00e7ais",
+				"color": "#DAEEF3"
+			},
+			"domain": {
+				"id": "816b761b-1b47-424f-adc7-1d539df5d8d4",
+				"code": "grammaire",
+				"label": "Grammaire",
+				"level": "commun"
+			},
+			"sequence": {
+				"id": "c5607b36-fd99-4388-a3cd-cebfc0cfee87",
+				"method": "retz-cm1",
+				"level": "CM1",
+				"number": 1,
+				"title": "Les groupes dans la phrase"
+			},
+			"objectives": "D\u00e9coupage de la phrase en groupes indispensables ou non.",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "af22b1f2-2a56-444e-a9ed-15e292930e0b",
+				"day_of_week": 1,
+				"starts_at": "09:10:00",
+				"ends_at": "09:55:00",
+				"duration_minutes": 45,
+				"label": "\u00c9tude de la langue \u2014 Grammaire",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+					"code": "francais",
+					"label": "Fran\u00e7ais",
+					"color": "#DAEEF3"
+				},
+				"domain": {
+					"id": "816b761b-1b47-424f-adc7-1d539df5d8d4",
+					"code": "grammaire",
+					"label": "Grammaire",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": []
+		},
+		{
+			"id": "22586c08-34f0-4d27-a209-9ae5dd0ceaba",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "af22b1f2-2a56-444e-a9ed-15e292930e0b",
+			"level": "CM2",
+			"title": "S\u00e9quence 1 \u2014 Les groupes dans la phrase (s\u00e9ance 1/2)",
+			"status": "planifi\u00e9e",
+			"position": 3,
+			"subject": {
+				"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+				"code": "francais",
+				"label": "Fran\u00e7ais",
+				"color": "#DAEEF3"
+			},
+			"domain": {
+				"id": "816b761b-1b47-424f-adc7-1d539df5d8d4",
+				"code": "grammaire",
+				"label": "Grammaire",
+				"level": "commun"
+			},
+			"sequence": {
+				"id": "3dd642c8-1c2d-47f1-90cd-801904e323bc",
+				"method": "retz-cm2",
+				"level": "CM2",
+				"number": 1,
+				"title": "Les groupes dans la phrase"
+			},
+			"objectives": null,
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "af22b1f2-2a56-444e-a9ed-15e292930e0b",
+				"day_of_week": 1,
+				"starts_at": "09:10:00",
+				"ends_at": "09:55:00",
+				"duration_minutes": 45,
+				"label": "\u00c9tude de la langue \u2014 Grammaire",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+					"code": "francais",
+					"label": "Fran\u00e7ais",
+					"color": "#DAEEF3"
+				},
+				"domain": {
+					"id": "816b761b-1b47-424f-adc7-1d539df5d8d4",
+					"code": "grammaire",
+					"label": "Grammaire",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": []
+		},
+		{
+			"id": "43f1174f-ba0a-420d-b656-31c65e2bd9bd",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "bed5f106-ad16-4315-8b29-e7f0372947b0",
+			"level": "commun",
+			"title": "Calcul mental",
+			"status": "planifi\u00e9e",
+			"position": 4,
+			"subject": {
+				"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+				"code": "mathematiques",
+				"label": "Math\u00e9matiques",
+				"color": "#FFC7CE"
+			},
+			"domain": {
+				"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+				"code": "calcul-mental",
+				"label": "Calcul mental",
+				"level": "commun"
+			},
+			"sequence": null,
+			"objectives": "CM1 \u2014 M\u00e9moriser des faits num\u00e9riques\nCM1 \u2014 Utiliser ses connaissances en num\u00e9ration pour calculer mentalement\nCM1 \u2014 Apprendre des proc\u00e9dures de calcul mental\nCM2 \u2014 M\u00e9moriser des faits num\u00e9riques\nCM2 \u2014 Utiliser ses connaissances en num\u00e9ration pour calculer mentalement\nCM2 \u2014 Apprendre des proc\u00e9dures de calcul mental",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "bed5f106-ad16-4315-8b29-e7f0372947b0",
+				"day_of_week": 1,
+				"starts_at": "09:55:00",
+				"ends_at": "10:15:00",
+				"duration_minutes": 20,
+				"label": "Calcul mental",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+					"code": "mathematiques",
+					"label": "Math\u00e9matiques",
+					"color": "#FFC7CE"
+				},
+				"domain": {
+					"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+					"code": "calcul-mental",
+					"label": "Calcul mental",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": [
+				{
+					"id": "b1b82ba8-17e7-47bb-873f-591ac5bcec65",
+					"level": "CM1",
+					"title": "M\u00e9moriser des faits num\u00e9riques",
+					"subject": {
+						"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+						"code": "mathematiques",
+						"label": "Math\u00e9matiques",
+						"color": "#FFC7CE"
+					},
+					"domain": {
+						"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+						"code": "calcul-mental",
+						"label": "Calcul mental",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "239446cb-d672-4e68-8b7f-c374e5ff6e9b",
+					"level": "CM1",
+					"title": "Utiliser ses connaissances en num\u00e9ration pour calculer mentalement",
+					"subject": {
+						"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+						"code": "mathematiques",
+						"label": "Math\u00e9matiques",
+						"color": "#FFC7CE"
+					},
+					"domain": {
+						"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+						"code": "calcul-mental",
+						"label": "Calcul mental",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "dd14c813-fc81-4a8c-ba90-151ddfe5791c",
+					"level": "CM1",
+					"title": "Apprendre des proc\u00e9dures de calcul mental",
+					"subject": {
+						"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+						"code": "mathematiques",
+						"label": "Math\u00e9matiques",
+						"color": "#FFC7CE"
+					},
+					"domain": {
+						"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+						"code": "calcul-mental",
+						"label": "Calcul mental",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "5ede3570-d7e8-4776-ae88-d3c265553e48",
+					"level": "CM2",
+					"title": "M\u00e9moriser des faits num\u00e9riques",
+					"subject": {
+						"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+						"code": "mathematiques",
+						"label": "Math\u00e9matiques",
+						"color": "#FFC7CE"
+					},
+					"domain": {
+						"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+						"code": "calcul-mental",
+						"label": "Calcul mental",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "128ce295-5add-4ac4-a2f6-280e81886b8e",
+					"level": "CM2",
+					"title": "Utiliser ses connaissances en num\u00e9ration pour calculer mentalement",
+					"subject": {
+						"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+						"code": "mathematiques",
+						"label": "Math\u00e9matiques",
+						"color": "#FFC7CE"
+					},
+					"domain": {
+						"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+						"code": "calcul-mental",
+						"label": "Calcul mental",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "595d590f-659d-4c66-b12d-df909853b212",
+					"level": "CM2",
+					"title": "Apprendre des proc\u00e9dures de calcul mental",
+					"subject": {
+						"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+						"code": "mathematiques",
+						"label": "Math\u00e9matiques",
+						"color": "#FFC7CE"
+					},
+					"domain": {
+						"id": "8e1e7674-c4c6-4ddb-b565-ddf86e946753",
+						"code": "calcul-mental",
+						"label": "Calcul mental",
+						"level": "commun"
+					}
+				}
+			]
+		},
+		{
+			"id": "db5430f0-0a66-44d3-83c4-ec62c3e7dfe1",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "4e61c355-e261-45da-bcff-fd7a2f1557e3",
+			"level": "CM1",
+			"title": "S\u00e9quence 2 \u2014 Fractions-1 (s\u00e9ance 1/4)",
+			"status": "planifi\u00e9e",
+			"position": 5,
+			"subject": {
+				"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+				"code": "mathematiques",
+				"label": "Math\u00e9matiques",
+				"color": "#FFC7CE"
+			},
+			"domain": {
+				"id": "696bda00-9618-4ec8-97ca-a634c10f1910",
+				"code": "nombres",
+				"label": "Nombres",
+				"level": "commun"
+			},
+			"sequence": {
+				"id": "5a8ad428-23b7-4ae4-b151-fddec2c5f2aa",
+				"method": "maths-cm1",
+				"level": "CM1",
+				"number": 2,
+				"title": "Fractions-1"
+			},
+			"objectives": null,
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "4e61c355-e261-45da-bcff-fd7a2f1557e3",
+				"day_of_week": 1,
+				"starts_at": "10:45:00",
+				"ends_at": "11:30:00",
+				"duration_minutes": 45,
+				"label": "Math\u00e9matiques \u2014 Nombres",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+					"code": "mathematiques",
+					"label": "Math\u00e9matiques",
+					"color": "#FFC7CE"
+				},
+				"domain": {
+					"id": "696bda00-9618-4ec8-97ca-a634c10f1910",
+					"code": "nombres",
+					"label": "Nombres",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": []
+		},
+		{
+			"id": "f75a8912-930b-453f-8edc-bfc2b5940fb5",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "4e61c355-e261-45da-bcff-fd7a2f1557e3",
+			"level": "CM2",
+			"title": "S\u00e9quence 2 \u2014 Aires-1 (s\u00e9ance 1/4)",
+			"status": "planifi\u00e9e",
+			"position": 6,
+			"subject": {
+				"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+				"code": "mathematiques",
+				"label": "Math\u00e9matiques",
+				"color": "#FFC7CE"
+			},
+			"domain": {
+				"id": "696bda00-9618-4ec8-97ca-a634c10f1910",
+				"code": "nombres",
+				"label": "Nombres",
+				"level": "commun"
+			},
+			"sequence": {
+				"id": "07f55e46-766c-476f-8664-cd9ba6c5fef1",
+				"method": "maths-cm2",
+				"level": "CM2",
+				"number": 2,
+				"title": "Aires-1"
+			},
+			"objectives": null,
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "4e61c355-e261-45da-bcff-fd7a2f1557e3",
+				"day_of_week": 1,
+				"starts_at": "10:45:00",
+				"ends_at": "11:30:00",
+				"duration_minutes": 45,
+				"label": "Math\u00e9matiques \u2014 Nombres",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "f54c5eb2-d838-4aec-96d5-afd694620efd",
+					"code": "mathematiques",
+					"label": "Math\u00e9matiques",
+					"color": "#FFC7CE"
+				},
+				"domain": {
+					"id": "696bda00-9618-4ec8-97ca-a634c10f1910",
+					"code": "nombres",
+					"label": "Nombres",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": []
+		},
+		{
+			"id": "2d9b238d-d577-4bd0-94b2-80703a8ab253",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "b3ebb8f3-d5d8-4b0c-ab1e-6c9c6df249cf",
+			"level": "commun",
+			"title": "Charlie et la chocolaterie \u2014 Semaine 1",
+			"status": "planifi\u00e9e",
+			"position": 7,
+			"subject": {
+				"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+				"code": "francais",
+				"label": "Fran\u00e7ais",
+				"color": "#DAEEF3"
+			},
+			"domain": {
+				"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+				"code": "lecture",
+				"label": "Lecture",
+				"level": "commun"
+			},
+			"sequence": {
+				"id": "bf6becc7-8a1f-429c-8b4f-1fe64da232a2",
+				"method": "litterature",
+				"level": "commun",
+				"number": 1,
+				"title": "Charlie et la chocolaterie"
+			},
+			"objectives": "Organisation sur 7 semaines\n\nTh\u00e8me 1 \u2014 H\u00e9ros et H\u00e9ro\u00efnes\n\n-D\u00e9couvrir des \u0153uvres, des textes et des documents mettant en sc\u00e8ne des types de h\u00e9ros/h\u00e9ro\u00efnes bien identifi\u00e9s ou qui se r\u00e9v\u00e8lent comme tels.\n-Comprendre les qualit\u00e9s et les valeurs qui caract\u00e9risent un h\u00e9ros/une h\u00e9ro\u00efne.\n-s'interroger sur les valeurs socio-culturelles et les qualit\u00e9s humaines dont il/elle est porteur, sur l'identification ou la projection possible sur le lecteur.",
+			"content": "1/ Bande-annonce et prise de notes en bin\u00f4mes.\n-Prise de notes diff\u00e9renci\u00e9e pour chaque bin\u00f4me (certains ne cherchent que les personnages, d'autres les personnages + la situation-probl\u00e8me, d'autres seulement les lieux \u2026)\n-Mise en commun avec v\u00e9rification dans la bande-annonce.\n-Compl\u00e9ter ses notes (trace \u00e9crite).\n-R\u00e9diger son sc\u00e9nario de l'histoire en utilisant les notes.\n\n2/ Lecture silencieuse (ou \u00e9coute) du chapitre 1, avec la fiche, pour une lecture s\u00e9lective (activit\u00e9s 1 et 2).\n-Mise en commun au tableau, compl\u00e9ter ses notes.\n-Activit\u00e9 3 : recherche de mots dans le passage du texte.\n-R\u00e9diger un texte descriptif pour d\u00e9crire ses sensations en r\u00e9utilisant ces mots. Avant de commencer, on peut enrichir le r\u00e9servoir de mots des cinq sens et s'entra\u00eener oralement collectivement pour donner des id\u00e9es.",
+			"materials": "1/ Fiche 1, bande-annonce : https://tinyurl.com/57ac65f5\nTravail sur les personnages, les inf\u00e9rences, le lexique, la production d'\u00e9crit court.\n\n2/ Fiche 2, roman.\nTravail sur les personnages, le lexique, la production d'\u00e9crit court.",
+			"slot": {
+				"id": "b3ebb8f3-d5d8-4b0c-ab1e-6c9c6df249cf",
+				"day_of_week": 1,
+				"starts_at": "11:30:00",
+				"ends_at": "12:15:00",
+				"duration_minutes": 45,
+				"label": "Lecture \u2014 \u0152uvre suivie",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+					"code": "francais",
+					"label": "Fran\u00e7ais",
+					"color": "#DAEEF3"
+				},
+				"domain": {
+					"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+					"code": "lecture",
+					"label": "Lecture",
+					"level": "commun"
+				}
+			},
+			"sequence_session": {
+				"id": "ecdd2e5f-4f64-41eb-8b45-4d6a7afb0094",
+				"number": 1,
+				"title": "Semaine 1"
+			},
+			"program_items": []
+		},
+		{
+			"id": "517ab03d-9219-40ce-9d92-4879619feb15",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "3bc9bc35-6a0d-4880-a507-a23a1865305d",
+			"level": "commun",
+			"title": "Dict\u00e9e du jour",
+			"status": "planifi\u00e9e",
+			"position": 8,
+			"subject": {
+				"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+				"code": "francais",
+				"label": "Fran\u00e7ais",
+				"color": "#DAEEF3"
+			},
+			"domain": {
+				"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+				"code": "orthographe",
+				"label": "Orthographe",
+				"level": "commun"
+			},
+			"sequence": null,
+			"objectives": "CM1 \u2014 Identifier les classes de mots subissant des variations\nCM1 \u2014 R\u00e9aliser la cha\u00eene d\u2019accords au sein du groupe nominal\nCM1 \u2014 Accorder le sujet et le verbe\nCM2 \u2014 Identifier les classes de mots subissant des variations\nCM2 \u2014 R\u00e9aliser la cha\u00eene d\u2019accords au sein du groupe nominal\nCM2 \u2014 Accorder le sujet et le verbe",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "3bc9bc35-6a0d-4880-a507-a23a1865305d",
+				"day_of_week": 1,
+				"starts_at": "12:15:00",
+				"ends_at": "12:30:00",
+				"duration_minutes": 15,
+				"label": "Dict\u00e9e du jour",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+					"code": "francais",
+					"label": "Fran\u00e7ais",
+					"color": "#DAEEF3"
+				},
+				"domain": {
+					"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+					"code": "orthographe",
+					"label": "Orthographe",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": [
+				{
+					"id": "9f84ffc5-3e20-4854-aa6c-a5b8b4b53dab",
+					"level": "CM1",
+					"title": "Identifier les classes de mots subissant des variations",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+						"code": "orthographe",
+						"label": "Orthographe",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "70b69f69-494a-42f1-b90e-1964e7f8d047",
+					"level": "CM1",
+					"title": "R\u00e9aliser la cha\u00eene d\u2019accords au sein du groupe nominal",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+						"code": "orthographe",
+						"label": "Orthographe",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "abc2acb3-b912-4df1-90ce-1e3c8fe9a389",
+					"level": "CM1",
+					"title": "Accorder le sujet et le verbe",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+						"code": "orthographe",
+						"label": "Orthographe",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "edd705c2-0ea4-4b92-b6d5-39eb678e34d6",
+					"level": "CM2",
+					"title": "Identifier les classes de mots subissant des variations",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+						"code": "orthographe",
+						"label": "Orthographe",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "39e5b378-53ed-42cf-92e7-8350983bf3bf",
+					"level": "CM2",
+					"title": "R\u00e9aliser la cha\u00eene d\u2019accords au sein du groupe nominal",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+						"code": "orthographe",
+						"label": "Orthographe",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "6ec392cc-047e-4382-9602-ebfa1422d1f5",
+					"level": "CM2",
+					"title": "Accorder le sujet et le verbe",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "064d1c63-fec5-470e-aace-d10d3a352bc7",
+						"code": "orthographe",
+						"label": "Orthographe",
+						"level": "commun"
+					}
+				}
+			]
+		},
+		{
+			"id": "951d5c31-f845-4443-8206-6b847ca81503",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "374916db-7817-46fe-849b-a6eb3036a2e3",
+			"level": "commun",
+			"title": "Lecture offerte / lecture personnelle",
+			"status": "planifi\u00e9e",
+			"position": 9,
+			"subject": {
+				"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+				"code": "francais",
+				"label": "Fran\u00e7ais",
+				"color": "#DAEEF3"
+			},
+			"domain": {
+				"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+				"code": "lecture",
+				"label": "Lecture",
+				"level": "commun"
+			},
+			"sequence": null,
+			"objectives": "CM1 \u2014 Lire avec fluidit\u00e9\nCM1 \u2014 Lire \u00e0 voix haute avec expressivit\u00e9\nCM1 \u2014 Lire et comprendre seul des textes, des documents et des images\nCM1 \u2014 Lire et comprendre des textes, des documents et des images pour apprendre dans toutes les disciplines\nCM1 \u2014 Lire une \u0153uvre et se l\u2019approprier\nCM2 \u2014 Lire avec fluidit\u00e9\nCM2 \u2014 Lire \u00e0 voix haute avec expressivit\u00e9\nCM2 \u2014 Lire et comprendre seul des textes, des documents et des images\nCM2 \u2014 Lire et comprendre des textes, des documents et des images pour apprendre dans toutes les disciplines\nCM2 \u2014 Lire une \u0153uvre et se l\u2019approprier",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "374916db-7817-46fe-849b-a6eb3036a2e3",
+				"day_of_week": 1,
+				"starts_at": "14:00:00",
+				"ends_at": "14:15:00",
+				"duration_minutes": 15,
+				"label": "Lecture offerte / lecture personnelle",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+					"code": "francais",
+					"label": "Fran\u00e7ais",
+					"color": "#DAEEF3"
+				},
+				"domain": {
+					"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+					"code": "lecture",
+					"label": "Lecture",
+					"level": "commun"
+				}
+			},
+			"sequence_session": null,
+			"program_items": [
+				{
+					"id": "e033de1d-f89e-4f93-9ad3-d59bc7818dd9",
+					"level": "CM1",
+					"title": "Lire avec fluidit\u00e9",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "d383298d-2947-433b-8793-16b0af8252af",
+					"level": "CM1",
+					"title": "Lire \u00e0 voix haute avec expressivit\u00e9",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "f2d16b8c-39d9-486e-abd6-0a7c740ee03d",
+					"level": "CM1",
+					"title": "Lire et comprendre seul des textes, des documents et des images",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "3bee178f-1a88-4e71-acd0-49ab7663af50",
+					"level": "CM1",
+					"title": "Lire et comprendre des textes, des documents et des images pour apprendre dans toutes les disciplines",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "6cc9a9f3-1965-4487-81d7-a8f387eac7cc",
+					"level": "CM1",
+					"title": "Lire une \u0153uvre et se l\u2019approprier",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "02bfd15b-58c3-4d79-a439-2758c89fc88c",
+					"level": "CM2",
+					"title": "Lire avec fluidit\u00e9",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "0dcf9f21-b7ad-462a-9802-d6617970014b",
+					"level": "CM2",
+					"title": "Lire \u00e0 voix haute avec expressivit\u00e9",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "3109b47b-96b8-403f-8b8f-4e1d7c14e9d3",
+					"level": "CM2",
+					"title": "Lire et comprendre seul des textes, des documents et des images",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "aa5bb7d6-f795-4a4a-a624-f48b1c48e3e2",
+					"level": "CM2",
+					"title": "Lire et comprendre des textes, des documents et des images pour apprendre dans toutes les disciplines",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "303ae94f-754d-459a-87f3-aea604f26ebe",
+					"level": "CM2",
+					"title": "Lire une \u0153uvre et se l\u2019approprier",
+					"subject": {
+						"id": "31cfec7c-da4b-462d-8f9f-15a627728b80",
+						"code": "francais",
+						"label": "Fran\u00e7ais",
+						"color": "#DAEEF3"
+					},
+					"domain": {
+						"id": "527c7101-9dfa-4dca-9c10-38de372419cc",
+						"code": "lecture",
+						"label": "Lecture",
+						"level": "commun"
+					}
+				}
+			]
+		},
+		{
+			"id": "5eb4c2a1-91aa-4bf9-9bea-6d09c3211520",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "fd1d4f76-9e2d-4f32-9baf-e6ee3a0054d2",
+			"level": "commun",
+			"title": "\u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique",
+			"status": "planifi\u00e9e",
+			"position": 10,
+			"subject": {
+				"id": "c986128e-23b7-4aab-a320-48f14236887f",
+				"code": "sciences-et-technologie",
+				"label": "Sciences et technologie",
+				"color": "#EBF1DE"
+			},
+			"domain": {
+				"id": "f9af8e2d-6354-43dd-8190-8322c90d8aed",
+				"code": "la-matiere-les-mouvements-et-les-signaux",
+				"label": "La mati\u00e8re, les mouvements et les signaux",
+				"level": "commun"
+			},
+			"sequence": null,
+			"objectives": "CM1 \u2014 \u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique\nCM2 \u2014 \u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "fd1d4f76-9e2d-4f32-9baf-e6ee3a0054d2",
+				"day_of_week": 1,
+				"starts_at": "14:15:00",
+				"ends_at": "15:00:00",
+				"duration_minutes": 45,
+				"label": "Sciences et technologie",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "c986128e-23b7-4aab-a320-48f14236887f",
+					"code": "sciences-et-technologie",
+					"label": "Sciences et technologie",
+					"color": "#EBF1DE"
+				},
+				"domain": null
+			},
+			"sequence_session": null,
+			"program_items": [
+				{
+					"id": "0d522b70-e5cc-4c53-9175-ca0a5f26be84",
+					"level": "CM1",
+					"title": "\u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique",
+					"subject": {
+						"id": "c986128e-23b7-4aab-a320-48f14236887f",
+						"code": "sciences-et-technologie",
+						"label": "Sciences et technologie",
+						"color": "#EBF1DE"
+					},
+					"domain": {
+						"id": "f9af8e2d-6354-43dd-8190-8322c90d8aed",
+						"code": "la-matiere-les-mouvements-et-les-signaux",
+						"label": "La mati\u00e8re, les mouvements et les signaux",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "0cc971fa-c8c0-4402-8341-cf5f5e408a2b",
+					"level": "CM2",
+					"title": "\u00c9tats et constitution de la mati\u00e8re \u00e0 l\u2019\u00e9chelle macroscopique",
+					"subject": {
+						"id": "c986128e-23b7-4aab-a320-48f14236887f",
+						"code": "sciences-et-technologie",
+						"label": "Sciences et technologie",
+						"color": "#EBF1DE"
+					},
+					"domain": {
+						"id": "f9af8e2d-6354-43dd-8190-8322c90d8aed",
+						"code": "la-matiere-les-mouvements-et-les-signaux",
+						"label": "La mati\u00e8re, les mouvements et les signaux",
+						"level": "commun"
+					}
+				}
+			]
+		},
+		{
+			"id": "62870c93-4d7f-4ec8-8683-5380d0e1fcbb",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "0ac96ca5-0f93-426a-b3e9-2faa5f484dea",
+			"level": "commun",
+			"title": "Anglais",
+			"status": "planifi\u00e9e",
+			"position": 11,
+			"subject": {
+				"id": "913661d0-1c20-4fa7-a4ea-be9e9e4e44be",
+				"code": "anglais",
+				"label": "Anglais",
+				"color": "#E5D5EC"
+			},
+			"domain": {
+				"id": "128f7e32-0f96-4110-a320-7e7253499513",
+				"code": "comprehension-de-l-oral",
+				"label": "Compr\u00e9hension de l\u2019oral",
+				"level": "commun"
+			},
+			"sequence": null,
+			"objectives": "CM1 \u2014 Suivre le fil d\u2019une histoire simple (CO-CM1)\nCM2 \u2014 Suivre le fil d\u2019une histoire simple (CO-CM2)",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "0ac96ca5-0f93-426a-b3e9-2faa5f484dea",
+				"day_of_week": 1,
+				"starts_at": "15:00:00",
+				"ends_at": "15:45:00",
+				"duration_minutes": 45,
+				"label": "Anglais",
+				"level": "commun",
+				"is_alternating": false,
+				"alternation_group": null,
+				"subject": {
+					"id": "913661d0-1c20-4fa7-a4ea-be9e9e4e44be",
+					"code": "anglais",
+					"label": "Anglais",
+					"color": "#E5D5EC"
+				},
+				"domain": null
+			},
+			"sequence_session": null,
+			"program_items": [
+				{
+					"id": "1a457fe3-f465-48e2-b0bc-b1a40ea8ead9",
+					"level": "CM1",
+					"title": "Suivre le fil d\u2019une histoire simple (CO-CM1)",
+					"subject": {
+						"id": "913661d0-1c20-4fa7-a4ea-be9e9e4e44be",
+						"code": "anglais",
+						"label": "Anglais",
+						"color": "#E5D5EC"
+					},
+					"domain": {
+						"id": "128f7e32-0f96-4110-a320-7e7253499513",
+						"code": "comprehension-de-l-oral",
+						"label": "Compr\u00e9hension de l\u2019oral",
+						"level": "commun"
+					}
+				},
+				{
+					"id": "20f5ad95-3122-448a-bd60-f45ba63f015c",
+					"level": "CM2",
+					"title": "Suivre le fil d\u2019une histoire simple (CO-CM2)",
+					"subject": {
+						"id": "913661d0-1c20-4fa7-a4ea-be9e9e4e44be",
+						"code": "anglais",
+						"label": "Anglais",
+						"color": "#E5D5EC"
+					},
+					"domain": {
+						"id": "128f7e32-0f96-4110-a320-7e7253499513",
+						"code": "comprehension-de-l-oral",
+						"label": "Compr\u00e9hension de l\u2019oral",
+						"level": "commun"
+					}
+				}
+			]
+		},
+		{
+			"id": "163b97aa-5144-4fde-b894-23dff0131e33",
+			"school_day_id": "73c80eb1-0047-489a-a493-2372de7b3ed3",
+			"date": "2026-09-07",
+			"timetable_slot_id": "67b7c518-7a05-4962-991d-de2c6de0894b",
+			"level": "commun",
+			"title": "Exp\u00e9rimenter, produire, cr\u00e9er",
+			"status": "planifi\u00e9e",
+			"position": 12,
+			"subject": {
+				"id": "eabce3ca-f2e4-4d73-93c2-b79f02b8ca21",
+				"code": "arts-plastiques",
+				"label": "Arts plastiques",
+				"color": "#FFFF99"
+			},
+			"domain": {
+				"id": "194f8324-dbf4-4150-a05d-4708ae3914bf",
+				"code": "competences-travaillees",
+				"label": "Comp\u00e9tences travaill\u00e9es",
+				"level": "commun"
+			},
+			"sequence": null,
+			"objectives": "Exp\u00e9rimenter, produire, cr\u00e9er",
+			"content": null,
+			"materials": null,
+			"slot": {
+				"id": "67b7c518-7a05-4962-991d-de2c6de0894b",
+				"day_of_week": 1,
+				"starts_at": "15:45:00",
+				"ends_at": "16:30:00",
+				"duration_minutes": 45,
+				"label": "Arts plastiques / \u00c9ducation musicale",
+				"level": "commun",
+				"is_alternating": true,
+				"alternation_group": "arts-plastiques-education-musicale",
+				"subject": null,
+				"domain": null
+			},
+			"sequence_session": null,
+			"program_items": [
+				{
+					"id": "d71b86f5-fe8c-4e04-afff-044c5435e0ac",
+					"level": "commun",
+					"title": "Exp\u00e9rimenter, produire, cr\u00e9er",
+					"subject": {
+						"id": "eabce3ca-f2e4-4d73-93c2-b79f02b8ca21",
+						"code": "arts-plastiques",
+						"label": "Arts plastiques",
+						"color": "#FFFF99"
+					},
+					"domain": {
+						"id": "194f8324-dbf4-4150-a05d-4708ae3914bf",
+						"code": "competences-travaillees",
+						"label": "Comp\u00e9tences travaill\u00e9es",
+						"level": "commun"
+					}
+				}
+			]
+		}
+	]
+}

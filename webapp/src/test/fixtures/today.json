@@ -1,0 +1,14 @@
+{
+	"date": "2026-08-31",
+	"school_day": null,
+	"next_taught_day": {
+		"id": "61a2ced4-6ffa-410f-b1c0-6fe34ba3c940",
+		"date": "2026-09-01",
+		"day_of_week": 2,
+		"is_off": false,
+		"off_reason": null,
+		"week_number": 1,
+		"number_in_period": 1,
+		"period_code": "P1"
+	}
+}
