@@ -98,7 +98,7 @@ async def test_a_seance_reads_back_on_its_own(client: AsyncClient) -> None:
     day = (await client.get(f"/api/days/{A_MONDAY}")).json()
     wanted = day["sessions"][3]
 
-    response = await client.get(f"/api/sessions/{wanted['id']}")
+    response = await client.get(f"/api/planned-sessions/{wanted['id']}")
 
     assert response.status_code == OK
     assert response.json() == wanted
@@ -110,13 +110,13 @@ async def test_editing_a_seance_persists(client: AsyncClient) -> None:
     wanted = day["sessions"][0]
 
     response = await client.patch(
-        f"/api/sessions/{wanted['id']}",
+        f"/api/planned-sessions/{wanted['id']}",
         json={"title": "Accueil — rentrée", "status": SessionStatus.FAITE},
     )
 
     assert response.status_code == OK
     assert response.json()["title"] == "Accueil — rentrée"
-    again = (await client.get(f"/api/sessions/{wanted['id']}")).json()
+    again = (await client.get(f"/api/planned-sessions/{wanted['id']}")).json()
     assert again["title"] == "Accueil — rentrée"
     assert again["status"] == SessionStatus.FAITE
 
@@ -126,13 +126,13 @@ async def test_a_seance_can_be_removed_and_put_back(client: AsyncClient) -> None
     day = (await client.get(f"/api/days/{A_MONDAY}")).json()
     wanted = day["sessions"][0]
 
-    removed = await client.delete(f"/api/sessions/{wanted['id']}")
+    removed = await client.delete(f"/api/planned-sessions/{wanted['id']}")
 
     assert removed.status_code == NO_CONTENT
-    assert (await client.get(f"/api/sessions/{wanted['id']}")).status_code == NOT_FOUND
+    assert (await client.get(f"/api/planned-sessions/{wanted['id']}")).status_code == NOT_FOUND
 
     added = await client.post(
-        "/api/sessions",
+        "/api/planned-sessions",
         json={
             "date": A_MONDAY.isoformat(),
             "timetable_slot_id": wanted["timetable_slot_id"],
@@ -150,7 +150,7 @@ async def test_a_creneau_already_taken_at_that_niveau_is_a_409(client: AsyncClie
     wanted = day["sessions"][0]
 
     response = await client.post(
-        "/api/sessions",
+        "/api/planned-sessions",
         json={
             "date": A_MONDAY.isoformat(),
             "timetable_slot_id": wanted["timetable_slot_id"],
@@ -169,7 +169,7 @@ async def test_a_creneau_of_another_weekday_is_a_409(client: AsyncClient) -> Non
     slot = tuesday["sessions"][0]["timetable_slot_id"]
 
     response = await client.post(
-        "/api/sessions",
+        "/api/planned-sessions",
         json={
             "date": A_MONDAY.isoformat(),
             "timetable_slot_id": slot,
@@ -187,7 +187,7 @@ async def test_a_jour_chome_takes_no_seance(client: AsyncClient) -> None:
     day = (await client.get(f"/api/days/{A_MONDAY}")).json()
 
     response = await client.post(
-        "/api/sessions",
+        "/api/planned-sessions",
         json={
             "date": EASTER_MONDAY.isoformat(),
             "timetable_slot_id": day["sessions"][0]["timetable_slot_id"],
@@ -208,10 +208,10 @@ async def test_a_creneau_of_one_niveau_takes_no_other(client: AsyncClient) -> No
         for session in tuesday["sessions"]
         if session["slot"]["level"] == Level.CM1 and session["slot"]["starts_at"] == "11:30:00"
     )
-    await client.delete(f"/api/sessions/{cm1_only['id']}")
+    await client.delete(f"/api/planned-sessions/{cm1_only['id']}")
 
     response = await client.post(
-        "/api/sessions",
+        "/api/planned-sessions",
         json={
             "date": "2026-09-08",
             "timetable_slot_id": cm1_only["timetable_slot_id"],

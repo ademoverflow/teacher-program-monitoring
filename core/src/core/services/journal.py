@@ -8,7 +8,7 @@ bilan is written after the lesson and starts empty.
 The rule that shapes everything here is §10's: « les cahiers journaux … ne sont jamais
 écrasés ». The generator honours it from the other side (``_untouchable_days`` in
 ``planning/writer.py``); here it means a day whose cahier journal exists is never filled
-again, not even partly, and never in part.
+again, not even partly.
 """
 
 import datetime
@@ -16,21 +16,22 @@ import uuid
 from dataclasses import dataclass
 from typing import Any
 
-from sqlalchemy import Row, delete, func, insert, select, update
+from sqlalchemy import Row, delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models.base import table_of
-from core.models.calendar import SchoolDay
 from core.models.curriculum import Subject
 from core.models.journal import JournalEntry
 from core.models.level import Level
 from core.models.planning import PlannedSession
 from core.models.timetable import TimetableSlot
-from core.schemas import JournalEntryOut
+from core.schemas import JournalDay, JournalEntryOut
+from core.services.schedule import load_day_ref
+from core.services.school_day import next_position, not_a_school_day
 
 
 class JournalError(Exception):
-    """A date the cahier journal has no day for, said in French for the API."""
+    """A date the cahier journal has no jour de classe for, said in French for the API."""
 
 
 class OrderError(JournalError):
@@ -39,15 +40,14 @@ class OrderError(JournalError):
 
 @dataclass(frozen=True, slots=True)
 class Journal:
-    """A day's cahier journal, and whether the day has one at all.
+    """A day's cahier journal, and whether this call is what filled it.
 
-    A day never initialised and a day whose lignes have all been deleted are different
-    states: only the first may be filled from the séances, or a teacher who emptied a day
-    on purpose would find it full again on her next visit.
+    ``created`` is how the endpoint tells a fill from a no-op: initialising is safe to call
+    on every visit, and only the first call writes.
     """
 
-    entries: tuple[JournalEntryOut, ...]
-    initialised: bool
+    day: JournalDay
+    created: bool
 
 
 def _discipline(row: Row) -> str:
@@ -78,7 +78,7 @@ def _objectives(title: str, objectives: str | None) -> str:
     return f"{title}\n{objectives}"
 
 
-def _rendered(row: Row) -> JournalEntryOut:
+def _entry(row: Row) -> JournalEntryOut:
     """Render one ligne de cahier journal."""
     return JournalEntryOut(
         id=row.id,
@@ -95,59 +95,54 @@ def _rendered(row: Row) -> JournalEntryOut:
 
 async def _day_id(session: AsyncSession, day: datetime.date) -> uuid.UUID:
     """Find the jour de classe, or say that this date is not one."""
-    days = table_of(SchoolDay)
-    found = (await session.execute(select(days.c.id).where(days.c.date == day))).one_or_none()
+    found = await load_day_ref(session, day)
     if found is None:
-        message = f"{day.isoformat()} n'est pas un jour de classe"
-        raise JournalError(message)
+        raise JournalError(not_a_school_day(day))
     return found.id
 
 
-async def load_journal(session: AsyncSession, day: datetime.date) -> Journal:
+async def load_journal(session: AsyncSession, day: datetime.date) -> JournalDay:
     """Read a day's cahier journal, in the order its lignes are written down."""
-    day_id = await _day_id(session, day)
+    where = await load_day_ref(session, day)
+    if where is None:
+        raise JournalError(not_a_school_day(day))
+
     entries = table_of(JournalEntry)
     rows = (
         await session.execute(
             select(entries)
-            .where(entries.c.school_day_id == day_id)
+            .where(entries.c.school_day_id == where.id)
             .order_by(entries.c.position, entries.c.created_at)
         )
     ).all()
-    return Journal(
-        entries=tuple(_rendered(row) for row in rows),
-        initialised=await _is_initialised(session, day_id),
+    return JournalDay(
+        date=where.date,
+        week_number=where.week_number,
+        number_in_period=where.number_in_period,
+        period_code=where.period_code,
+        is_off=where.is_off,
+        off_reason=where.off_reason,
+        # Read off the lignes themselves: the day is initialised as soon as one exists. A
+        # day emptied afterwards reads as never initialised, which is the one case this
+        # cannot tell apart — and the one where filling it again is what would be asked for
+        # anyway (ADR-0021).
+        initialised=bool(rows),
+        entries=[_entry(row) for row in rows],
     )
-
-
-async def _is_initialised(session: AsyncSession, day_id: uuid.UUID) -> bool:
-    """Say whether the day has ever had a cahier journal.
-
-    Read off the lignes themselves: the day is initialised as soon as one exists. A day
-    emptied afterwards reads as not initialised again, which is the one case this cannot
-    tell apart — and the one where filling it from the séances is what the teacher would
-    ask for anyway.
-    """
-    entries = table_of(JournalEntry)
-    held = (
-        await session.execute(
-            select(func.count()).select_from(entries).where(entries.c.school_day_id == day_id)
-        )
-    ).scalar_one()
-    return held > 0
 
 
 async def initialise_journal(session: AsyncSession, day: datetime.date) -> Journal:
     """Fill a day's cahier journal from its séances, once.
 
-    A day that already has one comes back untouched: §10 says a cahier journal is never
-    overwritten, and « the first time the vue jour is opened » (§8 Phase 6) is the only
-    time this writes.
+    A day that already has one comes back untouched, with ``created`` false: §10 says a
+    cahier journal is never overwritten, and « the first time the vue jour is opened »
+    (§8 Phase 6) is the only time this writes.
     """
-    day_id = await _day_id(session, day)
-    if await _is_initialised(session, day_id):
-        return await load_journal(session, day)
+    existing = await load_journal(session, day)
+    if existing.initialised:
+        return Journal(day=existing, created=False)
 
+    day_id = await _day_id(session, day)
     sessions, slots, subjects, entries = (
         table_of(PlannedSession),
         table_of(TimetableSlot),
@@ -157,8 +152,8 @@ async def initialise_journal(session: AsyncSession, day: datetime.date) -> Journ
     rows = (
         await session.execute(
             # Column by column: ``planned_sessions`` and ``timetable_slots`` both have an
-            # ``id`` and a ``level``, and a whole-table select would leave which one a
-            # row attribute means to the order of the FROM clause.
+            # ``id`` and a ``level``, and a whole-table select would leave which one a row
+            # attribute means to the order of the FROM clause.
             select(
                 sessions.c.id.label("session_id"),
                 sessions.c.level,
@@ -175,25 +170,27 @@ async def initialise_journal(session: AsyncSession, day: datetime.date) -> Journ
             .order_by(sessions.c.position, sessions.c.level)
         )
     ).all()
-    if rows:
-        await session.execute(
-            insert(entries).values(
-                [
-                    {
-                        "school_day_id": day_id,
-                        "planned_session_id": row.session_id,
-                        "discipline": _discipline(row),
-                        # The créneau's teaching time, not ``ends_at - starts_at``: the
-                        # cahier journal prints a durée (ADR-0003).
-                        "duration_minutes": row.duration_minutes,
-                        "objectives": _objectives(row.title, row.objectives),
-                        "position": rank,
-                    }
-                    for rank, row in enumerate(rows, start=1)
-                ]
-            )
+    if not rows:
+        return Journal(day=existing, created=False)
+
+    await session.execute(
+        insert(entries).values(
+            [
+                {
+                    "school_day_id": day_id,
+                    "planned_session_id": row.session_id,
+                    "discipline": _discipline(row),
+                    # The créneau's teaching time, not ``ends_at - starts_at``: the cahier
+                    # journal prints a durée (ADR-0003).
+                    "duration_minutes": row.duration_minutes,
+                    "objectives": _objectives(row.title, row.objectives),
+                    "position": rank,
+                }
+                for rank, row in enumerate(rows, start=1)
+            ]
         )
-    return await load_journal(session, day)
+    )
+    return Journal(day=await load_journal(session, day), created=True)
 
 
 async def add_entry(session: AsyncSession, day: datetime.date, values: dict[str, Any]) -> uuid.UUID:
@@ -201,12 +198,7 @@ async def add_entry(session: AsyncSession, day: datetime.date, values: dict[str,
     day_id = await _day_id(session, day)
     entries = table_of(JournalEntry)
     if values.get("position") is None:
-        last = (
-            await session.execute(
-                select(func.max(entries.c.position)).where(entries.c.school_day_id == day_id)
-            )
-        ).scalar_one()
-        values["position"] = (last or 0) + 1
+        values["position"] = await next_position(session, entries, day_id)
     return (
         await session.execute(
             insert(entries).values(school_day_id=day_id, **values).returning(entries.c.id)
@@ -218,7 +210,7 @@ async def load_entry(session: AsyncSession, identifier: uuid.UUID) -> JournalEnt
     """Read one ligne back. Returns ``None`` if there is no such ligne."""
     entries = table_of(JournalEntry)
     row = (await session.execute(select(entries).where(entries.c.id == identifier))).one_or_none()
-    return None if row is None else _rendered(row)
+    return None if row is None else _entry(row)
 
 
 async def update_entry(
@@ -228,8 +220,7 @@ async def update_entry(
     entries = table_of(JournalEntry)
     if values:
         await session.execute(update(entries).where(entries.c.id == identifier).values(**values))
-    row = (await session.execute(select(entries).where(entries.c.id == identifier))).one_or_none()
-    return None if row is None else _rendered(row)
+    return await load_entry(session, identifier)
 
 
 async def delete_entry(session: AsyncSession, identifier: uuid.UUID) -> bool:
@@ -241,7 +232,7 @@ async def delete_entry(session: AsyncSession, identifier: uuid.UUID) -> bool:
     return removed.one_or_none() is not None
 
 
-async def reorder(session: AsyncSession, day: datetime.date, order: list[uuid.UUID]) -> Journal:
+async def reorder(session: AsyncSession, day: datetime.date, order: list[uuid.UUID]) -> JournalDay:
     """Renumber a day's lignes into the given order.
 
     The order has to name every ligne of the day and nothing else: a partial order would

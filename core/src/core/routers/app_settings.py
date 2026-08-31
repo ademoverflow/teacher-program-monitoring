@@ -23,7 +23,7 @@ class SettingUpdate(BaseModel):
     value: Any
 
 
-def _rendered(row: Any) -> SettingOut:  # noqa: ANN401 - a SQLAlchemy row, not a model
+def _setting(row: Any) -> SettingOut:  # noqa: ANN401 - a SQLAlchemy row, not a model
     """Render one réglage, saying whether the generation is what reads it."""
     return SettingOut(
         key=row.key,
@@ -42,7 +42,7 @@ async def read_settings(
     """Return the réglages, in a stable order."""
     settings = table_of(AppSetting)
     rows = (await session.execute(select(settings).order_by(settings.c.key))).all()
-    return [_rendered(row) for row in rows]
+    return [_setting(row) for row in rows]
 
 
 @settings_router.put("/{key}")
@@ -77,4 +77,4 @@ async def edit_setting(
     await session.execute(update(settings).where(settings.c.key == key).values(value=body.value))
     await session.commit()
     row = (await session.execute(select(settings).where(settings.c.key == key))).one()
-    return _rendered(row)
+    return _setting(row)

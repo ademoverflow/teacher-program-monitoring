@@ -18,6 +18,12 @@ from pydantic import BaseModel
 from core.models.level import Level
 from core.models.status import SessionStatus
 from core.models.weekday import Weekday
+from core.services.planning.problems import ProblemKind
+
+# How much of a long list one page holds. The programmes are 220 items and a rituel links
+# the same item on 139 days, so both of those lists are paged and both page the same way.
+PAGE_SIZE = 50
+MAX_PAGE_SIZE = 200
 
 # --------------------------------------------------------------------------------------
 # Reference data
@@ -108,6 +114,15 @@ class ProgramItemOut(ProgramItemRef):
     needs_review: bool
 
 
+class ProgramItemPage(BaseModel):
+    """One page of items de programme, and how many matched in all."""
+
+    total: int
+    limit: int
+    offset: int
+    items: list[ProgramItemOut]
+
+
 # --------------------------------------------------------------------------------------
 # The calendar
 # --------------------------------------------------------------------------------------
@@ -180,13 +195,15 @@ class YearOverview(BaseModel):
 class TodayOut(BaseModel):
     """Where the teacher is in the year right now — « Aujourd'hui » is the home page (§7).
 
-    ``school_day`` is today when today is one and is not chômé; ``next_school_day`` is the
-    one to open otherwise, and is null once the year is over.
+    ``school_day`` is today's jour de classe when today is one — **including a jour chômé**,
+    which comes back with its motif so the page can say why there is no class rather than
+    show nothing. ``next_taught_day`` is the jour de classe to open: today when today is
+    taught, the next one otherwise, and null once the year is over.
     """
 
     date: datetime.date
     school_day: DayRef | None
-    next_school_day: DayRef | None
+    next_taught_day: DayRef | None
 
 
 # --------------------------------------------------------------------------------------
@@ -194,7 +211,7 @@ class TodayOut(BaseModel):
 # --------------------------------------------------------------------------------------
 
 
-class SessionSummary(BaseModel):
+class PlannedSessionSummary(BaseModel):
     """A séance as the semaine grid draws it."""
 
     id: uuid.UUID
@@ -210,7 +227,7 @@ class SessionSummary(BaseModel):
     sequence: SequenceRef | None
 
 
-class SessionDetail(SessionSummary):
+class PlannedSessionDetail(PlannedSessionSummary):
     """A séance with everything it says, for the jour view and the séance editor."""
 
     objectives: str | None
@@ -219,6 +236,15 @@ class SessionDetail(SessionSummary):
     slot: SlotSummary
     sequence_session: SequenceStepRef | None
     program_items: list[ProgramItemRef]
+
+
+class PlannedSessionPage(BaseModel):
+    """One page of séances, and how many there are in all."""
+
+    total: int
+    limit: int
+    offset: int
+    sessions: list[PlannedSessionSummary]
 
 
 class WeekCell(BaseModel):
@@ -231,7 +257,7 @@ class WeekCell(BaseModel):
     """
 
     slot: SlotSummary
-    sessions: list[SessionSummary]
+    sessions: list[PlannedSessionSummary]
 
 
 class DayInWeek(BaseModel):
@@ -276,7 +302,7 @@ class DayDetail(BaseModel):
     previous_day: datetime.date | None
     next_day: datetime.date | None
     has_journal: bool
-    sessions: list[SessionDetail]
+    sessions: list[PlannedSessionDetail]
 
 
 # --------------------------------------------------------------------------------------
@@ -329,7 +355,7 @@ class ProblemOut(BaseModel):
     say, and §10 has both reported rather than worked around.
     """
 
-    kind: str
+    kind: ProblemKind
     message: str
 
 

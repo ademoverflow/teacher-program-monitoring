@@ -13,15 +13,15 @@ import uuid
 from dataclasses import dataclass
 from typing import Any
 
-from sqlalchemy import Row, delete, func, insert, select, update
+from sqlalchemy import Row, delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models.base import table_of
-from core.models.calendar import SchoolDay
 from core.models.curriculum import ProgramItem
 from core.models.level import Level
 from core.models.planning import PlannedSession, PlannedSessionProgramItem
 from core.models.timetable import TimetableSlot
+from core.services.school_day import find_school_day, next_position, not_a_school_day
 
 
 class PlacementError(Exception):
@@ -43,11 +43,10 @@ class Placement:
 
 async def _day_of(session: AsyncSession, placement: Placement) -> Row:
     """Find the jour de classe and the créneau, and refuse what the EDT forbids."""
-    days, slots = table_of(SchoolDay), table_of(TimetableSlot)
-    day = (await session.execute(select(days).where(days.c.date == placement.date))).one_or_none()
+    slots = table_of(TimetableSlot)
+    day = await find_school_day(session, placement.date)
     if day is None:
-        message = f"{placement.date.isoformat()} n'est pas un jour de classe"
-        raise PlacementError(message)
+        raise PlacementError(not_a_school_day(placement.date))
     if day.is_off:
         message = (
             f"{placement.date.isoformat()} est chômé ({day.off_reason}) : "
@@ -97,7 +96,7 @@ async def _replace_program_items(
     )
 
 
-async def create_session(
+async def create_planned_session(
     session: AsyncSession,
     placement: Placement,
     *,
@@ -130,12 +129,7 @@ async def create_session(
         raise PlacementError(message)
 
     if values.get("position") is None:
-        last = (
-            await session.execute(
-                select(func.max(sessions.c.position)).where(sessions.c.school_day_id == day.id)
-            )
-        ).scalar_one()
-        values["position"] = (last or 0) + 1
+        values["position"] = await next_position(session, sessions, day.id)
 
     identifier = (
         await session.execute(
@@ -153,7 +147,7 @@ async def create_session(
     return identifier
 
 
-async def update_session(
+async def update_planned_session(
     session: AsyncSession,
     identifier: uuid.UUID,
     *,
@@ -178,7 +172,7 @@ async def update_session(
     return True
 
 
-async def delete_session(session: AsyncSession, identifier: uuid.UUID) -> bool:
+async def delete_planned_session(session: AsyncSession, identifier: uuid.UUID) -> bool:
     """Remove a séance. Returns ``False`` if there was none.
 
     The links to the items de programme go with it (``ON DELETE CASCADE``); a ligne de

@@ -11,23 +11,25 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_session
 from core.models.level import Level
 from core.models.status import SessionStatus
-from core.schemas import SessionDetail, SessionSummary
-from core.services.schedule import load_session, sessions_of_program_item
-from core.services.sessions import (
+from core.schemas import (
+    MAX_PAGE_SIZE,
+    PAGE_SIZE,
+    PlannedSessionDetail,
+    PlannedSessionPage,
+)
+from core.services.planned_sessions import (
     Placement,
     PlacementError,
-    create_session,
-    delete_session,
-    update_session,
+    create_planned_session,
+    delete_planned_session,
+    update_planned_session,
 )
+from core.services.schedule import load_planned_session, planned_sessions_of_program_item
 
-sessions_router = APIRouter(prefix="/sessions", tags=["Séances"])
-
-PAGE_SIZE = 50
-MAX_PAGE_SIZE = 200
+planned_sessions_router = APIRouter(prefix="/planned-sessions", tags=["Séances"])
 
 
-class SessionCreate(BaseModel):
+class PlannedSessionCreate(BaseModel):
     """A séance the teacher adds by hand, named by the natural key of ADR-0009."""
 
     date: datetime.date
@@ -42,7 +44,7 @@ class SessionCreate(BaseModel):
     program_item_ids: list[uuid.UUID] = []
 
 
-class SessionUpdate(BaseModel):
+class PlannedSessionUpdate(BaseModel):
     """What a séance may be told to say. Its jour, créneau and niveau are its identity."""
 
     title: str | None = Field(default=None, min_length=1)
@@ -54,39 +56,56 @@ class SessionUpdate(BaseModel):
     program_item_ids: list[uuid.UUID] | None = None
 
 
-async def _rendered(session: AsyncSession, identifier: uuid.UUID) -> SessionDetail:
+async def _read_back(session: AsyncSession, identifier: uuid.UUID) -> PlannedSessionDetail:
     """Read a séance back after writing it, so the caller gets the whole rendered shape."""
-    found = await load_session(session, identifier)
+    found = await load_planned_session(session, identifier)
     if found is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cette séance n'existe pas")
     return found
 
 
-@sessions_router.get("/{identifier}")
-async def read_session(
+@planned_sessions_router.get("")
+async def list_planned_sessions(
+    session: Annotated[AsyncSession, Depends(get_session)],
+    program_item_id: Annotated[uuid.UUID, Query()],
+    limit: Annotated[int, Query(ge=1, le=MAX_PAGE_SIZE)] = PAGE_SIZE,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> PlannedSessionPage:
+    """List the séances working one item de programme — §7 écran 4's « séances liées ».
+
+    A rituel links the same items on every occurrence (ADR-0015), so this list runs to the
+    whole year and is paged. The semaine and the jour views are how séances are listed by
+    date; this endpoint exists for the programme browser.
+    """
+    found, total = await planned_sessions_of_program_item(
+        session, program_item_id, limit=limit, offset=offset
+    )
+    return PlannedSessionPage(total=total, limit=limit, offset=offset, sessions=found)
+
+
+@planned_sessions_router.get("/{identifier}")
+async def read_planned_session(
     identifier: uuid.UUID,
     session: Annotated[AsyncSession, Depends(get_session)],
-) -> SessionDetail:
+) -> PlannedSessionDetail:
     """Return one séance with its créneau, its séquence and its items de programme."""
-    return await _rendered(session, identifier)
+    return await _read_back(session, identifier)
 
 
-@sessions_router.post("", status_code=status.HTTP_201_CREATED)
-async def add_session(
-    body: SessionCreate,
+@planned_sessions_router.post("", status_code=status.HTTP_201_CREATED)
+async def add_planned_session(
+    body: PlannedSessionCreate,
     session: Annotated[AsyncSession, Depends(get_session)],
-) -> SessionDetail:
+) -> PlannedSessionDetail:
     """Add a séance to a (jour, créneau, niveau).
 
     Answers 409 rather than failing on the constraint when that triple is already taken,
     when the jour is chômé, or when the créneau belongs to another weekday or another
     niveau: the EDT is immutable (§10), so a placement it forbids is refused here.
     """
-    values = body.model_dump(
-        exclude={"date", "timetable_slot_id", "level", "program_item_ids"},
-    )
+    values = body.model_dump(exclude={"date", "timetable_slot_id", "level", "program_item_ids"})
     try:
-        identifier = await create_session(
+        identifier = await create_planned_session(
             session,
             Placement(date=body.date, timetable_slot_id=body.timetable_slot_id, level=body.level),
             values=values,
@@ -95,69 +114,35 @@ async def add_session(
     except PlacementError as error:
         raise HTTPException(status.HTTP_409_CONFLICT, str(error)) from error
     await session.commit()
-    return await _rendered(session, identifier)
+    return await _read_back(session, identifier)
 
 
-@sessions_router.patch("/{identifier}")
-async def edit_session(
+@planned_sessions_router.patch("/{identifier}")
+async def edit_planned_session(
     identifier: uuid.UUID,
-    body: SessionUpdate,
+    body: PlannedSessionUpdate,
     session: Annotated[AsyncSession, Depends(get_session)],
-) -> SessionDetail:
+) -> PlannedSessionDetail:
     """Change what a séance says — its title, objectifs, contenu, matériel, statut, rang."""
     values = body.model_dump(exclude_unset=True, exclude={"program_item_ids"})
     try:
-        found = await update_session(
-            session,
-            identifier,
-            values=values,
-            program_item_ids=body.program_item_ids,
+        found = await update_planned_session(
+            session, identifier, values=values, program_item_ids=body.program_item_ids
         )
     except PlacementError as error:
         raise HTTPException(status.HTTP_409_CONFLICT, str(error)) from error
     if not found:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cette séance n'existe pas")
     await session.commit()
-    return await _rendered(session, identifier)
+    return await _read_back(session, identifier)
 
 
-@sessions_router.delete("/{identifier}", status_code=status.HTTP_204_NO_CONTENT)
-async def remove_session(
+@planned_sessions_router.delete("/{identifier}", status_code=status.HTTP_204_NO_CONTENT)
+async def remove_planned_session(
     identifier: uuid.UUID,
     session: Annotated[AsyncSession, Depends(get_session)],
 ) -> None:
     """Remove a séance. A re-generation puts it back — the programmation is deterministic."""
-    if not await delete_session(session, identifier):
+    if not await delete_planned_session(session, identifier):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Cette séance n'existe pas")
     await session.commit()
-
-
-class LinkedSessions(BaseModel):
-    """The séances that work one item de programme, paged."""
-
-    total: int
-    sessions: list[SessionSummary]
-
-
-async def linked_sessions(
-    session: AsyncSession, item_id: uuid.UUID, limit: int, offset: int
-) -> LinkedSessions:
-    """Page through the séances linking one item de programme."""
-    found, total = await sessions_of_program_item(session, item_id, limit=limit, offset=offset)
-    return LinkedSessions(total=total, sessions=found)
-
-
-@sessions_router.get("")
-async def list_sessions(
-    session: Annotated[AsyncSession, Depends(get_session)],
-    program_item_id: Annotated[uuid.UUID, Query()],
-    limit: Annotated[int, Query(ge=1, le=MAX_PAGE_SIZE)] = PAGE_SIZE,
-    offset: Annotated[int, Query(ge=0)] = 0,
-) -> LinkedSessions:
-    """List the séances working one item de programme — §7 écran 4's « voir les séances liées ».
-
-    A rituel links the same items on every occurrence (ADR-0015), so this list runs to the
-    whole year and is paged. The semaine and the jour views are how séances are listed by
-    date; this endpoint exists for the programme browser.
-    """
-    return await linked_sessions(session, program_item_id, limit, offset)
