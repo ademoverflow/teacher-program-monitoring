@@ -57,6 +57,13 @@ rather than a single matière; which one falls on a given week is decided when t
 generated, not by the timetable itself.
 _Avoid_: rotation, swap, split — "split" means something else here
 
+**Cellule** (`WeekCell`):
+One box of the semaine grid — one créneau on one jour de classe — holding the 0, 1 or 2
+séances planned in it. Two séances in one cellule mean a commun créneau a méthodo splits by
+niveau; two *cellules* at one hour mean the EDT itself has two créneaux there. The
+distinction is what the grid draws differently: stacked inside one box, or side by side.
+_Avoid_: cell, slot — « créneau » is the gabarit's row, a cellule is that row on a day
+
 **Créneau splitté** (a créneau whose **niveau** is CM1 or CM2):
 A time range where the two levels do different things, so the same cell of the timetable is two
 créneaux — one per niveau — running at the same time.
@@ -157,6 +164,12 @@ One line of the cahier journal: a discipline and a duration, the objectives and 
 the **bilan**.
 _Avoid_: entry (unqualified), row, item
 
+**Discipline** (`discipline`):
+The free-text heading of a ligne de cahier journal — « Grammaire », « Calcul mental »,
+« Anglais ». It starts as the créneau's own label and is the teacher's to rewrite; it names
+what she did, not what the timetable calls it.
+_Avoid_: matière, subject — a matière is a row of `subjects`, a discipline is a line of text
+
 **Bilan** (`bilan`):
 The teacher's after-the-fact note on a ligne de cahier journal: how it went, what to pick up next
 time.
@@ -168,6 +181,14 @@ What one run of the generation says it did — séances written, séquences plac
 alternances counted — and everything it could not do. The EDT is immutable, so a
 placement that does not fit is reported here rather than worked around.
 _Avoid_: log, summary, errors
+
+**Période entamée** (`is_started`):
+A période holding at least one jour de classe the generation would refuse to write over —
+one that is past, or one a cahier journal already holds. Regenerating such a période needs
+the teacher's explicit word, because the days it *would* rewrite are days she has already
+started teaching towards.
+_Avoid_: current period, active period — a période the teacher has looked ahead in is
+entamée whether or not today falls inside it
 
 **Révision IA** (`journal_revision`):
 A change to a day's cahier journal proposed by the AI in response to the teacher's free-text

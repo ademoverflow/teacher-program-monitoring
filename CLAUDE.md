@@ -70,13 +70,16 @@ Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`
 │   │   ├── generate.py     # `make generate` entry point
 │   │   ├── main.py         # FastAPI app setup
 │   │   ├── settings.py     # Pydantic settings
+│   │   ├── clock.py        # Today, as a dependency (overridable in tests)
+│   │   ├── schemas.py      # Every response shape the API renders
 │   │   ├── database.py     # Async SQLAlchemy setup
-│   │   ├── routers/        # API route handlers
+│   │   ├── routers/        # API route handlers (one per resource)
 │   │   ├── models/         # SQLModel data models
-│   │   ├── services/       # Business logic (calendar, seed loader, programmation)
+│   │   ├── services/       # Business logic (calendar, seed loader, programmation,
+│   │   │                   #   schedule reads, journal, sessions, generation)
 │   │   ├── logger/         # Structured logging
 │   │   └── alembic/        # Database migrations
-│   └── tests/
+│   └── tests/              # conftest.py holds the shared DB fixtures
 ├── webapp/                  # React SPA frontend
 │   └── src/
 │       ├── main.tsx        # App bootstrap with router
@@ -191,17 +194,25 @@ make test-webapp    # Run JS tests (vitest, on host)
 
 ### Python Tests
 
-Pattern: FastAPI TestClient with assertions
+Tests that need a database use the fixtures in `core/tests/conftest.py`: `session` opens an
+`AsyncSession` inside a transaction that is rolled back (savepoint-joined, so an endpoint
+that commits leaves nothing behind), and `client` drives the app over ASGI with that session
+injected. Both skip where no Postgres answers. CI runs a `postgres:17` service, so there are
+no skips there (`docs/adr/0018`, `docs/adr/0019`).
+
 ```python
-from fastapi.testclient import TestClient
-from core.main import app
+from httpx import AsyncClient
 
-client = TestClient(app)
-
-def test_endpoint() -> None:
-    response = client.get("/endpoint")
+async def test_endpoint(client: AsyncClient) -> None:
+    response = await client.get("/api/endpoint")
     assert response.status_code == 200
 ```
+
+`core/tests/expected.py` holds the year's counts (36 semaines, 44 créneaux, 1740 séances…)
+and the HTTP status codes, so an assertion names the fact it checks.
+
+`test_health.py` is the exception and still uses `TestClient`: it is the one endpoint that
+reads nothing.
 
 ### JavaScript Tests
 
@@ -292,6 +303,12 @@ Available via `/skill-name` in Claude Code:
 | Domain glossary | `CONTEXT.md` |
 | Architecture decisions | `docs/adr/` |
 | Data models | `core/src/core/models/` |
+| API response schemas | `core/src/core/schemas.py` |
+| Week/day/programme reads | `core/src/core/services/schedule.py` |
+| Cahier journal | `core/src/core/services/journal.py` |
+| Séance CRUD rules | `core/src/core/services/sessions.py` |
+| Generation over HTTP | `core/src/core/services/generation.py` |
+| Test DB fixtures | `core/tests/conftest.py` |
 | Calendar expansion | `core/src/core/services/school_calendar.py` |
 | Year generation | `core/src/core/services/planning/` |
 | Seed loader | `core/src/core/services/seeding.py` |
