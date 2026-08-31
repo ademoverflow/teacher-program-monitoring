@@ -6,7 +6,9 @@ database answers. Where none does, the fixtures skip and the rest of the suite s
 
 Every test works inside a transaction that is rolled back, so the database is left exactly
 as the test found it — including when an endpoint commits, which is what
-``join_transaction_mode="create_savepoint"`` is for (ADR-0019).
+``join_transaction_mode="create_savepoint"`` is for (ADR-0019). That transaction is also
+where each test's slate is wiped clean of cahiers journaux, so the suite says the same thing
+against a fresh database and against the one the teacher has been using.
 """
 
 import asyncio
@@ -19,9 +21,12 @@ from pathlib import Path
 import pytest
 from core.database import async_db_url, get_session
 from core.main import app
+from core.models.base import table_of
+from core.models.journal import JournalEntry
 from core.services.planning.writer import generate_year
 from core.services.seeding import seed_database
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.pool import NullPool
 
@@ -110,6 +115,14 @@ async def session(database: str) -> AsyncIterator[AsyncSession]:
     open_session = AsyncSession(
         bind=connection, join_transaction_mode="create_savepoint", expire_on_commit=False
     )
+    # Start every test from a year no cahier journal has been kept in. The fill above is
+    # careful not to touch one (ADR-0018), but from Phase 6 the *app* writes them, so the
+    # development database no longer sits where the seeds left it: opening a jour in the
+    # browser makes `initialised` true and its période « entamée », and a dozen assertions
+    # would then depend on which days the teacher had opened. The delete runs inside the
+    # transaction this fixture rolls back, so it never reaches her data — it is isolation,
+    # not a cleanup.
+    await open_session.execute(delete(table_of(JournalEntry)))
     try:
         yield open_session
     finally:
