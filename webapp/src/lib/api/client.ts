@@ -3,13 +3,25 @@ import type { z } from "zod";
 /** Every API route lives under this prefix (forwarded to core by the Vite proxy). */
 export const API_PREFIX = "/api";
 
+/**
+ * A request the API refused, carrying what it said about it.
+ *
+ * `detail` is FastAPI's own `{"detail": "…"}`, which this API writes in French — « L'ordre
+ * doit nommer exactement les lignes du cahier journal de ce jour, une fois chacune » for a
+ * partial `PUT /order`, « Cette séance n'existe pas » for a stale id. That sentence is the
+ * only part of a failure the teacher can act on, so it is the message where there is one
+ * (ADR-0027). A 422 from Pydantic answers with a list rather than a string; there is
+ * nothing readable in it, so it is left alone and the fallback speaks instead.
+ */
 export class ApiError extends Error {
 	readonly status: number;
+	readonly detail: string | null;
 
-	constructor(status: number, message: string) {
-		super(message);
+	constructor(status: number, message: string, detail: string | null = null) {
+		super(detail ?? message);
 		this.name = "ApiError";
 		this.status = status;
+		this.detail = detail;
 	}
 }
 
@@ -31,25 +43,98 @@ export function buildQuery(params: Record<string, QueryValue>): string {
 	return query === "" ? "" : `?${query}`;
 }
 
+/** Read the server's own sentence out of a failed response, if it wrote one. */
+async function detailOf(response: Response): Promise<string | null> {
+	try {
+		const body = await response.json();
+		const detail = (body as { detail?: unknown })?.detail;
+		return typeof detail === "string" ? detail : null;
+	} catch {
+		return null;
+	}
+}
+
+interface RequestOptions<T> {
+	method: string;
+	path: string;
+	/** The shape to parse the answer into. `null` for a 204, which has no body. */
+	schema: z.ZodType<T> | null;
+	body?: unknown;
+	params?: Record<string, QueryValue>;
+}
+
 /**
- * GET `/api{path}` and validate the JSON body against `schema`.
- *
- * This is the whole client. The write verbs belong to the screens that write (Phase 6),
- * so there is deliberately no `apiPost` here yet (ADR-0023).
+ * One request, one place. Every verb goes through here so that the error is built the same
+ * way whether a semaine failed to load or a bilan failed to save.
  */
-export async function apiGet<T>(
+async function request<T>({
+	method,
+	path,
+	schema,
+	body,
+	params = {},
+}: RequestOptions<T>): Promise<T> {
+	const url = `${API_PREFIX}${path}${buildQuery(params)}`;
+	const response = await fetch(url, {
+		method,
+		headers:
+			body === undefined
+				? { Accept: "application/json" }
+				: { Accept: "application/json", "Content-Type": "application/json" },
+		body: body === undefined ? undefined : JSON.stringify(body),
+	});
+	if (!response.ok) {
+		throw new ApiError(
+			response.status,
+			`${method} ${url} → HTTP ${response.status}`,
+			await detailOf(response),
+		);
+	}
+	if (schema === null) {
+		return undefined as T;
+	}
+	return schema.parse(await response.json());
+}
+
+/** GET `/api{path}` and validate the JSON body against `schema`. */
+export function apiGet<T>(
 	path: string,
 	schema: z.ZodType<T>,
 	params: Record<string, QueryValue> = {},
 ): Promise<T> {
-	const url = `${API_PREFIX}${path}${buildQuery(params)}`;
-	const response = await fetch(url, {
-		headers: { Accept: "application/json" },
-	});
-	if (!response.ok) {
-		throw new ApiError(response.status, `GET ${url} → HTTP ${response.status}`);
-	}
-	return schema.parse(await response.json());
+	return request({ method: "GET", path, schema, params });
+}
+
+/** POST `/api{path}`. `body` is omitted for the endpoints that take none. */
+export function apiPost<T>(
+	path: string,
+	schema: z.ZodType<T>,
+	body?: unknown,
+): Promise<T> {
+	return request({ method: "POST", path, schema, body: body ?? {} });
+}
+
+/** PATCH `/api{path}` — a partial update, which is how every edit of a ligne is sent. */
+export function apiPatch<T>(
+	path: string,
+	schema: z.ZodType<T>,
+	body: unknown,
+): Promise<T> {
+	return request({ method: "PATCH", path, schema, body });
+}
+
+/** PUT `/api{path}` — the whole of something, which is what an order is (ADR-0029). */
+export function apiPut<T>(
+	path: string,
+	schema: z.ZodType<T>,
+	body: unknown,
+): Promise<T> {
+	return request({ method: "PUT", path, schema, body });
+}
+
+/** DELETE `/api{path}`. The API answers 204, so there is no body to parse. */
+export function apiDelete(path: string): Promise<void> {
+	return request({ method: "DELETE", path, schema: null });
 }
 
 /**
