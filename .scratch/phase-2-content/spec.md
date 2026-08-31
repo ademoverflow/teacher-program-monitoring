@@ -42,8 +42,15 @@ MASTER-PROMPT.md §8 Phase 2. Fills the three tables Phase 1 left empty:
 
 - `sequences`: 35 × 2 maths + 21 × 2 RETZ + 8 littérature = **120**, plus 36
   `sequence_sessions` (the weekly plannings of the seven œuvres the source details).
-- `program_items`: not known in advance — it came out to **213**, reported per niveau/matière.
+- `program_items`: not known in advance — it came out to **220**, reported per niveau/matière.
 - Every count is asserted by a test that reads the **seed files**, so CI (no Postgres) checks it.
+
+## Left needing review
+
+None. The eight tables whose columns `pdftotext` could not separate were rendered with
+`pdftoppm` and read back (`scripts/curriculum_corrections.json`); the three doubts on the
+littérature plannings were settled with the teacher and with the page 92 the source PDF
+was missing (`docs/page-92.heic`, `docs/page-70-semaine-3-etape-6-chap-7.HEIC`).
 
 ## Out of scope
 
