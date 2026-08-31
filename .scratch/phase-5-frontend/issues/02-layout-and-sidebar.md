@@ -1,7 +1,7 @@
 # 02 - The persistent layout and its sidebar
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: 01
 
 §7 asks for a sidebar that never leaves: Année · Semaine · Programmes for Phase 5, with
