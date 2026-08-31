@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { apiGet } from "./client";
-import { weekdaySchema } from "./shared";
+import { apiGet } from "@/lib/api/client";
+import { weekdaySchema } from "@/lib/api/shared";
 
 /** A semaine as the year view lists it. `days_off` counts its jours chômés (ADR-0001). */
 export const weekSummarySchema = z.object({

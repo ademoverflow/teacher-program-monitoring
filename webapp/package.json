@@ -10,7 +10,8 @@
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check"
+    "check": "biome check",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.13.8",

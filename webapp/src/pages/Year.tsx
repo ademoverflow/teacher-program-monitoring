@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { CalendarOff, Palmtree } from "lucide-react";
-import { LoadFailure, Loading } from "@/components/QueryState";
+import { LoadFailure } from "@/components/LoadFailure";
+import { Loading } from "@/components/Loading";
 import type { Holiday, PeriodSummary, WeekSummary } from "@/lib/api";
 import { getYear } from "@/lib/api";
 import {
@@ -9,6 +10,7 @@ import {
 	formatCompactRange,
 	formatLongDate,
 } from "@/lib/dates";
+import { plural } from "@/lib/plural";
 
 /**
  * §7 écran 1 — the year in one request.
@@ -113,10 +115,7 @@ interface WeekChipProps {
 }
 
 function WeekChip({ week, isCurrent }: WeekChipProps) {
-	const daysOff =
-		week.days_off === 0
-			? ""
-			: `, ${week.days_off} jour${week.days_off > 1 ? "s" : ""} chômé${week.days_off > 1 ? "s" : ""}`;
+	const daysOff = week.days_off === 0 ? "" : `, ${daysOffLabel(week.days_off)}`;
 
 	return (
 		<Link
@@ -143,10 +142,14 @@ function WeekChip({ week, isCurrent }: WeekChipProps) {
 					}`}
 				>
 					<CalendarOff className="size-3 shrink-0" aria-hidden="true" />
-					{week.days_off} jour{week.days_off > 1 ? "s" : ""} chômé
-					{week.days_off > 1 ? "s" : ""}
+					{daysOffLabel(week.days_off)}
 				</span>
 			)}
 		</Link>
 	);
+}
+
+/** « 2 jours chômés » — said the same way in the chip and in its accessible name. */
+function daysOffLabel(count: number): string {
+	return `${count} ${plural(count, "jour")} ${plural(count, "chômé")}`;
 }

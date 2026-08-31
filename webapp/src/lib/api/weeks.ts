@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { periodRefSchema } from "./calendar";
-import { apiGet } from "./client";
+import { periodRefSchema } from "@/lib/api/calendar";
+import { apiGet } from "@/lib/api/client";
 import {
 	plannedSessionSummarySchema,
 	slotSummarySchema,
 	weekdaySchema,
-} from "./shared";
+} from "@/lib/api/shared";
 
 /**
  * One cellule of the semaine grid: a créneau, and the 0, 1 or 2 séances planned in it.

@@ -2,11 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { Search, TriangleAlert } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { Empty } from "@/components/Empty";
 import { LevelBadge } from "@/components/LevelBadge";
-import { Empty, LoadFailure, Loading } from "@/components/QueryState";
-import type { ProgramItem, SubjectWithDomains } from "@/lib/api";
+import { LoadFailure } from "@/components/LoadFailure";
+import { Loading } from "@/components/Loading";
+import { SubjectLine } from "@/components/SubjectLine";
+import type { DomainRef, ProgramItem, SubjectWithDomains } from "@/lib/api";
 import { getSubjects, searchProgramItems } from "@/lib/api";
-import { subjectDotStyle } from "@/lib/colors";
+import { plural } from "@/lib/plural";
 import type { ProgramSearch } from "@/lib/program-search";
 import { PAGE_SIZE } from "@/lib/program-search";
 
@@ -55,8 +58,11 @@ export default function ProgramsPage() {
 			<header className="mb-4">
 				<h1 className="text-2xl font-semibold">Programmes officiels</h1>
 				<p className="mt-1 text-sm text-slate-500">
-					CM1 et CM2 · {page.data?.total ?? "…"} item
-					{(page.data?.total ?? 0) > 1 ? "s" : ""} pour ces filtres
+					CM1 et CM2 ·{" "}
+					{page.data === undefined
+						? "…"
+						: `${page.data.total} ${plural(page.data.total, "item")}`}{" "}
+					pour ces filtres
 				</p>
 			</header>
 
@@ -118,9 +124,7 @@ function Filters({ search, subjects, onChange }: FiltersProps) {
 	}, [text, search.q, onChange]);
 
 	const selected = subjects.find((subject) => subject.code === search.matiere);
-	const domains = selected
-		? selected.domains
-		: subjects.flatMap((subject) => subject.domains);
+	const domains = domainOptions(selected ? [selected] : subjects);
 
 	return (
 		<div className="mb-4 flex flex-wrap items-end gap-3 rounded-xl border border-slate-200 bg-white p-3">
@@ -194,7 +198,7 @@ function Filters({ search, subjects, onChange }: FiltersProps) {
 				>
 					<option value="">Tous</option>
 					{domains.map((domain) => (
-						<option key={domain.id} value={domain.code}>
+						<option key={domain.code} value={domain.code}>
 							{domain.label}
 						</option>
 					))}
@@ -202,6 +206,26 @@ function Filters({ search, subjects, onChange }: FiltersProps) {
 			</label>
 		</div>
 	);
+}
+
+/**
+ * The domaines to offer, one per code.
+ *
+ * A code is what the API filters on, and two matières share one: arts plastiques and
+ * éducation musicale both print « Compétences travaillées ». Two options with the same
+ * value would be two ways to ask the same question, and a `<select>` could not tell which
+ * one was picked.
+ */
+function domainOptions(subjects: SubjectWithDomains[]): DomainRef[] {
+	const byCode = new Map<string, DomainRef>();
+	for (const subject of subjects) {
+		for (const domain of subject.domains) {
+			if (!byCode.has(domain.code)) {
+				byCode.set(domain.code, domain);
+			}
+		}
+	}
+	return [...byCode.values()];
 }
 
 interface ItemRowProps {
@@ -227,15 +251,11 @@ function ItemRow({ item }: ItemRowProps) {
 					<LevelBadge level={item.level} hideCommun={false} />
 				</span>
 			</div>
-			<p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
-				<span
-					style={subjectDotStyle(item.subject)}
-					className="inline-block size-2.5 shrink-0 rounded-full border"
-					aria-hidden="true"
-				/>
-				{item.subject?.label ?? "Sans matière"}
-				{item.domain !== null && <> · {item.domain.label}</>}
-			</p>
+			<SubjectLine
+				subject={item.subject}
+				domain={item.domain}
+				className="mt-1 text-xs text-slate-500"
+			/>
 			{item.description !== null && (
 				<p className="mt-1 line-clamp-2 text-xs text-slate-600">
 					{item.description}

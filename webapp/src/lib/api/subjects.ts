@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { apiGet } from "./client";
-import { domainRefSchema, subjectRefSchema } from "./shared";
+import { apiGet } from "@/lib/api/client";
+import { domainRefSchema, subjectRefSchema } from "@/lib/api/shared";
 
 /** A matière and the domaines under it — what the programme filters are built from. */
 export const subjectWithDomainsSchema = subjectRefSchema.extend({

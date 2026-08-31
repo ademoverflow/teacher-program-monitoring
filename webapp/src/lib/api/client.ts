@@ -17,7 +17,7 @@ export class ApiError extends Error {
  * A query string parameter as a caller writes it. `undefined`, `null` and `""` are
  * dropped rather than sent: an unset filter is an absent parameter, not an empty one.
  */
-export type QueryValue = string | number | boolean | null | undefined;
+export type QueryValue = string | number | null | undefined;
 
 export function buildQuery(params: Record<string, QueryValue>): string {
 	const search = new URLSearchParams();
@@ -50,4 +50,24 @@ export async function apiGet<T>(
 		throw new ApiError(response.status, `GET ${url} → HTTP ${response.status}`);
 	}
 	return schema.parse(await response.json());
+}
+
+/**
+ * Whether a failed request is worth trying again.
+ *
+ * The API answers on localhost, so a failure is either the stack being down — worth two
+ * more tries while the containers come up — or an answer the server meant: a semaine that
+ * does not exist will not exist on the third ask either.
+ */
+export function shouldRetry(attempt: number, error: Error): boolean {
+	const CLIENT_ERROR = 400;
+	const SERVER_ERROR = 500;
+	if (
+		error instanceof ApiError &&
+		error.status >= CLIENT_ERROR &&
+		error.status < SERVER_ERROR
+	) {
+		return false;
+	}
+	return attempt < 2;
 }

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Navigate } from "@tanstack/react-router";
-import { LoadFailure, Loading } from "@/components/QueryState";
+import { LoadFailure } from "@/components/LoadFailure";
+import { Loading } from "@/components/Loading";
 import { getToday, getYear } from "@/lib/api";
 import { resolveCurrentWeek } from "@/lib/current-week";
 

@@ -139,10 +139,13 @@ fix-sort: .venv ## Fix Python import sorting (ruff)
 ## Code Quality - JavaScript
 # ==============================================================================
 
-.PHONY: check-webapp lint-webapp format-webapp
+.PHONY: check-webapp lint-webapp format-webapp type-check-webapp
 
-check-webapp: node_modules ## Run all webapp checks (Biome)
+check-webapp: node_modules type-check-webapp ## Run all webapp checks (Biome + tsc)
 	pnpm --filter webapp run check
+
+type-check-webapp: node_modules ## Typecheck the webapp (Biome does not)
+	pnpm --filter webapp run type-check
 
 lint-webapp: node_modules ## Run webapp linting (Biome)
 	pnpm --filter webapp run lint

@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "@tanstack/react-router";
 import { ArrowLeft, FileText, TriangleAlert } from "lucide-react";
+import { Empty } from "@/components/Empty";
 import { LevelBadge } from "@/components/LevelBadge";
-import { Empty, LoadFailure, Loading } from "@/components/QueryState";
+import { LoadFailure } from "@/components/LoadFailure";
+import { Loading } from "@/components/Loading";
+import { SubjectLine } from "@/components/SubjectLine";
 import { getLinkedSessions, getProgramItem } from "@/lib/api";
-import { subjectDotStyle } from "@/lib/colors";
 import { formatLongDate } from "@/lib/dates";
-
-const LINKED_PAGE_SIZE = 20;
+import { plural } from "@/lib/plural";
 
 /** The fiche of one item de programme, with its source and the séances that work it. */
 export default function ProgramItemPage() {
@@ -18,7 +19,7 @@ export default function ProgramItemPage() {
 	});
 	const linked = useQuery({
 		queryKey: ["program-item-sessions", id],
-		queryFn: () => getLinkedSessions(id, { limit: LINKED_PAGE_SIZE }),
+		queryFn: () => getLinkedSessions(id),
 	});
 
 	if (item.isPending) {
@@ -45,15 +46,12 @@ export default function ProgramItemPage() {
 					<h1 className="text-2xl font-semibold">{data.title}</h1>
 					<LevelBadge level={data.level} hideCommun={false} />
 				</div>
-				<p className="mt-2 flex items-center gap-1.5 text-sm text-slate-500">
-					<span
-						style={subjectDotStyle(data.subject)}
-						className="inline-block size-3 shrink-0 rounded-full border"
-						aria-hidden="true"
-					/>
-					{data.subject?.label ?? "Sans matière"}
-					{data.domain !== null && <> · {data.domain.label}</>}
-				</p>
+				<SubjectLine
+					subject={data.subject}
+					domain={data.domain}
+					className="mt-2 text-sm text-slate-500"
+					dotClassName="size-3"
+				/>
 			</header>
 
 			{data.needs_review && (
@@ -91,8 +89,8 @@ export default function ProgramItemPage() {
 					) : (
 						<>
 							<p className="mb-2 text-sm text-slate-500">
-								{linked.data.total} séance{linked.data.total > 1 ? "s" : ""}{" "}
-								dans la programmation
+								{linked.data.total} {plural(linked.data.total, "séance")} dans
+								la programmation
 								{linked.data.total > linked.data.sessions.length && (
 									<> · les {linked.data.sessions.length} premières</>
 								)}

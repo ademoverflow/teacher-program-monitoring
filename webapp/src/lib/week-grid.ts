@@ -33,8 +33,6 @@ const BREAKS: { startsAt: string; endsAt: string; label: string }[] = [
 export interface GridBand {
 	startsAt: string;
 	endsAt: string;
-	startMinutes: number;
-	endMinutes: number;
 	minutes: number;
 	/** True when no créneau of any jour covers this band. */
 	isBreak: boolean;
@@ -56,8 +54,10 @@ export interface PlacedCell {
 /**
  * One jour column.
  *
- * `laneCount` is how many créneaux the jour ever runs at once — two on mardi and jeudi,
- * where the EDT itself splits an hour by niveau, one on lundi and vendredi.
+ * A **lane** is a sub-column of a jour: `laneCount` is how many créneaux the jour ever runs
+ * at once — two on mardi and jeudi, where the EDT itself holds two créneaux at one hour,
+ * one on lundi and vendredi. That is the "side by side" of `CONTEXT.md`'s **cellule**,
+ * given a name to be placed with; it is a layout term, not one of the teacher's.
  */
 export interface GridColumn {
 	day: DayInWeek;
@@ -149,8 +149,6 @@ export function buildWeekGrid(week: WeekDetail): WeekGrid {
 		bands.push({
 			startsAt: minutesToTime(startMinutes),
 			endsAt: minutesToTime(endMinutes),
-			startMinutes,
-			endMinutes,
 			minutes: endMinutes - startMinutes,
 			isBreak: !covered,
 			breakLabel: covered ? null : breakLabelFor(startMinutes, endMinutes),
