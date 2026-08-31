@@ -9,8 +9,14 @@ the value changed, Échap reverts, Entrée commits a one-line field. The respons
 written ligne: put it in the cache with `setQueryData` rather than invalidating, so a
 refetch never lands under the cursor of the field being typed in.
 
-`duration_minutes` is a number and may be null. `discipline` is `min_length=1` server-side:
-a ligne emptied to nothing is refused with a 422, and the field reverts saying so.
+`duration_minutes` is a number and may be null — but only an **empty** field means null:
+« 45 min » is not a number of minutes and must be refused, not silently stored as no durée.
+`discipline` is `min_length=1` server-side: a ligne emptied to nothing is refused with a
+422, and the field reverts saying so. That 422 is Pydantic's, whose `detail` is an English
+*list* rather than a sentence, so what the teacher reads is the client's French fallback.
+
+**Les notes** are in §8's list of fields edited in place and in no column of the model. They
+sit under the bilan and do not print.
 
 **Adding** — « Ajouter une ligne » posts a discipline the teacher then edits. It lands at
 the end (`position` is computed server-side when absent).

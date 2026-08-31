@@ -1,11 +1,14 @@
 # Phase 6 — Cahier journal
 
 MASTER-PROMPT.md §8 Phase 6. Draws §7 écran 3 (Vue Jour / Cahier journal), makes
-« Aujourd'hui » the home page, and teaches the typed client to write. `core/` does not
-change: Phase 4 already ships every endpoint this needs.
+« Aujourd'hui » the home page, and teaches the typed client to write. Phase 4 already ships
+every endpoint this needs, so `core/` gains no route, model or migration.
 
 Phase 6 is the first phase whose screens **write**. That is what shapes every decision
-below.
+below — and it is why `core/` does change after all, in one place: `core/tests/conftest.py`.
+A dozen router tests assert on a development database that, from this phase, the app itself
+fills; each test's own rolled-back transaction now starts from a year no cahier journal has
+been kept in. No endpoint, model or migration changes.
 
 ## What the API already gives (recomputed against the running stack, never assumed)
 
