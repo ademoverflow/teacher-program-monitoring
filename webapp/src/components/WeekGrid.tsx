@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { CalendarOff } from "lucide-react";
 import { LevelBadge } from "@/components/LevelBadge";
 import type { PlannedSessionSummary, SlotSummary } from "@/lib/api/shared";
@@ -119,12 +120,18 @@ interface DayHeaderProps {
 	style: React.CSSProperties;
 }
 
+/** §7 écran 2's « clic sur un jour → vue Jour ». The whole header is the link. */
 function DayHeader({ day, style }: DayHeaderProps) {
 	return (
 		<div style={style} className="border-b border-slate-200 pb-1">
-			<p className="text-sm font-semibold capitalize">
+			<Link
+				to="/jour/$date"
+				params={{ date: day.date }}
+				aria-label={`Cahier journal du ${formatShortDate(day.date)}`}
+				className="block text-sm font-semibold first-letter:uppercase underline-offset-2 hover:underline"
+			>
 				{formatShortDate(day.date)}
-			</p>
+			</Link>
 			{day.is_off && day.off_reason !== null && (
 				<p className="flex items-center gap-1 text-xs font-medium text-amber-700">
 					<CalendarOff className="size-3 shrink-0" aria-hidden="true" />

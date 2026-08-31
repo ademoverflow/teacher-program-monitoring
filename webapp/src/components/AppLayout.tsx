@@ -1,5 +1,5 @@
 import { Link, Outlet } from "@tanstack/react-router";
-import { BookOpen, CalendarDays, LayoutGrid } from "lucide-react";
+import { BookOpen, CalendarDays, LayoutGrid, Sun } from "lucide-react";
 import type { ComponentType } from "react";
 import { ApiStatus } from "@/components/ApiStatus";
 
@@ -10,11 +10,13 @@ interface NavItem {
 }
 
 /**
- * §7 asks for « Année · Semaine · Aujourd'hui · Programmes · Réglages ». Phase 5 draws the
- * three screens it builds; « Aujourd'hui » and « Réglages » arrive with the screens that
- * fill them (Phase 6), rather than as links to nothing.
+ * §7 asks for « Année · Semaine · Aujourd'hui · Programmes · Réglages ». Four of the five
+ * are here. « Réglages » holds écran 5, la génération, which §8 assigns to no phase and
+ * which can rewrite the year; it arrives with the screen that fills it, rather than as a
+ * link to nothing.
  */
 const NAV: NavItem[] = [
+	{ to: "/aujourdhui", label: "Aujourd'hui", icon: Sun },
 	{ to: "/annee", label: "Année", icon: CalendarDays },
 	{ to: "/semaine", label: "Semaine", icon: LayoutGrid },
 	{ to: "/programmes", label: "Programmes", icon: BookOpen },
@@ -22,10 +24,10 @@ const NAV: NavItem[] = [
 
 export function AppLayout() {
 	return (
-		<div className="flex min-h-screen bg-slate-50 text-slate-900">
+		<div className="flex min-h-screen bg-slate-50 text-slate-900 print:block print:min-h-0 print:bg-white">
 			<nav
 				aria-label="Navigation principale"
-				className="sticky top-0 flex h-screen w-52 shrink-0 flex-col border-r border-slate-200 bg-white"
+				className="sticky top-0 flex h-screen w-52 shrink-0 flex-col border-r border-slate-200 bg-white print:hidden"
 			>
 				<div className="border-b border-slate-200 px-4 py-4">
 					<p className="text-sm font-semibold leading-tight">

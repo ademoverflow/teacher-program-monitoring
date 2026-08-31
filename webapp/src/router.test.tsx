@@ -2,35 +2,36 @@ import { screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { renderApp, stubApi } from "@/test/app";
 import calendar from "@/test/fixtures/calendar.json";
+import dayRentree from "@/test/fixtures/day-2026-09-01.json";
+import journalRentree from "@/test/fixtures/journal-2026-09-01.json";
+import TODAY from "@/test/fixtures/today.json";
 import week01 from "@/test/fixtures/week-01.json";
-
-const TODAY = {
-	date: "2026-08-31",
-	school_day: null,
-	next_taught_day: {
-		id: "d",
-		date: "2026-09-01",
-		day_of_week: 2,
-		is_off: false,
-		off_reason: null,
-		week_number: 1,
-		number_in_period: 1,
-		period_code: "P1",
-	},
-};
 
 afterEach(() => {
 	vi.unstubAllGlobals();
 });
 
 describe("les routes", () => {
-	it("ouvre l'année depuis la racine", async () => {
-		stubApi({ "/api/calendar": calendar });
+	it("ouvre « Aujourd'hui » depuis la racine, replié sur le prochain jour de classe", async () => {
+		// On 2026-08-31 the pupils have not come back: `school_day` is null and
+		// `next_taught_day` is mardi 01/09, so the home page is always the fallback.
+		stubApi({
+			"/api/calendar/today": TODAY,
+			"/api/days/2026-09-01": dayRentree,
+			"/api/journal/2026-09-01": journalRentree,
+		});
 		const { router } = renderApp("/");
 
 		await waitFor(() => {
-			expect(router.state.location.pathname).toBe("/annee");
+			expect(router.state.location.pathname).toBe("/jour/2026-09-01");
 		});
+		expect(await screen.findByText("mardi 1 septembre 2026")).toBeTruthy();
+	});
+
+	it("ouvre l'année sur /annee", async () => {
+		stubApi({ "/api/calendar": calendar });
+		renderApp("/annee");
+
 		expect(await screen.findByText("Année scolaire 2026-2027")).toBeTruthy();
 	});
 
@@ -58,6 +59,7 @@ describe("les routes", () => {
 		const nav = await screen.findByRole("navigation", {
 			name: "Navigation principale",
 		});
+		expect(nav.textContent).toContain("Aujourd'hui");
 		expect(nav.textContent).toContain("Année");
 		expect(nav.textContent).toContain("Semaine");
 		expect(nav.textContent).toContain("Programmes");
