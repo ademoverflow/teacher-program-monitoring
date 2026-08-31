@@ -1129,8 +1129,8 @@
         },
         {
           "$comment": [
-            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 20",
-            "Étape 6, deuxième puce : le scan de la page 21 porte une répétition (« d'anticiper récapituler les dernières mésaventures et d'anticiper sur ce qui risque d'arriver ») dont la lecture exacte est incertaine."
+            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 20-21 (pages 69-70 de l'ouvrage)",
+            "Étape 6 (chapitre 7), page 21 du PDF : la phrase « quelles peuvent être les pensées sombres de l'héroïne et d'anticiper récapituler les dernières mésaventures et d'anticiper sur ce qui risque d'arriver » répète « d'anticiper ». Le scan ne permet pas de trancher entre une coquille de l'ouvrage et une erreur de lecture."
           ],
           "number": 3,
           "title": "Semaine 3",
@@ -1226,8 +1226,8 @@
       "sessions": [
         {
           "$comment": [
-            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 24",
-            "La page 92 de l'ouvrage manque dans le PDF fourni (les scans passent de la page 91 à la page 93) : la fin de la semaine 1 et le début de la semaine 2 (étapes 3 et 4) ne sont pas dans la source."
+            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 24 (page 91 de l'ouvrage)",
+            "La page 92 de l'ouvrage manque dans le PDF fourni : les scans passent de la page 91 (p. 24 du PDF) à la page 93 (p. 25). Il y manque la fin de la semaine 1 et le début de la semaine 2, soit les étapes 3 et 4 (chapitres 2 à 4)."
           ],
           "number": 1,
           "title": "Semaine 1",
@@ -1237,8 +1237,8 @@
         },
         {
           "$comment": [
-            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 25",
-            "Le début de la semaine 2 (étapes 3 et 4, chapitres 2 à 4) est sur la page 92 de l'ouvrage, absente du PDF fourni."
+            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 25 (page 93 de l'ouvrage)",
+            "Le début de la semaine 2 — étapes 3 et 4, chapitres 2 à 4 — est sur la page 92 de l'ouvrage, absente du PDF fourni. La semaine commence donc ici au milieu de l'étape 4."
           ],
           "number": 2,
           "title": "Semaine 2",
@@ -1323,8 +1323,8 @@
         },
         {
           "$comment": [
-            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 23",
-            "Le planning annonce « Organisation sur 3 semaines » et comporte trois blocs, mais ce troisième bloc est imprimé « Semaine 2 » comme le précédent. Numéroté 3 ici pour respecter le total annoncé."
+            "docs/outil-pedagogique-litterature-par-semaine.pdf p. 23 (page 83 de l'ouvrage)",
+            "Le planning annonce « Organisation sur 3 semaines » et comporte bien trois blocs, mais le troisième est imprimé « Semaine 2 » comme le précédent. Numéroté 3 ici pour respecter le total annoncé ; à confirmer avec l'enseignante."
           ],
           "number": 3,
           "title": "Semaine 3",
